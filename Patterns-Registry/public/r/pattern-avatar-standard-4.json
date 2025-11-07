@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-avatar-standard-4",
+  "type": "registry:component",
+  "title": "Avatar Standard 4",
+  "description": "A avatar pattern: avatar-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/avatar/standard/avatar-standard-4.tsx",
+      "content": "import { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\n\nexport const title = \"Avatar with Online Indicator\";\n\nconst Example = () => (\n  <div className=\"relative w-fit\">\n    <Avatar>\n      <AvatarImage\n        alt=\"@haydenbleasel\"\n        src=\"https://github.com/haydenbleasel.png\"\n      />\n      <AvatarFallback>HB</AvatarFallback>\n    </Avatar>\n    <span className=\"-bottom-1 -right-1 absolute size-3 rounded-full border-2 border-background bg-green-500\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

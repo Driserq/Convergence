@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-area-stacked-expand",
+  "type": "registry:component",
+  "title": "Chart Area Stacked Expand",
+  "description": "A chart pattern: chart-area-stacked-expand",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/area/chart-area-stacked-expand.tsx",
+      "content": "\"use client\";\n\nimport { Area, AreaChart, CartesianGrid, XAxis } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A stacked area chart with expand stacking\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80, other: 45 },\n  { month: \"February\", desktop: 305, mobile: 200, other: 100 },\n  { month: \"March\", desktop: 237, mobile: 120, other: 150 },\n  { month: \"April\", desktop: 73, mobile: 190, other: 50 },\n  { month: \"May\", desktop: 209, mobile: 130, other: 100 },\n  { month: \"June\", desktop: 214, mobile: 140, other: 160 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n  other: {\n    label: \"Other\",\n    color: \"var(--chart-3)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartAreaStackedExpand = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <AreaChart\n        accessibilityLayer\n        data={chartData}\n        margin={{\n          left: 12,\n          right: 12,\n          top: 12,\n        }}\n        stackOffset=\"expand\"\n      >\n        <CartesianGrid vertical={false} />\n        <XAxis\n          axisLine={false}\n          dataKey=\"month\"\n          tickFormatter={(value) => value.slice(0, 3)}\n          tickLine={false}\n          tickMargin={8}\n        />\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"line\" />}\n          cursor={false}\n        />\n        <Area\n          dataKey=\"other\"\n          fill=\"var(--color-other)\"\n          fillOpacity={0.1}\n          stackId=\"a\"\n          stroke=\"var(--color-other)\"\n          type=\"natural\"\n        />\n        <Area\n          dataKey=\"mobile\"\n          fill=\"var(--color-mobile)\"\n          fillOpacity={0.4}\n          stackId=\"a\"\n          stroke=\"var(--color-mobile)\"\n          type=\"natural\"\n        />\n        <Area\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.4}\n          stackId=\"a\"\n          stroke=\"var(--color-desktop)\"\n          type=\"natural\"\n        />\n      </AreaChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartAreaStackedExpand;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-interactive-2",
+  "type": "registry:component",
+  "title": "Sonner Interactive 2",
+  "description": "A sonner pattern: sonner-interactive-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/interactive/sonner-interactive-2.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Toast with Cancel Button\";\n\nconst Example = () => (\n  <Button\n    onClick={() =>\n      toast(\"Are you sure you want to continue?\", {\n        cancel: {\n          label: \"Cancel\",\n          onClick: () => toast.info(\"Action cancelled\"),\n        },\n      })\n    }\n    variant=\"outline\"\n  >\n    Show Toast\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-sidebar-2",
+  "type": "registry:component",
+  "title": "Collapsible Sidebar 2",
+  "description": "A collapsible pattern: collapsible-sidebar-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/sidebar/collapsible-sidebar-2.tsx",
+      "content": "import { Bell, ChevronDown, Lock, Settings, User } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Settings Menu\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-lg rounded-lg border bg-card\">\n    <Collapsible>\n      <CollapsibleTrigger className=\"flex w-full items-center justify-between p-3 font-medium text-sm hover:bg-muted\">\n        <div className=\"flex items-center gap-2\">\n          <Settings className=\"h-4 w-4\" />\n          <span>Preferences</span>\n        </div>\n        <ChevronDown className=\"h-4 w-4\" />\n      </CollapsibleTrigger>\n      <CollapsibleContent className=\"border-t bg-muted/50\">\n        <div className=\"space-y-1 p-2\">\n          <div className=\"flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-background\">\n            <User className=\"h-4 w-4\" />\n            <span>Profile</span>\n          </div>\n          <div className=\"flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-background\">\n            <Bell className=\"h-4 w-4\" />\n            <span>Notifications</span>\n          </div>\n          <div className=\"flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-background\">\n            <Lock className=\"h-4 w-4\" />\n            <span>Privacy</span>\n          </div>\n        </div>\n      </CollapsibleContent>\n    </Collapsible>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

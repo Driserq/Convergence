@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-standard-4",
+  "type": "registry:component",
+  "title": "Button Group Standard 4",
+  "description": "A button-group pattern: button-group-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/standard/button-group-standard-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Nested Button Groups\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <ButtonGroup>\n        <Button variant=\"outline\">Bold</Button>\n        <Button variant=\"outline\">Italic</Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button variant=\"outline\">Underline</Button>\n        <Button variant=\"outline\">Strike</Button>\n      </ButtonGroup>\n    </ButtonGroup>\n    <ButtonGroup>\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          Left\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Center\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Right\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          Justify\n        </Button>\n      </ButtonGroup>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

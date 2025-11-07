@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-custom-4",
+  "type": "registry:component",
+  "title": "Input Group Custom 4",
+  "description": "A input-group pattern: input-group-custom-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/custom/input-group-custom-4.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Textarea with Label\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-6\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea\n        className=\"min-h-[100px]\"\n        id=\"comment\"\n        placeholder=\"Share your thoughts...\"\n      />\n      <InputGroupAddon align=\"block-start\" className=\"border-b\">\n        <Label className=\"text-foreground\" htmlFor=\"comment\">\n          Comment\n        </Label>\n      </InputGroupAddon>\n      <InputGroupAddon align=\"block-end\">\n        <InputGroupButton className=\"ml-auto\" size=\"sm\" variant=\"default\">\n          Post Comment\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-special-3",
+  "type": "registry:component",
+  "title": "Input Special 3",
+  "description": "A input pattern: input-special-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/special/input-special-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Range Slider with Value\";\n\nconst Example = () => {\n  const [value, setValue] = useState(50);\n\n  return (\n    <div className=\"w-full max-w-sm space-y-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"range-slider\">Volume</Label>\n        <span className=\"font-medium text-sm\">{value}%</span>\n      </div>\n      <Input\n        className=\"cursor-pointer bg-background\"\n        id=\"range-slider\"\n        max=\"100\"\n        min=\"0\"\n        onChange={(e) => setValue(Number(e.target.value))}\n        type=\"range\"\n        value={value}\n      />\n      <div className=\"flex justify-between text-muted-foreground text-xs\">\n        <span>0%</span>\n        <span>100%</span>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

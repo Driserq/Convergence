@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-content-5",
+  "type": "registry:component",
+  "title": "Skeleton Content 5",
+  "description": "A skeleton pattern: skeleton-content-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/content/skeleton-content-5.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Content with Sidebar\";\n\nconst Example = () => (\n  <div className=\"grid w-full max-w-5xl grid-cols-3 gap-8\">\n    <div className=\"col-span-2 flex flex-col gap-6\">\n      <Skeleton className=\"h-8 w-3/4\" />\n      <Skeleton className=\"h-64 w-full\" />\n      <div className=\"flex flex-col gap-3\">\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-5/6\" />\n      </div>\n      <div className=\"flex flex-col gap-3\">\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-4/6\" />\n      </div>\n    </div>\n    <div className=\"flex flex-col gap-6\">\n      <div className=\"flex flex-col gap-3 rounded-md border p-4\">\n        <Skeleton className=\"h-5 w-24\" />\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-5/6\" />\n      </div>\n      <div className=\"flex flex-col gap-3 rounded-md border p-4\">\n        <Skeleton className=\"h-5 w-32\" />\n        {Array.from({ length: 4 }).map((_, i) => (\n          <div className=\"flex items-center gap-2\" key={i}>\n            <Skeleton className=\"size-8 rounded-md\" />\n            <Skeleton className=\"h-4 flex-1\" />\n          </div>\n        ))}\n      </div>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

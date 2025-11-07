@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-selects-1",
+  "type": "registry:component",
+  "title": "Field Selects 1",
+  "description": "A field pattern: field-selects-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/selects/field-selects-1.tsx",
+      "content": "import { Field, FieldLabel } from \"@/components/ui/field\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Simple Select\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field>\n      <FieldLabel>Country</FieldLabel>\n      <Select>\n        <SelectTrigger className=\"bg-background\">\n          <SelectValue placeholder=\"Select a country\" />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectItem value=\"us\">United States</SelectItem>\n          <SelectItem value=\"uk\">United Kingdom</SelectItem>\n          <SelectItem value=\"ca\">Canada</SelectItem>\n          <SelectItem value=\"au\">Australia</SelectItem>\n          <SelectItem value=\"de\">Germany</SelectItem>\n        </SelectContent>\n      </Select>\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

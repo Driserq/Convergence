@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-icons-2",
+  "type": "registry:component",
+  "title": "Switch Icons 2",
+  "description": "A switch pattern: switch-icons-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/icons/switch-icons-2.tsx",
+      "content": "\"use client\";\n\nimport { BellIcon } from \"lucide-react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Icon with Label\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-3\">\n    <BellIcon className=\"size-4 text-muted-foreground\" />\n    <div className=\"flex flex-1 items-center justify-between gap-4\">\n      <Label htmlFor=\"notifications\">Notifications</Label>\n      <Switch defaultChecked id=\"notifications\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

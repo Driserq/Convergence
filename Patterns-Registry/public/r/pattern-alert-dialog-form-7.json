@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-form-7",
+  "type": "registry:component",
+  "title": "Alert Dialog Form 7",
+  "description": "A alert-dialog pattern: alert-dialog-form-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/form/alert-dialog-form-7.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Form with Checkboxes\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Notification Settings</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Notification Preferences</AlertDialogTitle>\n        <AlertDialogDescription>\n          Choose which notifications you want to receive.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"space-y-4 py-4\">\n        <div className=\"flex items-start space-x-3\">\n          <Checkbox defaultChecked id=\"email-notif\" />\n          <div className=\"grid gap-1.5\">\n            <Label className=\"font-medium\" htmlFor=\"email-notif\">\n              Email Notifications\n            </Label>\n            <p className=\"text-muted-foreground text-sm\">\n              Receive email updates about your account activity\n            </p>\n          </div>\n        </div>\n        <div className=\"flex items-start space-x-3\">\n          <Checkbox defaultChecked id=\"push-notif\" />\n          <div className=\"grid gap-1.5\">\n            <Label className=\"font-medium\" htmlFor=\"push-notif\">\n              Push Notifications\n            </Label>\n            <p className=\"text-muted-foreground text-sm\">\n              Get push notifications on your devices\n            </p>\n          </div>\n        </div>\n        <div className=\"flex items-start space-x-3\">\n          <Checkbox id=\"sms-notif\" />\n          <div className=\"grid gap-1.5\">\n            <Label className=\"font-medium\" htmlFor=\"sms-notif\">\n              SMS Notifications\n            </Label>\n            <p className=\"text-muted-foreground text-sm\">\n              Receive important alerts via text message\n            </p>\n          </div>\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction>Save Preferences</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

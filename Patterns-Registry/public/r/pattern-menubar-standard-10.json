@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-10",
+  "type": "registry:component",
+  "title": "Menubar Standard 10",
+  "description": "A menubar pattern: menubar-standard-10",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-10.tsx",
+      "content": "import {\n  Menubar,\n  MenubarContent,\n  MenubarItem,\n  MenubarMenu,\n  MenubarSeparator,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Compact Menubar\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>Options</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>Settings</MenubarItem>\n        <MenubarItem>Preferences</MenubarItem>\n        <MenubarSeparator />\n        <MenubarItem>Sign Out</MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

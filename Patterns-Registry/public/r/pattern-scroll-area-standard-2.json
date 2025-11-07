@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-scroll-area-standard-2",
+  "type": "registry:component",
+  "title": "Scroll Area Standard 2",
+  "description": "A scroll-area pattern: scroll-area-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/scroll-area/standard/scroll-area-standard-2.tsx",
+      "content": "import { ScrollArea, ScrollBar } from \"@/components/ui/scroll-area\";\n\nexport const title = \"Horizontal ScrollArea\";\n\nconst artworks = [\n  {\n    artist: \"Ornella Binni\",\n    art: \"https://placehold.co/300x400\",\n  },\n  {\n    artist: \"Tom Byrom\",\n    art: \"https://placehold.co/300x400\",\n  },\n  {\n    artist: \"Vladimir Malyavko\",\n    art: \"https://placehold.co/300x400\",\n  },\n  {\n    artist: \"Jessica Ruscello\",\n    art: \"https://placehold.co/300x400\",\n  },\n  {\n    artist: \"Cosmic Timetraveler\",\n    art: \"https://placehold.co/300x400\",\n  },\n];\n\nconst Example = () => (\n  <ScrollArea className=\"w-full max-w-md whitespace-nowrap rounded-md border\">\n    <div className=\"flex w-max space-x-4 p-4\">\n      {artworks.map((artwork) => (\n        <figure className=\"shrink-0\" key={artwork.artist}>\n          <div className=\"overflow-hidden rounded-md\">\n            {/** biome-ignore lint/performance/noImgElement: \"Kibo UI is framework agnostic\" */}\n            <img\n              alt={`Artwork by ${artwork.artist}`}\n              className=\"aspect-[3/4] h-fit w-fit object-cover\"\n              height={400}\n              src={artwork.art}\n              width={300}\n            />\n          </div>\n          <figcaption className=\"pt-2 text-muted-foreground text-xs\">\n            Photo by{\" \"}\n            <span className=\"font-semibold text-foreground\">\n              {artwork.artist}\n            </span>\n          </figcaption>\n        </figure>\n      ))}\n    </div>\n    <ScrollBar orientation=\"horizontal\" />\n  </ScrollArea>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

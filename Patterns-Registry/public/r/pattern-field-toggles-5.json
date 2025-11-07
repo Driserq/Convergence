@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-toggles-5",
+  "type": "registry:component",
+  "title": "Field Toggles 5",
+  "description": "A field pattern: field-toggles-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/toggles/field-toggles-5.tsx",
+      "content": "import { Field, FieldLabel } from \"@/components/ui/field\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Simple Switch\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field orientation=\"horizontal\">\n      <FieldLabel htmlFor=\"airplane-mode\">Airplane Mode</FieldLabel>\n      <Switch id=\"airplane-mode\" />\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

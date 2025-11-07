@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-details-2",
+  "type": "registry:component",
+  "title": "Sheet Details 2",
+  "description": "A sheet pattern: sheet-details-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/details/sheet-details-2.tsx",
+      "content": "import { Avatar } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"User Profile View Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">View Profile</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>User Profile</SheetTitle>\n        <SheetDescription>View user information and activity</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex items-center gap-3\">\n          <Avatar className=\"size-16\">\n            <div className=\"flex h-full w-full items-center justify-center bg-primary text-primary-foreground text-xl\">\n              JD\n            </div>\n          </Avatar>\n          <div className=\"flex flex-col\">\n            <span className=\"font-semibold\">John Doe</span>\n            <span className=\"text-muted-foreground text-sm\">@johndoe</span>\n          </div>\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <div className=\"flex justify-between text-sm\">\n            <span className=\"text-muted-foreground\">Email</span>\n            <span>john@example.com</span>\n          </div>\n          <div className=\"flex justify-between text-sm\">\n            <span className=\"text-muted-foreground\">Location</span>\n            <span>San Francisco, CA</span>\n          </div>\n          <div className=\"flex justify-between text-sm\">\n            <span className=\"text-muted-foreground\">Joined</span>\n            <span>January 2024</span>\n          </div>\n        </div>\n        <Button className=\"w-full\">Send Message</Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

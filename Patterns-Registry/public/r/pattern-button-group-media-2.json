@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-media-2",
+  "type": "registry:component",
+  "title": "Button Group Media 2",
+  "description": "A button-group pattern: button-group-media-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/media/button-group-media-2.tsx",
+      "content": "\"use client\";\n\nimport { Volume2Icon, VolumeIcon, VolumeXIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Volume Controls\";\n\nconst Example = () => {\n  const [isMuted, setIsMuted] = useState(false);\n  const [volume, setVolume] = useState(50);\n\n  const decreaseVolume = () => {\n    const newVolume = Math.max(0, volume - 10);\n    setVolume(newVolume);\n    if (newVolume === 0) {\n      setIsMuted(true);\n    }\n  };\n\n  const increaseVolume = () => {\n    const newVolume = Math.min(100, volume + 10);\n    setVolume(newVolume);\n    if (isMuted) {\n      setIsMuted(false);\n    }\n  };\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setIsMuted(!isMuted)}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          {isMuted ? <VolumeXIcon /> : <Volume2Icon />}\n        </Button>\n        <Button onClick={decreaseVolume} size=\"sm\" variant=\"outline\">\n          <VolumeIcon />\n        </Button>\n        <Button onClick={increaseVolume} size=\"sm\" variant=\"outline\">\n          <Volume2Icon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button onClick={decreaseVolume} size=\"sm\" variant=\"outline\">\n          -\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          {isMuted ? \"Muted\" : `${volume}%`}\n        </Button>\n        <Button onClick={increaseVolume} size=\"sm\" variant=\"outline\">\n          +\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

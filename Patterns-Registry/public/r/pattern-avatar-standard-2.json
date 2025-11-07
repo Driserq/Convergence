@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-avatar-standard-2",
+  "type": "registry:component",
+  "title": "Avatar Standard 2",
+  "description": "A avatar pattern: avatar-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/avatar/standard/avatar-standard-2.tsx",
+      "content": "import { Avatar, AvatarFallback } from \"@/components/ui/avatar\";\n\nexport const title = \"Avatar with Placeholder Initials\";\n\nconst Example = () => (\n  <Avatar>\n    <AvatarFallback>HB</AvatarFallback>\n  </Avatar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

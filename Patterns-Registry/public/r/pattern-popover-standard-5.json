@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-5",
+  "type": "registry:component",
+  "title": "Popover Standard 5",
+  "description": "A popover pattern: popover-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-5.tsx",
+      "content": "import { Info } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Info Icon Popover\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button size=\"icon\" variant=\"ghost\">\n        <Info className=\"h-4 w-4\" />\n      </Button>\n    </PopoverTrigger>\n    <PopoverContent>\n      <p className=\"text-sm\">Helpful information goes here.</p>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

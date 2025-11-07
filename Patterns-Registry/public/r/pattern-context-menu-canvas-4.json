@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-canvas-4",
+  "type": "registry:component",
+  "title": "Context Menu Canvas 4",
+  "description": "A context-menu pattern: context-menu-canvas-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/canvas/context-menu-canvas-4.tsx",
+      "content": "import { Copy, Eye, EyeOff, Layers, Layers2 } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuLabel,\n  ContextMenuSeparator,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Layer Management Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on layer\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuLabel>Layer Options</ContextMenuLabel>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Copy />\n        <span>Duplicate Layer</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Layers2 />\n        <span>Merge Down</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Layers />\n        <span>Flatten Layer</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Eye />\n        <span>Show Layer</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <EyeOff />\n        <span>Hide Layer</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-accordion-standard-2",
+  "type": "registry:component",
+  "title": "Accordion Standard 2",
+  "description": "A accordion pattern: accordion-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/accordion/standard/accordion-standard-2.tsx",
+      "content": "import { faker } from \"@faker-js/faker\";\nimport {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from \"@/components/ui/accordion\";\n\nexport const title = \"Standard with Left Chevron\";\n\nconst data: { value: string; title: string; content: string }[] = [];\n\nfor (const _ of new Array(4).fill(0)) {\n  data.push({\n    value: faker.string.uuid(),\n    title: faker.company.catchPhrase(),\n    content: faker.lorem.paragraph(),\n  });\n}\n\nconst Example = () => (\n  <Accordion\n    className=\"-space-y-px w-full max-w-md\"\n    collapsible\n    defaultValue={data[0].value}\n    type=\"single\"\n  >\n    {data.map((item) => (\n      <AccordionItem\n        className=\"overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b\"\n        key={item.value}\n        value={item.value}\n      >\n        <AccordionTrigger className=\"flex-row-reverse px-4 py-3 hover:no-underline [&_span]:flex-1\">\n          <span>{item.title}</span>\n        </AccordionTrigger>\n        <AccordionContent className=\"px-4 ps-11 pb-4\">\n          <p className=\"text-muted-foreground\">{item.content}</p>\n        </AccordionContent>\n      </AccordionItem>\n    ))}\n  </Accordion>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-label-2",
+  "type": "registry:component",
+  "title": "Input Group Label 2",
+  "description": "A input-group pattern: input-group-label-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/label/input-group-label-2.tsx",
+      "content": "import { InfoIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Label with Tooltip\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput id=\"email-2\" placeholder=\"shadcn@vercel.com\" />\n    <InputGroupAddon align=\"block-start\">\n      <Label className=\"text-foreground\" htmlFor=\"email-2\">\n        Email\n      </Label>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <InputGroupButton\n            aria-label=\"Help\"\n            className=\"ml-auto rounded-full\"\n            size=\"icon-xs\"\n            variant=\"ghost\"\n          >\n            <InfoIcon />\n          </InputGroupButton>\n        </TooltipTrigger>\n        <TooltipContent>\n          <p>We&apos;ll use this to send you notifications</p>\n        </TooltipContent>\n      </Tooltip>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

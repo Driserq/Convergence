@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-preview-2",
+  "type": "registry:component",
+  "title": "Hover Card Preview 2",
+  "description": "A hover-card pattern: hover-card-preview-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/preview/hover-card-preview-2.tsx",
+      "content": "\"use client\";\n\nimport { FileText } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Document Preview\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <a\n        className=\"flex items-center gap-2 font-medium text-sm underline\"\n        href=\"#\"\n      >\n        <FileText className=\"h-4 w-4\" />\n        Project Proposal.pdf\n      </a>\n    </HoverCardTrigger>\n    <HoverCardContent className=\"w-80\">\n      <div className=\"space-y-3\">\n        <div className=\"flex items-start gap-3\">\n          <div className=\"flex h-10 w-10 shrink-0 items-center justify-center rounded bg-red-100 dark:bg-red-900\">\n            <FileText className=\"h-5 w-5 text-red-600 dark:text-red-400\" />\n          </div>\n          <div className=\"flex-1 space-y-1\">\n            <h4 className=\"font-semibold text-sm\">Project Proposal.pdf</h4>\n            <p className=\"text-muted-foreground text-xs\">\n              2.4 MB · PDF Document\n            </p>\n          </div>\n        </div>\n        <p className=\"text-muted-foreground text-sm\">\n          Comprehensive project proposal including timeline, budget, and\n          deliverables for Q1 2024.\n        </p>\n        <p className=\"text-muted-foreground text-xs\">\n          Last modified: December 15, 2023\n        </p>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

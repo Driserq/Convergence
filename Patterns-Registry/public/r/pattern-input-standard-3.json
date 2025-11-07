@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-standard-3",
+  "type": "registry:component",
+  "title": "Input Standard 3",
+  "description": "A input pattern: input-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/standard/input-standard-3.tsx",
+      "content": "\"use client\";\n\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Input with Helper Text\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"email\">Email</Label>\n    <Input\n      className=\"bg-background\"\n      id=\"email\"\n      placeholder=\"you@example.com\"\n      type=\"email\"\n    />\n    <p className=\"text-muted-foreground text-sm\">\n      We'll never share your email with anyone else.\n    </p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

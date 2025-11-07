@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-sequence-2",
+  "type": "registry:component",
+  "title": "Kbd Sequence 2",
+  "description": "A kbd pattern: kbd-sequence-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/sequence/kbd-sequence-2.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Key Sequence with Arrow\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <div className=\"flex items-center gap-2\">\n      <Kbd>G</Kbd>\n      <span className=\"text-muted-foreground\">→</span>\n      <Kbd>G</Kbd>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

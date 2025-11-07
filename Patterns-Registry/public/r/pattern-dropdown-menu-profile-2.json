@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-profile-2",
+  "type": "registry:component",
+  "title": "Dropdown Menu Profile 2",
+  "description": "A dropdown-menu pattern: dropdown-menu-profile-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/profile/dropdown-menu-profile-2.tsx",
+      "content": "\"use client\";\n\nimport { CreditCard, LogOut, Settings, User } from \"lucide-react\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Profile Dropdown with Status\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button className=\"relative h-10 w-10 rounded-full\" variant=\"ghost\">\n        <Avatar>\n          <AvatarImage\n            alt=\"@haydenbleasel\"\n            src=\"https://github.com/haydenbleasel.png\"\n          />\n          <AvatarFallback>HB</AvatarFallback>\n        </Avatar>\n        <span className=\"absolute right-0 bottom-0 h-3 w-3 rounded-full bg-green-500 ring-2 ring-background\" />\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent align=\"end\" className=\"w-64\">\n      <DropdownMenuLabel className=\"font-normal\">\n        <div className=\"flex items-center gap-3\">\n          <Avatar className=\"h-12 w-12\">\n            <AvatarImage\n              alt=\"@haydenbleasel\"\n              src=\"https://github.com/haydenbleasel.png\"\n            />\n            <AvatarFallback>HB</AvatarFallback>\n          </Avatar>\n          <div className=\"flex flex-col space-y-1\">\n            <p className=\"font-medium text-sm leading-none\">Hayden Bleasel</p>\n            <p className=\"text-muted-foreground text-xs leading-none\">\n              hello@haydenbleasel.com\n            </p>\n            <Badge className=\"w-fit text-xs\" variant=\"secondary\">\n              Pro\n            </Badge>\n          </div>\n        </div>\n      </DropdownMenuLabel>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <User />\n        View Profile\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <CreditCard />\n        Billing\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Settings />\n        Account Settings\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem variant=\"destructive\">\n        <LogOut />\n        Log out\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

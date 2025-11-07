@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-12",
+  "type": "registry:component",
+  "title": "Dialog Standard 12",
+  "description": "A dialog pattern: dialog-standard-12",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-12.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Invite Team Members\";\n\nconst Example = () => (\n  <Dialog>\n    <DialogTrigger asChild>\n      <Button variant=\"outline\">Invite Team</Button>\n    </DialogTrigger>\n    <DialogContent className=\"sm:max-w-lg\">\n      <DialogHeader>\n        <DialogTitle>Invite team members</DialogTitle>\n        <DialogDescription>\n          Invite your team members to collaborate on this project.\n        </DialogDescription>\n      </DialogHeader>\n      <div className=\"space-y-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email1\">Email address</Label>\n          <Input id=\"email1\" placeholder=\"colleague@example.com\" type=\"email\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email2\">Email address</Label>\n          <Input id=\"email2\" placeholder=\"teammate@example.com\" type=\"email\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email3\">Email address</Label>\n          <Input id=\"email3\" placeholder=\"partner@example.com\" type=\"email\" />\n        </div>\n        <Button className=\"w-full\">Send Invitations</Button>\n        <div className=\"relative\">\n          <div className=\"absolute inset-0 flex items-center\">\n            <Separator />\n          </div>\n          <div className=\"relative flex justify-center text-xs uppercase\">\n            <span className=\"bg-background px-2 text-muted-foreground\">\n              Or share link\n            </span>\n          </div>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <Input\n            className=\"flex-1\"\n            readOnly\n            value=\"https://example.com/invite/abc123\"\n          />\n          <Button size=\"sm\" variant=\"outline\">\n            Copy\n          </Button>\n        </div>\n        <p className=\"text-muted-foreground text-xs\">\n          Anyone with this link can join your team\n        </p>\n      </div>\n    </DialogContent>\n  </Dialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

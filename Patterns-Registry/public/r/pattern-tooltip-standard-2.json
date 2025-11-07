@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tooltip-standard-2",
+  "type": "registry:component",
+  "title": "Tooltip Standard 2",
+  "description": "A tooltip pattern: tooltip-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tooltip/standard/tooltip-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Tooltip Positions\";\n\nconst Example = () => (\n  <div className=\"flex gap-4\">\n    <Tooltip>\n      <TooltipTrigger asChild>\n        <Button variant=\"outline\">Top</Button>\n      </TooltipTrigger>\n      <TooltipContent side=\"top\">\n        <p>Tooltip on top</p>\n      </TooltipContent>\n    </Tooltip>\n    <Tooltip>\n      <TooltipTrigger asChild>\n        <Button variant=\"outline\">Bottom</Button>\n      </TooltipTrigger>\n      <TooltipContent side=\"bottom\">\n        <p>Tooltip on bottom</p>\n      </TooltipContent>\n    </Tooltip>\n    <Tooltip>\n      <TooltipTrigger asChild>\n        <Button variant=\"outline\">Left</Button>\n      </TooltipTrigger>\n      <TooltipContent side=\"left\">\n        <p>Tooltip on left</p>\n      </TooltipContent>\n    </Tooltip>\n    <Tooltip>\n      <TooltipTrigger asChild>\n        <Button variant=\"outline\">Right</Button>\n      </TooltipTrigger>\n      <TooltipContent side=\"right\">\n        <p>Tooltip on right</p>\n      </TooltipContent>\n    </Tooltip>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-actions-1",
+  "type": "registry:component",
+  "title": "Dropdown Menu Actions 1",
+  "description": "A dropdown-menu pattern: dropdown-menu-actions-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/actions/dropdown-menu-actions-1.tsx",
+      "content": "\"use client\";\n\nimport {\n  Archive,\n  Copy,\n  Download,\n  Eye,\n  MoreHorizontal,\n  Share2,\n  Trash2,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"File Actions Dropdown\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button size=\"icon\" variant=\"ghost\">\n        <MoreHorizontal className=\"h-4 w-4\" />\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent align=\"end\" className=\"w-48\">\n      <DropdownMenuItem>\n        <Eye />\n        View Details\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Download />\n        Download\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Share2 />\n        Share\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Copy />\n        Duplicate\n        <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <Archive />\n        Archive\n      </DropdownMenuItem>\n      <DropdownMenuItem variant=\"destructive\">\n        <Trash2 />\n        Delete\n        <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

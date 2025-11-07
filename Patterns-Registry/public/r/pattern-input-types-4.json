@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-types-4",
+  "type": "registry:component",
+  "title": "Input Types 4",
+  "description": "A input pattern: input-types-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/types/input-types-4.tsx",
+      "content": "\"use client\";\n\nimport { Search } from \"lucide-react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Search Input\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"search-input\">Search</Label>\n    <div className=\"relative\">\n      <Search className=\"-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground\" />\n      <Input\n        className=\"bg-background pl-9\"\n        id=\"search-input\"\n        placeholder=\"Search...\"\n        type=\"search\"\n      />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-calendar-standard-7",
+  "type": "registry:component",
+  "title": "Calendar Standard 7",
+  "description": "A calendar pattern: calendar-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/calendar/standard/calendar-standard-7.tsx",
+      "content": "\"use client\";\n\nimport { faker } from \"@faker-js/faker\";\nimport { useState } from \"react\";\nimport { Calendar } from \"@/components/ui/calendar\";\n\nexport const title = \"Calendar with Multiple Day Selection\";\n\nconst now = new Date();\nconst startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);\nconst endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);\n\nconst selectedDates = [\n  faker.date.between({\n    from: startOfMonth,\n    to: new Date(now.getFullYear(), now.getMonth(), 10),\n  }),\n  faker.date.between({\n    from: new Date(now.getFullYear(), now.getMonth(), 11),\n    to: new Date(now.getFullYear(), now.getMonth(), 20),\n  }),\n  faker.date.between({\n    from: new Date(now.getFullYear(), now.getMonth(), 21),\n    to: endOfMonth,\n  }),\n];\n\nconst Example = () => {\n  const [dates, setDates] = useState<Date[] | undefined>(selectedDates);\n\n  return (\n    <Calendar\n      className=\"rounded-md border\"\n      mode=\"multiple\"\n      onSelect={setDates}\n      selected={dates}\n    />\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

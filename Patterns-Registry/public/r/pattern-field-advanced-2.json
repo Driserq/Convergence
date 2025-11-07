@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-advanced-2",
+  "type": "registry:component",
+  "title": "Field Advanced 2",
+  "description": "A field pattern: field-advanced-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/advanced/field-advanced-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Field, FieldDescription, FieldTitle } from \"@/components/ui/field\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Range Slider\";\n\nconst Example = () => {\n  const [value, setValue] = useState([200, 800]);\n  return (\n    <div className=\"w-full max-w-md\">\n      <Field>\n        <FieldTitle>Price Range</FieldTitle>\n        <FieldDescription>\n          Set your budget range ($\n          <span className=\"font-medium tabular-nums\">{value[0]}</span> -{\" \"}\n          <span className=\"font-medium tabular-nums\">{value[1]}</span>).\n        </FieldDescription>\n        <Slider\n          aria-label=\"Price Range\"\n          className=\"mt-2 w-full\"\n          max={1000}\n          min={0}\n          onValueChange={setValue}\n          step={10}\n          value={value}\n        />\n      </Field>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

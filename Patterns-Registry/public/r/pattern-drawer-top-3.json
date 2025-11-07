@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-top-3",
+  "type": "registry:component",
+  "title": "Drawer Top 3",
+  "description": "A drawer pattern: drawer-top-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/top/drawer-top-3.tsx",
+      "content": "\"use client\";\n\nimport { AlertCircle, X } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Top Drawer Notification Banner\";\n\nconst Example = () => (\n  <Drawer direction=\"top\">\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">Show Notification</Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <div className=\"border-blue-200 border-b bg-blue-50 dark:border-blue-900 dark:bg-blue-950\">\n        <div className=\"flex items-center justify-between p-4\">\n          <div className=\"flex items-center gap-3\">\n            <AlertCircle className=\"h-5 w-5 text-blue-600 dark:text-blue-400\" />\n            <div>\n              <h4 className=\"font-medium text-blue-900 dark:text-blue-100\">\n                System Update Available\n              </h4>\n              <p className=\"text-blue-700 text-sm dark:text-blue-300\">\n                A new version is available. Update now to get the latest\n                features.\n              </p>\n            </div>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            <Button size=\"sm\" variant=\"outline\">\n              Update Now\n            </Button>\n            <DrawerClose asChild>\n              <Button className=\"h-8 w-8\" size=\"icon\" variant=\"ghost\">\n                <X className=\"h-4 w-4\" />\n              </Button>\n            </DrawerClose>\n          </div>\n        </div>\n      </div>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-custom-actions-5",
+  "type": "registry:component",
+  "title": "Alert Dialog Custom Actions 5",
+  "description": "A alert-dialog pattern: alert-dialog-custom-actions-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/custom-actions/alert-dialog-custom-actions-5.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Split Actions Layout\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Confirm Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Review Changes</AlertDialogTitle>\n        <AlertDialogDescription>\n          Please review your changes before publishing. You can save as draft or\n          publish immediately.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter className=\"sm:justify-between\">\n        <Button variant=\"outline\">Save as Draft</Button>\n        <div className=\"flex gap-2\">\n          <AlertDialogCancel>Cancel</AlertDialogCancel>\n          <AlertDialogAction>Publish Now</AlertDialogAction>\n        </div>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

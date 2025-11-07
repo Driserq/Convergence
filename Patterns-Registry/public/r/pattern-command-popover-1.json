@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-popover-1",
+  "type": "registry:component",
+  "title": "Command Popover 1",
+  "description": "A command pattern: command-popover-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/popover/command-popover-1.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Simple Command Popover\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">Open Command Menu</Button>\n    </PopoverTrigger>\n    <PopoverContent align=\"start\" className=\"w-[400px] p-0\">\n      <Command>\n        <CommandInput placeholder=\"Type a command or search...\" />\n        <CommandList>\n          <CommandEmpty>No results found.</CommandEmpty>\n          <CommandGroup heading=\"Suggestions\">\n            <CommandItem>Calendar</CommandItem>\n            <CommandItem>Search Emoji</CommandItem>\n            <CommandItem>Calculator</CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </Command>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

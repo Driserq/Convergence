@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-1",
+  "type": "registry:component",
+  "title": "Empty Standard 1",
+  "description": "A empty pattern: empty-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-1.tsx",
+      "content": "\"use client\";\n\nimport { FileQuestion } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Simple Empty State\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <FileQuestion />\n      </EmptyMedia>\n      <EmptyTitle>No items found</EmptyTitle>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

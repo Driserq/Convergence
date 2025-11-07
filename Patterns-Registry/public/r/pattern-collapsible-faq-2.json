@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-faq-2",
+  "type": "registry:component",
+  "title": "Collapsible Faq 2",
+  "description": "A collapsible pattern: collapsible-faq-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/faq/collapsible-faq-2.tsx",
+      "content": "import { HelpCircle } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"FAQ with Icon\";\n\nconst Example = () => (\n  <Collapsible className=\"group w-full max-w-lg rounded-lg border p-4 hover:border-primary/50\">\n    <CollapsibleTrigger className=\"flex w-full items-start gap-3 text-left\">\n      <HelpCircle className=\"mt-0.5 h-5 w-5 shrink-0 text-muted-foreground\" />\n      <div className=\"flex-1\">\n        <h3 className=\"font-medium\">What payment methods do you accept?</h3>\n      </div>\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"ml-8 pt-2 text-muted-foreground text-sm\">\n      We accept all major credit cards (Visa, Mastercard, American Express),\n      PayPal, and bank transfers for enterprise customers.\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

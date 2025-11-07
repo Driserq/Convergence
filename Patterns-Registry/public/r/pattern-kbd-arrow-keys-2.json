@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-arrow-keys-2",
+  "type": "registry:component",
+  "title": "Kbd Arrow Keys 2",
+  "description": "A kbd pattern: kbd-arrow-keys-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/arrow-keys/kbd-arrow-keys-2.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Arrow Keys Horizontal\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd>←</Kbd>\n      <Kbd>→</Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

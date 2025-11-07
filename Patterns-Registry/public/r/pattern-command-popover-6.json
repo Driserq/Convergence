@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-popover-6",
+  "type": "registry:component",
+  "title": "Command Popover 6",
+  "description": "A command pattern: command-popover-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/popover/command-popover-6.tsx",
+      "content": "import { ArrowRight, Copy, Download, Share, Star, Trash } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandShortcut,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Command Popover Actions Menu\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">Quick Actions</Button>\n    </PopoverTrigger>\n    <PopoverContent align=\"start\" className=\"w-[400px] p-0\">\n      <Command>\n        <CommandInput placeholder=\"Search actions...\" />\n        <CommandList>\n          <CommandEmpty>No actions found.</CommandEmpty>\n          <CommandGroup heading=\"Quick Actions\">\n            <CommandItem>\n              <ArrowRight />\n              <span>Open</span>\n              <CommandShortcut>↵</CommandShortcut>\n            </CommandItem>\n            <CommandItem>\n              <Copy />\n              <span>Copy</span>\n              <CommandShortcut>⌘C</CommandShortcut>\n            </CommandItem>\n            <CommandItem>\n              <Star />\n              <span>Add to Favorites</span>\n              <CommandShortcut>⌘D</CommandShortcut>\n            </CommandItem>\n          </CommandGroup>\n          <CommandGroup heading=\"File Actions\">\n            <CommandItem>\n              <Download />\n              <span>Download</span>\n              <CommandShortcut>⌘⇧D</CommandShortcut>\n            </CommandItem>\n            <CommandItem>\n              <Share />\n              <span>Share</span>\n              <CommandShortcut>⌘⇧S</CommandShortcut>\n            </CommandItem>\n            <CommandItem>\n              <Trash />\n              <span>Delete</span>\n              <CommandShortcut>⌘⌫</CommandShortcut>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </Command>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

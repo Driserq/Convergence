@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-checkbox-standard-7",
+  "type": "registry:component",
+  "title": "Checkbox Standard 7",
+  "description": "A checkbox pattern: checkbox-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/checkbox/standard/checkbox-standard-7.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Horizontal List Checkbox\";\n\nconst items = [\n  { id: \"monday\", label: \"Monday\" },\n  { id: \"tuesday\", label: \"Tuesday\" },\n  { id: \"wednesday\", label: \"Wednesday\" },\n  { id: \"thursday\", label: \"Thursday\" },\n  { id: \"friday\", label: \"Friday\" },\n];\n\nconst Example = () => (\n  <div className=\"flex flex-wrap gap-4\">\n    {items.map((item) => (\n      <div className=\"flex items-center space-x-2\" key={item.id}>\n        <Checkbox id={item.id} />\n        <Label htmlFor={item.id}>{item.label}</Label>\n      </div>\n    ))}\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

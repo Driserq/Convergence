@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-layouts-5",
+  "type": "registry:component",
+  "title": "Field Layouts 5",
+  "description": "A field pattern: field-layouts-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/layouts/field-layouts-5.tsx",
+      "content": "import {\n  Field,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Nested Fields\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldLegend>Shipping Address</FieldLegend>\n      <FieldDescription>Where should we send your order?</FieldDescription>\n      <FieldGroup>\n        <Field>\n          <FieldLabel htmlFor=\"street-nested\">Street Address</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"street-nested\"\n            placeholder=\"123 Main St\"\n            type=\"text\"\n          />\n        </Field>\n        <FieldGroup>\n          <Field>\n            <FieldLabel htmlFor=\"apt-nested\">Apartment, suite, etc.</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"apt-nested\"\n              placeholder=\"Apt 4B\"\n              type=\"text\"\n            />\n          </Field>\n        </FieldGroup>\n        <div className=\"grid grid-cols-2 gap-4\">\n          <Field>\n            <FieldLabel htmlFor=\"city-nested\">City</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"city-nested\"\n              placeholder=\"New York\"\n              type=\"text\"\n            />\n          </Field>\n          <Field>\n            <FieldLabel htmlFor=\"zip-nested\">ZIP Code</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"zip-nested\"\n              placeholder=\"10001\"\n              type=\"text\"\n            />\n          </Field>\n        </div>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

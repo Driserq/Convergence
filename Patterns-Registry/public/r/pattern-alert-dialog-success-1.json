@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-success-1",
+  "type": "registry:component",
+  "title": "Alert Dialog Success 1",
+  "description": "A alert-dialog pattern: alert-dialog-success-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/success/alert-dialog-success-1.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Simple Success Message\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button>Complete Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Success!</AlertDialogTitle>\n        <AlertDialogDescription>\n          Your changes have been saved successfully.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogAction>Continue</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

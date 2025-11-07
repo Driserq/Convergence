@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-patterns-1",
+  "type": "registry:component",
+  "title": "Button Group Patterns 1",
+  "description": "A button-group pattern: button-group-patterns-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/patterns/button-group-patterns-1.tsx",
+      "content": "\"use client\";\n\nimport {\n  CopyIcon,\n  Edit2Icon,\n  MoreHorizontalIcon,\n  TrashIcon,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Overflow Menu\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"outline\">\n        <CopyIcon />\n        Copy\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        <Edit2Icon />\n        Edit\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        <TrashIcon />\n        Delete\n      </Button>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button size=\"sm\" variant=\"outline\">\n            <MoreHorizontalIcon />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Duplicate</DropdownMenuItem>\n          <DropdownMenuItem>Archive</DropdownMenuItem>\n          <DropdownMenuItem>Export</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"outline\">\n        Copy\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        Edit\n      </Button>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button size=\"sm\" variant=\"outline\">\n            More\n            <MoreHorizontalIcon />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Delete</DropdownMenuItem>\n          <DropdownMenuItem>Archive</DropdownMenuItem>\n          <DropdownMenuItem>Move</DropdownMenuItem>\n          <DropdownMenuItem>Share</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

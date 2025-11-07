@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-function-keys-1",
+  "type": "registry:component",
+  "title": "Kbd Function Keys 1",
+  "description": "A kbd pattern: kbd-function-keys-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/function-keys/kbd-function-keys-1.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"F1 Help Key\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <Kbd>F1</Kbd>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-form-1",
+  "type": "registry:component",
+  "title": "Sheet Form 1",
+  "description": "A sheet pattern: sheet-form-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/form/sheet-form-1.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Contact Form Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Contact Us</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Contact Us</SheetTitle>\n        <SheetDescription>\n          Send us a message and we'll get back to you soon.\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"name\">Name</Label>\n          <Input id=\"name\" placeholder=\"Enter your name\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"email\">Email</Label>\n          <Input id=\"email\" placeholder=\"Enter your email\" type=\"email\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"message\">Message</Label>\n          <Input id=\"message\" placeholder=\"Your message\" />\n        </div>\n        <Button className=\"w-full\">Send Message</Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

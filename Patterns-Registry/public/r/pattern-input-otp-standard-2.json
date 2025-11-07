@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-standard-2",
+  "type": "registry:component",
+  "title": "Input Otp Standard 2",
+  "description": "A input-otp pattern: input-otp-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/standard/input-otp-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { REGEXP_ONLY_DIGITS_AND_CHARS } from \"input-otp\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Pattern Validation\";\n\nconst Example = () => (\n  <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>\n    <InputOTPGroup>\n      <InputOTPSlot className=\"bg-background\" index={0} />\n      <InputOTPSlot className=\"bg-background\" index={1} />\n      <InputOTPSlot className=\"bg-background\" index={2} />\n      <InputOTPSlot className=\"bg-background\" index={3} />\n      <InputOTPSlot className=\"bg-background\" index={4} />\n      <InputOTPSlot className=\"bg-background\" index={5} />\n    </InputOTPGroup>\n  </InputOTP>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

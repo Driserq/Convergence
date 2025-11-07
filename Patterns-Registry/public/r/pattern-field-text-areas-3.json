@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-text-areas-3",
+  "type": "registry:component",
+  "title": "Field Text Areas 3",
+  "description": "A field pattern: field-text-areas-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/text-areas/field-text-areas-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Field, FieldDescription, FieldLabel } from \"@/components/ui/field\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Textarea with Character Count\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n  const maxLength = 500;\n\n  return (\n    <div className=\"w-full max-w-md\">\n      <Field>\n        <FieldLabel htmlFor=\"bio\">Bio</FieldLabel>\n        <Textarea\n          className=\"bg-background\"\n          id=\"bio\"\n          maxLength={maxLength}\n          onChange={(e) => setValue(e.target.value)}\n          placeholder=\"Tell us about yourself...\"\n          rows={4}\n          value={value}\n        />\n        <FieldDescription>\n          {value.length}/{maxLength} characters\n        </FieldDescription>\n      </Field>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

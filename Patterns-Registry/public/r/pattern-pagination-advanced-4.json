@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-advanced-4",
+  "type": "registry:component",
+  "title": "Pagination Advanced 4",
+  "description": "A pagination pattern: pagination-advanced-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/advanced/pagination-advanced-4.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationLink,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"Many Pages\";\n\nconst Example = () => (\n  <Pagination>\n    <PaginationContent>\n      {Array.from({ length: 10 }, (_, i) => (\n        <PaginationItem key={i}>\n          <PaginationLink href=\"#\" isActive={i === 4}>\n            {i + 1}\n          </PaginationLink>\n        </PaginationItem>\n      ))}\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

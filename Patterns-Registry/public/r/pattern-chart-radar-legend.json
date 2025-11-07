@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radar-legend",
+  "type": "registry:component",
+  "title": "Chart Radar Legend",
+  "description": "A chart pattern: chart-radar-legend",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radar/chart-radar-legend.tsx",
+      "content": "\"use client\";\n\nimport { PolarAngleAxis, PolarGrid, Radar, RadarChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartLegend,\n  ChartLegendContent,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A radar chart with a legend\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 73, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadarLegend = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <RadarChart\n        data={chartData}\n        margin={{\n          top: -40,\n          bottom: -10,\n        }}\n      >\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"line\" />}\n          cursor={false}\n        />\n        <PolarAngleAxis dataKey=\"month\" />\n        <PolarGrid />\n        <Radar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.6}\n        />\n        <Radar dataKey=\"mobile\" fill=\"var(--color-mobile)\" />\n        <ChartLegend className=\"mt-8\" content={<ChartLegendContent />} />\n      </RadarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadarLegend;\n",
+      "type": "registry:component"
+    }
+  ]
+}

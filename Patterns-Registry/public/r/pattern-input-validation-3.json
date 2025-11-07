@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-validation-3",
+  "type": "registry:component",
+  "title": "Input Validation 3",
+  "description": "A input pattern: input-validation-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/validation/input-validation-3.tsx",
+      "content": "\"use client\";\n\nimport { AlertTriangle } from \"lucide-react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Warning State\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"password-warning\">Password</Label>\n    <Input\n      className=\"border-orange-600 bg-background focus-visible:border-orange-600 focus-visible:ring-orange-600/50\"\n      defaultValue=\"weak123\"\n      id=\"password-warning\"\n      placeholder=\"Enter password\"\n      type=\"password\"\n    />\n    <div className=\"flex items-center gap-2 text-orange-600 text-sm dark:text-orange-400\">\n      <AlertTriangle className=\"h-4 w-4\" />\n      <span>Password is weak. Consider using a stronger password</span>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

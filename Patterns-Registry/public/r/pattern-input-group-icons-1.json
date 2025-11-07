@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-icons-1",
+  "type": "registry:component",
+  "title": "Input Group Icons 1",
+  "description": "A input-group pattern: input-group-icons-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/icons/input-group-icons-1.tsx",
+      "content": "import { SearchIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Search with Icon\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput placeholder=\"Search...\" />\n    <InputGroupAddon>\n      <SearchIcon />\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

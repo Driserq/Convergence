@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-icons-1",
+  "type": "registry:component",
+  "title": "Switch Icons 1",
+  "description": "A switch pattern: switch-icons-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/icons/switch-icons-1.tsx",
+      "content": "\"use client\";\n\nimport { MoonIcon, SunIcon } from \"lucide-react\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Theme Toggle with Icons\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2\">\n    <SunIcon className=\"size-4\" />\n    <Switch />\n    <MoonIcon className=\"size-4 text-muted-foreground\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

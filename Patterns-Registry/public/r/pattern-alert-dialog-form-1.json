@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-form-1",
+  "type": "registry:component",
+  "title": "Alert Dialog Form 1",
+  "description": "A alert-dialog pattern: alert-dialog-form-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/form/alert-dialog-form-1.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Single Input Dialog\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Rename</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Rename Project</AlertDialogTitle>\n        <AlertDialogDescription>\n          Enter a new name for your project.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"py-4\">\n        <Label htmlFor=\"name\">Project Name</Label>\n        <Input\n          className=\"mt-2\"\n          defaultValue=\"Untitled Project\"\n          id=\"name\"\n          placeholder=\"My Project\"\n        />\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction>Save</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

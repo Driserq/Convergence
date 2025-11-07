@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-table-2",
+  "type": "registry:component",
+  "title": "Context Menu Table 2",
+  "description": "A context-menu pattern: context-menu-table-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/table/context-menu-table-2.tsx",
+      "content": "import { Filter, X } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Table Filter Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on column\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuSub>\n        <ContextMenuSubTrigger>\n          <div className=\"flex items-center gap-2\">\n            <Filter />\n            <span>Filter by</span>\n          </div>\n        </ContextMenuSubTrigger>\n        <ContextMenuSubContent className=\"w-48\">\n          <ContextMenuItem>Contains</ContextMenuItem>\n          <ContextMenuItem>Does not contain</ContextMenuItem>\n          <ContextMenuItem>Equals</ContextMenuItem>\n          <ContextMenuItem>Not equals</ContextMenuItem>\n          <ContextMenuItem>Starts with</ContextMenuItem>\n          <ContextMenuItem>Ends with</ContextMenuItem>\n        </ContextMenuSubContent>\n      </ContextMenuSub>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <X />\n        <span>Clear Filters</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

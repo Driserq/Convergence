@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-secondary-4",
+  "type": "registry:component",
+  "title": "Button Secondary 4",
+  "description": "A button pattern: button-secondary-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/secondary/button-secondary-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\n\nexport const title = \"Rounded Button\";\n\nconst Example = () => (\n  <Button className=\"rounded-full\" variant=\"secondary\">\n    Button\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-carousel-standard-2",
+  "type": "registry:component",
+  "title": "Carousel Standard 2",
+  "description": "A carousel pattern: carousel-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/carousel/standard/carousel-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { faker } from \"@faker-js/faker\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Carousel,\n  type CarouselApi,\n  CarouselContent,\n  CarouselItem,\n} from \"@/components/ui/carousel\";\n\nexport const title = \"Carousel with Thumbnails\";\n\nconst slides = Array.from({ length: 5 }, (_, index) => ({\n  id: index + 1,\n  image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),\n}));\n\nconst Example = () => {\n  const [api, setApi] = useState<CarouselApi>();\n  const [current, setCurrent] = useState(0);\n\n  const handleApiChange = (newApi: CarouselApi) => {\n    setApi(newApi);\n\n    if (newApi) {\n      setCurrent(newApi.selectedScrollSnap());\n\n      newApi.on(\"select\", () => {\n        setCurrent(newApi.selectedScrollSnap());\n      });\n    }\n  };\n\n  return (\n    <div className=\"mx-auto w-full max-w-md space-y-4\">\n      <Carousel setApi={handleApiChange}>\n        <CarouselContent>\n          {slides.map((slide) => (\n            <CarouselItem key={slide.id}>\n              <div className=\"flex aspect-[2/1] items-center justify-center rounded-md border bg-background\">\n                <span className=\"font-semibold text-4xl\">{slide.id}</span>\n              </div>\n            </CarouselItem>\n          ))}\n        </CarouselContent>\n      </Carousel>\n\n      <div className=\"flex justify-center gap-2\">\n        {slides.map((slide, index) => (\n          <Button\n            key={slide.id}\n            onClick={() => api?.scrollTo(index)}\n            variant={current === index ? \"default\" : \"outline\"}\n          >\n            {slide.id}\n          </Button>\n        ))}\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

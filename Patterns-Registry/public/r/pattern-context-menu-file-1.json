@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-file-1",
+  "type": "registry:component",
+  "title": "Context Menu File 1",
+  "description": "A context-menu pattern: context-menu-file-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/file/context-menu-file-1.tsx",
+      "content": "import { Copy, Edit, FolderOpen, Trash2 } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"File Operations Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on file\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuItem>\n        <FolderOpen />\n        <span>Open</span>\n        <ContextMenuShortcut>↵</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Edit />\n        <span>Rename</span>\n        <ContextMenuShortcut>F2</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Copy />\n        <span>Duplicate</span>\n        <ContextMenuShortcut>⌘D</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem variant=\"destructive\">\n        <Trash2 />\n        <span>Delete</span>\n        <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

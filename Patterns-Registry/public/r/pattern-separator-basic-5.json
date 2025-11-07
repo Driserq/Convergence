@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-basic-5",
+  "type": "registry:component",
+  "title": "Separator Basic 5",
+  "description": "A separator pattern: separator-basic-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/basic/separator-basic-5.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Simple Line\";\n\nconst Example = () => <Separator />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

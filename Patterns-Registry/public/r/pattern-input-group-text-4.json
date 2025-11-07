@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-text-4",
+  "type": "registry:component",
+  "title": "Input Group Text 4",
+  "description": "A input-group pattern: input-group-text-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/text/input-group-text-4.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Character Counter\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput maxLength={280} placeholder=\"Enter tweet...\" />\n    <InputGroupAddon align=\"inline-end\">\n      <InputGroupText>0/280</InputGroupText>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

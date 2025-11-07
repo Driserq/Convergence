@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-tooltip-2",
+  "type": "registry:component",
+  "title": "Input Group Tooltip 2",
+  "description": "A input-group pattern: input-group-tooltip-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/tooltip/input-group-tooltip-2.tsx",
+      "content": "import { HelpCircleIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Help Tooltips\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput placeholder=\"Email address\" type=\"email\" />\n    <InputGroupAddon align=\"inline-end\">\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <InputGroupButton size=\"icon-xs\" variant=\"ghost\">\n            <HelpCircleIcon />\n          </InputGroupButton>\n        </TooltipTrigger>\n        <TooltipContent>\n          <p>We'll never share your email</p>\n        </TooltipContent>\n      </Tooltip>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

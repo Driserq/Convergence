@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-buttons-4",
+  "type": "registry:component",
+  "title": "Input Group Buttons 4",
+  "description": "A input-group pattern: input-group-buttons-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/buttons/input-group-buttons-4.tsx",
+      "content": "\"use client\";\n\nimport { EyeIcon, EyeOffIcon, RefreshCwIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Password Actions\";\n\nconst Example = () => {\n  const [visible, setVisible] = useState(false);\n\n  return (\n    <InputGroup className=\"w-full max-w-sm bg-background\">\n      <InputGroupInput\n        placeholder=\"Enter password\"\n        type={visible ? \"text\" : \"password\"}\n      />\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupButton\n          aria-label=\"Toggle visibility\"\n          onClick={() => setVisible(!visible)}\n          size=\"icon-xs\"\n          variant=\"ghost\"\n        >\n          {visible ? <EyeOffIcon /> : <EyeIcon />}\n        </InputGroupButton>\n      </InputGroupAddon>\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupButton aria-label=\"Generate\" size=\"icon-xs\" variant=\"ghost\">\n          <RefreshCwIcon />\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

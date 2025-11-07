@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-basic-3",
+  "type": "registry:component",
+  "title": "Separator Basic 3",
+  "description": "A separator pattern: separator-basic-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/basic/separator-basic-3.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"In Navigation\";\n\nconst Example = () => (\n  <div className=\"flex items-center space-x-2 text-sm\">\n    <a className=\"hover:underline\" href=\"#\">\n      Home\n    </a>\n    <Separator className=\"h-4\" orientation=\"vertical\" />\n    <a className=\"hover:underline\" href=\"#\">\n      Products\n    </a>\n    <Separator className=\"h-4\" orientation=\"vertical\" />\n    <a className=\"hover:underline\" href=\"#\">\n      About\n    </a>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

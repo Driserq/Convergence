@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-breadcrumb-standard-3",
+  "type": "registry:component",
+  "title": "Breadcrumb Standard 3",
+  "description": "A breadcrumb pattern: breadcrumb-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/breadcrumb/standard/breadcrumb-standard-3.tsx",
+      "content": "import { FileText, Folder } from \"lucide-react\";\nimport {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\";\n\nexport const title = \"Breadcrumb with Icons\";\n\nconst Example = () => (\n  <Breadcrumb>\n    <BreadcrumbList>\n      <BreadcrumbItem>\n        <BreadcrumbLink className=\"flex items-center gap-1.5\" href=\"/\">\n          <Folder className=\"size-4\" />\n          Home\n        </BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <BreadcrumbLink\n          className=\"flex items-center gap-1.5\"\n          href=\"/components\"\n        >\n          <Folder className=\"size-4\" />\n          Components\n        </BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <BreadcrumbPage className=\"flex items-center gap-1.5\">\n          <FileText className=\"size-4\" />\n          Breadcrumb\n        </BreadcrumbPage>\n      </BreadcrumbItem>\n    </BreadcrumbList>\n  </Breadcrumb>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

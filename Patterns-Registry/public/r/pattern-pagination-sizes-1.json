@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-sizes-1",
+  "type": "registry:component",
+  "title": "Pagination Sizes 1",
+  "description": "A pagination pattern: pagination-sizes-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/sizes/pagination-sizes-1.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationLink,\n  PaginationNext,\n  PaginationPrevious,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"Small Size\";\n\nconst Example = () => (\n  <Pagination className=\"text-sm\">\n    <PaginationContent className=\"gap-0.5\">\n      <PaginationItem>\n        <PaginationPrevious className=\"h-7 px-2 text-xs\" href=\"#\" size=\"sm\" />\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink className=\"h-7 w-7 text-xs\" href=\"#\" size=\"sm\">\n          1\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink className=\"h-7 w-7 text-xs\" href=\"#\" isActive size=\"sm\">\n          2\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink className=\"h-7 w-7 text-xs\" href=\"#\" size=\"sm\">\n          3\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationNext className=\"h-7 px-2 text-xs\" href=\"#\" size=\"sm\" />\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

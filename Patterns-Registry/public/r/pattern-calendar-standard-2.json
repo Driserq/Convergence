@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-calendar-standard-2",
+  "type": "registry:component",
+  "title": "Calendar Standard 2",
+  "description": "A calendar pattern: calendar-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/calendar/standard/calendar-standard-2.tsx",
+      "content": "\"use client\";\n\nimport type { ChangeEvent, ChangeEventHandler } from \"react\";\nimport { useState } from \"react\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Calendar with Month and Year Selector\";\n\nconst Example = () => {\n  const [date, setDate] = useState<Date | undefined>(new Date());\n  const [month, setMonth] = useState<Date>(new Date());\n\n  const handleCalendarChange = (\n    value: string | number,\n    event: ChangeEventHandler<HTMLSelectElement>\n  ) => {\n    const newEvent = {\n      target: {\n        value: String(value),\n      },\n    } as ChangeEvent<HTMLSelectElement>;\n    event(newEvent);\n  };\n\n  return (\n    <Calendar\n      captionLayout=\"dropdown\"\n      className=\"rounded-md border\"\n      components={{\n        MonthCaption: (props) => props.children,\n        DropdownNav: (props) => (\n          <div className=\"flex w-full items-center gap-2\">{props.children}</div>\n        ),\n        Dropdown: (props) => (\n          <Select\n            onValueChange={(value) => {\n              if (props.onChange) {\n                handleCalendarChange(value, props.onChange);\n              }\n            }}\n            value={String(props.value)}\n          >\n            <SelectTrigger className=\"first:flex-1 last:shrink-0\">\n              <SelectValue />\n            </SelectTrigger>\n            <SelectContent>\n              {props.options?.map((option) => (\n                <SelectItem\n                  disabled={option.disabled}\n                  key={option.value}\n                  value={String(option.value)}\n                >\n                  {option.label}\n                </SelectItem>\n              ))}\n            </SelectContent>\n          </Select>\n        ),\n      }}\n      hideNavigation\n      mode=\"single\"\n      month={month}\n      onMonthChange={setMonth}\n      onSelect={setDate}\n      selected={date}\n    />\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

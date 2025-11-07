@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-bottom-7",
+  "type": "registry:component",
+  "title": "Drawer Bottom 7",
+  "description": "A drawer pattern: drawer-bottom-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/bottom/drawer-bottom-7.tsx",
+      "content": "\"use client\";\n\nimport { Calendar, MapPin, Users } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Bottom Drawer Event Details\";\n\nconst Example = () => (\n  <Drawer>\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">View Event</Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>Design Workshop 2024</DrawerTitle>\n        <DrawerDescription>\n          Join us for an immersive design workshop\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"space-y-4 p-4\">\n        <div className=\"flex items-center gap-2\">\n          <Badge>Workshop</Badge>\n          <Badge variant=\"outline\">In-Person</Badge>\n        </div>\n        <div className=\"space-y-3\">\n          <div className=\"flex items-center gap-3 text-sm\">\n            <Calendar className=\"h-4 w-4 text-muted-foreground\" />\n            <span>March 15, 2024 at 2:00 PM</span>\n          </div>\n          <div className=\"flex items-center gap-3 text-sm\">\n            <MapPin className=\"h-4 w-4 text-muted-foreground\" />\n            <span>123 Design Street, San Francisco</span>\n          </div>\n          <div className=\"flex items-center gap-3 text-sm\">\n            <Users className=\"h-4 w-4 text-muted-foreground\" />\n            <span>24 people attending</span>\n          </div>\n        </div>\n        <div>\n          <h4 className=\"mb-2 font-medium text-sm\">About this event</h4>\n          <p className=\"text-muted-foreground text-sm\">\n            Learn the latest design trends and techniques from industry experts.\n            This hands-on workshop covers everything from basics to advanced\n            concepts.\n          </p>\n        </div>\n      </div>\n      <DrawerFooter>\n        <Button>Register Now</Button>\n        <DrawerClose asChild>\n          <Button variant=\"outline\">Maybe Later</Button>\n        </DrawerClose>\n      </DrawerFooter>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

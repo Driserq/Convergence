@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-standard-6",
+  "type": "registry:component",
+  "title": "Command Standard 6",
+  "description": "A command pattern: command-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/standard/command-standard-6.tsx",
+      "content": "import { ArrowRight, Copy, Download, Share, Star, Trash } from \"lucide-react\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandShortcut,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command Actions Menu\";\n\nconst Example = () => (\n  <Command className=\"h-auto w-full max-w-lg rounded-lg border shadow-md\">\n    <CommandInput placeholder=\"Search actions...\" />\n    <CommandList>\n      <CommandEmpty>No actions found.</CommandEmpty>\n      <CommandGroup heading=\"Quick Actions\">\n        <CommandItem>\n          <ArrowRight />\n          <span>Open</span>\n          <CommandShortcut>↵</CommandShortcut>\n        </CommandItem>\n        <CommandItem>\n          <Copy />\n          <span>Copy</span>\n          <CommandShortcut>⌘C</CommandShortcut>\n        </CommandItem>\n        <CommandItem>\n          <Star />\n          <span>Add to Favorites</span>\n          <CommandShortcut>⌘D</CommandShortcut>\n        </CommandItem>\n      </CommandGroup>\n      <CommandGroup heading=\"File Actions\">\n        <CommandItem>\n          <Download />\n          <span>Download</span>\n          <CommandShortcut>⌘⇧D</CommandShortcut>\n        </CommandItem>\n        <CommandItem>\n          <Share />\n          <span>Share</span>\n          <CommandShortcut>⌘⇧S</CommandShortcut>\n        </CommandItem>\n        <CommandItem>\n          <Trash />\n          <span>Delete</span>\n          <CommandShortcut>⌘⌫</CommandShortcut>\n        </CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

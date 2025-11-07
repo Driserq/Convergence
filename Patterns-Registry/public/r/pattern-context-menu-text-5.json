@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-text-5",
+  "type": "registry:component",
+  "title": "Context Menu Text 5",
+  "description": "A context-menu pattern: context-menu-text-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/text/context-menu-text-5.tsx",
+      "content": "import { Palette, Type } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Font and Style Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click to style text\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuSub>\n        <ContextMenuSubTrigger>\n          <div className=\"flex items-center gap-2\">\n            <Type />\n            <span>Font Family</span>\n          </div>\n        </ContextMenuSubTrigger>\n        <ContextMenuSubContent className=\"w-48\">\n          <ContextMenuItem>Arial</ContextMenuItem>\n          <ContextMenuItem>Times New Roman</ContextMenuItem>\n          <ContextMenuItem>Courier New</ContextMenuItem>\n          <ContextMenuItem>Georgia</ContextMenuItem>\n          <ContextMenuItem>Verdana</ContextMenuItem>\n        </ContextMenuSubContent>\n      </ContextMenuSub>\n      <ContextMenuSub>\n        <ContextMenuSubTrigger>\n          <div className=\"flex items-center gap-2\">\n            <Type />\n            <span>Font Size</span>\n          </div>\n        </ContextMenuSubTrigger>\n        <ContextMenuSubContent className=\"w-48\">\n          <ContextMenuItem>Small (12px)</ContextMenuItem>\n          <ContextMenuItem>Medium (14px)</ContextMenuItem>\n          <ContextMenuItem>Large (16px)</ContextMenuItem>\n          <ContextMenuItem>Extra Large (20px)</ContextMenuItem>\n        </ContextMenuSubContent>\n      </ContextMenuSub>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Palette />\n        <span>Text Color</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Palette />\n        <span>Highlight Color</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

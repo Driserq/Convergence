@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-profile-3",
+  "type": "registry:component",
+  "title": "Skeleton Profile 3",
+  "description": "A skeleton pattern: skeleton-profile-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/profile/skeleton-profile-3.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Profile Settings Form\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-6\">\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-20\" />\n      <Skeleton className=\"h-10 w-full\" />\n    </div>\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-24\" />\n      <Skeleton className=\"h-10 w-full\" />\n    </div>\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-16\" />\n      <Skeleton className=\"h-10 w-full\" />\n    </div>\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-28\" />\n      <Skeleton className=\"h-24 w-full\" />\n    </div>\n    <Skeleton className=\"h-10 w-32\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

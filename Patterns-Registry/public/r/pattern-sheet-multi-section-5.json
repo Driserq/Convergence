@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-multi-section-5",
+  "type": "registry:component",
+  "title": "Sheet Multi Section 5",
+  "description": "A sheet pattern: sheet-multi-section-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/multi-section/sheet-multi-section-5.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Separator } from \"@/components/ui/separator\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Sheet with Sticky Header and Footer\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>View Details</Button>\n    </SheetTrigger>\n    <SheetContent className=\"flex flex-col\">\n      <SheetHeader>\n        <SheetTitle>Product Information</SheetTitle>\n        <SheetDescription>\n          Detailed product specifications and features\n        </SheetDescription>\n      </SheetHeader>\n      <Separator />\n      <div className=\"flex-1 overflow-y-auto p-4\">\n        <div className=\"flex flex-col gap-4\">\n          <div>\n            <h4 className=\"mb-2 font-semibold text-sm\">Description</h4>\n            <p className=\"text-muted-foreground text-sm\">\n              This is a comprehensive product description that includes all the\n              important details about the product. It can be quite long and will\n              scroll if needed.\n            </p>\n          </div>\n          <div>\n            <h4 className=\"mb-2 font-semibold text-sm\">Specifications</h4>\n            <ul className=\"space-y-1 text-muted-foreground text-sm\">\n              <li>Feature 1: Value</li>\n              <li>Feature 2: Value</li>\n              <li>Feature 3: Value</li>\n              <li>Feature 4: Value</li>\n            </ul>\n          </div>\n          <div>\n            <h4 className=\"mb-2 font-semibold text-sm\">Reviews</h4>\n            <p className=\"text-muted-foreground text-sm\">\n              Customer reviews and ratings would be displayed here.\n            </p>\n          </div>\n        </div>\n      </div>\n      <Separator />\n      <SheetFooter>\n        <Button className=\"w-full\" variant=\"outline\">\n          Add to Wishlist\n        </Button>\n        <Button className=\"w-full\">Add to Cart</Button>\n      </SheetFooter>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

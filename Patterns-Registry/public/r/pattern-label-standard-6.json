@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-6",
+  "type": "registry:component",
+  "title": "Label Standard 6",
+  "description": "A label pattern: label-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-6.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\n\nexport const title = \"Label with Character Count\";\n\nconst Example = () => (\n  <div className=\"flex items-center justify-between gap-2\">\n    <Label htmlFor=\"bio\">Bio</Label>\n    <span className=\"text-muted-foreground text-xs\">0/500</span>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

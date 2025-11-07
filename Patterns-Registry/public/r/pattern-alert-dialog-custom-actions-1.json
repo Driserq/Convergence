@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-custom-actions-1",
+  "type": "registry:component",
+  "title": "Alert Dialog Custom Actions 1",
+  "description": "A alert-dialog pattern: alert-dialog-custom-actions-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/custom-actions/alert-dialog-custom-actions-1.tsx",
+      "content": "import { ExternalLink } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Actions with Icons\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Open External Link</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Leave Site?</AlertDialogTitle>\n        <AlertDialogDescription>\n          You are about to visit an external website. We are not responsible for\n          the content on external sites.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Stay Here</AlertDialogCancel>\n        <AlertDialogAction>\n          Continue\n          <ExternalLink className=\"size-4\" />\n        </AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

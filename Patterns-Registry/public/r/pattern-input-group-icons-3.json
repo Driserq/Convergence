@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-icons-3",
+  "type": "registry:component",
+  "title": "Input Group Icons 3",
+  "description": "A input-group pattern: input-group-icons-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/icons/input-group-icons-3.tsx",
+      "content": "import { CreditCardIcon, HelpCircleIcon, LockIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Dual Icons\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <CreditCardIcon />\n      </InputGroupAddon>\n      <InputGroupInput placeholder=\"Card number\" />\n      <InputGroupAddon align=\"inline-end\">\n        <LockIcon />\n      </InputGroupAddon>\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <LockIcon />\n      </InputGroupAddon>\n      <InputGroupInput placeholder=\"Password\" type=\"password\" />\n      <InputGroupAddon align=\"inline-end\">\n        <HelpCircleIcon />\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

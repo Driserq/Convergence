@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-text-2",
+  "type": "registry:component",
+  "title": "Input Group Text 2",
+  "description": "A input-group pattern: input-group-text-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/text/input-group-text-2.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"URL Builder\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupAddon>\n      <InputGroupText>https://</InputGroupText>\n    </InputGroupAddon>\n    <InputGroupInput placeholder=\"example\" />\n    <InputGroupAddon align=\"inline-end\">\n      <InputGroupText>.com</InputGroupText>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

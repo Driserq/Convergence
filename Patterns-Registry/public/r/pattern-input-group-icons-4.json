@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-icons-4",
+  "type": "registry:component",
+  "title": "Input Group Icons 4",
+  "description": "A input-group pattern: input-group-icons-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/icons/input-group-icons-4.tsx",
+      "content": "import { EyeIcon, EyeOffIcon, KeyIcon, RefreshCwIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Multiple Icons\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupInput placeholder=\"Enter password\" type=\"password\" />\n      <InputGroupAddon align=\"inline-end\">\n        <EyeIcon />\n      </InputGroupAddon>\n      <InputGroupAddon align=\"inline-end\">\n        <RefreshCwIcon />\n      </InputGroupAddon>\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <KeyIcon />\n      </InputGroupAddon>\n      <InputGroupInput placeholder=\"API key\" type=\"password\" />\n      <InputGroupAddon align=\"inline-end\">\n        <EyeOffIcon />\n      </InputGroupAddon>\n      <InputGroupAddon align=\"inline-end\">\n        <RefreshCwIcon />\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

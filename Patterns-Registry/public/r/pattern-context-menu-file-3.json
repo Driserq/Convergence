@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-file-3",
+  "type": "registry:component",
+  "title": "Context Menu File 3",
+  "description": "A context-menu pattern: context-menu-file-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/file/context-menu-file-3.tsx",
+      "content": "import { Archive, FileArchive } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Archive and Compress Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on file\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuSub>\n        <ContextMenuSubTrigger>\n          <div className=\"flex items-center gap-2\">\n            <Archive />\n            <span>Compress</span>\n          </div>\n        </ContextMenuSubTrigger>\n        <ContextMenuSubContent className=\"w-48\">\n          <ContextMenuItem>\n            <FileArchive />\n            <span>ZIP Archive</span>\n          </ContextMenuItem>\n          <ContextMenuItem>\n            <FileArchive />\n            <span>TAR.GZ Archive</span>\n          </ContextMenuItem>\n          <ContextMenuItem>\n            <FileArchive />\n            <span>7Z Archive</span>\n          </ContextMenuItem>\n        </ContextMenuSubContent>\n      </ContextMenuSub>\n      <ContextMenuItem>\n        <Archive />\n        <span>Extract Here</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Archive />\n        <span>Extract to...</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

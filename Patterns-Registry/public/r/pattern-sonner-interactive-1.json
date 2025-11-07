@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-interactive-1",
+  "type": "registry:component",
+  "title": "Sonner Interactive 1",
+  "description": "A sonner pattern: sonner-interactive-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/interactive/sonner-interactive-1.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Toast with Action Button\";\n\nconst Example = () => (\n  <Button\n    onClick={() =>\n      toast(\"Event has been created\", {\n        action: {\n          label: \"Undo\",\n          onClick: () => toast.success(\"Action clicked\"),\n        },\n      })\n    }\n    variant=\"outline\"\n  >\n    Show Toast\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

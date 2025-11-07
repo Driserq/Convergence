@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-standard-5",
+  "type": "registry:component",
+  "title": "Input Otp Standard 5",
+  "description": "A input-otp pattern: input-otp-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/standard/input-otp-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { useForm } from \"react-hook-form\";\nimport { toast } from \"sonner\";\nimport { z } from \"zod\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Form,\n  FormControl,\n  FormDescription,\n  FormField,\n  FormItem,\n  FormLabel,\n  FormMessage,\n} from \"@/components/ui/form\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP in Form with Validation\";\n\nconst formSchema = z.object({\n  pin: z.string().min(6, {\n    message: \"Your one-time password must be 6 characters.\",\n  }),\n});\n\nconst Example = () => {\n  const form = useForm<z.infer<typeof formSchema>>({\n    resolver: zodResolver(formSchema),\n    defaultValues: {\n      pin: \"\",\n    },\n  });\n\n  function onSubmit(values: z.infer<typeof formSchema>) {\n    toast.success(`You submitted the following values: ${values.pin}`);\n  }\n\n  return (\n    <div className=\"w-full max-w-md\">\n      <Form {...form}>\n        <form className=\"space-y-6\" onSubmit={form.handleSubmit(onSubmit)}>\n          <FormField\n            control={form.control}\n            name=\"pin\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel>One-Time Password</FormLabel>\n                <FormControl>\n                  <InputOTP maxLength={6} {...field}>\n                    <InputOTPGroup>\n                      <InputOTPSlot className=\"bg-background\" index={0} />\n                      <InputOTPSlot className=\"bg-background\" index={1} />\n                      <InputOTPSlot className=\"bg-background\" index={2} />\n                    </InputOTPGroup>\n                    <InputOTPSeparator />\n                    <InputOTPGroup>\n                      <InputOTPSlot className=\"bg-background\" index={3} />\n                      <InputOTPSlot className=\"bg-background\" index={4} />\n                      <InputOTPSlot className=\"bg-background\" index={5} />\n                    </InputOTPGroup>\n                  </InputOTP>\n                </FormControl>\n                <FormDescription>\n                  Please enter the one-time password sent to your phone.\n                </FormDescription>\n                <FormMessage />\n              </FormItem>\n            )}\n          />\n          <Button type=\"submit\">Submit</Button>\n        </form>\n      </Form>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

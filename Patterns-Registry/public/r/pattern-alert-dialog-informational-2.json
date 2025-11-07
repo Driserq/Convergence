@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-informational-2",
+  "type": "registry:component",
+  "title": "Alert Dialog Informational 2",
+  "description": "A alert-dialog pattern: alert-dialog-informational-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/informational/alert-dialog-informational-2.tsx",
+      "content": "import { Info } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Information with Icon\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Show Info</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <div className=\"flex items-center gap-2\">\n          <Info className=\"size-5 text-blue-500\" />\n          <AlertDialogTitle>New Features Available</AlertDialogTitle>\n        </div>\n        <AlertDialogDescription>\n          We've added new collaboration features to help your team work more\n          efficiently. Check out the what's new page to learn more.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogAction>Got it</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

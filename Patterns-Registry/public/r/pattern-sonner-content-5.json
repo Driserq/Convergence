@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-content-5",
+  "type": "registry:component",
+  "title": "Sonner Content 5",
+  "description": "A sonner pattern: sonner-content-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/content/sonner-content-5.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Toast with Rich HTML Content\";\n\nconst Example = () => (\n  <Button\n    onClick={() =>\n      toast(\n        <div className=\"flex items-start gap-3\">\n          <div className=\"flex size-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground\">\n            <span className=\"font-semibold text-sm\">JD</span>\n          </div>\n          <div className=\"flex flex-col gap-1\">\n            <div className=\"flex items-center gap-2\">\n              <strong className=\"text-sm\">John Doe</strong>\n              <span className=\"rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary text-xs\">\n                New\n              </span>\n            </div>\n            <p className=\"text-sm\">Hey! Just finished the design mockups 🎨</p>\n            <span className=\"text-muted-foreground text-xs\">2 minutes ago</span>\n          </div>\n        </div>\n      )\n    }\n    variant=\"outline\"\n  >\n    Show Toast\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

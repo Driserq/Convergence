@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-calendar-dialog-1",
+  "type": "registry:component",
+  "title": "Calendar Dialog 1",
+  "description": "A calendar pattern: calendar-dialog-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/calendar/dialog/calendar-dialog-1.tsx",
+      "content": "\"use client\";\n\nimport { faker } from \"@faker-js/faker\";\nimport { useState } from \"react\";\nimport type { DateRange } from \"react-day-picker\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\n\nexport const title = \"Calendar with Range in Dialog\";\n\nconst now = new Date();\nconst startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);\nconst endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);\n\nconst from = faker.date.between({\n  from: startOfMonth,\n  to: new Date(now.getFullYear(), now.getMonth(), 15),\n});\nconst to = faker.date.between({\n  from: new Date(now.getFullYear(), now.getMonth(), 16),\n  to: endOfMonth,\n});\n\nconst Example = () => {\n  const [date, setDate] = useState<DateRange | undefined>({\n    from,\n    to,\n  });\n\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Select Date Range</Button>\n      </DialogTrigger>\n      <DialogContent className=\"sm:max-w-[700px]\">\n        <DialogHeader>\n          <DialogTitle>Select Date Range</DialogTitle>\n        </DialogHeader>\n        <Calendar\n          className=\"rounded-md border\"\n          mode=\"range\"\n          numberOfMonths={2}\n          onSelect={setDate}\n          selected={date}\n        />\n      </DialogContent>\n    </Dialog>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-carousel-standard-1",
+  "type": "registry:component",
+  "title": "Carousel Standard 1",
+  "description": "A carousel pattern: carousel-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/carousel/standard/carousel-standard-1.tsx",
+      "content": "import { faker } from \"@faker-js/faker\";\nimport {\n  Carousel,\n  CarouselContent,\n  CarouselItem,\n  CarouselNext,\n  CarouselPrevious,\n} from \"@/components/ui/carousel\";\n\nexport const title = \"Standard Carousel\";\n\nconst slides = Array.from({ length: 5 }, (_, index) => ({\n  id: index + 1,\n  image: faker.image.urlPicsumPhotos({ width: 800, height: 400 }),\n}));\n\nconst Example = () => (\n  <div className=\"mx-auto w-full max-w-xl\">\n    <Carousel>\n      <CarouselContent>\n        {slides.map((slide) => (\n          <CarouselItem key={slide.id}>\n            <div className=\"flex aspect-video w-full items-center justify-center rounded-md border bg-background\">\n              <span className=\"font-semibold text-4xl\">{slide.id}</span>\n            </div>\n          </CarouselItem>\n        ))}\n      </CarouselContent>\n      <CarouselPrevious />\n      <CarouselNext />\n    </Carousel>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

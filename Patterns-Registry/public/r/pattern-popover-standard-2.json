@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-2",
+  "type": "registry:component",
+  "title": "Popover Standard 2",
+  "description": "A popover pattern: popover-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-2.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Popover with Heading\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">View Details</Button>\n    </PopoverTrigger>\n    <PopoverContent>\n      <h4 className=\"mb-2 font-semibold\">Details</h4>\n      <p className=\"text-muted-foreground text-sm\">\n        Additional information about this item.\n      </p>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

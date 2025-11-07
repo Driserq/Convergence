@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-progress-with-label-5",
+  "type": "registry:component",
+  "title": "Progress With Label 5",
+  "description": "A progress pattern: progress-with-label-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/progress/with-label/progress-with-label-5.tsx",
+      "content": "import { Progress } from \"@/components/ui/progress\";\n\nexport const title = \"Multi-line Label\";\n\nconst Example = () => {\n  const value = 35;\n  return (\n    <div className=\"w-full max-w-md space-y-2\">\n      <div className=\"flex items-start justify-between\">\n        <div>\n          <p className=\"font-medium text-sm\">Project Setup</p>\n          <p className=\"text-muted-foreground text-xs\">\n            Installing dependencies\n          </p>\n        </div>\n        <span className=\"font-medium text-sm\">{value}%</span>\n      </div>\n      <Progress value={value} />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

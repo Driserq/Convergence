@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-warning-3",
+  "type": "registry:component",
+  "title": "Alert Warning 3",
+  "description": "A alert pattern: alert-warning-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert/warning/alert-warning-3.tsx",
+      "content": "import { Alert, AlertTitle } from \"@/components/ui/alert\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Warning with Title and Action\";\n\nconst Example = () => (\n  <Alert className=\"w-full max-w-lg border-warning/80 bg-warning/5 text-warning\">\n    <div className=\"col-span-2 flex items-center justify-between gap-4\">\n      <AlertTitle>Warning</AlertTitle>\n      <div className=\"flex shrink-0 gap-2\">\n        <Button\n          className=\"bg-warning text-white hover:bg-warning/90\"\n          size=\"sm\"\n          variant=\"default\"\n        >\n          Proceed\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Cancel\n        </Button>\n      </div>\n    </div>\n  </Alert>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-navigation-3",
+  "type": "registry:component",
+  "title": "Sheet Navigation 3",
+  "description": "A sheet pattern: sheet-navigation-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/navigation/sheet-navigation-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Nested Navigation Menu Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Menu</Button>\n    </SheetTrigger>\n    <SheetContent side=\"left\">\n      <SheetHeader>\n        <SheetTitle>Menu</SheetTitle>\n      </SheetHeader>\n      <nav className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <h3 className=\"font-semibold text-sm\">Products</h3>\n          <div className=\"flex flex-col gap-1 pl-4\">\n            <a\n              className=\"text-muted-foreground text-sm hover:text-foreground\"\n              href=\"#\"\n            >\n              All Products\n            </a>\n            <a\n              className=\"text-muted-foreground text-sm hover:text-foreground\"\n              href=\"#\"\n            >\n              New Arrivals\n            </a>\n            <a\n              className=\"text-muted-foreground text-sm hover:text-foreground\"\n              href=\"#\"\n            >\n              Best Sellers\n            </a>\n          </div>\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <h3 className=\"font-semibold text-sm\">Resources</h3>\n          <div className=\"flex flex-col gap-1 pl-4\">\n            <a\n              className=\"text-muted-foreground text-sm hover:text-foreground\"\n              href=\"#\"\n            >\n              Documentation\n            </a>\n            <a\n              className=\"text-muted-foreground text-sm hover:text-foreground\"\n              href=\"#\"\n            >\n              Guides\n            </a>\n            <a\n              className=\"text-muted-foreground text-sm hover:text-foreground\"\n              href=\"#\"\n            >\n              API Reference\n            </a>\n          </div>\n        </div>\n      </nav>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

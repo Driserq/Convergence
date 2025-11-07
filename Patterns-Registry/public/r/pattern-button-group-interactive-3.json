@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-interactive-3",
+  "type": "registry:component",
+  "title": "Button Group Interactive 3",
+  "description": "A button-group pattern: button-group-interactive-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/interactive/button-group-interactive-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Filter Chips\";\n\nconst Example = () => {\n  const [filters, setFilters] = useState<string[]>([\"all\"]);\n\n  const toggleFilter = (filter: string) => {\n    if (filter === \"all\") {\n      setFilters([\"all\"]);\n    } else {\n      const newFilters = filters.includes(filter)\n        ? filters.filter((f) => f !== filter)\n        : [...filters.filter((f) => f !== \"all\"), filter];\n      setFilters(newFilters.length === 0 ? [\"all\"] : newFilters);\n    }\n  };\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => toggleFilter(\"all\")}\n          size=\"sm\"\n          variant={filters.includes(\"all\") ? \"default\" : \"outline\"}\n        >\n          All\n        </Button>\n        <Button\n          onClick={() => toggleFilter(\"active\")}\n          size=\"sm\"\n          variant={filters.includes(\"active\") ? \"default\" : \"outline\"}\n        >\n          Active\n        </Button>\n        <Button\n          onClick={() => toggleFilter(\"pending\")}\n          size=\"sm\"\n          variant={filters.includes(\"pending\") ? \"default\" : \"outline\"}\n        >\n          Pending\n        </Button>\n        <Button\n          onClick={() => toggleFilter(\"completed\")}\n          size=\"sm\"\n          variant={filters.includes(\"completed\") ? \"default\" : \"outline\"}\n        >\n          Completed\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => toggleFilter(\"bug\")}\n          size=\"sm\"\n          variant={filters.includes(\"bug\") ? \"default\" : \"outline\"}\n        >\n          Bug\n        </Button>\n        <Button\n          onClick={() => toggleFilter(\"feature\")}\n          size=\"sm\"\n          variant={filters.includes(\"feature\") ? \"default\" : \"outline\"}\n        >\n          Feature\n        </Button>\n        <Button\n          onClick={() => toggleFilter(\"enhancement\")}\n          size=\"sm\"\n          variant={filters.includes(\"enhancement\") ? \"default\" : \"outline\"}\n        >\n          Enhancement\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-advanced-1",
+  "type": "registry:component",
+  "title": "Pagination Advanced 1",
+  "description": "A pagination pattern: pagination-advanced-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/advanced/pagination-advanced-1.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationEllipsis,\n  PaginationItem,\n  PaginationLink,\n  PaginationNext,\n  PaginationPrevious,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"Start Ellipsis\";\n\nconst Example = () => (\n  <Pagination>\n    <PaginationContent>\n      <PaginationItem>\n        <PaginationPrevious href=\"#\" />\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">1</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationEllipsis />\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">8</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\" isActive>\n          9\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">10</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationNext href=\"#\" />\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

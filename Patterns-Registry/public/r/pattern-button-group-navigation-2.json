@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-navigation-2",
+  "type": "registry:component",
+  "title": "Button Group Navigation 2",
+  "description": "A button-group pattern: button-group-navigation-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/navigation/button-group-navigation-2.tsx",
+      "content": "\"use client\";\n\nimport { ChevronLeftIcon, ChevronRightIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Carousel Controls\";\n\nconst Example = () => {\n  const [slide, setSlide] = useState(1);\n  const totalSlides = 5;\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          disabled={slide === 1}\n          onClick={() => setSlide(Math.max(1, slide - 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronLeftIcon />\n        </Button>\n        {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (\n          <Button\n            className=\"aspect-square rounded-full p-0\"\n            key={num}\n            onClick={() => setSlide(num)}\n            size=\"sm\"\n            variant={slide === num ? \"default\" : \"outline\"}\n          />\n        ))}\n        <Button\n          disabled={slide === totalSlides}\n          onClick={() => setSlide(Math.min(totalSlides, slide + 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronRightIcon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          disabled={slide === 1}\n          onClick={() => setSlide(Math.max(1, slide - 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronLeftIcon />\n          Prev\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          {slide} / {totalSlides}\n        </Button>\n        <Button\n          disabled={slide === totalSlides}\n          onClick={() => setSlide(Math.min(totalSlides, slide + 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          Next\n          <ChevronRightIcon />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-custom-actions-4",
+  "type": "registry:component",
+  "title": "Alert Dialog Custom Actions 4",
+  "description": "A alert-dialog pattern: alert-dialog-custom-actions-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/custom-actions/alert-dialog-custom-actions-4.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Download } from \"lucide-react\";\n\nexport const title = \"Actions with Loading State\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">\n        <Download className=\"size-4\" />\n        Download\n      </Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Download Report</AlertDialogTitle>\n        <AlertDialogDescription>\n          Your report is ready to download. This file contains sensitive\n          information and should be handled securely.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"rounded-md bg-muted p-3 text-sm\">\n        <div className=\"flex items-center justify-between\">\n          <span>File size:</span>\n          <span className=\"font-medium\">2.4 MB</span>\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <span>Format:</span>\n          <span className=\"font-medium\">PDF</span>\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction>\n          <Download className=\"size-4\" />\n          Download File\n        </AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

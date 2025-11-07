@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-states-1",
+  "type": "registry:component",
+  "title": "Input Otp States 1",
+  "description": "A input-otp pattern: input-otp-states-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/states/input-otp-states-1.tsx",
+      "content": "import {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"Disabled OTP Input\";\n\nconst Example = () => (\n  <div className=\"space-y-2\">\n    <InputOTP disabled maxLength={6}>\n      <InputOTPGroup>\n        <InputOTPSlot className=\"bg-background\" index={0} />\n        <InputOTPSlot className=\"bg-background\" index={1} />\n        <InputOTPSlot className=\"bg-background\" index={2} />\n      </InputOTPGroup>\n      <InputOTPSeparator />\n      <InputOTPGroup>\n        <InputOTPSlot className=\"bg-background\" index={3} />\n        <InputOTPSlot className=\"bg-background\" index={4} />\n        <InputOTPSlot className=\"bg-background\" index={5} />\n      </InputOTPGroup>\n    </InputOTP>\n    <p className=\"text-muted-foreground text-sm\">This OTP input is disabled.</p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

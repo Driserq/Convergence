@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-radio-group-standard-1",
+  "type": "registry:component",
+  "title": "Radio Group Standard 1",
+  "description": "A radio-group pattern: radio-group-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/radio-group/standard/radio-group-standard-1.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"Basic RadioGroup\";\n\nconst Example = () => (\n  <RadioGroup defaultValue=\"option-1\">\n    <div className=\"flex items-center space-x-2\">\n      <RadioGroupItem id=\"option-1\" value=\"option-1\" />\n      <Label htmlFor=\"option-1\">Option 1</Label>\n    </div>\n    <div className=\"flex items-center space-x-2\">\n      <RadioGroupItem id=\"option-2\" value=\"option-2\" />\n      <Label htmlFor=\"option-2\">Option 2</Label>\n    </div>\n    <div className=\"flex items-center space-x-2\">\n      <RadioGroupItem id=\"option-3\" value=\"option-3\" />\n      <Label htmlFor=\"option-3\">Option 3</Label>\n    </div>\n  </RadioGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

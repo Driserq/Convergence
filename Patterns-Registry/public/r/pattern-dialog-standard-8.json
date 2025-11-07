@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-8",
+  "type": "registry:component",
+  "title": "Dialog Standard 8",
+  "description": "A dialog pattern: dialog-standard-8",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-8.tsx",
+      "content": "\"use client\";\n\nimport { StarIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\nimport { cn } from \"@/lib/utils\";\n\nexport const title = \"Rating\";\n\nconst Example = () => {\n  const [rating, setRating] = useState(0);\n  const [hoverRating, setHoverRating] = useState(0);\n\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Rate Experience</Button>\n      </DialogTrigger>\n      <DialogContent className=\"sm:max-w-lg\">\n        <DialogHeader>\n          <DialogTitle>How was your experience?</DialogTitle>\n          <DialogDescription>\n            Please rate your experience and share any additional feedback.\n          </DialogDescription>\n        </DialogHeader>\n        <div className=\"space-y-4\">\n          <div className=\"space-y-2\">\n            <Label>Rating</Label>\n            <div className=\"flex gap-1\">\n              {[1, 2, 3, 4, 5].map((star) => (\n                <button\n                  className=\"transition-transform hover:scale-110\"\n                  key={star}\n                  onClick={() => setRating(star)}\n                  onMouseEnter={() => setHoverRating(star)}\n                  onMouseLeave={() => setHoverRating(0)}\n                  type=\"button\"\n                >\n                  <StarIcon\n                    className={cn(\n                      \"h-8 w-8 transition-colors\",\n                      (hoverRating || rating) >= star\n                        ? \"fill-yellow-400 text-yellow-400\"\n                        : \"text-muted-foreground\"\n                    )}\n                  />\n                </button>\n              ))}\n            </div>\n          </div>\n          <div className=\"space-y-2\">\n            <Label htmlFor=\"feedback\">Additional feedback (optional)</Label>\n            <Textarea\n              className=\"min-h-[100px]\"\n              id=\"feedback\"\n              placeholder=\"Tell us more about your experience...\"\n            />\n          </div>\n        </div>\n        <DialogFooter>\n          <Button type=\"button\" variant=\"outline\">\n            Cancel\n          </Button>\n          <Button disabled={rating === 0} type=\"button\">\n            Submit Rating\n          </Button>\n        </DialogFooter>\n      </DialogContent>\n    </Dialog>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

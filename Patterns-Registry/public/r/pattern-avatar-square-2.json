@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-avatar-square-2",
+  "type": "registry:component",
+  "title": "Avatar Square 2",
+  "description": "A avatar pattern: avatar-square-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/avatar/square/avatar-square-2.tsx",
+      "content": "import { Avatar, AvatarFallback } from \"@/components/ui/avatar\";\n\nexport const title = \"Avatar with Placeholder Initials\";\n\nconst Example = () => (\n  <Avatar className=\"rounded-lg\">\n    <AvatarFallback className=\"rounded-lg\">HB</AvatarFallback>\n  </Avatar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

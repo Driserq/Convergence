@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-4",
+  "type": "registry:component",
+  "title": "Empty Standard 4",
+  "description": "A empty pattern: empty-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { FolderOpen } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Large Icon\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia>\n        <FolderOpen className=\"h-16 w-16 text-muted-foreground\" />\n      </EmptyMedia>\n      <EmptyTitle>This folder is empty</EmptyTitle>\n      <EmptyDescription>\n        Start by adding files or creating new folders.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

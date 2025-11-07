@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-standard-4",
+  "type": "registry:component",
+  "title": "Spinner Standard 4",
+  "description": "A spinner pattern: spinner-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/standard/spinner-standard-4.tsx",
+      "content": "import { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Primary Color Spinner\";\n\nconst Example = () => <Spinner className=\"text-primary\" />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

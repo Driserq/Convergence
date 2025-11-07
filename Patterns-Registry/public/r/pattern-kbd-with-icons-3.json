@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-with-icons-3",
+  "type": "registry:component",
+  "title": "Kbd With Icons 3",
+  "description": "A kbd pattern: kbd-with-icons-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/with-icons/kbd-with-icons-3.tsx",
+      "content": "import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from \"lucide-react\";\nimport { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Arrow Keys with Icons\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd>\n        <ArrowUp />\n      </Kbd>\n      <Kbd>\n        <ArrowDown />\n      </Kbd>\n      <Kbd>\n        <ArrowLeft />\n      </Kbd>\n      <Kbd>\n        <ArrowRight />\n      </Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

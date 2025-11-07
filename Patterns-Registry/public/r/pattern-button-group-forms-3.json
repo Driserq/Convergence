@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-forms-3",
+  "type": "registry:component",
+  "title": "Button Group Forms 3",
+  "description": "A button-group pattern: button-group-forms-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/forms/button-group-forms-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Status Selector\";\n\nconst Example = () => {\n  const [status, setStatus] = useState(\"todo\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setStatus(\"todo\")}\n          size=\"sm\"\n          variant={status === \"todo\" ? \"default\" : \"outline\"}\n        >\n          To Do\n        </Button>\n        <Button\n          onClick={() => setStatus(\"inProgress\")}\n          size=\"sm\"\n          variant={status === \"inProgress\" ? \"default\" : \"outline\"}\n        >\n          In Progress\n        </Button>\n        <Button\n          onClick={() => setStatus(\"review\")}\n          size=\"sm\"\n          variant={status === \"review\" ? \"default\" : \"outline\"}\n        >\n          Review\n        </Button>\n        <Button\n          onClick={() => setStatus(\"done\")}\n          size=\"sm\"\n          variant={status === \"done\" ? \"default\" : \"outline\"}\n        >\n          Done\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setStatus(\"backlog\")}\n          size=\"sm\"\n          variant={status === \"backlog\" ? \"default\" : \"outline\"}\n        >\n          Backlog\n        </Button>\n        <Button\n          onClick={() => setStatus(\"active\")}\n          size=\"sm\"\n          variant={status === \"active\" ? \"default\" : \"outline\"}\n        >\n          Active\n        </Button>\n        <Button\n          onClick={() => setStatus(\"completed\")}\n          size=\"sm\"\n          variant={status === \"completed\" ? \"default\" : \"outline\"}\n        >\n          Completed\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

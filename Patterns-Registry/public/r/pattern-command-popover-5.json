@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-popover-5",
+  "type": "registry:component",
+  "title": "Command Popover 5",
+  "description": "A command pattern: command-popover-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/popover/command-popover-5.tsx",
+      "content": "import { Mail, MapPin, Phone, User } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Command Popover with Descriptions\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">Search Contacts</Button>\n    </PopoverTrigger>\n    <PopoverContent align=\"start\" className=\"w-[400px] p-0\">\n      <Command>\n        <CommandInput placeholder=\"Search contacts...\" />\n        <CommandList>\n          <CommandEmpty>No contacts found.</CommandEmpty>\n          <CommandGroup heading=\"Contacts\">\n            <CommandItem>\n              <User />\n              <div className=\"flex flex-col\">\n                <span>John Doe</span>\n                <span className=\"text-muted-foreground text-xs\">\n                  Software Engineer\n                </span>\n              </div>\n            </CommandItem>\n            <CommandItem>\n              <Mail />\n              <div className=\"flex flex-col\">\n                <span>jane@example.com</span>\n                <span className=\"text-muted-foreground text-xs\">Email</span>\n              </div>\n            </CommandItem>\n            <CommandItem>\n              <Phone />\n              <div className=\"flex flex-col\">\n                <span>+1 (555) 123-4567</span>\n                <span className=\"text-muted-foreground text-xs\">Mobile</span>\n              </div>\n            </CommandItem>\n            <CommandItem>\n              <MapPin />\n              <div className=\"flex flex-col\">\n                <span>San Francisco, CA</span>\n                <span className=\"text-muted-foreground text-xs\">Location</span>\n              </div>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </Command>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

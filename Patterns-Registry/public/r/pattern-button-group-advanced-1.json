@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-advanced-1",
+  "type": "registry:component",
+  "title": "Button Group Advanced 1",
+  "description": "A button-group pattern: button-group-advanced-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/advanced/button-group-advanced-1.tsx",
+      "content": "\"use client\";\n\nimport { ChevronDownIcon, GitForkIcon, StarIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Split Button with Dropdown\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button variant=\"outline\">\n        <GitForkIcon />\n        Fork\n      </Button>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button className=\"px-2\" variant=\"outline\">\n            <ChevronDownIcon />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Create a fork</DropdownMenuItem>\n          <DropdownMenuItem>View existing forks</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button variant=\"outline\">\n        <StarIcon />\n        Star\n      </Button>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button className=\"px-2\" variant=\"outline\">\n            <ChevronDownIcon />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\">\n          <DropdownMenuItem>Add to list</DropdownMenuItem>\n          <DropdownMenuItem>View starred</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

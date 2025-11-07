@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-6",
+  "type": "registry:component",
+  "title": "Empty Standard 6",
+  "description": "A empty pattern: empty-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-6.tsx",
+      "content": "\"use client\";\n\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty without Icon\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyTitle>No content available</EmptyTitle>\n      <EmptyDescription>\n        There's nothing to display at the moment. Please check back later.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-textarea-4",
+  "type": "registry:component",
+  "title": "Input Group Textarea 4",
+  "description": "A input-group pattern: input-group-textarea-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/textarea/input-group-textarea-4.tsx",
+      "content": "import { SendIcon, SmileIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupText,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Chat Input\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupTextarea\n      className=\"min-h-[80px]\"\n      placeholder=\"Type a message...\"\n    />\n    <InputGroupAddon align=\"block-end\" className=\"border-t\">\n      <InputGroupButton aria-label=\"Emoji\" size=\"icon-xs\" variant=\"ghost\">\n        <SmileIcon />\n      </InputGroupButton>\n      <InputGroupText className=\"ml-auto\">0/2000</InputGroupText>\n      <InputGroupButton className=\"ml-2\" size=\"sm\" variant=\"default\">\n        Send\n        <SendIcon />\n      </InputGroupButton>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

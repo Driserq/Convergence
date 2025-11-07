@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-sequence-1",
+  "type": "registry:component",
+  "title": "Kbd Sequence 1",
+  "description": "A kbd pattern: kbd-sequence-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/sequence/kbd-sequence-1.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Key Sequence with Then\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <div className=\"flex items-center gap-2\">\n      <KbdGroup>\n        <Kbd>Ctrl</Kbd>\n        <Kbd>K</Kbd>\n      </KbdGroup>\n      <span className=\"text-muted-foreground text-sm\">then</span>\n      <Kbd>B</Kbd>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

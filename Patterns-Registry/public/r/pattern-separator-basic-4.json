@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-basic-4",
+  "type": "registry:component",
+  "title": "Separator Basic 4",
+  "description": "A separator pattern: separator-basic-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/basic/separator-basic-4.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Section Divider\";\n\nconst Example = () => (\n  <div className=\"space-y-4\">\n    <div>\n      <h3 className=\"font-semibold text-lg\">Section 1</h3>\n      <p className=\"text-muted-foreground text-sm\">Content for section 1</p>\n    </div>\n    <Separator />\n    <div>\n      <h3 className=\"font-semibold text-lg\">Section 2</h3>\n      <p className=\"text-muted-foreground text-sm\">Content for section 2</p>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

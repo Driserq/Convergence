@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-sidebar-1",
+  "type": "registry:component",
+  "title": "Collapsible Sidebar 1",
+  "description": "A collapsible pattern: collapsible-sidebar-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/sidebar/collapsible-sidebar-1.tsx",
+      "content": "import { ChevronRight, Circle } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Nested Sidebar Items\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-lg\">\n    <Collapsible>\n      <CollapsibleTrigger className=\"flex w-full items-center gap-2 rounded-md px-2 py-1.5 font-medium text-sm hover:bg-muted\">\n        <ChevronRight className=\"h-4 w-4\" />\n        <span>Documentation</span>\n      </CollapsibleTrigger>\n      <CollapsibleContent className=\"mt-1 ml-2 border-l-2 pl-2\">\n        <Collapsible>\n          <CollapsibleTrigger className=\"flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-muted\">\n            <ChevronRight className=\"h-3 w-3\" />\n            <span>Components</span>\n          </CollapsibleTrigger>\n          <CollapsibleContent className=\"mt-1 ml-4 space-y-1\">\n            <div className=\"flex items-center gap-2 px-2 py-1 text-sm hover:bg-muted\">\n              <Circle className=\"h-1.5 w-1.5 fill-current\" />\n              <span>Button</span>\n            </div>\n            <div className=\"flex items-center gap-2 px-2 py-1 text-sm hover:bg-muted\">\n              <Circle className=\"h-1.5 w-1.5 fill-current\" />\n              <span>Input</span>\n            </div>\n          </CollapsibleContent>\n        </Collapsible>\n      </CollapsibleContent>\n    </Collapsible>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-card-5",
+  "type": "registry:component",
+  "title": "Collapsible Card 5",
+  "description": "A collapsible pattern: collapsible-card-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/card/collapsible-card-5.tsx",
+      "content": "import {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Subtle Card Collapsible\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg rounded-lg border-2 border-dashed bg-muted/50\">\n    <CollapsibleTrigger className=\"flex w-full items-center justify-between p-4 font-medium text-sm\">\n      View source code\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"px-4 pb-4\">\n      <pre className=\"rounded-md bg-background p-3 text-xs\">\n        <code>{`function hello() {\n  console.log(\"Hello, World!\");\n}`}</code>\n      </pre>\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

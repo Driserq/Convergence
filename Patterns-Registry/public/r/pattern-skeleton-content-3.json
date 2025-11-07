@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-content-3",
+  "type": "registry:component",
+  "title": "Skeleton Content 3",
+  "description": "A skeleton pattern: skeleton-content-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/content/skeleton-content-3.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Comment Thread\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-2xl flex-col gap-4\">\n    {Array.from({ length: 3 }).map((_, i) => (\n      <div className=\"flex gap-3\" key={i}>\n        <Skeleton className=\"size-10 flex-shrink-0 rounded-full\" />\n        <div className=\"flex flex-1 flex-col gap-2\">\n          <div className=\"flex items-center gap-2\">\n            <Skeleton className=\"h-4 w-24\" />\n            <Skeleton className=\"h-3 w-16\" />\n          </div>\n          <Skeleton className=\"h-4 w-full\" />\n          <Skeleton className=\"h-4 w-5/6\" />\n          <div className=\"flex gap-3 pt-2\">\n            <Skeleton className=\"h-6 w-12\" />\n            <Skeleton className=\"h-6 w-14\" />\n          </div>\n        </div>\n      </div>\n    ))}\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-top-1",
+  "type": "registry:component",
+  "title": "Drawer Top 1",
+  "description": "A drawer pattern: drawer-top-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/top/drawer-top-1.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Simple Top Drawer\";\n\nconst Example = () => (\n  <Drawer direction=\"top\">\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">Open Top Drawer</Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>Top Drawer</DrawerTitle>\n        <DrawerDescription>\n          This drawer slides down from the top.\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"p-4\">\n        <p className=\"text-muted-foreground text-sm\">\n          Top drawers are useful for search bars, notifications, and quick\n          action panels.\n        </p>\n      </div>\n      <DrawerFooter>\n        <DrawerClose asChild>\n          <Button variant=\"outline\">Close</Button>\n        </DrawerClose>\n      </DrawerFooter>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

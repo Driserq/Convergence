@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-calendar-standard-4",
+  "type": "registry:component",
+  "title": "Calendar Standard 4",
+  "description": "A calendar pattern: calendar-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/calendar/standard/calendar-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Calendar with Date and Time\";\n\nconst Example = () => {\n  const [date, setDate] = useState<Date | undefined>(new Date());\n  const [time, setTime] = useState<string>(\"12:00\");\n\n  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    setTime(e.target.value);\n    if (date) {\n      const [hours, minutes] = e.target.value.split(\":\");\n      const newDate = new Date(date);\n      newDate.setHours(\n        Number.parseInt(hours, 10),\n        Number.parseInt(minutes, 10)\n      );\n      setDate(newDate);\n    }\n  };\n\n  return (\n    <div className=\"divide-y overflow-hidden rounded-md border bg-background\">\n      <Calendar mode=\"single\" onSelect={setDate} selected={date} />\n      <div className=\"space-y-2 p-4\">\n        <Label htmlFor=\"time\">Time</Label>\n        <Input\n          className=\"w-full\"\n          id=\"time\"\n          onChange={handleTimeChange}\n          type=\"time\"\n          value={time}\n        />\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

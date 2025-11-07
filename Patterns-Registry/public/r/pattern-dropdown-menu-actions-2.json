@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-actions-2",
+  "type": "registry:component",
+  "title": "Dropdown Menu Actions 2",
+  "description": "A dropdown-menu pattern: dropdown-menu-actions-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/actions/dropdown-menu-actions-2.tsx",
+      "content": "\"use client\";\n\nimport {\n  Archive,\n  Copy,\n  Edit,\n  Flag,\n  MoreVertical,\n  Star,\n  Trash2,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Table Row Actions\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button className=\"h-8 w-8\" size=\"icon\" variant=\"ghost\">\n        <MoreVertical className=\"h-4 w-4\" />\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent align=\"end\" className=\"w-40\">\n      <DropdownMenuItem>\n        <Edit />\n        Edit\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Copy />\n        Duplicate\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <Star />\n        Favorite\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Flag />\n        Report\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <Archive />\n        Archive\n      </DropdownMenuItem>\n      <DropdownMenuItem variant=\"destructive\">\n        <Trash2 />\n        Delete\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

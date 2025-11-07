@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-standard-4",
+  "type": "registry:component",
+  "title": "Collapsible Standard 4",
+  "description": "A collapsible pattern: collapsible-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/standard/collapsible-standard-4.tsx",
+      "content": "import {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Text-only Collapsible\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg space-y-2\">\n    <div className=\"flex items-center gap-2\">\n      <h4 className=\"font-semibold text-sm\">Settings</h4>\n      <CollapsibleTrigger className=\"text-muted-foreground text-sm underline-offset-4 hover:underline\">\n        [expand]\n      </CollapsibleTrigger>\n    </div>\n    <CollapsibleContent className=\"space-y-2\">\n      <div className=\"rounded-md border px-4 py-2 text-sm\">Option 1</div>\n      <div className=\"rounded-md border px-4 py-2 text-sm\">Option 2</div>\n      <div className=\"rounded-md border px-4 py-2 text-sm\">Option 3</div>\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-info-2",
+  "type": "registry:component",
+  "title": "Hover Card Info 2",
+  "description": "A hover-card pattern: hover-card-info-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/info/hover-card-info-2.tsx",
+      "content": "\"use client\";\n\nimport { Info } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Info with Title\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2\">\n    <span className=\"text-sm\">API Rate Limit</span>\n    <HoverCard>\n      <HoverCardTrigger>\n        <Info className=\"h-4 w-4 text-muted-foreground\" />\n      </HoverCardTrigger>\n      <HoverCardContent>\n        <div className=\"space-y-2\">\n          <h4 className=\"font-semibold text-sm\">Rate Limiting</h4>\n          <p className=\"text-muted-foreground text-sm\">\n            Free tier: 100 requests per hour\n            <br />\n            Pro tier: 1,000 requests per hour\n            <br />\n            Enterprise: Unlimited requests\n          </p>\n        </div>\n      </HoverCardContent>\n    </HoverCard>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

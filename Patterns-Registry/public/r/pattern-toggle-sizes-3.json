@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-toggle-sizes-3",
+  "type": "registry:component",
+  "title": "Toggle Sizes 3",
+  "description": "A toggle pattern: toggle-sizes-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/toggle/sizes/toggle-sizes-3.tsx",
+      "content": "\"use client\";\n\nimport { UnderlineIcon } from \"lucide-react\";\nimport { Toggle } from \"@/components/ui/toggle\";\n\nexport const title = \"Large Toggle\";\n\nconst Example = () => (\n  <Toggle aria-label=\"Toggle underline\" size=\"lg\">\n    <UnderlineIcon />\n  </Toggle>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

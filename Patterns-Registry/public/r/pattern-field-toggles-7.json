@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-toggles-7",
+  "type": "registry:component",
+  "title": "Field Toggles 7",
+  "description": "A field pattern: field-toggles-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/toggles/field-toggles-7.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\";\nimport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldLabel,\n} from \"@/components/ui/field\";\n\nexport const title = \"Checkbox with Description\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field orientation=\"horizontal\">\n      <Checkbox defaultChecked id=\"sync-folders\" />\n      <FieldContent>\n        <FieldLabel htmlFor=\"sync-folders\">\n          Sync Desktop & Documents folders\n        </FieldLabel>\n        <FieldDescription>\n          Your Desktop & Documents folders are being synced with iCloud Drive.\n          You can access them from other devices.\n        </FieldDescription>\n      </FieldContent>\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

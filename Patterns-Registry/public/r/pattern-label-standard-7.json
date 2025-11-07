@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-7",
+  "type": "registry:component",
+  "title": "Label Standard 7",
+  "description": "A label pattern: label-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-7.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\n\nexport const title = \"Error Label\";\n\nconst Example = () => (\n  <Label className=\"text-destructive\">\n    Password\n    <span className=\"ml-1 font-normal text-xs\">• Password is too weak</span>\n  </Label>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

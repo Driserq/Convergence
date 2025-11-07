@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-styled-2",
+  "type": "registry:component",
+  "title": "Slider Styled 2",
+  "description": "A slider pattern: slider-styled-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/styled/slider-styled-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"With Tooltip\";\n\nconst Example = () => {\n  const [value, setValue] = useState([45]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <Label htmlFor=\"slider\">Progress</Label>\n      <div className=\"relative pt-6\">\n        <Slider id=\"slider\" onValueChange={setValue} value={value} />\n        <div\n          className=\"-translate-x-1/2 -top-2 absolute rounded bg-primary px-2 py-1 text-primary-foreground text-xs\"\n          style={{ left: `${value[0]}%` }}\n        >\n          {value[0]}%\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tabs-layout-3",
+  "type": "registry:component",
+  "title": "Tabs Layout 3",
+  "description": "A tabs pattern: tabs-layout-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tabs/layout/tabs-layout-3.tsx",
+      "content": "import { ScrollArea, ScrollBar } from \"@/components/ui/scroll-area\";\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/ui/tabs\";\n\nexport const title = \"Scrollable Tabs\";\n\nconst months = [\n  \"January\",\n  \"February\",\n  \"March\",\n  \"April\",\n  \"May\",\n  \"June\",\n  \"July\",\n  \"August\",\n  \"September\",\n  \"October\",\n  \"November\",\n  \"December\",\n];\n\nconst Example = () => (\n  <Tabs className=\"w-full max-w-md\" defaultValue=\"january\">\n    <ScrollArea className=\"w-full whitespace-nowrap rounded-md\">\n      <TabsList>\n        {months.map((month) => (\n          <TabsTrigger key={month} value={month.toLowerCase()}>\n            {month}\n          </TabsTrigger>\n        ))}\n      </TabsList>\n      <ScrollBar orientation=\"horizontal\" />\n    </ScrollArea>\n    {months.map((month) => (\n      <TabsContent key={month} value={month.toLowerCase()}>\n        <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n          <h3 className=\"mb-2 font-semibold text-lg\">{month} 2024</h3>\n          <p className=\"text-muted-foreground text-sm\">\n            View statistics and activity for {month}. Track your progress,\n            goals, and achievements throughout the month.\n          </p>\n          <div className=\"mt-4 grid grid-cols-2 gap-4\">\n            <div className=\"rounded-md border p-3\">\n              <p className=\"text-muted-foreground text-xs\">Total Tasks</p>\n              <p className=\"mt-1 font-semibold text-2xl\">\n                {Math.floor(Math.random() * 50) + 10}\n              </p>\n            </div>\n            <div className=\"rounded-md border p-3\">\n              <p className=\"text-muted-foreground text-xs\">Completed</p>\n              <p className=\"mt-1 font-semibold text-2xl\">\n                {Math.floor(Math.random() * 40) + 5}\n              </p>\n            </div>\n          </div>\n        </div>\n      </TabsContent>\n    ))}\n  </Tabs>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

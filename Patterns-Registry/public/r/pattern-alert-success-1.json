@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-success-1",
+  "type": "registry:component",
+  "title": "Alert Success 1",
+  "description": "A alert pattern: alert-success-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert/success/alert-success-1.tsx",
+      "content": "import { Alert, AlertTitle } from \"@/components/ui/alert\";\n\nexport const title = \"Success with Title\";\n\nconst Example = () => (\n  <Alert className=\"w-full max-w-lg border-success/80 bg-success/5 text-success\">\n    <AlertTitle>Success</AlertTitle>\n  </Alert>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

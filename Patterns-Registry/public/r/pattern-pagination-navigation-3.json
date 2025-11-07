@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-navigation-3",
+  "type": "registry:component",
+  "title": "Pagination Navigation 3",
+  "description": "A pagination pattern: pagination-navigation-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/navigation/pagination-navigation-3.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationLink,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"First and Last\";\n\nconst Example = () => (\n  <Pagination>\n    <PaginationContent>\n      <PaginationItem>\n        <PaginationLink className=\"gap-1 px-2.5\" href=\"#\">\n          First\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\" isActive>\n          5\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink className=\"gap-1 px-2.5\" href=\"#\">\n          Last\n        </PaginationLink>\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

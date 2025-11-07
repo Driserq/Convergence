@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-table-standard-2",
+  "type": "registry:component",
+  "title": "Table Standard 2",
+  "description": "A table pattern: table-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/table/standard/table-standard-2.tsx",
+      "content": "import { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport {\n  Table,\n  TableBody,\n  TableCell,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from \"@/components/ui/table\";\n\nexport const title = \"Table with Avatar\";\n\nconst users = [\n  {\n    name: \"Hayden Bleasel\",\n    email: \"h****n@vercel.com\",\n    role: \"Product Designer\",\n    avatar: \"https://github.com/haydenbleasel.png\",\n    initials: \"HB\",\n  },\n  {\n    name: \"shadcn\",\n    email: \"s****n@vercel.com\",\n    role: \"Developer\",\n    avatar: \"https://github.com/shadcn.png\",\n    initials: \"SH\",\n  },\n  {\n    name: \"Lee Robinson\",\n    email: \"l****b@vercel.com\",\n    role: \"VP of Product\",\n    avatar: \"https://github.com/leerob.png\",\n    initials: \"LR\",\n  },\n  {\n    name: \"Guillermo Rauch\",\n    email: \"r****g@vercel.com\",\n    role: \"CEO\",\n    avatar: \"https://github.com/rauchg.png\",\n    initials: \"GR\",\n  },\n];\n\nconst Example = () => (\n  <div className=\"w-full max-w-4xl rounded-md border bg-background\">\n    <Table>\n      <TableHeader>\n        <TableRow>\n          <TableHead>User</TableHead>\n          <TableHead>Email</TableHead>\n          <TableHead>Role</TableHead>\n        </TableRow>\n      </TableHeader>\n      <TableBody>\n        {users.map((user) => (\n          <TableRow key={user.email}>\n            <TableCell>\n              <div className=\"flex items-center gap-3\">\n                <Avatar>\n                  <AvatarImage alt={user.name} src={user.avatar} />\n                  <AvatarFallback>{user.initials}</AvatarFallback>\n                </Avatar>\n                <span className=\"font-medium\">{user.name}</span>\n              </div>\n            </TableCell>\n            <TableCell>{user.email}</TableCell>\n            <TableCell>{user.role}</TableCell>\n          </TableRow>\n        ))}\n      </TableBody>\n    </Table>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

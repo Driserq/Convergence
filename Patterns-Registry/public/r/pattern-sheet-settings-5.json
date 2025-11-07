@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-settings-5",
+  "type": "registry:component",
+  "title": "Sheet Settings 5",
+  "description": "A sheet pattern: sheet-settings-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/settings/sheet-settings-5.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Privacy Settings Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Privacy</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Privacy Settings</SheetTitle>\n        <SheetDescription>\n          Control your privacy and data preferences\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"profile-public\">Public Profile</Label>\n          <Checkbox defaultChecked id=\"profile-public\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"show-email\">Show Email Address</Label>\n          <Checkbox id=\"show-email\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"search-indexing\">Allow Search Indexing</Label>\n          <Checkbox defaultChecked id=\"search-indexing\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"activity-status\">Show Activity Status</Label>\n          <Checkbox defaultChecked id=\"activity-status\" />\n        </div>\n        <Button className=\"mt-4 w-full\" variant=\"destructive\">\n          Delete Account\n        </Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-standard-4",
+  "type": "registry:component",
+  "title": "Sheet Standard 4",
+  "description": "A sheet pattern: sheet-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/standard/sheet-standard-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Top-Sliding Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Open Sheet</Button>\n    </SheetTrigger>\n    <SheetContent side=\"top\">\n      <SheetHeader>\n        <SheetTitle>Top Sheet</SheetTitle>\n        <SheetDescription>\n          This sheet slides down from the top of the screen.\n        </SheetDescription>\n      </SheetHeader>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

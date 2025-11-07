@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-range-2",
+  "type": "registry:component",
+  "title": "Slider Range 2",
+  "description": "A slider pattern: slider-range-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/range/slider-range-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Price Range Slider\";\n\nconst Example = () => {\n  const [value, setValue] = useState([200, 800]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <Label htmlFor=\"slider\">Price Range</Label>\n      <Slider\n        id=\"slider\"\n        max={1000}\n        min={0}\n        onValueChange={setValue}\n        value={value}\n      />\n      <div className=\"flex items-center justify-between text-muted-foreground text-sm\">\n        <span>${value[0]}</span>\n        <span>${value[1]}</span>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

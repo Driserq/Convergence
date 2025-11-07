@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-outline-7",
+  "type": "registry:component",
+  "title": "Button Outline 7",
+  "description": "A button pattern: button-outline-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/outline/button-outline-7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Button with Kbd\";\n\nconst Example = () => (\n  <Button className=\"gap-2\" variant=\"outline\">\n    Button\n    <Kbd>⌘K</Kbd>\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

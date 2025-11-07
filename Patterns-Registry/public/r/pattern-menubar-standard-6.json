@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-6",
+  "type": "registry:component",
+  "title": "Menubar Standard 6",
+  "description": "A menubar pattern: menubar-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-6.tsx",
+      "content": "import {\n  Menubar,\n  MenubarContent,\n  MenubarItem,\n  MenubarMenu,\n  MenubarSub,\n  MenubarSubContent,\n  MenubarSubTrigger,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Menubar with Submenu\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>File</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>New File</MenubarItem>\n        <MenubarSub>\n          <MenubarSubTrigger>Open Recent</MenubarSubTrigger>\n          <MenubarSubContent>\n            <MenubarItem>Document 1.txt</MenubarItem>\n            <MenubarItem>Document 2.txt</MenubarItem>\n            <MenubarItem>Document 3.txt</MenubarItem>\n          </MenubarSubContent>\n        </MenubarSub>\n        <MenubarItem>Save</MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

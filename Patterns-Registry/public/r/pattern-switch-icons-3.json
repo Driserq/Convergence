@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-icons-3",
+  "type": "registry:component",
+  "title": "Switch Icons 3",
+  "description": "A switch pattern: switch-icons-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/icons/switch-icons-3.tsx",
+      "content": "\"use client\";\n\nimport { Volume2Icon, VolumeXIcon } from \"lucide-react\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Volume Toggle\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2\">\n    <VolumeXIcon className=\"size-4 text-muted-foreground\" />\n    <Switch defaultChecked />\n    <Volume2Icon className=\"size-4\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

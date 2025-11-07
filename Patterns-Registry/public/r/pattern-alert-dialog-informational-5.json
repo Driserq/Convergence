@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-informational-5",
+  "type": "registry:component",
+  "title": "Alert Dialog Informational 5",
+  "description": "A alert-dialog pattern: alert-dialog-informational-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/informational/alert-dialog-informational-5.tsx",
+      "content": "import { Lightbulb } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Information with Centered Icon\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Show Tip</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader className=\"items-center\">\n        <div className=\"flex size-12 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900\">\n          <Lightbulb className=\"size-6 text-yellow-600 dark:text-yellow-400\" />\n        </div>\n        <AlertDialogTitle>Pro Tip</AlertDialogTitle>\n        <AlertDialogDescription className=\"text-center\">\n          Use keyboard shortcuts to navigate faster. Press{\" \"}\n          <kbd className=\"rounded bg-muted px-1.5 py-0.5 font-semibold text-xs\">\n            Cmd+K\n          </kbd>{\" \"}\n          to open the command palette.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogAction>Got it</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-interactive-5",
+  "type": "registry:component",
+  "title": "Slider Interactive 5",
+  "description": "A slider pattern: slider-interactive-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/interactive/slider-interactive-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"With Live Preview\";\n\nconst Example = () => {\n  const [value, setValue] = useState([50]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-4\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"slider\">Border Radius</Label>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}px</span>\n      </div>\n      <Slider\n        id=\"slider\"\n        max={50}\n        min={0}\n        onValueChange={setValue}\n        value={value}\n      />\n      <div\n        className=\"h-24 bg-muted-foreground transition-all\"\n        style={{ borderRadius: `${value[0]}px` }}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

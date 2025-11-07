@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-standard-1",
+  "type": "registry:component",
+  "title": "Command Standard 1",
+  "description": "A command pattern: command-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/standard/command-standard-1.tsx",
+      "content": "import {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Simple Command Menu\";\n\nconst Example = () => (\n  <Command className=\"h-auto w-full max-w-lg rounded-lg border shadow-md\">\n    <CommandInput placeholder=\"Type a command or search...\" />\n    <CommandList>\n      <CommandEmpty>No results found.</CommandEmpty>\n      <CommandGroup heading=\"Suggestions\">\n        <CommandItem>Calendar</CommandItem>\n        <CommandItem>Search Emoji</CommandItem>\n        <CommandItem>Calculator</CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

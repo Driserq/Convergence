@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-behavior-3",
+  "type": "registry:component",
+  "title": "Input Otp Behavior 3",
+  "description": "A input-otp pattern: input-otp-behavior-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/behavior/input-otp-behavior-3.tsx",
+      "content": "\"use client\";\n\nimport { ClipboardPaste } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Paste Optimization\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n\n  const handlePaste = async () => {\n    try {\n      const text = await navigator.clipboard.readText();\n      const digits = text.replace(/\\D/g, \"\").slice(0, 6);\n      setValue(digits);\n    } catch (err) {\n      console.error(\"Failed to read clipboard:\", err);\n    }\n  };\n\n  return (\n    <div className=\"space-y-4\">\n      <InputOTP maxLength={6} onChange={setValue} value={value}>\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={0} />\n          <InputOTPSlot className=\"bg-background\" index={1} />\n          <InputOTPSlot className=\"bg-background\" index={2} />\n        </InputOTPGroup>\n        <InputOTPSeparator />\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={3} />\n          <InputOTPSlot className=\"bg-background\" index={4} />\n          <InputOTPSlot className=\"bg-background\" index={5} />\n        </InputOTPGroup>\n      </InputOTP>\n      <Button\n        className=\"w-full\"\n        onClick={handlePaste}\n        size=\"sm\"\n        variant=\"outline\"\n      >\n        <ClipboardPaste className=\"mr-2 h-4 w-4\" />\n        Paste Code\n      </Button>\n      <p className=\"text-muted-foreground text-xs\">\n        Paste automatically filters to digits only.\n      </p>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-text-areas-1",
+  "type": "registry:component",
+  "title": "Field Text Areas 1",
+  "description": "A field pattern: field-text-areas-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/text-areas/field-text-areas-1.tsx",
+      "content": "import { Field, FieldLabel } from \"@/components/ui/field\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Simple Textarea\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field>\n      <FieldLabel htmlFor=\"message\">Message</FieldLabel>\n      <Textarea\n        className=\"bg-background\"\n        id=\"message\"\n        placeholder=\"Type your message here...\"\n      />\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

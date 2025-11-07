@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-standard-5",
+  "type": "registry:component",
+  "title": "Context Menu Standard 5",
+  "description": "A context-menu pattern: context-menu-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/standard/context-menu-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport {\n  ContextMenu,\n  ContextMenuCheckboxItem,\n  ContextMenuContent,\n  ContextMenuSeparator,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Context Menu with Checkboxes\";\n\nconst Example = () => {\n  const [showBookmarks, setShowBookmarks] = useState(true);\n  const [showFullUrls, setShowFullUrls] = useState(false);\n  const [showSidebar, setShowSidebar] = useState(true);\n\n  return (\n    <ContextMenu>\n      <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n        Right click here\n      </ContextMenuTrigger>\n      <ContextMenuContent className=\"w-56\">\n        <ContextMenuCheckboxItem\n          checked={showBookmarks}\n          onCheckedChange={setShowBookmarks}\n        >\n          Show Bookmarks Bar\n        </ContextMenuCheckboxItem>\n        <ContextMenuCheckboxItem\n          checked={showFullUrls}\n          onCheckedChange={setShowFullUrls}\n        >\n          Show Full URLs\n        </ContextMenuCheckboxItem>\n        <ContextMenuSeparator />\n        <ContextMenuCheckboxItem\n          checked={showSidebar}\n          onCheckedChange={setShowSidebar}\n        >\n          Show Sidebar\n        </ContextMenuCheckboxItem>\n      </ContextMenuContent>\n    </ContextMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

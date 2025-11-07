@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-settings-4",
+  "type": "registry:component",
+  "title": "Dropdown Menu Settings 4",
+  "description": "A dropdown-menu pattern: dropdown-menu-settings-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/settings/dropdown-menu-settings-4.tsx",
+      "content": "\"use client\";\n\nimport { Bell } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Notification Settings\";\n\nconst Example = () => {\n  const [emailNotifications, setEmailNotifications] = useState(true);\n  const [pushNotifications, setPushNotifications] = useState(true);\n  const [smsNotifications, setSmsNotifications] = useState(false);\n  const [comments, setComments] = useState(true);\n  const [mentions, setMentions] = useState(true);\n  const [updates, setUpdates] = useState(false);\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          <Bell className=\"h-4 w-4\" />\n          Notifications\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-56\">\n        <DropdownMenuLabel>Notification Channels</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuCheckboxItem\n          checked={emailNotifications}\n          onCheckedChange={setEmailNotifications}\n        >\n          Email Notifications\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={pushNotifications}\n          onCheckedChange={setPushNotifications}\n        >\n          Push Notifications\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={smsNotifications}\n          onCheckedChange={setSmsNotifications}\n        >\n          SMS Notifications\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuSeparator />\n        <DropdownMenuLabel>Notify Me About</DropdownMenuLabel>\n        <DropdownMenuGroup>\n          <DropdownMenuCheckboxItem\n            checked={comments}\n            onCheckedChange={setComments}\n          >\n            Comments\n          </DropdownMenuCheckboxItem>\n          <DropdownMenuCheckboxItem\n            checked={mentions}\n            onCheckedChange={setMentions}\n          >\n            Mentions\n          </DropdownMenuCheckboxItem>\n          <DropdownMenuCheckboxItem\n            checked={updates}\n            onCheckedChange={setUpdates}\n          >\n            Product Updates\n          </DropdownMenuCheckboxItem>\n        </DropdownMenuGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

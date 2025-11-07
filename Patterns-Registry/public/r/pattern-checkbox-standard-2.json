@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-checkbox-standard-2",
+  "type": "registry:component",
+  "title": "Checkbox Standard 2",
+  "description": "A checkbox pattern: checkbox-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/checkbox/standard/checkbox-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Indeterminate Checkbox\";\n\nconst Example = () => {\n  const [checked, setChecked] = useState<boolean | \"indeterminate\">(\n    \"indeterminate\"\n  );\n\n  return (\n    <div className=\"flex items-center space-x-2\">\n      <Checkbox\n        checked={checked}\n        id=\"indeterminate\"\n        onCheckedChange={setChecked}\n      />\n      <Label htmlFor=\"indeterminate\">Indeterminate state</Label>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

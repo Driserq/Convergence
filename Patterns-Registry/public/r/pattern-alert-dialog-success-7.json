@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-success-7",
+  "type": "registry:component",
+  "title": "Alert Dialog Success 7",
+  "description": "A alert-dialog pattern: alert-dialog-success-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/success/alert-dialog-success-7.tsx",
+      "content": "import { PartyPopper } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Success with Celebration\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button>Complete Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader className=\"items-center\">\n        <div className=\"flex size-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900 dark:to-pink-900\">\n          <PartyPopper className=\"size-6 text-purple-600 dark:text-purple-400\" />\n        </div>\n        <AlertDialogTitle>Milestone Achieved!</AlertDialogTitle>\n        <AlertDialogDescription className=\"text-center\">\n          Congratulations! You've completed 100 tasks. Keep up the great work!\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 p-4 text-center dark:from-purple-950 dark:to-pink-950\">\n        <div className=\"font-medium text-muted-foreground text-xs\">\n          ACHIEVEMENT UNLOCKED\n        </div>\n        <div className=\"mt-1 font-semibold text-lg\">Century Club</div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogAction>Awesome!</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

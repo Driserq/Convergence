@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-link-7",
+  "type": "registry:component",
+  "title": "Button Link 7",
+  "description": "A button pattern: button-link-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/link/button-link-7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Button with Kbd\";\n\nconst Example = () => (\n  <Button className=\"gap-2\" variant=\"link\">\n    Button\n    <Kbd>⌘K</Kbd>\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-sidebar-3",
+  "type": "registry:component",
+  "title": "Collapsible Sidebar 3",
+  "description": "A collapsible pattern: collapsible-sidebar-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/sidebar/collapsible-sidebar-3.tsx",
+      "content": "import { ChevronRight } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Sidebar with Counts\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-lg space-y-1\">\n    <Collapsible>\n      <CollapsibleTrigger className=\"flex w-full items-center justify-between rounded-md px-3 py-2 font-medium text-sm hover:bg-muted\">\n        <div className=\"flex items-center gap-2\">\n          <ChevronRight className=\"h-4 w-4\" />\n          <span>Inbox</span>\n        </div>\n        <Badge variant=\"secondary\">12</Badge>\n      </CollapsibleTrigger>\n      <CollapsibleContent className=\"mt-1 ml-6 space-y-1 border-l pl-3\">\n        <div className=\"flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-muted\">\n          <span>Unread</span>\n          <Badge variant=\"outline\">8</Badge>\n        </div>\n        <div className=\"flex items-center justify-between rounded-md px-2 py-1.5 text-sm hover:bg-muted\">\n          <span>Starred</span>\n          <Badge variant=\"outline\">4</Badge>\n        </div>\n      </CollapsibleContent>\n    </Collapsible>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

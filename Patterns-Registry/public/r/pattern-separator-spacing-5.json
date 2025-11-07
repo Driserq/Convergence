@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-spacing-5",
+  "type": "registry:component",
+  "title": "Separator Spacing 5",
+  "description": "A separator pattern: separator-spacing-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/spacing/separator-spacing-5.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Inset Separator\";\n\nconst Example = () => (\n  <div className=\"space-y-4\">\n    <p className=\"text-sm\">Section 1</p>\n    <Separator className=\"mx-8\" />\n    <p className=\"text-sm\">Section 2</p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

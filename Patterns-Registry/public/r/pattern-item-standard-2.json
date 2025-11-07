@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-item-standard-2",
+  "type": "registry:component",
+  "title": "Item Standard 2",
+  "description": "A item pattern: item-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/item/standard/item-standard-2.tsx",
+      "content": "import { BadgeCheckIcon, ChevronRightIcon } from \"lucide-react\";\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemMedia,\n  ItemTitle,\n} from \"@/components/ui/item\";\n\nexport const title = \"Item with Media and Icon\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-6\">\n    <Item asChild className=\"bg-background\" size=\"sm\" variant=\"outline\">\n      <a href=\"#\">\n        <ItemMedia>\n          <BadgeCheckIcon className=\"size-5\" />\n        </ItemMedia>\n        <ItemContent>\n          <ItemTitle>Your profile has been verified.</ItemTitle>\n        </ItemContent>\n        <ItemActions>\n          <ChevronRightIcon className=\"size-4\" />\n        </ItemActions>\n      </a>\n    </Item>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

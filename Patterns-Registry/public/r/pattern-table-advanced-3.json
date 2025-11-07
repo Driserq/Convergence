@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-table-advanced-3",
+  "type": "registry:component",
+  "title": "Table Advanced 3",
+  "description": "A table pattern: table-advanced-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/table/advanced/table-advanced-3.tsx",
+      "content": "import {\n  Table,\n  TableBody,\n  TableCell,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from \"@/components/ui/table\";\n\nexport const title = \"Vertical Table\";\n\nconst userInfo = [\n  { label: \"Full Name\", value: \"John Doe\" },\n  { label: \"Email\", value: \"john.doe@example.com\" },\n  { label: \"Phone\", value: \"+1 (555) 123-4567\" },\n  { label: \"Location\", value: \"New York, NY\" },\n  { label: \"Joined\", value: \"January 15, 2024\" },\n  { label: \"Role\", value: \"Administrator\" },\n];\n\nconst Example = () => (\n  <div className=\"w-full max-w-md rounded-md border bg-background\">\n    <Table>\n      <TableHeader>\n        <TableRow>\n          <TableHead className=\"w-1/3\">Field</TableHead>\n          <TableHead>Value</TableHead>\n        </TableRow>\n      </TableHeader>\n      <TableBody>\n        {userInfo.map((info) => (\n          <TableRow key={info.label}>\n            <TableCell className=\"font-medium\">{info.label}</TableCell>\n            <TableCell>{info.value}</TableCell>\n          </TableRow>\n        ))}\n      </TableBody>\n    </Table>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

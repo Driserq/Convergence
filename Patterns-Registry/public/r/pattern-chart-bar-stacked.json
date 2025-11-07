@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-bar-stacked",
+  "type": "registry:component",
+  "title": "Chart Bar Stacked",
+  "description": "A chart pattern: chart-bar-stacked",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/bar/chart-bar-stacked.tsx",
+      "content": "\"use client\";\n\nimport { Bar, BarChart, CartesianGrid, XAxis } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartLegend,\n  ChartLegendContent,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A stacked bar chart with a legend\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 73, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartBarStacked = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <BarChart accessibilityLayer data={chartData}>\n        <CartesianGrid vertical={false} />\n        <XAxis\n          axisLine={false}\n          dataKey=\"month\"\n          tickFormatter={(value) => value.slice(0, 3)}\n          tickLine={false}\n          tickMargin={10}\n        />\n        <ChartTooltip content={<ChartTooltipContent hideLabel />} />\n        <ChartLegend content={<ChartLegendContent />} />\n        <Bar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          radius={[0, 0, 4, 4]}\n          stackId=\"a\"\n        />\n        <Bar\n          dataKey=\"mobile\"\n          fill=\"var(--color-mobile)\"\n          radius={[4, 4, 0, 0]}\n          stackId=\"a\"\n        />\n      </BarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartBarStacked;\n",
+      "type": "registry:component"
+    }
+  ]
+}

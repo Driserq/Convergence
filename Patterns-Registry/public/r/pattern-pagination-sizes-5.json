@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-sizes-5",
+  "type": "registry:component",
+  "title": "Pagination Sizes 5",
+  "description": "A pagination pattern: pagination-sizes-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/sizes/pagination-sizes-5.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationLink,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"Spacious\";\n\nconst Example = () => (\n  <Pagination>\n    <PaginationContent className=\"gap-3\">\n      <PaginationItem>\n        <PaginationLink href=\"#\">1</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\" isActive>\n          2\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">3</PaginationLink>\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radar-lines-only",
+  "type": "registry:component",
+  "title": "Chart Radar Lines Only",
+  "description": "A chart pattern: chart-radar-lines-only",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radar/chart-radar-lines-only.tsx",
+      "content": "\"use client\";\n\nimport { PolarAngleAxis, PolarGrid, Radar, RadarChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A radar chart with lines only\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 160 },\n  { month: \"February\", desktop: 185, mobile: 170 },\n  { month: \"March\", desktop: 207, mobile: 180 },\n  { month: \"April\", desktop: 173, mobile: 160 },\n  { month: \"May\", desktop: 160, mobile: 190 },\n  { month: \"June\", desktop: 174, mobile: 204 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadarLinesOnly = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <RadarChart data={chartData}>\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"line\" />}\n          cursor={false}\n        />\n        <PolarAngleAxis dataKey=\"month\" />\n        <PolarGrid radialLines={false} />\n        <Radar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0}\n          stroke=\"var(--color-desktop)\"\n          strokeWidth={2}\n        />\n        <Radar\n          dataKey=\"mobile\"\n          fill=\"var(--color-mobile)\"\n          fillOpacity={0}\n          stroke=\"var(--color-mobile)\"\n          strokeWidth={2}\n        />\n      </RadarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadarLinesOnly;\n",
+      "type": "registry:component"
+    }
+  ]
+}

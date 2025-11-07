@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-standard-4",
+  "type": "registry:component",
+  "title": "Input Otp Standard 4",
+  "description": "A input-otp pattern: input-otp-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/standard/input-otp-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"Controlled OTP Input\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n\n  return (\n    <div className=\"space-y-2\">\n      <InputOTP maxLength={6} onChange={setValue} value={value}>\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={0} />\n          <InputOTPSlot className=\"bg-background\" index={1} />\n          <InputOTPSlot className=\"bg-background\" index={2} />\n        </InputOTPGroup>\n        <InputOTPSeparator />\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={3} />\n          <InputOTPSlot className=\"bg-background\" index={4} />\n          <InputOTPSlot className=\"bg-background\" index={5} />\n        </InputOTPGroup>\n      </InputOTP>\n      <div className=\"text-center text-sm\">\n        {value === \"\" ? (\n          \"Enter your one-time password.\"\n        ) : (\n          <>You entered: {value}</>\n        )}\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

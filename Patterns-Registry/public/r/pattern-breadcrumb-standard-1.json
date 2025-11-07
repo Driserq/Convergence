@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-breadcrumb-standard-1",
+  "type": "registry:component",
+  "title": "Breadcrumb Standard 1",
+  "description": "A breadcrumb pattern: breadcrumb-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/breadcrumb/standard/breadcrumb-standard-1.tsx",
+      "content": "import {\n  Breadcrumb,\n  BreadcrumbEllipsis,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\";\n\nexport const title = \"Breadcrumb with Ellipsis\";\n\nconst Example = () => (\n  <Breadcrumb>\n    <BreadcrumbList>\n      <BreadcrumbItem>\n        <BreadcrumbLink href=\"/\">Home</BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <BreadcrumbEllipsis />\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <BreadcrumbLink href=\"/components\">Components</BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>\n      </BreadcrumbItem>\n    </BreadcrumbList>\n  </Breadcrumb>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

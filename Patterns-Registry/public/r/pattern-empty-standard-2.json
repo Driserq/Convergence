@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-2",
+  "type": "registry:component",
+  "title": "Empty Standard 2",
+  "description": "A empty pattern: empty-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { Inbox } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Description\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Inbox />\n      </EmptyMedia>\n      <EmptyTitle>Nothing here yet</EmptyTitle>\n      <EmptyDescription>\n        Get started by creating your first item.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

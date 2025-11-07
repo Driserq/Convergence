@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-actions-4",
+  "type": "registry:component",
+  "title": "Empty Actions 4",
+  "description": "A empty pattern: empty-actions-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/actions/empty-actions-4.tsx",
+      "content": "\"use client\";\n\nimport { Mail } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Empty with Input Action\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Mail />\n      </EmptyMedia>\n      <EmptyTitle>Subscribe to our newsletter</EmptyTitle>\n      <EmptyDescription>\n        Get the latest updates and news delivered to your inbox.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <div className=\"flex w-full gap-2\">\n        <Input placeholder=\"Enter your email\" type=\"email\" />\n        <Button>Subscribe</Button>\n      </div>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

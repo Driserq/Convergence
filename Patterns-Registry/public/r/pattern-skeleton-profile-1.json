@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-profile-1",
+  "type": "registry:component",
+  "title": "Skeleton Profile 1",
+  "description": "A skeleton pattern: skeleton-profile-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/profile/skeleton-profile-1.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"User Profile Header\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col items-center gap-4 rounded-md border p-6\">\n    <Skeleton className=\"size-24 rounded-full\" />\n    <div className=\"flex w-full flex-col items-center gap-2\">\n      <Skeleton className=\"h-6 w-40\" />\n      <Skeleton className=\"h-4 w-32\" />\n    </div>\n    <div className=\"flex w-full justify-center gap-2\">\n      <Skeleton className=\"h-9 w-24\" />\n      <Skeleton className=\"h-9 w-24\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

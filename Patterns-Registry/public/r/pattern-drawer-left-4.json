@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-left-4",
+  "type": "registry:component",
+  "title": "Drawer Left 4",
+  "description": "A drawer pattern: drawer-left-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/left/drawer-left-4.tsx",
+      "content": "\"use client\";\n\nimport { FileText, Home, Menu, Search, Settings, Users } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Drawer, DrawerContent, DrawerTrigger } from \"@/components/ui/drawer\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Left Drawer with Search\";\n\nconst Example = () => (\n  <Drawer direction=\"left\">\n    <DrawerTrigger asChild>\n      <Button size=\"icon\" variant=\"outline\">\n        <Menu className=\"h-4 w-4\" />\n      </Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <div className=\"space-y-4 p-4\">\n        <div className=\"relative\">\n          <Search className=\"-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground\" />\n          <Input className=\"pl-9\" placeholder=\"Search...\" />\n        </div>\n        <div>\n          <h3 className=\"mb-2 font-medium text-muted-foreground text-xs uppercase\">\n            Main Menu\n          </h3>\n          <nav className=\"space-y-1\">\n            <Button className=\"w-full justify-start\" variant=\"ghost\">\n              <Home className=\"mr-3 h-4 w-4\" />\n              Home\n            </Button>\n            <Button className=\"w-full justify-start\" variant=\"ghost\">\n              <Users className=\"mr-3 h-4 w-4\" />\n              Team\n            </Button>\n            <Button className=\"w-full justify-start\" variant=\"ghost\">\n              <FileText className=\"mr-3 h-4 w-4\" />\n              Documents\n            </Button>\n          </nav>\n        </div>\n        <div>\n          <h3 className=\"mb-2 font-medium text-muted-foreground text-xs uppercase\">\n            Settings\n          </h3>\n          <nav className=\"space-y-1\">\n            <Button className=\"w-full justify-start\" variant=\"ghost\">\n              <Settings className=\"mr-3 h-4 w-4\" />\n              Preferences\n            </Button>\n          </nav>\n        </div>\n      </div>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

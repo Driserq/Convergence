@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-form-1",
+  "type": "registry:component",
+  "title": "Textarea Form 1",
+  "description": "A textarea pattern: textarea-form-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/form/textarea-form-1.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Required Textarea\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-2\">\n    <Label htmlFor=\"message\">\n      Message <span className=\"text-destructive\">*</span>\n    </Label>\n    <Textarea\n      className=\"bg-background\"\n      id=\"message\"\n      placeholder=\"Type your message...\"\n      required\n    />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

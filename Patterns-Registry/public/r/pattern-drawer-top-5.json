@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-top-5",
+  "type": "registry:component",
+  "title": "Drawer Top 5",
+  "description": "A drawer pattern: drawer-top-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/top/drawer-top-5.tsx",
+      "content": "\"use client\";\n\nimport { Command } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Drawer, DrawerContent, DrawerTrigger } from \"@/components/ui/drawer\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Top Drawer Command Bar\";\n\nconst Example = () => (\n  <Drawer direction=\"top\">\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">\n        <Command className=\"mr-2 h-4 w-4\" />\n        Command Bar\n      </Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <div className=\"space-y-4 p-4\">\n        <div className=\"relative\">\n          <Command className=\"-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-muted-foreground\" />\n          <Input\n            className=\"h-12 pl-10 text-base\"\n            placeholder=\"Type a command or search...\"\n          />\n        </div>\n        <div className=\"space-y-1\">\n          <Button className=\"w-full justify-between\" size=\"sm\" variant=\"ghost\">\n            <span className=\"flex items-center gap-3\">\n              <span className=\"text-sm\">Create new project</span>\n            </span>\n            <Badge variant=\"secondary\">⌘N</Badge>\n          </Button>\n          <Button className=\"w-full justify-between\" size=\"sm\" variant=\"ghost\">\n            <span className=\"flex items-center gap-3\">\n              <span className=\"text-sm\">Open file</span>\n            </span>\n            <Badge variant=\"secondary\">⌘O</Badge>\n          </Button>\n          <Button className=\"w-full justify-between\" size=\"sm\" variant=\"ghost\">\n            <span className=\"flex items-center gap-3\">\n              <span className=\"text-sm\">Search everywhere</span>\n            </span>\n            <Badge variant=\"secondary\">⌘K</Badge>\n          </Button>\n          <Button className=\"w-full justify-between\" size=\"sm\" variant=\"ghost\">\n            <span className=\"flex items-center gap-3\">\n              <span className=\"text-sm\">Settings</span>\n            </span>\n            <Badge variant=\"secondary\">⌘,</Badge>\n          </Button>\n        </div>\n      </div>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

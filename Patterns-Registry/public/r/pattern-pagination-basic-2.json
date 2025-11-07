@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-basic-2",
+  "type": "registry:component",
+  "title": "Pagination Basic 2",
+  "description": "A pagination pattern: pagination-basic-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/basic/pagination-basic-2.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationLink,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"Five Page Numbers\";\n\nconst Example = () => (\n  <Pagination>\n    <PaginationContent>\n      <PaginationItem>\n        <PaginationLink href=\"#\">1</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">2</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\" isActive>\n          3\n        </PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">4</PaginationLink>\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationLink href=\"#\">5</PaginationLink>\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

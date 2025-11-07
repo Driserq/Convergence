@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-standard-2",
+  "type": "registry:component",
+  "title": "Collapsible Standard 2",
+  "description": "A collapsible pattern: collapsible-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/standard/collapsible-standard-2.tsx",
+      "content": "import { ChevronsUpDown } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Inline Trigger Collapsible\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg space-y-2\">\n    <CollapsibleTrigger className=\"flex w-full items-center justify-between font-medium text-sm\">\n      <span>Can I use this in my project?</span>\n      <ChevronsUpDown className=\"h-4 w-4\" />\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"text-muted-foreground text-sm\">\n      Yes. Free to use for personal and commercial projects. No attribution\n      required.\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

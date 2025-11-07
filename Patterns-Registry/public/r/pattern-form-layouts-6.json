@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-form-layouts-6",
+  "type": "registry:component",
+  "title": "Form Layouts 6",
+  "description": "A form pattern: form-layouts-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/form/layouts/form-layouts-6.tsx",
+      "content": "\"use client\";\n\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { useForm } from \"react-hook-form\";\nimport { z } from \"zod\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Form,\n  FormControl,\n  FormField,\n  FormItem,\n  FormLabel,\n  FormMessage,\n} from \"@/components/ui/form\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Compact Form\";\n\nconst formSchema = z.object({\n  username: z.string().min(2),\n  password: z.string().min(8),\n});\n\nconst Example = () => {\n  const form = useForm<z.infer<typeof formSchema>>({\n    resolver: zodResolver(formSchema),\n    defaultValues: {\n      username: \"\",\n      password: \"\",\n    },\n  });\n\n  function onSubmit(values: z.infer<typeof formSchema>) {\n    console.log(values);\n  }\n\n  return (\n    <div className=\"w-full max-w-sm\">\n      <Form {...form}>\n        <form className=\"space-y-3\" onSubmit={form.handleSubmit(onSubmit)}>\n          <FormField\n            control={form.control}\n            name=\"username\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel className=\"text-sm\">Username</FormLabel>\n                <FormControl>\n                  <Input\n                    className=\"h-9 bg-background\"\n                    placeholder=\"johndoe\"\n                    {...field}\n                  />\n                </FormControl>\n                <FormMessage className=\"text-xs\" />\n              </FormItem>\n            )}\n          />\n          <FormField\n            control={form.control}\n            name=\"password\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel className=\"text-sm\">Password</FormLabel>\n                <FormControl>\n                  <Input\n                    className=\"h-9 bg-background\"\n                    placeholder=\"********\"\n                    type=\"password\"\n                    {...field}\n                  />\n                </FormControl>\n                <FormMessage className=\"text-xs\" />\n              </FormItem>\n            )}\n          />\n          <Button className=\"h-9 w-full text-sm\" type=\"submit\">\n            Sign In\n          </Button>\n        </form>\n      </Form>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

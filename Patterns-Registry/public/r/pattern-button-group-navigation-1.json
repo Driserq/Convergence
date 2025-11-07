@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-navigation-1",
+  "type": "registry:component",
+  "title": "Button Group Navigation 1",
+  "description": "A button-group pattern: button-group-navigation-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/navigation/button-group-navigation-1.tsx",
+      "content": "\"use client\";\n\nimport { ChevronLeftIcon, ChevronRightIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Pagination\";\n\nconst Example = () => {\n  const [currentPage, setCurrentPage] = useState(3);\n  const totalPages = 10;\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          disabled={currentPage === 1}\n          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronLeftIcon />\n          Previous\n        </Button>\n        <Button onClick={() => setCurrentPage(1)} size=\"sm\" variant=\"outline\">\n          1\n        </Button>\n        <Button onClick={() => setCurrentPage(2)} size=\"sm\" variant=\"outline\">\n          2\n        </Button>\n        <Button size=\"sm\" variant=\"default\">\n          3\n        </Button>\n        <Button onClick={() => setCurrentPage(4)} size=\"sm\" variant=\"outline\">\n          4\n        </Button>\n        <Button onClick={() => setCurrentPage(5)} size=\"sm\" variant=\"outline\">\n          5\n        </Button>\n        <Button\n          disabled={currentPage === totalPages}\n          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          Next\n          <ChevronRightIcon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          disabled={currentPage === 1}\n          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronLeftIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Page {currentPage} of {totalPages}\n        </Button>\n        <Button\n          disabled={currentPage === totalPages}\n          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronRightIcon />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

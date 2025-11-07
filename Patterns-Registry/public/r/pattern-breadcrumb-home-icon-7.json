@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-breadcrumb-home-icon-7",
+  "type": "registry:component",
+  "title": "Breadcrumb Home Icon 7",
+  "description": "A breadcrumb pattern: breadcrumb-home-icon-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/breadcrumb/home-icon/breadcrumb-home-icon-7.tsx",
+      "content": "import { Home } from \"lucide-react\";\nimport {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Breadcrumb with Select\";\n\nconst Example = () => (\n  <Breadcrumb>\n    <BreadcrumbList>\n      <BreadcrumbItem>\n        <BreadcrumbLink href=\"/\">\n          <Home className=\"size-4\" />\n        </BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <Select defaultValue=\"components\">\n          <SelectTrigger className=\"h-auto w-auto px-2 py-1\">\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent>\n            <SelectItem value=\"documentation\">Documentation</SelectItem>\n            <SelectItem value=\"components\">Components</SelectItem>\n            <SelectItem value=\"themes\">Themes</SelectItem>\n          </SelectContent>\n        </Select>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator />\n      <BreadcrumbItem>\n        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>\n      </BreadcrumbItem>\n    </BreadcrumbList>\n  </Breadcrumb>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

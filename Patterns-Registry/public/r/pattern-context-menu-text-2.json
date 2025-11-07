@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-text-2",
+  "type": "registry:component",
+  "title": "Context Menu Text 2",
+  "description": "A context-menu pattern: context-menu-text-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/text/context-menu-text-2.tsx",
+      "content": "import { Bold, Italic, Strikethrough, Underline } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Text Formatting Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click to format text\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuItem>\n        <Bold />\n        <span>Bold</span>\n        <ContextMenuShortcut>⌘B</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Italic />\n        <span>Italic</span>\n        <ContextMenuShortcut>⌘I</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Underline />\n        <span>Underline</span>\n        <ContextMenuShortcut>⌘U</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Strikethrough />\n        <span>Strikethrough</span>\n        <ContextMenuShortcut>⌘⇧X</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>Clear Formatting</ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

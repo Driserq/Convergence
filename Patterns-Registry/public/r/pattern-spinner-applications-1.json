@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-applications-1",
+  "type": "registry:component",
+  "title": "Spinner Applications 1",
+  "description": "A spinner pattern: spinner-applications-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/applications/spinner-applications-1.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemFooter,\n  ItemMedia,\n  ItemTitle,\n} from \"@/components/ui/item\";\nimport { Progress } from \"@/components/ui/progress\";\nimport { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Spinner in Item\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-4 [--radius:1rem]\">\n    <Item className=\"bg-background\" variant=\"outline\">\n      <ItemMedia variant=\"icon\">\n        <Spinner />\n      </ItemMedia>\n      <ItemContent>\n        <ItemTitle>Downloading...</ItemTitle>\n        <ItemDescription>129 MB / 1000 MB</ItemDescription>\n      </ItemContent>\n      <ItemActions className=\"hidden sm:flex\">\n        <Button size=\"sm\" variant=\"outline\">\n          Cancel\n        </Button>\n      </ItemActions>\n      <ItemFooter>\n        <Progress value={75} />\n      </ItemFooter>\n    </Item>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

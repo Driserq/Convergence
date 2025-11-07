@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-validation-4",
+  "type": "registry:component",
+  "title": "Input Validation 4",
+  "description": "A input pattern: input-validation-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/validation/input-validation-4.tsx",
+      "content": "\"use client\";\n\nimport { AlertCircle } from \"lucide-react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Multiple Validation Messages\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"password-multiple\">Password</Label>\n    <Input\n      aria-invalid=\"true\"\n      className=\"bg-background\"\n      defaultValue=\"pass\"\n      id=\"password-multiple\"\n      placeholder=\"Enter password\"\n      type=\"password\"\n    />\n    <div className=\"space-y-1\">\n      <div className=\"flex items-center gap-2 text-destructive text-sm\">\n        <AlertCircle className=\"h-4 w-4\" />\n        <span>Password must be at least 8 characters</span>\n      </div>\n      <div className=\"flex items-center gap-2 text-destructive text-sm\">\n        <AlertCircle className=\"h-4 w-4\" />\n        <span>Password must contain at least one number</span>\n      </div>\n      <div className=\"flex items-center gap-2 text-destructive text-sm\">\n        <AlertCircle className=\"h-4 w-4\" />\n        <span>Password must contain at least one special character</span>\n      </div>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

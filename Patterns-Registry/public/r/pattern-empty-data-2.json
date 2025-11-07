@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-data-2",
+  "type": "registry:component",
+  "title": "Empty Data 2",
+  "description": "A empty pattern: empty-data-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/data/empty-data-2.tsx",
+      "content": "\"use client\";\n\nimport { BarChart3 } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty Chart\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia>\n        <BarChart3 className=\"h-16 w-16 text-muted-foreground\" />\n      </EmptyMedia>\n      <EmptyTitle>No data available</EmptyTitle>\n      <EmptyDescription>\n        There's no data to display in this chart yet. Data will appear here once\n        it's available.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

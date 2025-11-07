@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-ai-3",
+  "type": "registry:component",
+  "title": "Input Group Ai 3",
+  "description": "A input-group pattern: input-group-ai-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/ai/input-group-ai-3.tsx",
+      "content": "import { ArrowUpIcon, FileIcon, ImageIcon } from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupText,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"AI with Attachments\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-2xl flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea placeholder=\"Describe your task...\" />\n      <InputGroupAddon align=\"block-end\">\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <InputGroupButton size=\"icon-xs\" variant=\"ghost\">\n              <FileIcon />\n            </InputGroupButton>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"start\" side=\"top\">\n            <DropdownMenuItem>\n              <FileIcon className=\"mr-2\" />\n              Attach File\n            </DropdownMenuItem>\n            <DropdownMenuItem>\n              <ImageIcon className=\"mr-2\" />\n              Attach Image\n            </DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n        <InputGroupText className=\"ml-auto\">GPT-4</InputGroupText>\n        <InputGroupButton\n          className=\"rounded-full\"\n          size=\"icon-xs\"\n          variant=\"default\"\n        >\n          <ArrowUpIcon />\n          <span className=\"sr-only\">Send</span>\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n    <small className=\"text-center text-muted-foreground\">\n      For better AI components, check out{\" \"}\n      <a className=\"underline\" href=\"https://ai-sdk.dev/elements/overview\">\n        AI Elements\n      </a>\n    </small>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

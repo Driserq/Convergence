@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-multi-section-2",
+  "type": "registry:component",
+  "title": "Sheet Multi Section 2",
+  "description": "A sheet pattern: sheet-multi-section-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/multi-section/sheet-multi-section-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Sheet with Tabs\";\n\nconst tabs = [\n  {\n    id: \"overview\",\n    label: \"Overview\",\n    content:\n      \"Project overview content goes here. This could include project status, team members, and other relevant information.\",\n  },\n  {\n    id: \"activity\",\n    label: \"Activity\",\n    content:\n      \"Recent activity and updates for this project. View commits, pull requests, and other team activities.\",\n  },\n  {\n    id: \"settings\",\n    label: \"Settings\",\n    content:\n      \"Configure project settings including permissions, integrations, and preferences.\",\n  },\n];\n\nconst Example = () => {\n  const [activeTab, setActiveTab] = useState(\"overview\");\n\n  return (\n    <Sheet>\n      <SheetTrigger asChild>\n        <Button>Open Sheet</Button>\n      </SheetTrigger>\n      <SheetContent>\n        <SheetHeader>\n          <SheetTitle>Project Details</SheetTitle>\n          <SheetDescription>\n            View and manage project information\n          </SheetDescription>\n        </SheetHeader>\n        <div className=\"flex flex-col gap-4 p-4\">\n          <div className=\"flex gap-2 border-b\">\n            {tabs.map((tab) => (\n              <button\n                className={`px-3 pb-2 font-medium text-sm transition-colors ${\n                  activeTab === tab.id\n                    ? \"border-primary border-b-2 text-foreground\"\n                    : \"text-muted-foreground hover:text-foreground\"\n                }`}\n                key={tab.id}\n                onClick={() => setActiveTab(tab.id)}\n              >\n                {tab.label}\n              </button>\n            ))}\n          </div>\n          <div className=\"text-sm\">\n            <p className=\"text-muted-foreground\">\n              {tabs.find((tab) => tab.id === activeTab)?.content}\n            </p>\n          </div>\n        </div>\n      </SheetContent>\n    </Sheet>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

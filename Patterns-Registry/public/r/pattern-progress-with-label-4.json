@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-progress-with-label-4",
+  "type": "registry:component",
+  "title": "Progress With Label 4",
+  "description": "A progress pattern: progress-with-label-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/progress/with-label/progress-with-label-4.tsx",
+      "content": "import { Progress } from \"@/components/ui/progress\";\n\nexport const title = \"With Count\";\n\nconst Example = () => {\n  const current = 7;\n  const total = 10;\n  const value = (current / total) * 100;\n\n  return (\n    <div className=\"w-full max-w-md space-y-2\">\n      <div className=\"flex justify-between text-sm\">\n        <span className=\"text-muted-foreground\">Tasks completed</span>\n        <span className=\"font-medium\">\n          {current} of {total}\n        </span>\n      </div>\n      <Progress value={value} />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-avatar-standard-6",
+  "type": "registry:component",
+  "title": "Avatar Standard 6",
+  "description": "A avatar pattern: avatar-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/avatar/standard/avatar-standard-6.tsx",
+      "content": "import { VerifiedIcon } from \"lucide-react\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\n\nexport const title = \"Avatar with Verification Check\";\n\nconst Example = () => (\n  <div className=\"relative w-fit\">\n    <Avatar>\n      <AvatarImage\n        alt=\"@haydenbleasel\"\n        src=\"https://github.com/haydenbleasel.png\"\n      />\n      <AvatarFallback>HB</AvatarFallback>\n    </Avatar>\n    <span className=\"-bottom-1 -right-1 absolute flex size-4 items-center justify-center rounded-full bg-background\">\n      <VerifiedIcon className=\"size-full fill-blue-500 text-white\" />\n    </span>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-dropdown-2",
+  "type": "registry:component",
+  "title": "Input Group Dropdown 2",
+  "description": "A input-group pattern: input-group-dropdown-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/dropdown/input-group-dropdown-2.tsx",
+      "content": "import { ChevronDownIcon } from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Search Filters\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background [--radius:1rem]\">\n    <InputGroupInput placeholder=\"Search products\" />\n    <InputGroupAddon align=\"inline-end\">\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <InputGroupButton className=\"!pr-1.5 text-xs\" variant=\"ghost\">\n            Category <ChevronDownIcon className=\"size-3\" />\n          </InputGroupButton>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"end\" className=\"[--radius:0.95rem]\">\n          <DropdownMenuItem>All Products</DropdownMenuItem>\n          <DropdownMenuItem>Electronics</DropdownMenuItem>\n          <DropdownMenuItem>Clothing</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

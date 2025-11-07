@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-form-basic-forms-4",
+  "type": "registry:component",
+  "title": "Form Basic Forms 4",
+  "description": "A form pattern: form-basic-forms-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/form/basic-forms/form-basic-forms-4.tsx",
+      "content": "\"use client\";\n\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { useForm } from \"react-hook-form\";\nimport { z } from \"zod\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Form,\n  FormControl,\n  FormDescription,\n  FormField,\n  FormItem,\n  FormLabel,\n  FormMessage,\n} from \"@/components/ui/form\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Number Input Form\";\n\nconst formSchema = z.object({\n  age: z.coerce\n    .number()\n    .min(18, {\n      message: \"You must be at least 18 years old.\",\n    })\n    .max(120, {\n      message: \"Please enter a valid age.\",\n    }),\n});\n\nconst Example = () => {\n  const form = useForm<z.infer<typeof formSchema>>({\n    resolver: zodResolver(formSchema),\n    defaultValues: {\n      age: undefined,\n    },\n  });\n\n  function onSubmit(values: z.infer<typeof formSchema>) {\n    console.log(values);\n  }\n\n  return (\n    <div className=\"w-full max-w-md\">\n      <Form {...form}>\n        <form className=\"space-y-4\" onSubmit={form.handleSubmit(onSubmit)}>\n          <FormField\n            control={form.control}\n            name=\"age\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel>Age</FormLabel>\n                <FormControl>\n                  <Input\n                    className=\"bg-background\"\n                    placeholder=\"25\"\n                    type=\"number\"\n                    {...field}\n                  />\n                </FormControl>\n                <FormDescription>\n                  You must be 18 or older to continue.\n                </FormDescription>\n                <FormMessage />\n              </FormItem>\n            )}\n          />\n          <Button type=\"submit\">Verify Age</Button>\n        </form>\n      </Form>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

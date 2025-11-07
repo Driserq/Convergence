@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-informational-7",
+  "type": "registry:component",
+  "title": "Alert Dialog Informational 7",
+  "description": "A alert-dialog pattern: alert-dialog-informational-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/informational/alert-dialog-informational-7.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Sparkles } from \"lucide-react\";\n\nexport const title = \"Information with Highlighted Content\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">\n        <Sparkles className=\"size-4\" />\n        What's New\n      </Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>New in Version 2.0</AlertDialogTitle>\n        <AlertDialogDescription>\n          Check out the latest features and improvements:\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"space-y-2\">\n        <div className=\"rounded-lg border bg-muted/50 p-3\">\n          <div className=\"font-medium text-sm\">Dark Mode</div>\n          <p className=\"text-muted-foreground text-xs\">\n            Toggle between light and dark themes\n          </p>\n        </div>\n        <div className=\"rounded-lg border bg-muted/50 p-3\">\n          <div className=\"font-medium text-sm\">Improved Performance</div>\n          <p className=\"text-muted-foreground text-xs\">\n            Up to 50% faster load times\n          </p>\n        </div>\n        <div className=\"rounded-lg border bg-muted/50 p-3\">\n          <div className=\"font-medium text-sm\">New Integrations</div>\n          <p className=\"text-muted-foreground text-xs\">\n            Connect with your favorite tools\n          </p>\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogAction>Awesome!</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

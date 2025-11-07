@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-info-4",
+  "type": "registry:component",
+  "title": "Hover Card Info 4",
+  "description": "A hover-card pattern: hover-card-info-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/info/hover-card-info-4.tsx",
+      "content": "\"use client\";\n\nimport { AlertCircle } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Warning Info\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2 rounded-lg border border-orange-200 bg-orange-50 p-3 dark:border-orange-900 dark:bg-orange-950\">\n    <AlertCircle className=\"h-4 w-4 text-orange-600 dark:text-orange-400\" />\n    <span className=\"text-orange-900 text-sm dark:text-orange-100\">\n      Limited time offer\n    </span>\n    <HoverCard>\n      <HoverCardTrigger className=\"ml-auto inline-flex\">\n        <span className=\"text-orange-600 text-xs underline dark:text-orange-400\">\n          Details\n        </span>\n      </HoverCardTrigger>\n      <HoverCardContent>\n        <div className=\"space-y-2\">\n          <h4 className=\"font-semibold text-sm\">Special Promotion</h4>\n          <p className=\"text-muted-foreground text-sm\">\n            Get 50% off your first month when you upgrade to Pro before the end\n            of this week. This offer expires on December 31st.\n          </p>\n        </div>\n      </HoverCardContent>\n    </HoverCard>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

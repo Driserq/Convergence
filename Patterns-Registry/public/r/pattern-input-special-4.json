@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-special-4",
+  "type": "registry:component",
+  "title": "Input Special 4",
+  "description": "A input pattern: input-special-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/special/input-special-4.tsx",
+      "content": "\"use client\";\n\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Disabled Input\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"disabled-input\">Account ID</Label>\n    <Input\n      className=\"bg-background\"\n      disabled\n      id=\"disabled-input\"\n      type=\"text\"\n      value=\"ACC-12345\"\n    />\n    <p className=\"text-muted-foreground text-xs\">\n      This field cannot be edited.\n    </p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

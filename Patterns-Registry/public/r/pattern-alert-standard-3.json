@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-standard-3",
+  "type": "registry:component",
+  "title": "Alert Standard 3",
+  "description": "A alert pattern: alert-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert/standard/alert-standard-3.tsx",
+      "content": "import { Alert, AlertTitle } from \"@/components/ui/alert\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Standard with Title and Action\";\n\nconst Example = () => (\n  <Alert className=\"w-full max-w-lg\">\n    <div className=\"col-span-2 flex items-center justify-between gap-4\">\n      <AlertTitle>Success</AlertTitle>\n      <div className=\"flex shrink-0 gap-2\">\n        <Button size=\"sm\" variant=\"default\">\n          View Details\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Dismiss\n        </Button>\n      </div>\n    </div>\n  </Alert>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

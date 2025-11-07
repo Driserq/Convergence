@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-layouts-6",
+  "type": "registry:component",
+  "title": "Field Layouts 6",
+  "description": "A field pattern: field-layouts-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/layouts/field-layouts-6.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\";\nimport {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Mixed Orientations\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldGroup>\n        <Field>\n          <FieldLabel htmlFor=\"project-name\">Project Name</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"project-name\"\n            placeholder=\"My Project\"\n            type=\"text\"\n          />\n          <FieldDescription>\n            This will be visible to all team members.\n          </FieldDescription>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <FieldContent>\n            <FieldLabel htmlFor=\"public\">Make project public</FieldLabel>\n            <FieldDescription>\n              Anyone on the internet can see this project.\n            </FieldDescription>\n          </FieldContent>\n          <Switch id=\"public\" />\n        </Field>\n        <Field orientation=\"horizontal\">\n          <Checkbox id=\"archive\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"archive\">\n            Archive this project when complete\n          </FieldLabel>\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

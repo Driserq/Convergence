@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-form-3",
+  "type": "registry:component",
+  "title": "Textarea Form 3",
+  "description": "A textarea pattern: textarea-form-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/form/textarea-form-3.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Textarea with Error\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-2\">\n    <Label htmlFor=\"feedback\">Feedback</Label>\n    <Textarea\n      aria-invalid=\"true\"\n      className=\"bg-background\"\n      defaultValue=\"Too short\"\n      id=\"feedback\"\n      placeholder=\"Share your feedback\"\n    />\n    <p className=\"text-destructive text-sm\">\n      Feedback must be at least 10 characters.\n    </p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-editor-4",
+  "type": "registry:component",
+  "title": "Dropdown Menu Editor 4",
+  "description": "A dropdown-menu pattern: dropdown-menu-editor-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/editor/dropdown-menu-editor-4.tsx",
+      "content": "\"use client\";\n\nimport { Heading } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Heading Selector\";\n\nconst Example = () => {\n  const [heading, setHeading] = useState(\"h1\");\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          <Heading className=\"h-4 w-4\" />\n          {heading.toUpperCase()}\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-48\">\n        <DropdownMenuRadioGroup onValueChange={setHeading} value={heading}>\n          <DropdownMenuRadioItem value=\"h1\">\n            <span className=\"font-bold text-2xl\">Heading 1</span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"h2\">\n            <span className=\"font-bold text-xl\">Heading 2</span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"h3\">\n            <span className=\"font-bold text-lg\">Heading 3</span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"h4\">\n            <span className=\"font-bold text-base\">Heading 4</span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"h5\">\n            <span className=\"font-bold text-sm\">Heading 5</span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"h6\">\n            <span className=\"font-bold text-xs\">Heading 6</span>\n          </DropdownMenuRadioItem>\n        </DropdownMenuRadioGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

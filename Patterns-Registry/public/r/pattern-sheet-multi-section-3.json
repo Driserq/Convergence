@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-multi-section-3",
+  "type": "registry:component",
+  "title": "Sheet Multi Section 3",
+  "description": "A sheet pattern: sheet-multi-section-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/multi-section/sheet-multi-section-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Sheet with Scrollable Content\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>View All Items</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>All Items</SheetTitle>\n        <SheetDescription>Browse through all available items</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex-1 overflow-y-auto p-4\">\n        <div className=\"flex flex-col gap-3\">\n          {Array.from({ length: 20 }).map((_, i) => (\n            <div\n              className=\"cursor-pointer rounded-md border p-3 hover:bg-muted\"\n              key={i}\n            >\n              <h4 className=\"font-medium text-sm\">Item {i + 1}</h4>\n              <p className=\"text-muted-foreground text-xs\">\n                Description for item {i + 1}\n              </p>\n            </div>\n          ))}\n        </div>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

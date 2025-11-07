@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-toggle-standard-4",
+  "type": "registry:component",
+  "title": "Toggle Standard 4",
+  "description": "A toggle pattern: toggle-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/toggle/standard/toggle-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { BoldIcon } from \"lucide-react\";\nimport { Toggle } from \"@/components/ui/toggle\";\n\nexport const title = \"Toggle with Text\";\n\nconst Example = () => (\n  <Toggle aria-label=\"Toggle bold\">\n    <BoldIcon />\n    Bold\n  </Toggle>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radial-text",
+  "type": "registry:component",
+  "title": "Chart Radial Text",
+  "description": "A chart pattern: chart-radial-text",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radial/chart-radial-text.tsx",
+      "content": "\"use client\";\n\nimport {\n  Label,\n  PolarGrid,\n  PolarRadiusAxis,\n  RadialBar,\n  RadialBarChart,\n} from \"recharts\";\n\nimport { type ChartConfig, ChartContainer } from \"@/components/ui/chart\";\n\nexport const title = \"A radial chart with text\";\n\nconst chartData = [\n  { browser: \"safari\", visitors: 200, fill: \"var(--color-safari)\" },\n];\n\nconst chartConfig = {\n  visitors: {\n    label: \"Visitors\",\n  },\n  safari: {\n    label: \"Safari\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadialText = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <RadialBarChart\n        data={chartData}\n        endAngle={250}\n        innerRadius={80}\n        outerRadius={110}\n        startAngle={0}\n      >\n        <PolarGrid\n          className=\"first:fill-muted last:fill-background\"\n          gridType=\"circle\"\n          polarRadius={[86, 74]}\n          radialLines={false}\n          stroke=\"none\"\n        />\n        <RadialBar background cornerRadius={10} dataKey=\"visitors\" />\n        <PolarRadiusAxis axisLine={false} tick={false} tickLine={false}>\n          <Label\n            content={({ viewBox }) => {\n              if (viewBox && \"cx\" in viewBox && \"cy\" in viewBox) {\n                return (\n                  <text\n                    dominantBaseline=\"middle\"\n                    textAnchor=\"middle\"\n                    x={viewBox.cx}\n                    y={viewBox.cy}\n                  >\n                    <tspan\n                      className=\"fill-foreground font-bold text-4xl\"\n                      x={viewBox.cx}\n                      y={viewBox.cy}\n                    >\n                      {chartData[0].visitors.toLocaleString()}\n                    </tspan>\n                    <tspan\n                      className=\"fill-muted-foreground\"\n                      x={viewBox.cx}\n                      y={(viewBox.cy || 0) + 24}\n                    >\n                      Visitors\n                    </tspan>\n                  </text>\n                );\n              }\n            }}\n          />\n        </PolarRadiusAxis>\n      </RadialBarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadialText;\n",
+      "type": "registry:component"
+    }
+  ]
+}

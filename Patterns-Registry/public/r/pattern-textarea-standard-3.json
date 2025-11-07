@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-standard-3",
+  "type": "registry:component",
+  "title": "Textarea Standard 3",
+  "description": "A textarea pattern: textarea-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/standard/textarea-standard-3.tsx",
+      "content": "import { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Read-only Textarea\";\n\nconst Example = () => (\n  <Textarea\n    className=\"w-full max-w-md bg-background\"\n    defaultValue=\"This content cannot be edited\"\n    placeholder=\"This textarea is read-only\"\n    readOnly\n  />\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

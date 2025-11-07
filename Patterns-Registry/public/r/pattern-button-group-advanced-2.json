@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-advanced-2",
+  "type": "registry:component",
+  "title": "Button Group Advanced 2",
+  "description": "A button-group pattern: button-group-advanced-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/advanced/button-group-advanced-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ButtonGroup, ButtonGroupText } from \"@/components/ui/button-group\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Button Group with Select\";\n\nconst Example = () => {\n  const [country, setCountry] = useState(\"us\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Select onValueChange={setCountry} value={country}>\n          <SelectTrigger className=\"bg-background\">\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent>\n            <SelectItem value=\"us\">🇺🇸 US</SelectItem>\n            <SelectItem value=\"uk\">🇬🇧 UK</SelectItem>\n            <SelectItem value=\"eu\">🇪🇺 EU</SelectItem>\n          </SelectContent>\n        </Select>\n        <ButtonGroupText>+1 (555) 123-4567</ButtonGroupText>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Select defaultValue=\"https\">\n          <SelectTrigger className=\"bg-background\">\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent>\n            <SelectItem value=\"https\">https://</SelectItem>\n            <SelectItem value=\"http\">http://</SelectItem>\n          </SelectContent>\n        </Select>\n        <ButtonGroupText>example.com</ButtonGroupText>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-faq-5",
+  "type": "registry:component",
+  "title": "Collapsible Faq 5",
+  "description": "A collapsible pattern: collapsible-faq-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/faq/collapsible-faq-5.tsx",
+      "content": "import { ChevronRight } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"FAQ with Badge\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg space-y-2\">\n    <CollapsibleTrigger className=\"flex w-full items-start gap-3 text-left\">\n      <ChevronRight className=\"mt-1 h-4 w-4 shrink-0 transition-transform duration-200\" />\n      <div className=\"flex-1 space-y-1\">\n        <div className=\"flex items-center gap-2\">\n          <h3 className=\"font-medium\">Do you offer enterprise plans?</h3>\n          <Badge variant=\"outline\">Popular</Badge>\n        </div>\n      </div>\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"ml-7 text-muted-foreground text-sm\">\n      Yes, we offer custom enterprise plans with dedicated support, SLA\n      guarantees, and volume discounts. Contact our sales team for more\n      information.\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

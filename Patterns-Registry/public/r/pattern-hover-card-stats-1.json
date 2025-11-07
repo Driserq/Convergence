@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-stats-1",
+  "type": "registry:component",
+  "title": "Hover Card Stats 1",
+  "description": "A hover-card pattern: hover-card-stats-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/stats/hover-card-stats-1.tsx",
+      "content": "\"use client\";\n\nimport { TrendingUp } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Simple Stats\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <button className=\"flex items-center gap-2 rounded-lg border bg-card p-4 text-left hover:bg-accent\">\n        <TrendingUp className=\"h-5 w-5 text-green-600 dark:text-green-400\" />\n        <div>\n          <div className=\"font-bold text-2xl\">12,543</div>\n          <div className=\"text-muted-foreground text-sm\">Total Views</div>\n        </div>\n      </button>\n    </HoverCardTrigger>\n    <HoverCardContent>\n      <div className=\"space-y-2\">\n        <h4 className=\"font-semibold text-sm\">View Statistics</h4>\n        <div className=\"space-y-1 text-muted-foreground text-sm\">\n          <div className=\"flex justify-between\">\n            <span>Today:</span>\n            <span className=\"font-medium text-foreground\">342</span>\n          </div>\n          <div className=\"flex justify-between\">\n            <span>This Week:</span>\n            <span className=\"font-medium text-foreground\">2,156</span>\n          </div>\n          <div className=\"flex justify-between\">\n            <span>This Month:</span>\n            <span className=\"font-medium text-foreground\">8,932</span>\n          </div>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

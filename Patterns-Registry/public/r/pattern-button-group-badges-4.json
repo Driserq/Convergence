@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-badges-4",
+  "type": "registry:component",
+  "title": "Button Group Badges 4",
+  "description": "A button-group pattern: button-group-badges-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/badges/button-group-badges-4.tsx",
+      "content": "import { MailIcon, UserPlusIcon } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup, ButtonGroupText } from \"@/components/ui/button-group\";\n\nexport const title = \"Messages and Followers\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button className=\"relative\" size=\"sm\" variant=\"outline\">\n        <MailIcon />\n        Messages\n        <Badge\n          className=\"-top-1 -right-1 absolute h-5 min-w-5 rounded-full px-1 text-xs\"\n          variant=\"destructive\"\n        >\n          8\n        </Badge>\n      </Button>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"outline\">\n        <UserPlusIcon />\n        Follow\n      </Button>\n      <ButtonGroupText>2.4k followers</ButtonGroupText>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"default\">\n        <UserPlusIcon />\n        Following\n      </Button>\n      <ButtonGroupText>2.4k</ButtonGroupText>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

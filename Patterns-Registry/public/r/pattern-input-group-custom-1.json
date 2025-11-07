@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-custom-1",
+  "type": "registry:component",
+  "title": "Input Group Custom 1",
+  "description": "A input-group pattern: input-group-custom-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/custom/input-group-custom-1.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Textarea with Actions\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupTextarea\n      className=\"min-h-[100px]\"\n      placeholder=\"Type your message...\"\n    />\n    <InputGroupAddon align=\"block-end\">\n      <InputGroupButton className=\"ml-auto\" size=\"sm\" variant=\"default\">\n        Submit\n      </InputGroupButton>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

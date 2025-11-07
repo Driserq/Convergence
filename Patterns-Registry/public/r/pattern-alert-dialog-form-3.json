@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-form-3",
+  "type": "registry:component",
+  "title": "Alert Dialog Form 3",
+  "description": "A alert-dialog pattern: alert-dialog-form-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/form/alert-dialog-form-3.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Form with Select\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Add Member</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Invite Team Member</AlertDialogTitle>\n        <AlertDialogDescription>\n          Add a new member to your team with a specific role.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"space-y-4 py-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email\">Email Address</Label>\n          <Input id=\"email\" placeholder=\"name@example.com\" type=\"email\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"role\">Role</Label>\n          <Select defaultValue=\"member\">\n            <SelectTrigger id=\"role\">\n              <SelectValue />\n            </SelectTrigger>\n            <SelectContent>\n              <SelectItem value=\"admin\">Admin</SelectItem>\n              <SelectItem value=\"member\">Member</SelectItem>\n              <SelectItem value=\"viewer\">Viewer</SelectItem>\n            </SelectContent>\n          </Select>\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction>Send Invite</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

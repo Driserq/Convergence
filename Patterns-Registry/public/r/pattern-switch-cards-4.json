@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-cards-4",
+  "type": "registry:component",
+  "title": "Switch Cards 4",
+  "description": "A switch pattern: switch-cards-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/cards/switch-cards-4.tsx",
+      "content": "\"use client\";\n\nimport {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemTitle,\n} from \"@/components/ui/item\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Switch in Item\";\n\nconst Example = () => (\n  <Item className=\"bg-background\" variant=\"outline\">\n    <ItemContent>\n      <ItemTitle>Auto-save</ItemTitle>\n      <ItemDescription>\n        Automatically save your work as you type\n      </ItemDescription>\n    </ItemContent>\n    <Switch defaultChecked />\n  </Item>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

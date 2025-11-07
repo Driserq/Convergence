@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-display-3",
+  "type": "registry:component",
+  "title": "Button Group Display 3",
+  "description": "A button-group pattern: button-group-display-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/display/button-group-display-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Timeline Controls\";\n\nconst Example = () => {\n  const [timeline, setTimeline] = useState(\"week\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setTimeline(\"day\")}\n          size=\"sm\"\n          variant={timeline === \"day\" ? \"default\" : \"outline\"}\n        >\n          Day\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"week\")}\n          size=\"sm\"\n          variant={timeline === \"week\" ? \"default\" : \"outline\"}\n        >\n          Week\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"month\")}\n          size=\"sm\"\n          variant={timeline === \"month\" ? \"default\" : \"outline\"}\n        >\n          Month\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"year\")}\n          size=\"sm\"\n          variant={timeline === \"year\" ? \"default\" : \"outline\"}\n        >\n          Year\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setTimeline(\"1h\")}\n          size=\"sm\"\n          variant={timeline === \"1h\" ? \"default\" : \"outline\"}\n        >\n          1H\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"24h\")}\n          size=\"sm\"\n          variant={timeline === \"24h\" ? \"default\" : \"outline\"}\n        >\n          24H\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"7d\")}\n          size=\"sm\"\n          variant={timeline === \"7d\" ? \"default\" : \"outline\"}\n        >\n          7D\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"30d\")}\n          size=\"sm\"\n          variant={timeline === \"30d\" ? \"default\" : \"outline\"}\n        >\n          30D\n        </Button>\n        <Button\n          onClick={() => setTimeline(\"all\")}\n          size=\"sm\"\n          variant={timeline === \"all\" ? \"default\" : \"outline\"}\n        >\n          All\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

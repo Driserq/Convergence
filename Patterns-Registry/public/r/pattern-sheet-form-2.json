@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-form-2",
+  "type": "registry:component",
+  "title": "Sheet Form 2",
+  "description": "A sheet pattern: sheet-form-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/form/sheet-form-2.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"User Profile Edit Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Edit Profile</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Edit Profile</SheetTitle>\n        <SheetDescription>\n          Make changes to your profile here. Click save when you're done.\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"username\">Username</Label>\n          <Input defaultValue=\"@johndoe\" id=\"username\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"full-name\">Full Name</Label>\n          <Input defaultValue=\"John Doe\" id=\"full-name\" />\n        </div>\n      </div>\n      <SheetFooter>\n        <Button className=\"w-full\">Save Changes</Button>\n      </SheetFooter>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

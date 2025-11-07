@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-media-3",
+  "type": "registry:component",
+  "title": "Button Group Media 3",
+  "description": "A button-group pattern: button-group-media-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/media/button-group-media-3.tsx",
+      "content": "\"use client\";\n\nimport {\n  MaximizeIcon,\n  RotateCcwIcon,\n  ZoomInIcon,\n  ZoomOutIcon,\n} from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Zoom Controls\";\n\nconst Example = () => {\n  const [zoom, setZoom] = useState(100);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setZoom(Math.max(25, zoom - 25))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ZoomOutIcon />\n        </Button>\n        <Button onClick={() => setZoom(100)} size=\"sm\" variant=\"outline\">\n          <RotateCcwIcon />\n          Reset\n        </Button>\n        <Button\n          onClick={() => setZoom(Math.min(400, zoom + 25))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ZoomInIcon />\n        </Button>\n        <Button onClick={() => setZoom(100)} size=\"sm\" variant=\"outline\">\n          <MaximizeIcon />\n          Fit\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setZoom(Math.max(25, zoom - 25))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ZoomOutIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          {zoom}%\n        </Button>\n        <Button\n          onClick={() => setZoom(Math.min(400, zoom + 25))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ZoomInIcon />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-with-icons-1",
+  "type": "registry:component",
+  "title": "Kbd With Icons 1",
+  "description": "A kbd pattern: kbd-with-icons-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/with-icons/kbd-with-icons-1.tsx",
+      "content": "import { CornerDownLeft } from \"lucide-react\";\nimport { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Enter with Icon\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd>\n        <CornerDownLeft />\n        Enter\n      </Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

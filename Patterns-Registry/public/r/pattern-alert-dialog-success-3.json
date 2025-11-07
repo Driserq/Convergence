@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-success-3",
+  "type": "registry:component",
+  "title": "Alert Dialog Success 3",
+  "description": "A alert-dialog pattern: alert-dialog-success-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/success/alert-dialog-success-3.tsx",
+      "content": "import { CheckCircle2 } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Success with Centered Icon\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button>Complete Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader className=\"items-center\">\n        <div className=\"flex size-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-900\">\n          <CheckCircle2 className=\"size-6 text-green-600 dark:text-green-400\" />\n        </div>\n        <AlertDialogTitle>Account Created!</AlertDialogTitle>\n        <AlertDialogDescription className=\"text-center\">\n          Your account has been created successfully. You can now start using\n          all features.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogAction>Get Started</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

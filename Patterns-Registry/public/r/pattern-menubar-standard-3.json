@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-3",
+  "type": "registry:component",
+  "title": "Menubar Standard 3",
+  "description": "A menubar pattern: menubar-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-3.tsx",
+      "content": "import { File, Folder, Save } from \"lucide-react\";\nimport {\n  Menubar,\n  MenubarContent,\n  MenubarItem,\n  MenubarMenu,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Menubar with Icons\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>File</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>\n          <File />\n          New File\n        </MenubarItem>\n        <MenubarItem>\n          <Folder />\n          Open\n        </MenubarItem>\n        <MenubarItem>\n          <Save />\n          Save\n        </MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

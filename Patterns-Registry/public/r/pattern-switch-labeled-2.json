@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-labeled-2",
+  "type": "registry:component",
+  "title": "Switch Labeled 2",
+  "description": "A switch pattern: switch-labeled-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/labeled/switch-labeled-2.tsx",
+      "content": "\"use client\";\n\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Switch with On Label\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2\">\n    <Switch defaultChecked />\n    <span className=\"font-medium text-sm\">On</span>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-item-layout-2",
+  "type": "registry:component",
+  "title": "Item Layout 2",
+  "description": "A item pattern: item-layout-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/item/layout/item-layout-2.tsx",
+      "content": "import { PlusIcon } from \"lucide-react\";\nimport { Fragment } from \"react\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemGroup,\n  ItemMedia,\n  ItemSeparator,\n  ItemTitle,\n} from \"@/components/ui/item\";\n\nexport const title = \"Item Group\";\n\nconst people = [\n  {\n    username: \"haydenbleasel\",\n    avatar: \"https://github.com/haydenbleasel.png\",\n    email: \"h****n@vercel.com\",\n  },\n  {\n    username: \"shadcn\",\n    avatar: \"https://github.com/shadcn.png\",\n    email: \"s****n@vercel.com\",\n  },\n  {\n    username: \"rauchg\",\n    avatar: \"https://github.com/rauchg.png\",\n    email: \"r****g@vercel.com\",\n  },\n];\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-6\">\n    <ItemGroup>\n      {people.map((person, index) => (\n        <Fragment key={person.username}>\n          <Item>\n            <ItemMedia>\n              <Avatar>\n                <AvatarImage src={person.avatar} />\n                <AvatarFallback>{person.username.charAt(0)}</AvatarFallback>\n              </Avatar>\n            </ItemMedia>\n            <ItemContent className=\"gap-1\">\n              <ItemTitle>{person.username}</ItemTitle>\n              <ItemDescription>{person.email}</ItemDescription>\n            </ItemContent>\n            <ItemActions>\n              <Button className=\"rounded-full\" size=\"icon\" variant=\"ghost\">\n                <PlusIcon />\n              </Button>\n            </ItemActions>\n          </Item>\n          {index !== people.length - 1 && <ItemSeparator />}\n        </Fragment>\n      ))}\n    </ItemGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

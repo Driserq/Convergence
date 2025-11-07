@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-applications-3",
+  "type": "registry:component",
+  "title": "Spinner Applications 3",
+  "description": "A spinner pattern: spinner-applications-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/applications/spinner-applications-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\nimport { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Spinner in Empty State\";\n\nconst Example = () => (\n  <Empty className=\"w-full\">\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Spinner />\n      </EmptyMedia>\n      <EmptyTitle>Processing your request</EmptyTitle>\n      <EmptyDescription>\n        Please wait while we process your request. Do not refresh the page.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <Button size=\"sm\" variant=\"outline\">\n        Cancel\n      </Button>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

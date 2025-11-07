@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-breadcrumb-home-icon-5",
+  "type": "registry:component",
+  "title": "Breadcrumb Home Icon 5",
+  "description": "A breadcrumb pattern: breadcrumb-home-icon-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/breadcrumb/home-icon/breadcrumb-home-icon-5.tsx",
+      "content": "import { Home } from \"lucide-react\";\nimport {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/ui/breadcrumb\";\n\nexport const title = \"Breadcrumb with Bullet Separator\";\n\nconst Example = () => (\n  <Breadcrumb>\n    <BreadcrumbList>\n      <BreadcrumbItem>\n        <BreadcrumbLink href=\"/\">\n          <Home className=\"size-4\" />\n        </BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator>•</BreadcrumbSeparator>\n      <BreadcrumbItem>\n        <BreadcrumbLink href=\"/components\">Components</BreadcrumbLink>\n      </BreadcrumbItem>\n      <BreadcrumbSeparator>•</BreadcrumbSeparator>\n      <BreadcrumbItem>\n        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>\n      </BreadcrumbItem>\n    </BreadcrumbList>\n  </Breadcrumb>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

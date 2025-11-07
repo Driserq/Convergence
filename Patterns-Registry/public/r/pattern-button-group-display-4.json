@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-display-4",
+  "type": "registry:component",
+  "title": "Button Group Display 4",
+  "description": "A button-group pattern: button-group-display-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/display/button-group-display-4.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Density Controls\";\n\nconst Example = () => {\n  const [density, setDensity] = useState(\"comfortable\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setDensity(\"compact\")}\n          size=\"sm\"\n          variant={density === \"compact\" ? \"default\" : \"outline\"}\n        >\n          Compact\n        </Button>\n        <Button\n          onClick={() => setDensity(\"comfortable\")}\n          size=\"sm\"\n          variant={density === \"comfortable\" ? \"default\" : \"outline\"}\n        >\n          Comfortable\n        </Button>\n        <Button\n          onClick={() => setDensity(\"spacious\")}\n          size=\"sm\"\n          variant={density === \"spacious\" ? \"default\" : \"outline\"}\n        >\n          Spacious\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setDensity(\"xs\")}\n          size=\"sm\"\n          variant={density === \"xs\" ? \"default\" : \"outline\"}\n        >\n          XS\n        </Button>\n        <Button\n          onClick={() => setDensity(\"sm\")}\n          size=\"sm\"\n          variant={density === \"sm\" ? \"default\" : \"outline\"}\n        >\n          S\n        </Button>\n        <Button\n          onClick={() => setDensity(\"md\")}\n          size=\"sm\"\n          variant={density === \"md\" ? \"default\" : \"outline\"}\n        >\n          M\n        </Button>\n        <Button\n          onClick={() => setDensity(\"lg\")}\n          size=\"sm\"\n          variant={density === \"lg\" ? \"default\" : \"outline\"}\n        >\n          L\n        </Button>\n        <Button\n          onClick={() => setDensity(\"xl\")}\n          size=\"sm\"\n          variant={density === \"xl\" ? \"default\" : \"outline\"}\n        >\n          XL\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

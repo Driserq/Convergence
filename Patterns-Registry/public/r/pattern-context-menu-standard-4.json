@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-standard-4",
+  "type": "registry:component",
+  "title": "Context Menu Standard 4",
+  "description": "A context-menu pattern: context-menu-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/standard/context-menu-standard-4.tsx",
+      "content": "import { HelpCircle, LogOut, Settings, User } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuLabel,\n  ContextMenuSeparator,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Context Menu with Labels\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click here\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuLabel>My Account</ContextMenuLabel>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <User />\n        <span>Profile</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Settings />\n        <span>Settings</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuLabel>Support</ContextMenuLabel>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <HelpCircle />\n        <span>Help Center</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem variant=\"destructive\">\n        <LogOut />\n        <span>Log Out</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

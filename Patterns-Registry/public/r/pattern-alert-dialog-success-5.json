@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-success-5",
+  "type": "registry:component",
+  "title": "Alert Dialog Success 5",
+  "description": "A alert-dialog pattern: alert-dialog-success-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/success/alert-dialog-success-5.tsx",
+      "content": "import { CheckCircle2 } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Success with Summary Details\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button>Complete Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <div className=\"flex items-center gap-2\">\n          <CheckCircle2 className=\"size-5 text-green-500\" />\n          <AlertDialogTitle>Files Uploaded Successfully</AlertDialogTitle>\n        </div>\n        <AlertDialogDescription>\n          All files have been uploaded and processed.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"rounded-lg border bg-green-50 p-4 dark:bg-green-950\">\n        <div className=\"grid grid-cols-2 gap-2 text-sm\">\n          <div className=\"text-muted-foreground\">Total Files:</div>\n          <div className=\"font-medium\">24</div>\n          <div className=\"text-muted-foreground\">Total Size:</div>\n          <div className=\"font-medium\">12.5 MB</div>\n          <div className=\"text-muted-foreground\">Status:</div>\n          <div className=\"font-medium text-green-600 dark:text-green-400\">\n            Completed\n          </div>\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogAction>Done</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-arrow-keys-3",
+  "type": "registry:component",
+  "title": "Kbd Arrow Keys 3",
+  "description": "A kbd pattern: kbd-arrow-keys-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/arrow-keys/kbd-arrow-keys-3.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"WASD Gaming Keys\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <div className=\"grid w-fit grid-cols-3 gap-1\">\n      <div />\n      <Kbd>W</Kbd>\n      <div />\n      <Kbd>A</Kbd>\n      <Kbd>S</Kbd>\n      <Kbd>D</Kbd>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

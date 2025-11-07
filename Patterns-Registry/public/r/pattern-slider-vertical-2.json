@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-vertical-2",
+  "type": "registry:component",
+  "title": "Slider Vertical 2",
+  "description": "A slider pattern: slider-vertical-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/vertical/slider-vertical-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Height Selector\";\n\nconst Example = () => {\n  const [value, setValue] = useState([170]);\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <Label htmlFor=\"slider\">Height (cm)</Label>\n      <Slider\n        className=\"h-64\"\n        id=\"slider\"\n        max={250}\n        min={100}\n        onValueChange={setValue}\n        orientation=\"vertical\"\n        value={value}\n      />\n      <span className=\"text-muted-foreground text-sm\">{value[0]} cm</span>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

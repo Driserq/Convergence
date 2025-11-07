@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-checkbox-standard-13",
+  "type": "registry:component",
+  "title": "Checkbox Standard 13",
+  "description": "A checkbox pattern: checkbox-standard-13",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/checkbox/standard/checkbox-standard-13.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Nested List\";\n\nconst Example = () => {\n  const [parentChecked, setParentChecked] = useState(false);\n  const [child1Checked, setChild1Checked] = useState(false);\n  const [child2Checked, setChild2Checked] = useState(false);\n  const [child3Checked, setChild3Checked] = useState(false);\n\n  const handleParentChange = (checked: boolean) => {\n    setParentChecked(checked);\n    setChild1Checked(checked);\n    setChild2Checked(checked);\n    setChild3Checked(checked);\n  };\n\n  return (\n    <div className=\"space-y-3\">\n      <div className=\"flex items-center space-x-2\">\n        <Checkbox\n          checked={parentChecked}\n          id=\"parent\"\n          onCheckedChange={handleParentChange}\n        />\n        <Label className=\"font-semibold\" htmlFor=\"parent\">\n          Select all features\n        </Label>\n      </div>\n      <div className=\"ml-6 space-y-2\">\n        <div className=\"flex items-center space-x-2\">\n          <Checkbox\n            checked={child1Checked}\n            id=\"child1\"\n            onCheckedChange={setChild1Checked}\n          />\n          <Label htmlFor=\"child1\">Analytics dashboard</Label>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <Checkbox\n            checked={child2Checked}\n            id=\"child2\"\n            onCheckedChange={setChild2Checked}\n          />\n          <Label htmlFor=\"child2\">Advanced reporting</Label>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <Checkbox\n            checked={child3Checked}\n            id=\"child3\"\n            onCheckedChange={setChild3Checked}\n          />\n          <Label htmlFor=\"child3\">Data export</Label>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

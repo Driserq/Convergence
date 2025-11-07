@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radial-stacked",
+  "type": "registry:component",
+  "title": "Chart Radial Stacked",
+  "description": "A chart pattern: chart-radial-stacked",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radial/chart-radial-stacked.tsx",
+      "content": "\"use client\";\n\nimport { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A radial chart with stacked sections\";\n\nconst chartData = [{ month: \"january\", desktop: 1260, mobile: 570 }];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadialStacked = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square w-full max-w-[250px]\"\n      config={chartConfig}\n    >\n      <RadialBarChart\n        data={chartData}\n        endAngle={180}\n        innerRadius={80}\n        outerRadius={130}\n      >\n        <ChartTooltip\n          content={<ChartTooltipContent hideLabel />}\n          cursor={false}\n        />\n        <PolarRadiusAxis axisLine={false} tick={false} tickLine={false}>\n          <Label\n            content={({ viewBox }) => {\n              if (viewBox && \"cx\" in viewBox && \"cy\" in viewBox) {\n                return (\n                  <text textAnchor=\"middle\" x={viewBox.cx} y={viewBox.cy}>\n                    <tspan\n                      className=\"fill-foreground font-bold text-2xl\"\n                      x={viewBox.cx}\n                      y={(viewBox.cy || 0) - 16}\n                    >\n                      {chartData.reduce((acc, curr) => acc + curr.desktop + curr.mobile, 0).toLocaleString()}\n                    </tspan>\n                    <tspan\n                      className=\"fill-muted-foreground\"\n                      x={viewBox.cx}\n                      y={(viewBox.cy || 0) + 4}\n                    >\n                      Visitors\n                    </tspan>\n                  </text>\n                );\n              }\n            }}\n          />\n        </PolarRadiusAxis>\n        <RadialBar\n          className=\"stroke-2 stroke-transparent\"\n          cornerRadius={5}\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          stackId=\"a\"\n        />\n        <RadialBar\n          className=\"stroke-2 stroke-transparent\"\n          cornerRadius={5}\n          dataKey=\"mobile\"\n          fill=\"var(--color-mobile)\"\n          stackId=\"a\"\n        />\n      </RadialBarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadialStacked;\n",
+      "type": "registry:component"
+    }
+  ]
+}

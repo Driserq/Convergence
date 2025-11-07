@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-popover-7",
+  "type": "registry:component",
+  "title": "Command Popover 7",
+  "description": "A command pattern: command-popover-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/popover/command-popover-7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Command Popover with Status Indicators\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">View Services</Button>\n    </PopoverTrigger>\n    <PopoverContent align=\"start\" className=\"w-[400px] p-0\">\n      <Command>\n        <CommandInput placeholder=\"Search services...\" />\n        <CommandList>\n          <CommandEmpty>No services found.</CommandEmpty>\n          <CommandGroup heading=\"Services\">\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-green-500 text-green-500\" />\n              <span>API Server</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Running\n              </span>\n            </CommandItem>\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-green-500 text-green-500\" />\n              <span>Database</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Running\n              </span>\n            </CommandItem>\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-yellow-500 text-yellow-500\" />\n              <span>Cache Server</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Warning\n              </span>\n            </CommandItem>\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-red-500 text-red-500\" />\n              <span>Queue Worker</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Stopped\n              </span>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </Command>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

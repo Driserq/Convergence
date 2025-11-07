@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-behavior-2",
+  "type": "registry:component",
+  "title": "Input Otp Behavior 2",
+  "description": "A input-otp pattern: input-otp-behavior-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/behavior/input-otp-behavior-2.tsx",
+      "content": "\"use client\";\n\nimport { useRef, useState } from \"react\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Enhanced Focus Management\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n  const inputRef = useRef<HTMLInputElement>(null);\n\n  return (\n    <div className=\"space-y-4\">\n      <div className=\"cursor-text\" onClick={() => inputRef.current?.focus()}>\n        <InputOTP\n          maxLength={6}\n          onChange={setValue}\n          ref={inputRef}\n          value={value}\n        >\n          <InputOTPGroup>\n            <InputOTPSlot className=\"bg-background\" index={0} />\n            <InputOTPSlot className=\"bg-background\" index={1} />\n            <InputOTPSlot className=\"bg-background\" index={2} />\n          </InputOTPGroup>\n          <InputOTPSeparator />\n          <InputOTPGroup>\n            <InputOTPSlot className=\"bg-background\" index={3} />\n            <InputOTPSlot className=\"bg-background\" index={4} />\n            <InputOTPSlot className=\"bg-background\" index={5} />\n          </InputOTPGroup>\n        </InputOTP>\n      </div>\n      <p className=\"text-muted-foreground text-sm\">\n        Click anywhere on the input to focus and type.\n      </p>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

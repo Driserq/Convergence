@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-advanced-4",
+  "type": "registry:component",
+  "title": "Field Advanced 4",
+  "description": "A field pattern: field-advanced-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/advanced/field-advanced-4.tsx",
+      "content": "import {\n  Field,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Fieldset with Legend\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldLegend>Address Information</FieldLegend>\n      <FieldDescription>\n        We need your address to deliver your order.\n      </FieldDescription>\n      <FieldGroup>\n        <Field>\n          <FieldLabel htmlFor=\"street\">Street Address</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"street\"\n            placeholder=\"123 Main St\"\n            type=\"text\"\n          />\n        </Field>\n        <div className=\"grid grid-cols-2 gap-4\">\n          <Field>\n            <FieldLabel htmlFor=\"city\">City</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"city\"\n              placeholder=\"New York\"\n              type=\"text\"\n            />\n          </Field>\n          <Field>\n            <FieldLabel htmlFor=\"zip\">Postal Code</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"zip\"\n              placeholder=\"90502\"\n              type=\"text\"\n            />\n          </Field>\n        </div>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

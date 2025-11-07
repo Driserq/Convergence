@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-selects-5",
+  "type": "registry:component",
+  "title": "Field Selects 5",
+  "description": "A field pattern: field-selects-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/selects/field-selects-5.tsx",
+      "content": "import { Field, FieldDescription, FieldLabel } from \"@/components/ui/field\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Select with Helper Text Above\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field>\n      <FieldLabel>Priority Level</FieldLabel>\n      <FieldDescription>\n        Higher priority items will be processed first.\n      </FieldDescription>\n      <Select>\n        <SelectTrigger className=\"bg-background\">\n          <SelectValue placeholder=\"Select priority\" />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectItem value=\"low\">Low</SelectItem>\n          <SelectItem value=\"medium\">Medium</SelectItem>\n          <SelectItem value=\"high\">High</SelectItem>\n          <SelectItem value=\"urgent\">Urgent</SelectItem>\n        </SelectContent>\n      </Select>\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

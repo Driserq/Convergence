@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-custom-2",
+  "type": "registry:component",
+  "title": "Input Group Custom 2",
+  "description": "A input-group pattern: input-group-custom-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/custom/input-group-custom-2.tsx",
+      "content": "import { SendIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupText,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Textarea with Counter\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-6\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea\n        className=\"min-h-[100px]\"\n        maxLength={500}\n        placeholder=\"Write your message...\"\n      />\n      <InputGroupAddon align=\"block-end\">\n        <InputGroupText>0/500</InputGroupText>\n        <InputGroupButton className=\"ml-auto\" size=\"sm\" variant=\"default\">\n          Post\n          <SendIcon />\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-form-2",
+  "type": "registry:component",
+  "title": "Alert Dialog Form 2",
+  "description": "A alert-dialog pattern: alert-dialog-form-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/form/alert-dialog-form-2.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Multiple Inputs Dialog\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Add Feedback</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Send Feedback</AlertDialogTitle>\n        <AlertDialogDescription>\n          Help us improve by sharing your thoughts.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"space-y-4 py-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"subject\">Subject</Label>\n          <Input id=\"subject\" placeholder=\"Brief description\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"message\">Message</Label>\n          <Textarea\n            className=\"min-h-[100px]\"\n            id=\"message\"\n            placeholder=\"Tell us more...\"\n          />\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction>Send</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

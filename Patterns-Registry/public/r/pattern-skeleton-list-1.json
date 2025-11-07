@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-list-1",
+  "type": "registry:component",
+  "title": "Skeleton List 1",
+  "description": "A skeleton pattern: skeleton-list-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/list/skeleton-list-1.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Simple List Items\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-3\">\n    {Array.from({ length: 5 }).map((_, i) => (\n      <div className=\"flex items-center gap-3\" key={i}>\n        <Skeleton className=\"h-4 w-4 rounded-sm\" />\n        <Skeleton className=\"h-4 flex-1\" />\n      </div>\n    ))}\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

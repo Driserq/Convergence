@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-details-3",
+  "type": "registry:component",
+  "title": "Sheet Details 3",
+  "description": "A sheet pattern: sheet-details-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/details/sheet-details-3.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Separator } from \"@/components/ui/separator\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Order Details Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">View Order</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Order #12345</SheetTitle>\n        <SheetDescription>Placed on January 15, 2024</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex items-center justify-between\">\n          <span className=\"font-medium text-sm\">Status</span>\n          <Badge variant=\"secondary\">Shipped</Badge>\n        </div>\n        <Separator />\n        <div className=\"flex flex-col gap-3\">\n          <h4 className=\"font-semibold text-sm\">Items</h4>\n          <div className=\"flex justify-between text-sm\">\n            <span>Product Name x2</span>\n            <span>$59.98</span>\n          </div>\n          <div className=\"flex justify-between text-sm\">\n            <span>Another Product x1</span>\n            <span>$29.99</span>\n          </div>\n        </div>\n        <Separator />\n        <div className=\"flex flex-col gap-2\">\n          <div className=\"flex justify-between text-sm\">\n            <span>Subtotal</span>\n            <span>$89.97</span>\n          </div>\n          <div className=\"flex justify-between text-sm\">\n            <span>Shipping</span>\n            <span>$5.00</span>\n          </div>\n          <div className=\"flex justify-between font-semibold text-sm\">\n            <span>Total</span>\n            <span>$94.97</span>\n          </div>\n        </div>\n        <Button className=\"w-full\" variant=\"outline\">\n          Track Shipment\n        </Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

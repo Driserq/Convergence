@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-scroll-area-layout-1",
+  "type": "registry:component",
+  "title": "Scroll Area Layout 1",
+  "description": "A scroll-area pattern: scroll-area-layout-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/scroll-area/layout/scroll-area-layout-1.tsx",
+      "content": "import { ScrollArea } from \"@/components/ui/scroll-area\";\n\nexport const title = \"Fixed Height ScrollArea\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md space-y-4\">\n    <div>\n      <h3 className=\"mb-2 font-semibold text-sm\">Notifications</h3>\n      <ScrollArea className=\"h-[200px] rounded-md border bg-background\">\n        <div className=\"space-y-4 p-4\">\n          {Array.from({ length: 10 }).map((_, i) => (\n            <div className=\"flex items-start gap-3\" key={i}>\n              <div className=\"flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10\">\n                <span className=\"font-medium text-primary text-xs\">\n                  {i + 1}\n                </span>\n              </div>\n              <div className=\"flex-1 space-y-1\">\n                <p className=\"font-medium text-sm leading-none\">\n                  Notification {i + 1}\n                </p>\n                <p className=\"text-muted-foreground text-sm\">\n                  This is a notification message for item {i + 1}\n                </p>\n                <p className=\"text-muted-foreground text-xs\">\n                  {i + 1} minutes ago\n                </p>\n              </div>\n            </div>\n          ))}\n        </div>\n      </ScrollArea>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

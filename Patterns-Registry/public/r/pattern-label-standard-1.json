@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-1",
+  "type": "registry:component",
+  "title": "Label Standard 1",
+  "description": "A label pattern: label-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-1.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\n\nexport const title = \"Required Label\";\n\nconst Example = () => (\n  <Label>\n    Email <span className=\"text-destructive\">*</span>\n  </Label>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

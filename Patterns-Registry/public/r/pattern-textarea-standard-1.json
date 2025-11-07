@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-standard-1",
+  "type": "registry:component",
+  "title": "Textarea Standard 1",
+  "description": "A textarea pattern: textarea-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/standard/textarea-standard-1.tsx",
+      "content": "import { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Simple Textarea\";\n\nconst Example = () => (\n  <Textarea\n    className=\"w-full max-w-md bg-background\"\n    placeholder=\"Type your message here...\"\n  />\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

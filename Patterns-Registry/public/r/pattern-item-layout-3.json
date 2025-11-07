@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-item-layout-3",
+  "type": "registry:component",
+  "title": "Item Layout 3",
+  "description": "A item pattern: item-layout-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/item/layout/item-layout-3.tsx",
+      "content": "import {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemGroup,\n  ItemHeader,\n  ItemTitle,\n} from \"@/components/ui/item\";\n\nexport const title = \"Item with Header\";\n\nconst models = [\n  {\n    name: \"v0-1.5-sm\",\n    description: \"Everyday tasks and UI generation.\",\n    image: \"https://placehold.co/640x480\",\n  },\n  {\n    name: \"v0-1.5-lg\",\n    description: \"Advanced thinking or reasoning.\",\n    image: \"https://placehold.co/640x480\",\n  },\n  {\n    name: \"v0-2.0-mini\",\n    description: \"Open Source model for everyone.\",\n    image: \"https://placehold.co/640x480\",\n  },\n];\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-xl flex-col gap-6\">\n    <ItemGroup className=\"grid grid-cols-3 gap-4\">\n      {models.map((model) => (\n        <Item className=\"bg-background\" key={model.name} variant=\"outline\">\n          <ItemHeader>\n            {/** biome-ignore lint/performance/noImgElement: \"Kibo UI is framework agnostic\" */}\n            <img\n              alt={model.name}\n              className=\"aspect-[3/2] w-full rounded-sm object-cover\"\n              height={480}\n              src={model.image}\n              width={640}\n            />\n          </ItemHeader>\n          <ItemContent>\n            <ItemTitle>{model.name}</ItemTitle>\n            <ItemDescription>{model.description}</ItemDescription>\n          </ItemContent>\n        </Item>\n      ))}\n    </ItemGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

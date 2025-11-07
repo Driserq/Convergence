@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-2",
+  "type": "registry:component",
+  "title": "Label Standard 2",
+  "description": "A label pattern: label-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-2.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\n\nexport const title = \"Label with Description\";\n\nconst Example = () => (\n  <div className=\"space-y-1\">\n    <Label>Username</Label>\n    <p className=\"text-muted-foreground text-xs\">\n      This will be your public display name\n    </p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

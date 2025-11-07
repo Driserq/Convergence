@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-navigation-3",
+  "type": "registry:component",
+  "title": "Button Group Navigation 3",
+  "description": "A button-group pattern: button-group-navigation-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/navigation/button-group-navigation-3.tsx",
+      "content": "\"use client\";\n\nimport { ChevronLeftIcon, ChevronRightIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Wizard Steps\";\n\nconst Example = () => {\n  const [step, setStep] = useState(2);\n  const totalSteps = 4;\n\n  const steps = [\"Account\", \"Profile\", \"Preferences\", \"Review\"];\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          disabled={step === 1}\n          onClick={() => setStep(Math.max(1, step - 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronLeftIcon />\n          Back\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Step {step} of {totalSteps}\n        </Button>\n        <Button\n          disabled={step === totalSteps}\n          onClick={() => setStep(Math.min(totalSteps, step + 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          Next\n          <ChevronRightIcon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          disabled={step === 1}\n          onClick={() => setStep(Math.max(1, step - 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronLeftIcon />\n        </Button>\n        {steps.map((name, i) => (\n          <Button\n            key={name}\n            onClick={() => setStep(i + 1)}\n            size=\"sm\"\n            variant={step === i + 1 ? \"default\" : \"outline\"}\n          >\n            {name}\n          </Button>\n        ))}\n        <Button\n          disabled={step === totalSteps}\n          onClick={() => setStep(Math.min(totalSteps, step + 1))}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <ChevronRightIcon />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

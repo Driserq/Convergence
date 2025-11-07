@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-standard-3",
+  "type": "registry:component",
+  "title": "Input Otp Standard 3",
+  "description": "A input-otp pattern: input-otp-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/standard/input-otp-standard-3.tsx",
+      "content": "import {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Multiple Separators\";\n\nconst Example = () => (\n  <InputOTP maxLength={6}>\n    <InputOTPGroup>\n      <InputOTPSlot className=\"bg-background\" index={0} />\n      <InputOTPSlot className=\"bg-background\" index={1} />\n    </InputOTPGroup>\n    <InputOTPSeparator />\n    <InputOTPGroup>\n      <InputOTPSlot className=\"bg-background\" index={2} />\n      <InputOTPSlot className=\"bg-background\" index={3} />\n    </InputOTPGroup>\n    <InputOTPSeparator />\n    <InputOTPGroup>\n      <InputOTPSlot className=\"bg-background\" index={4} />\n      <InputOTPSlot className=\"bg-background\" index={5} />\n    </InputOTPGroup>\n  </InputOTP>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

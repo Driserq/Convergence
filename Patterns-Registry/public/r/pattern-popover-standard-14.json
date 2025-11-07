@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-14",
+  "type": "registry:component",
+  "title": "Popover Standard 14",
+  "description": "A popover pattern: popover-standard-14",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-14.tsx",
+      "content": "import { Copy, Facebook, Share2, Twitter } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Share Popover\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">\n        <Share2 className=\"h-4 w-4\" />\n        Share\n      </Button>\n    </PopoverTrigger>\n    <PopoverContent className=\"w-80\">\n      <div className=\"space-y-4\">\n        <h4 className=\"font-semibold\">Share this page</h4>\n        <div className=\"flex gap-2\">\n          <Button className=\"flex-1\" variant=\"outline\">\n            <Facebook className=\"h-4 w-4\" />\n            Facebook\n          </Button>\n          <Button className=\"flex-1\" variant=\"outline\">\n            <Twitter className=\"h-4 w-4\" />\n            Twitter\n          </Button>\n        </div>\n        <Separator />\n        <div className=\"space-y-2\">\n          <p className=\"text-muted-foreground text-xs\">Or copy link</p>\n          <div className=\"flex gap-2\">\n            <Input readOnly value=\"https://example.com/share\" />\n            <Button size=\"icon\" variant=\"outline\">\n              <Copy className=\"h-4 w-4\" />\n            </Button>\n          </div>\n        </div>\n      </div>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

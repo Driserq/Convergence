@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-combobox-with-states-7",
+  "type": "registry:component",
+  "title": "Combobox With States 7",
+  "description": "A combobox pattern: combobox-with-states-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/combobox/with-states/combobox-with-states-7.tsx",
+      "content": "\"use client\";\n\nimport { Eye } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Read-Only/View Mode\";\n\nconst selectedOption = \"Option 2\";\n\nconst Example = () => (\n  <div className=\"space-y-2\">\n    <Button\n      className=\"w-[200px] justify-between\"\n      disabled\n      role=\"combobox\"\n      variant=\"outline\"\n    >\n      <div className=\"flex items-center gap-2\">\n        <Eye className=\"size-4 opacity-50\" />\n        {selectedOption}\n      </div>\n    </Button>\n    <p className=\"text-muted-foreground text-xs\">\n      This field is read-only and cannot be changed\n    </p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

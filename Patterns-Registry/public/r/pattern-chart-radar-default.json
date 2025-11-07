@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radar-default",
+  "type": "registry:component",
+  "title": "Chart Radar Default",
+  "description": "A chart pattern: chart-radar-default",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radar/chart-radar-default.tsx",
+      "content": "\"use client\";\n\nimport { PolarAngleAxis, PolarGrid, Radar, RadarChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A radar chart\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186 },\n  { month: \"February\", desktop: 305 },\n  { month: \"March\", desktop: 237 },\n  { month: \"April\", desktop: 273 },\n  { month: \"May\", desktop: 209 },\n  { month: \"June\", desktop: 214 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadarDefault = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <RadarChart data={chartData}>\n        <ChartTooltip content={<ChartTooltipContent />} cursor={false} />\n        <PolarAngleAxis dataKey=\"month\" />\n        <PolarGrid />\n        <Radar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.6}\n        />\n      </RadarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadarDefault;\n",
+      "type": "registry:component"
+    }
+  ]
+}

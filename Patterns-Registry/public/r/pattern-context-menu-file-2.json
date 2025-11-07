@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-file-2",
+  "type": "registry:component",
+  "title": "Context Menu File 2",
+  "description": "A context-menu pattern: context-menu-file-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/file/context-menu-file-2.tsx",
+      "content": "import { Copy, FolderInput, Scissors } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Copy and Move Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on file\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuItem>\n        <Scissors />\n        <span>Cut</span>\n        <ContextMenuShortcut>⌘X</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Copy />\n        <span>Copy</span>\n        <ContextMenuShortcut>⌘C</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <FolderInput />\n        <span>Copy Path</span>\n        <ContextMenuShortcut>⌘⌥C</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <FolderInput />\n        <span>Move to...</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Copy />\n        <span>Copy to...</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

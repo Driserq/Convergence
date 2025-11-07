@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-tooltip-3",
+  "type": "registry:component",
+  "title": "Input Group Tooltip 3",
+  "description": "A input-group pattern: input-group-tooltip-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/tooltip/input-group-tooltip-3.tsx",
+      "content": "import { InfoIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"API Key Info\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput placeholder=\"API key\" type=\"password\" />\n    <InputGroupAddon align=\"inline-end\">\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <InputGroupButton size=\"icon-xs\" variant=\"ghost\">\n            <InfoIcon />\n          </InputGroupButton>\n        </TooltipTrigger>\n        <TooltipContent>\n          <p>Found in your account settings</p>\n        </TooltipContent>\n      </Tooltip>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

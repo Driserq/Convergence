@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-preview-4",
+  "type": "registry:component",
+  "title": "Hover Card Preview 4",
+  "description": "A hover-card pattern: hover-card-preview-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/preview/hover-card-preview-4.tsx",
+      "content": "\"use client\";\n\nimport { Calendar, Clock, Users } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Event Preview\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <button className=\"font-medium text-sm underline\">\n        Team Planning Session\n      </button>\n    </HoverCardTrigger>\n    <HoverCardContent className=\"w-80\">\n      <div className=\"space-y-3\">\n        <div>\n          <div className=\"flex items-center justify-between\">\n            <h4 className=\"font-semibold text-sm\">Team Planning Session</h4>\n            <Badge variant=\"secondary\">Upcoming</Badge>\n          </div>\n        </div>\n        <p className=\"text-muted-foreground text-sm\">\n          Quarterly planning meeting to discuss goals, priorities, and team\n          alignment for Q1.\n        </p>\n        <div className=\"space-y-2 text-sm\">\n          <div className=\"flex items-center gap-2 text-muted-foreground\">\n            <Calendar className=\"h-4 w-4\" />\n            <span>Monday, January 15, 2024</span>\n          </div>\n          <div className=\"flex items-center gap-2 text-muted-foreground\">\n            <Clock className=\"h-4 w-4\" />\n            <span>2:00 PM - 3:30 PM (90 min)</span>\n          </div>\n          <div className=\"flex items-center gap-2 text-muted-foreground\">\n            <Users className=\"h-4 w-4\" />\n            <span>12 attendees</span>\n          </div>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

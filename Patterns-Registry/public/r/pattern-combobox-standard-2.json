@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-combobox-standard-2",
+  "type": "registry:component",
+  "title": "Combobox Standard 2",
+  "description": "A combobox pattern: combobox-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/combobox/standard/combobox-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { Check, ChevronsUpDown } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { cn } from \"@/lib/utils\";\n\nexport const title = \"With Default Selected Value\";\n\nconst languages = [\n  { value: \"en\", label: \"English\" },\n  { value: \"es\", label: \"Spanish\" },\n  { value: \"fr\", label: \"French\" },\n  { value: \"de\", label: \"German\" },\n  { value: \"it\", label: \"Italian\" },\n];\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"en\");\n\n  return (\n    <Popover onOpenChange={setOpen} open={open}>\n      <PopoverTrigger asChild>\n        <Button\n          aria-expanded={open}\n          className=\"w-[200px] justify-between\"\n          role=\"combobox\"\n          variant=\"outline\"\n        >\n          {value\n            ? languages.find((language) => language.value === value)?.label\n            : \"Select language...\"}\n          <ChevronsUpDown className=\"ml-2 size-4 shrink-0 opacity-50\" />\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent className=\"w-[200px] p-0\">\n        <Command>\n          <CommandInput placeholder=\"Search language...\" />\n          <CommandList>\n            <CommandEmpty>No language found.</CommandEmpty>\n            <CommandGroup>\n              {languages.map((language) => (\n                <CommandItem\n                  key={language.value}\n                  onSelect={(currentValue) => {\n                    setValue(currentValue === value ? \"\" : currentValue);\n                    setOpen(false);\n                  }}\n                  value={language.value}\n                >\n                  <Check\n                    className={cn(\n                      \"mr-2 size-4\",\n                      value === language.value ? \"opacity-100\" : \"opacity-0\"\n                    )}\n                  />\n                  {language.label}\n                </CommandItem>\n              ))}\n            </CommandGroup>\n          </CommandList>\n        </Command>\n      </PopoverContent>\n    </Popover>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

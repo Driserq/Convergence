@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-types-2",
+  "type": "registry:component",
+  "title": "Input Types 2",
+  "description": "A input pattern: input-types-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/types/input-types-2.tsx",
+      "content": "\"use client\";\n\nimport { Eye, EyeOff } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Password with Toggle\";\n\nconst Example = () => {\n  const [showPassword, setShowPassword] = useState(false);\n\n  return (\n    <div className=\"w-full max-w-sm space-y-2\">\n      <Label htmlFor=\"password-toggle\">Password</Label>\n      <div className=\"relative\">\n        <Input\n          className=\"bg-background\"\n          id=\"password-toggle\"\n          placeholder=\"Enter your password\"\n          type={showPassword ? \"text\" : \"password\"}\n        />\n        <Button\n          className=\"absolute top-0 right-0 h-full px-3 hover:bg-transparent\"\n          onClick={() => setShowPassword(!showPassword)}\n          size=\"icon\"\n          type=\"button\"\n          variant=\"ghost\"\n        >\n          {showPassword ? (\n            <EyeOff className=\"h-4 w-4 text-muted-foreground\" />\n          ) : (\n            <Eye className=\"h-4 w-4 text-muted-foreground\" />\n          )}\n        </Button>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

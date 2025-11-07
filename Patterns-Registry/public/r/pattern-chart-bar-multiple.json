@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-bar-multiple",
+  "type": "registry:component",
+  "title": "Chart Bar Multiple",
+  "description": "A chart pattern: chart-bar-multiple",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/bar/chart-bar-multiple.tsx",
+      "content": "\"use client\";\n\nimport { Bar, BarChart, CartesianGrid, XAxis } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A multiple bar chart\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 73, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartBarMultiple = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <BarChart accessibilityLayer data={chartData}>\n        <CartesianGrid vertical={false} />\n        <XAxis\n          axisLine={false}\n          dataKey=\"month\"\n          tickFormatter={(value) => value.slice(0, 3)}\n          tickLine={false}\n          tickMargin={10}\n        />\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"dashed\" />}\n          cursor={false}\n        />\n        <Bar dataKey=\"desktop\" fill=\"var(--color-desktop)\" radius={4} />\n        <Bar dataKey=\"mobile\" fill=\"var(--color-mobile)\" radius={4} />\n      </BarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartBarMultiple;\n",
+      "type": "registry:component"
+    }
+  ]
+}

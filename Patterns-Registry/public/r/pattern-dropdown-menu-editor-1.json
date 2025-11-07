@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-editor-1",
+  "type": "registry:component",
+  "title": "Dropdown Menu Editor 1",
+  "description": "A dropdown-menu pattern: dropdown-menu-editor-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/editor/dropdown-menu-editor-1.tsx",
+      "content": "\"use client\";\n\nimport {\n  Bold,\n  Code,\n  Italic,\n  Strikethrough,\n  Type,\n  Underline,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Text Formatting Dropdown\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button size=\"icon\" variant=\"outline\">\n        <Type className=\"h-4 w-4\" />\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent className=\"w-48\">\n      <DropdownMenuItem>\n        <Bold />\n        Bold\n        <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Italic />\n        Italic\n        <DropdownMenuShortcut>⌘I</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Underline />\n        Underline\n        <DropdownMenuShortcut>⌘U</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Strikethrough />\n        Strikethrough\n        <DropdownMenuShortcut>⌘⇧X</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <Code />\n        Code\n        <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-card-standard-1",
+  "type": "registry:component",
+  "title": "Card Standard 1",
+  "description": "A card pattern: card-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/card/standard/card-standard-1.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\n\nexport const title = \"Standard Card\";\n\nconst Example = () => (\n  <Card className=\"w-[350px]\">\n    <CardHeader>\n      <CardTitle>Card Title</CardTitle>\n      <CardDescription>Card description goes here</CardDescription>\n    </CardHeader>\n    <CardContent>\n      <p>This is the card content area where you can place any content.</p>\n    </CardContent>\n    <CardFooter className=\"flex justify-between\">\n      <Button variant=\"outline\">Cancel</Button>\n      <Button>Submit</Button>\n    </CardFooter>\n  </Card>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

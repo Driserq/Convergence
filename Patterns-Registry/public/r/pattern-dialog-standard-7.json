@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-7",
+  "type": "registry:component",
+  "title": "Dialog Standard 7",
+  "description": "A dialog pattern: dialog-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Feedback\";\n\nconst Example = () => (\n  <Dialog>\n    <DialogTrigger asChild>\n      <Button variant=\"outline\">Send Feedback</Button>\n    </DialogTrigger>\n    <DialogContent className=\"sm:max-w-lg\">\n      <DialogHeader>\n        <DialogTitle>Share your feedback</DialogTitle>\n        <DialogDescription>\n          We'd love to hear your thoughts on how we can improve.\n        </DialogDescription>\n      </DialogHeader>\n      <div className=\"space-y-2\">\n        <Label htmlFor=\"feedback\">Your feedback</Label>\n        <Textarea\n          className=\"min-h-[120px]\"\n          id=\"feedback\"\n          placeholder=\"Tell us what you think...\"\n        />\n      </div>\n      <DialogFooter>\n        <Button type=\"button\" variant=\"outline\">\n          Cancel\n        </Button>\n        <Button type=\"button\">Submit Feedback</Button>\n      </DialogFooter>\n    </DialogContent>\n  </Dialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

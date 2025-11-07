@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-accordion-standard-7",
+  "type": "registry:component",
+  "title": "Accordion Standard 7",
+  "description": "A accordion pattern: accordion-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/accordion/standard/accordion-standard-7.tsx",
+      "content": "import { faker } from \"@faker-js/faker\";\nimport {\n  FileText,\n  Folder,\n  MinusIcon,\n  PlusIcon,\n  Settings,\n  Users,\n} from \"lucide-react\";\nimport type { ReactNode } from \"react\";\nimport {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from \"@/components/ui/accordion\";\n\nexport const title = \"Full Featured\";\n\nconst icons = [FileText, Folder, Settings, Users];\n\nconst data: {\n  value: string;\n  title: string;\n  subtitle: string;\n  content: string;\n  icon: ReactNode;\n}[] = [];\n\nfor (let i = 0; i < 4; i++) {\n  const Icon = icons[i];\n  data.push({\n    value: faker.string.uuid(),\n    title: faker.company.catchPhrase(),\n    subtitle: faker.company.buzzPhrase(),\n    content: faker.lorem.paragraph(),\n    icon: <Icon className=\"size-4 text-muted-foreground\" />,\n  });\n}\n\nconst Example = () => (\n  <Accordion\n    className=\"-space-y-px w-full max-w-md\"\n    collapsible\n    defaultValue={data[0].value}\n    type=\"single\"\n  >\n    {data.map((item) => (\n      <AccordionItem\n        className=\"overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b\"\n        key={item.value}\n        value={item.value}\n      >\n        <AccordionTrigger className=\"group hover:no-underline [&>svg]:hidden\">\n          <div className=\"flex w-full items-center justify-between\">\n            <div className=\"flex items-center gap-3\">\n              {item.icon}\n              <div className=\"flex flex-col items-start text-left\">\n                <span>{item.title}</span>\n                <span className=\"text-muted-foreground text-sm\">\n                  {item.subtitle}\n                </span>\n              </div>\n            </div>\n            <div className=\"relative size-4 shrink-0\">\n              <PlusIcon className=\"absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0\" />\n              <MinusIcon className=\"absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100\" />\n            </div>\n          </div>\n        </AccordionTrigger>\n        <AccordionContent className=\"ps-7\">\n          <p className=\"text-muted-foreground\">{item.content}</p>\n        </AccordionContent>\n      </AccordionItem>\n    ))}\n  </Accordion>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

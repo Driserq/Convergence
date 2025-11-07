@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-custom-actions-2",
+  "type": "registry:component",
+  "title": "Alert Dialog Custom Actions 2",
+  "description": "A alert-dialog pattern: alert-dialog-custom-actions-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/custom-actions/alert-dialog-custom-actions-2.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Vertical Button Stack\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Choose Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Select an Option</AlertDialogTitle>\n        <AlertDialogDescription>\n          Choose how you want to proceed with this item.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter className=\"flex-col gap-2 sm:flex-col\">\n        <AlertDialogAction className=\"m-0\">Edit Item</AlertDialogAction>\n        <Button className=\"m-0\" variant=\"outline\">\n          Duplicate Item\n        </Button>\n        <Button className=\"m-0\" variant=\"outline\">\n          Share Item\n        </Button>\n        <AlertDialogCancel className=\"m-0\">Cancel</AlertDialogCancel>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

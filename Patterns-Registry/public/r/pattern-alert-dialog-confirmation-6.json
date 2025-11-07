@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-confirmation-6",
+  "type": "registry:component",
+  "title": "Alert Dialog Confirmation 6",
+  "description": "A alert-dialog pattern: alert-dialog-confirmation-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/confirmation/alert-dialog-confirmation-6.tsx",
+      "content": "import { HelpCircle } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Confirmation with Centered Icon\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Open Dialog</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader className=\"items-center\">\n        <div className=\"flex size-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900\">\n          <HelpCircle className=\"size-6 text-blue-600 dark:text-blue-400\" />\n        </div>\n        <AlertDialogTitle>Enable Notifications?</AlertDialogTitle>\n        <AlertDialogDescription className=\"text-center\">\n          Stay up to date with important updates and messages from your team.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Not Now</AlertDialogCancel>\n        <AlertDialogAction>Enable</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

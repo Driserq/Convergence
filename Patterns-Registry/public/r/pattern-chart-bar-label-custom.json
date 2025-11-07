@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-bar-label-custom",
+  "type": "registry:component",
+  "title": "Chart Bar Label Custom",
+  "description": "A chart pattern: chart-bar-label-custom",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/bar/chart-bar-label-custom.tsx",
+      "content": "\"use client\";\n\nimport {\n  Bar,\n  BarChart,\n  CartesianGrid,\n  LabelList,\n  XAxis,\n  YAxis,\n} from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A bar chart with a custom label\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 73, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-2)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n  label: {\n    color: \"var(--background)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartBarLabelCustom = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <BarChart\n        accessibilityLayer\n        data={chartData}\n        layout=\"vertical\"\n        margin={{\n          right: 16,\n        }}\n      >\n        <CartesianGrid horizontal={false} />\n        <YAxis\n          axisLine={false}\n          dataKey=\"month\"\n          hide\n          tickFormatter={(value) => value.slice(0, 3)}\n          tickLine={false}\n          tickMargin={10}\n          type=\"category\"\n        />\n        <XAxis dataKey=\"desktop\" hide type=\"number\" />\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"line\" />}\n          cursor={false}\n        />\n        <Bar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          layout=\"vertical\"\n          radius={4}\n        >\n          <LabelList\n            className=\"fill-(--color-label)\"\n            dataKey=\"month\"\n            fontSize={12}\n            offset={8}\n            position=\"insideLeft\"\n          />\n          <LabelList\n            className=\"fill-foreground\"\n            dataKey=\"desktop\"\n            fontSize={12}\n            offset={8}\n            position=\"right\"\n          />\n        </Bar>\n      </BarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartBarLabelCustom;\n",
+      "type": "registry:component"
+    }
+  ]
+}

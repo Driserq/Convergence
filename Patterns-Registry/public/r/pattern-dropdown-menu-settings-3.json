@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-settings-3",
+  "type": "registry:component",
+  "title": "Dropdown Menu Settings 3",
+  "description": "A dropdown-menu pattern: dropdown-menu-settings-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/settings/dropdown-menu-settings-3.tsx",
+      "content": "\"use client\";\n\nimport { Settings } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Preferences Dropdown\";\n\nconst Example = () => {\n  const [autoSave, setAutoSave] = useState(true);\n  const [spellCheck, setSpellCheck] = useState(true);\n  const [lineNumbers, setLineNumbers] = useState(false);\n  const [wordWrap, setWordWrap] = useState(true);\n  const [minimap, setMinimap] = useState(false);\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          <Settings className=\"h-4 w-4\" />\n          Preferences\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-56\">\n        <DropdownMenuLabel>Editor Preferences</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuCheckboxItem\n          checked={autoSave}\n          onCheckedChange={setAutoSave}\n        >\n          Auto-save\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={spellCheck}\n          onCheckedChange={setSpellCheck}\n        >\n          Spell Check\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={lineNumbers}\n          onCheckedChange={setLineNumbers}\n        >\n          Line Numbers\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={wordWrap}\n          onCheckedChange={setWordWrap}\n        >\n          Word Wrap\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={minimap}\n          onCheckedChange={setMinimap}\n        >\n          Minimap\n        </DropdownMenuCheckboxItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

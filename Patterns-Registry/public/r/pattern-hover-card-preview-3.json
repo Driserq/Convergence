@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-preview-3",
+  "type": "registry:component",
+  "title": "Hover Card Preview 3",
+  "description": "A hover-card pattern: hover-card-preview-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/preview/hover-card-preview-3.tsx",
+      "content": "\"use client\";\n\nimport { Image } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Image Preview\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <button className=\"flex items-center gap-2 rounded-md border px-3 py-2 text-sm hover:bg-accent\">\n        <Image className=\"h-4 w-4\" />\n        <span>hero-banner.jpg</span>\n      </button>\n    </HoverCardTrigger>\n    <HoverCardContent className=\"w-80\">\n      <div className=\"space-y-3\">\n        <div className=\"aspect-video overflow-hidden rounded-md bg-muted\">\n          <img\n            alt=\"Preview\"\n            className=\"h-full w-full object-cover\"\n            src=\"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400&h=225&fit=crop\"\n          />\n        </div>\n        <div className=\"space-y-1\">\n          <h4 className=\"font-semibold text-sm\">hero-banner.jpg</h4>\n          <p className=\"text-muted-foreground text-xs\">\n            1920 × 1080 · 1.2 MB · JPEG\n          </p>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

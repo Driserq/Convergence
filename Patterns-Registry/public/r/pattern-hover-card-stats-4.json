@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-stats-4",
+  "type": "registry:component",
+  "title": "Hover Card Stats 4",
+  "description": "A hover-card pattern: hover-card-stats-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/stats/hover-card-stats-4.tsx",
+      "content": "\"use client\";\n\nimport { Activity } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Performance Stats\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <Badge className=\"cursor-pointer gap-1.5\" variant=\"secondary\">\n        <Activity className=\"h-3 w-3\" />\n        98.5% Uptime\n      </Badge>\n    </HoverCardTrigger>\n    <HoverCardContent className=\"w-80\">\n      <div className=\"space-y-3\">\n        <div className=\"flex items-center justify-between\">\n          <h4 className=\"font-semibold text-sm\">System Performance</h4>\n          <Badge\n            className=\"text-green-600 dark:text-green-400\"\n            variant=\"outline\"\n          >\n            Healthy\n          </Badge>\n        </div>\n        <div className=\"space-y-2 text-sm\">\n          <div>\n            <div className=\"mb-1 flex justify-between\">\n              <span className=\"text-muted-foreground\">Uptime</span>\n              <span className=\"font-medium\">98.5%</span>\n            </div>\n            <div className=\"h-2 overflow-hidden rounded-full bg-muted\">\n              <div className=\"h-full w-[98.5%] bg-green-600 dark:bg-green-400\" />\n            </div>\n          </div>\n          <div className=\"flex justify-between\">\n            <span className=\"text-muted-foreground\">Response Time:</span>\n            <span className=\"font-medium\">124ms</span>\n          </div>\n          <div className=\"flex justify-between\">\n            <span className=\"text-muted-foreground\">Error Rate:</span>\n            <span className=\"font-medium\">0.02%</span>\n          </div>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

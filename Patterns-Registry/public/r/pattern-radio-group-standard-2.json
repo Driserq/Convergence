@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-radio-group-standard-2",
+  "type": "registry:component",
+  "title": "Radio Group Standard 2",
+  "description": "A radio-group pattern: radio-group-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/radio-group/standard/radio-group-standard-2.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"RadioGroup with Descriptions\";\n\nconst Example = () => (\n  <RadioGroup defaultValue=\"comfortable\">\n    <div className=\"flex items-start space-x-2\">\n      <RadioGroupItem className=\"mt-1\" id=\"r1\" value=\"default\" />\n      <div className=\"grid gap-1.5 leading-none\">\n        <Label htmlFor=\"r1\">Default</Label>\n        <p className=\"text-muted-foreground text-sm\">\n          The default spacing and sizing.\n        </p>\n      </div>\n    </div>\n    <div className=\"flex items-start space-x-2\">\n      <RadioGroupItem className=\"mt-1\" id=\"r2\" value=\"comfortable\" />\n      <div className=\"grid gap-1.5 leading-none\">\n        <Label htmlFor=\"r2\">Comfortable</Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Increased spacing for better readability.\n        </p>\n      </div>\n    </div>\n    <div className=\"flex items-start space-x-2\">\n      <RadioGroupItem className=\"mt-1\" id=\"r3\" value=\"compact\" />\n      <div className=\"grid gap-1.5 leading-none\">\n        <Label htmlFor=\"r3\">Compact</Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Reduced spacing to fit more content.\n        </p>\n      </div>\n    </div>\n  </RadioGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

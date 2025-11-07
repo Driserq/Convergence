@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tabs-layout-1",
+  "type": "registry:component",
+  "title": "Tabs Layout 1",
+  "description": "A tabs pattern: tabs-layout-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tabs/layout/tabs-layout-1.tsx",
+      "content": "import { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/ui/tabs\";\n\nexport const title = \"Vertical Tabs\";\n\nconst Example = () => (\n  <Tabs className=\"flex w-full max-w-2xl flex-row gap-6\" defaultValue=\"profile\">\n    <TabsList className=\"flex h-auto flex-col\">\n      <TabsTrigger className=\"w-full justify-start\" value=\"profile\">\n        Profile\n      </TabsTrigger>\n      <TabsTrigger className=\"w-full justify-start\" value=\"security\">\n        Security\n      </TabsTrigger>\n      <TabsTrigger className=\"w-full justify-start\" value=\"preferences\">\n        Preferences\n      </TabsTrigger>\n      <TabsTrigger className=\"w-full justify-start\" value=\"team\">\n        Team\n      </TabsTrigger>\n    </TabsList>\n    <div className=\"flex-1\">\n      <TabsContent value=\"profile\">\n        <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n          <h3 className=\"mb-2 font-semibold text-lg\">Profile Settings</h3>\n          <p className=\"text-muted-foreground text-sm\">\n            Update your profile information including your name, email, and\n            profile picture. These details will be visible to other users.\n          </p>\n        </div>\n      </TabsContent>\n      <TabsContent value=\"security\">\n        <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n          <h3 className=\"mb-2 font-semibold text-lg\">Security Settings</h3>\n          <p className=\"text-muted-foreground text-sm\">\n            Manage your password, two-factor authentication, and active sessions\n            to keep your account secure.\n          </p>\n        </div>\n      </TabsContent>\n      <TabsContent value=\"preferences\">\n        <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n          <h3 className=\"mb-2 font-semibold text-lg\">Preferences</h3>\n          <p className=\"text-muted-foreground text-sm\">\n            Customize your experience with theme options, language settings, and\n            notification preferences.\n          </p>\n        </div>\n      </TabsContent>\n      <TabsContent value=\"team\">\n        <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n          <h3 className=\"mb-2 font-semibold text-lg\">Team Settings</h3>\n          <p className=\"text-muted-foreground text-sm\">\n            Invite team members, manage permissions, and configure team-wide\n            settings and integrations.\n          </p>\n        </div>\n      </TabsContent>\n    </div>\n  </Tabs>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

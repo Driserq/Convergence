@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-actions-4",
+  "type": "registry:component",
+  "title": "Button Group Actions 4",
+  "description": "A button-group pattern: button-group-actions-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/actions/button-group-actions-4.tsx",
+      "content": "import { Edit2Icon, FlagIcon, ReplyIcon, Trash2Icon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Comment Actions\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"ghost\">\n        <ReplyIcon />\n        Reply\n      </Button>\n      <Button size=\"sm\" variant=\"ghost\">\n        <Edit2Icon />\n        Edit\n      </Button>\n      <Button size=\"sm\" variant=\"ghost\">\n        <Trash2Icon />\n        Delete\n      </Button>\n      <Button size=\"sm\" variant=\"ghost\">\n        <FlagIcon />\n        Report\n      </Button>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"outline\">\n        <ReplyIcon />\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        <Edit2Icon />\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        <Trash2Icon />\n      </Button>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-standard-3",
+  "type": "registry:component",
+  "title": "Command Standard 3",
+  "description": "A command pattern: command-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/standard/command-standard-3.tsx",
+      "content": "import { File, Folder, Image, Music, Video } from \"lucide-react\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandSeparator,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command with Separators\";\n\nconst Example = () => (\n  <Command className=\"h-auto w-full max-w-lg rounded-lg border shadow-md\">\n    <CommandInput placeholder=\"Search files...\" />\n    <CommandList>\n      <CommandEmpty>No files found.</CommandEmpty>\n      <CommandGroup heading=\"Recent\">\n        <CommandItem>\n          <File />\n          <span>Document.pdf</span>\n        </CommandItem>\n        <CommandItem>\n          <Image />\n          <span>Photo.jpg</span>\n        </CommandItem>\n      </CommandGroup>\n      <CommandSeparator />\n      <CommandGroup heading=\"Folders\">\n        <CommandItem>\n          <Folder />\n          <span>Projects</span>\n        </CommandItem>\n        <CommandItem>\n          <Folder />\n          <span>Documents</span>\n        </CommandItem>\n      </CommandGroup>\n      <CommandSeparator />\n      <CommandGroup heading=\"Media\">\n        <CommandItem>\n          <Video />\n          <span>Video.mp4</span>\n        </CommandItem>\n        <CommandItem>\n          <Music />\n          <span>Song.mp3</span>\n        </CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

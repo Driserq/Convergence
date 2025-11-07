@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-8",
+  "type": "registry:component",
+  "title": "Popover Standard 8",
+  "description": "A popover pattern: popover-standard-8",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-8.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Popover with Divider\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">Options</Button>\n    </PopoverTrigger>\n    <PopoverContent>\n      <div className=\"space-y-2\">\n        <p className=\"font-medium text-sm\">Section 1</p>\n        <Separator />\n        <p className=\"font-medium text-sm\">Section 2</p>\n      </div>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

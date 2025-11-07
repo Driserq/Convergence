@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-table-4",
+  "type": "registry:component",
+  "title": "Skeleton Table 4",
+  "description": "A skeleton pattern: skeleton-table-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/table/skeleton-table-4.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Expandable Rows\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-2xl flex-col gap-3\">\n    <div className=\"grid grid-cols-4 gap-4 border-b pb-3\">\n      <Skeleton className=\"h-4 w-20\" />\n      <Skeleton className=\"h-4 w-24\" />\n      <Skeleton className=\"h-4 w-16\" />\n      <Skeleton className=\"h-4 w-20\" />\n    </div>\n    <div className=\"flex flex-col gap-2\">\n      <div className=\"grid grid-cols-4 items-center gap-4\">\n        <div className=\"flex items-center gap-2\">\n          <Skeleton className=\"size-4 rounded-sm\" />\n          <Skeleton className=\"h-4 flex-1\" />\n        </div>\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n      </div>\n      <div className=\"rounded-md bg-muted/50 py-2 pr-4 pl-10\">\n        <div className=\"flex flex-col gap-2\">\n          <Skeleton className=\"h-3 w-full\" />\n          <Skeleton className=\"h-3 w-5/6\" />\n        </div>\n      </div>\n    </div>\n    <div className=\"grid grid-cols-4 items-center gap-4\">\n      <div className=\"flex items-center gap-2\">\n        <Skeleton className=\"size-4 rounded-sm\" />\n        <Skeleton className=\"h-4 flex-1\" />\n      </div>\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-full\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

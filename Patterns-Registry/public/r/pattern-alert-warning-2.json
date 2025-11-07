@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-warning-2",
+  "type": "registry:component",
+  "title": "Alert Warning 2",
+  "description": "A alert pattern: alert-warning-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert/warning/alert-warning-2.tsx",
+      "content": "import { Alert, AlertDescription, AlertTitle } from \"@/components/ui/alert\";\n\nexport const title = \"Warning with Title and Description\";\n\nconst Example = () => (\n  <Alert className=\"w-full max-w-lg border-warning/80 bg-warning/5 text-warning\">\n    <AlertTitle>Warning</AlertTitle>\n    <AlertDescription className=\"text-warning/80\">\n      This action may have unintended consequences. Please proceed with caution.\n    </AlertDescription>\n  </Alert>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

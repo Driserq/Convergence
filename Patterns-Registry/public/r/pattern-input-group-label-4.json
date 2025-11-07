@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-label-4",
+  "type": "registry:component",
+  "title": "Input Group Label 4",
+  "description": "A input-group pattern: input-group-label-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/label/input-group-label-4.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText,\n} from \"@/components/ui/input-group\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Label with Counter\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput id=\"title\" maxLength={60} placeholder=\"Enter title\" />\n    <InputGroupAddon align=\"block-start\">\n      <Label className=\"text-foreground\" htmlFor=\"title\">\n        Title\n      </Label>\n      <InputGroupText className=\"ml-auto\">0/60</InputGroupText>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

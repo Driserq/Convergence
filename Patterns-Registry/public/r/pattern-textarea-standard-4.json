@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-standard-4",
+  "type": "registry:component",
+  "title": "Textarea Standard 4",
+  "description": "A textarea pattern: textarea-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/standard/textarea-standard-4.tsx",
+      "content": "import { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Short Textarea\";\n\nconst Example = () => (\n  <Textarea\n    className=\"min-h-0 w-full max-w-md bg-background\"\n    placeholder=\"Shorter textarea\"\n    rows={3}\n  />\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-special-1",
+  "type": "registry:component",
+  "title": "Input Special 1",
+  "description": "A input pattern: input-special-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/special/input-special-1.tsx",
+      "content": "\"use client\";\n\nimport { FileText, X } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"File Upload with List\";\n\nconst Example = () => {\n  const [files, setFiles] = useState<File[]>([]);\n\n  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    if (e.target.files) {\n      setFiles(Array.from(e.target.files));\n    }\n  };\n\n  const removeFile = (index: number) => {\n    setFiles(files.filter((_, i) => i !== index));\n  };\n\n  return (\n    <div className=\"w-full max-w-sm space-y-2\">\n      <Label htmlFor=\"file-upload\">Upload Files</Label>\n      <Input\n        className=\"bg-background\"\n        id=\"file-upload\"\n        multiple\n        onChange={handleFileChange}\n        type=\"file\"\n      />\n      {files.length > 0 && (\n        <div className=\"space-y-2\">\n          {files.map((file, index) => (\n            <div\n              className=\"flex items-center justify-between rounded-md border p-2\"\n              key={index}\n            >\n              <div className=\"flex items-center gap-2\">\n                <FileText className=\"h-4 w-4 text-muted-foreground\" />\n                <span className=\"text-sm\">{file.name}</span>\n                <span className=\"text-muted-foreground text-xs\">\n                  ({(file.size / 1024).toFixed(1)} KB)\n                </span>\n              </div>\n              <Button\n                className=\"h-6 w-6\"\n                onClick={() => removeFile(index)}\n                size=\"icon\"\n                type=\"button\"\n                variant=\"ghost\"\n              >\n                <X className=\"h-3 w-3\" />\n              </Button>\n            </div>\n          ))}\n        </div>\n      )}\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

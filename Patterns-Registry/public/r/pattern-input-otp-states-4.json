@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-states-4",
+  "type": "registry:component",
+  "title": "Input Otp States 4",
+  "description": "A input-otp pattern: input-otp-states-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/states/input-otp-states-4.tsx",
+      "content": "\"use client\";\n\nimport { Check } from \"lucide-react\";\nimport { useState } from \"react\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Success State\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n  const [isSuccess, setIsSuccess] = useState(false);\n\n  const handleChange = (newValue: string) => {\n    setValue(newValue);\n    setIsSuccess(false);\n    if (newValue.length === 6) {\n      // Simulate successful verification\n      setTimeout(() => {\n        setIsSuccess(true);\n      }, 500);\n    }\n  };\n\n  return (\n    <div className=\"space-y-2\">\n      <InputOTP\n        disabled={isSuccess}\n        maxLength={6}\n        onChange={handleChange}\n        value={value}\n      >\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={0} />\n          <InputOTPSlot className=\"bg-background\" index={1} />\n          <InputOTPSlot className=\"bg-background\" index={2} />\n        </InputOTPGroup>\n        <InputOTPSeparator />\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={3} />\n          <InputOTPSlot className=\"bg-background\" index={4} />\n          <InputOTPSlot className=\"bg-background\" index={5} />\n        </InputOTPGroup>\n      </InputOTP>\n      {isSuccess && (\n        <div className=\"flex items-center gap-2 text-green-600 text-sm\">\n          <Check className=\"h-4 w-4\" />\n          <span>Code verified successfully!</span>\n        </div>\n      )}\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

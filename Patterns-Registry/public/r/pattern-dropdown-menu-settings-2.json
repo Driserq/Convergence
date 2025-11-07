@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-settings-2",
+  "type": "registry:component",
+  "title": "Dropdown Menu Settings 2",
+  "description": "A dropdown-menu pattern: dropdown-menu-settings-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/settings/dropdown-menu-settings-2.tsx",
+      "content": "\"use client\";\n\nimport { Languages } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Language Selector\";\n\nconst Example = () => {\n  const [language, setLanguage] = useState(\"en\");\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          <Languages className=\"h-4 w-4\" />\n          Language\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-48\">\n        <DropdownMenuLabel>Select Language</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuRadioGroup onValueChange={setLanguage} value={language}>\n          <DropdownMenuRadioItem value=\"en\">\n            <span className=\"flex items-center gap-2\">\n              <span>🇺🇸</span>\n              <span>English</span>\n            </span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"es\">\n            <span className=\"flex items-center gap-2\">\n              <span>🇪🇸</span>\n              <span>Español</span>\n            </span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"fr\">\n            <span className=\"flex items-center gap-2\">\n              <span>🇫🇷</span>\n              <span>Français</span>\n            </span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"de\">\n            <span className=\"flex items-center gap-2\">\n              <span>🇩🇪</span>\n              <span>Deutsch</span>\n            </span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"ja\">\n            <span className=\"flex items-center gap-2\">\n              <span>🇯🇵</span>\n              <span>日本語</span>\n            </span>\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"zh\">\n            <span className=\"flex items-center gap-2\">\n              <span>🇨🇳</span>\n              <span>中文</span>\n            </span>\n          </DropdownMenuRadioItem>\n        </DropdownMenuRadioGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

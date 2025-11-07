@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-layouts-3",
+  "type": "registry:component",
+  "title": "Field Layouts 3",
+  "description": "A field pattern: field-layouts-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/layouts/field-layouts-3.tsx",
+      "content": "import { Field, FieldGroup, FieldLabel, FieldSet } from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Responsive Layout\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldGroup>\n        <Field orientation=\"responsive\">\n          <FieldLabel htmlFor=\"display-name-r\">Display Name</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"display-name-r\"\n            placeholder=\"John Doe\"\n            type=\"text\"\n          />\n        </Field>\n        <Field orientation=\"responsive\">\n          <FieldLabel htmlFor=\"username-r\">Username</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"username-r\"\n            placeholder=\"@johndoe\"\n            type=\"text\"\n          />\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-accordion-tabs-2",
+  "type": "registry:component",
+  "title": "Accordion Tabs 2",
+  "description": "A accordion pattern: accordion-tabs-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/accordion/tabs/accordion-tabs-2.tsx",
+      "content": "import { faker } from \"@faker-js/faker\";\nimport {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from \"@/components/ui/accordion\";\n\nexport const title = \"Tabs\";\n\nconst data: { value: string; title: string; content: string }[] = [];\n\nfor (const _ of new Array(4).fill(0)) {\n  data.push({\n    value: faker.string.uuid(),\n    title: faker.company.catchPhrase(),\n    content: faker.lorem.paragraph(),\n  });\n}\n\nconst Example = () => (\n  <Accordion\n    className=\"flex w-full max-w-md flex-col gap-2\"\n    collapsible\n    defaultValue={data[0].value}\n    type=\"single\"\n  >\n    {data.map((item) => (\n      <AccordionItem\n        className=\"overflow-hidden rounded-lg border bg-background px-4 last:border-b\"\n        key={item.value}\n        value={item.value}\n      >\n        <AccordionTrigger>{item.title}</AccordionTrigger>\n        <AccordionContent>\n          <p className=\"text-muted-foreground\">{item.content}</p>\n        </AccordionContent>\n      </AccordionItem>\n    ))}\n  </Accordion>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

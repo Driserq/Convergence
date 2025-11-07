@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-standard-4",
+  "type": "registry:component",
+  "title": "Input Standard 4",
+  "description": "A input pattern: input-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/standard/input-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Required Field\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"fullname\">\n      Full Name <span className=\"text-destructive\">*</span>\n    </Label>\n    <Input\n      className=\"bg-background\"\n      id=\"fullname\"\n      placeholder=\"Enter your full name\"\n      required\n    />\n    <p className=\"text-muted-foreground text-xs\">* Required field</p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

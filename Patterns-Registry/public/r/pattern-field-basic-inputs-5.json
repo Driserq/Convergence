@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-basic-inputs-5",
+  "type": "registry:component",
+  "title": "Field Basic Inputs 5",
+  "description": "A field pattern: field-basic-inputs-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/basic-inputs/field-basic-inputs-5.tsx",
+      "content": "import { Field, FieldLabel } from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Horizontal Layout Input\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field orientation=\"horizontal\">\n      <FieldLabel className=\"w-32\" htmlFor=\"display-name\">\n        Display Name\n      </FieldLabel>\n      <Input\n        className=\"bg-background\"\n        id=\"display-name\"\n        placeholder=\"John D.\"\n        type=\"text\"\n      />\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

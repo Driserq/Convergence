@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-shortcut-1",
+  "type": "registry:component",
+  "title": "Kbd Shortcut 1",
+  "description": "A kbd pattern: kbd-shortcut-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/shortcut/kbd-shortcut-1.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Command Palette Shortcut\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd>⌘</Kbd>\n      <Kbd>K</Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

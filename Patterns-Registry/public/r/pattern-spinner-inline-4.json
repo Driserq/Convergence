@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-inline-4",
+  "type": "registry:component",
+  "title": "Spinner Inline 4",
+  "description": "A spinner pattern: spinner-inline-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/inline/spinner-inline-4.tsx",
+      "content": "import {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemTitle,\n} from \"@/components/ui/item\";\nimport { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Spinner in List Item\";\n\nconst Example = () => (\n  <Item>\n    <Spinner className=\"text-muted-foreground\" />\n    <ItemContent>\n      <ItemTitle>Loading user profile</ItemTitle>\n      <ItemDescription>Please wait while we fetch your data</ItemDescription>\n    </ItemContent>\n  </Item>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

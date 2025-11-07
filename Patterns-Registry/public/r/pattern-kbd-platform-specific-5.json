@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-platform-specific-5",
+  "type": "registry:component",
+  "title": "Kbd Platform Specific 5",
+  "description": "A kbd pattern: kbd-platform-specific-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/platform-specific/kbd-platform-specific-5.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Mac Control Symbol\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd>⌃</Kbd>\n      <Kbd>Space</Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

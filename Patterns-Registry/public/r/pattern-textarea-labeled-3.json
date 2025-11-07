@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-labeled-3",
+  "type": "registry:component",
+  "title": "Textarea Labeled 3",
+  "description": "A textarea pattern: textarea-labeled-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/labeled/textarea-labeled-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Textarea with Floating Label\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n\n  return (\n    <div className=\"relative w-full max-w-md\">\n      <Textarea\n        className=\"peer bg-background focus:pt-5\"\n        id=\"floating\"\n        onChange={(e) => setValue(e.target.value)}\n        placeholder=\" \"\n        value={value}\n      />\n      <label\n        className=\"absolute top-2 left-3 text-muted-foreground text-sm transition-all peer-placeholder-shown:top-3 peer-focus:top-2 peer-focus:text-xs\"\n        htmlFor=\"floating\"\n      >\n        Message\n      </label>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

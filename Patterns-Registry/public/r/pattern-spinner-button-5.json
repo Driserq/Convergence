@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-button-5",
+  "type": "registry:component",
+  "title": "Spinner Button 5",
+  "description": "A spinner pattern: spinner-button-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/button/spinner-button-5.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Loading Small Button\";\n\nconst Example = () => (\n  <Button disabled size=\"sm\">\n    <Spinner className=\"size-3\" />\n    Please Wait\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

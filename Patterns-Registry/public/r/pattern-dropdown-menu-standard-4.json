@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-standard-4",
+  "type": "registry:component",
+  "title": "Dropdown Menu Standard 4",
+  "description": "A dropdown-menu pattern: dropdown-menu-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/standard/dropdown-menu-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { SlidersHorizontal } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Dropdown with Checkboxes\";\n\nconst Example = () => {\n  const [showStatusBar, setShowStatusBar] = useState(true);\n  const [showActivityBar, setShowActivityBar] = useState(false);\n  const [showPanel, setShowPanel] = useState(false);\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          <SlidersHorizontal className=\"h-4 w-4\" />\n          View\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-56\">\n        <DropdownMenuLabel>Appearance</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuCheckboxItem\n          checked={showStatusBar}\n          onCheckedChange={setShowStatusBar}\n        >\n          Status Bar\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={showActivityBar}\n          onCheckedChange={setShowActivityBar}\n        >\n          Activity Bar\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={showPanel}\n          onCheckedChange={setShowPanel}\n        >\n          Panel\n        </DropdownMenuCheckboxItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

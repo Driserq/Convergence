@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-5",
+  "type": "registry:component",
+  "title": "Menubar Standard 5",
+  "description": "A menubar pattern: menubar-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-5.tsx",
+      "content": "import {\n  Menubar,\n  MenubarContent,\n  MenubarLabel,\n  MenubarMenu,\n  MenubarRadioGroup,\n  MenubarRadioItem,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Menubar with Radio Groups\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>View</MenubarTrigger>\n      <MenubarContent>\n        <MenubarLabel>Layout</MenubarLabel>\n        <MenubarRadioGroup value=\"grid\">\n          <MenubarRadioItem value=\"grid\">Grid</MenubarRadioItem>\n          <MenubarRadioItem value=\"list\">List</MenubarRadioItem>\n          <MenubarRadioItem value=\"columns\">Columns</MenubarRadioItem>\n        </MenubarRadioGroup>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

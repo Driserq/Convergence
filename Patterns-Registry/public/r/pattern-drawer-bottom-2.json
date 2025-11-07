@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-bottom-2",
+  "type": "registry:component",
+  "title": "Drawer Bottom 2",
+  "description": "A drawer pattern: drawer-bottom-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/bottom/drawer-bottom-2.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Bottom Drawer with Form\";\n\nconst Example = () => (\n  <Drawer>\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">Add Contact</Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>Add New Contact</DrawerTitle>\n        <DrawerDescription>\n          Fill in the details below to add a new contact.\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"space-y-4 p-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"name\">Name</Label>\n          <Input id=\"name\" placeholder=\"Enter name\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email\">Email</Label>\n          <Input id=\"email\" placeholder=\"Enter email\" type=\"email\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"phone\">Phone</Label>\n          <Input id=\"phone\" placeholder=\"Enter phone number\" type=\"tel\" />\n        </div>\n      </div>\n      <DrawerFooter>\n        <Button>Add Contact</Button>\n        <DrawerClose asChild>\n          <Button variant=\"outline\">Cancel</Button>\n        </DrawerClose>\n      </DrawerFooter>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

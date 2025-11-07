@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-validation-5",
+  "type": "registry:component",
+  "title": "Input Validation 5",
+  "description": "A input pattern: input-validation-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/validation/input-validation-5.tsx",
+      "content": "\"use client\";\n\nimport { CheckCircle2, X } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Real-time Validation\";\n\nconst Example = () => {\n  const [password, setPassword] = useState(\"\");\n\n  const validations = [\n    { text: \"At least 8 characters\", valid: password.length >= 8 },\n    { text: \"Contains a number\", valid: /\\d/.test(password) },\n    { text: \"Contains uppercase letter\", valid: /[A-Z]/.test(password) },\n    { text: \"Contains special character\", valid: /[!@#$%^&*]/.test(password) },\n  ];\n\n  return (\n    <div className=\"w-full max-w-sm space-y-2\">\n      <Label htmlFor=\"password-realtime\">Create Password</Label>\n      <Input\n        className=\"bg-background\"\n        id=\"password-realtime\"\n        onChange={(e) => setPassword(e.target.value)}\n        placeholder=\"Enter password\"\n        type=\"password\"\n        value={password}\n      />\n      <div className=\"space-y-1\">\n        {validations.map((validation, index) => (\n          <div\n            className={`flex items-center gap-2 text-sm ${\n              validation.valid\n                ? \"text-green-600 dark:text-green-400\"\n                : \"text-muted-foreground\"\n            }`}\n            key={index}\n          >\n            {validation.valid ? (\n              <CheckCircle2 className=\"h-4 w-4\" />\n            ) : (\n              <X className=\"h-4 w-4\" />\n            )}\n            <span>{validation.text}</span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

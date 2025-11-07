@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-4",
+  "type": "registry:component",
+  "title": "Label Standard 4",
+  "description": "A label pattern: label-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-4.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Label with Badge\";\n\nconst Example = () => (\n  <Label>\n    Advanced Settings\n    <Badge className=\"text-xs\" variant=\"secondary\">\n      Beta\n    </Badge>\n  </Label>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

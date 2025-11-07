@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-arrow-keys-4",
+  "type": "registry:component",
+  "title": "Kbd Arrow Keys 4",
+  "description": "A kbd pattern: kbd-arrow-keys-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/arrow-keys/kbd-arrow-keys-4.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Vim Navigation Keys\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <div className=\"grid w-fit grid-cols-4 gap-1\">\n      <Kbd>H</Kbd>\n      <Kbd>J</Kbd>\n      <Kbd>K</Kbd>\n      <Kbd>L</Kbd>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

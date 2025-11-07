@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-settings-1",
+  "type": "registry:component",
+  "title": "Sheet Settings 1",
+  "description": "A sheet pattern: sheet-settings-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/settings/sheet-settings-1.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"App Preferences Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Preferences</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>App Preferences</SheetTitle>\n        <SheetDescription>Customize your app experience</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"notifications\">Enable Notifications</Label>\n          <Checkbox id=\"notifications\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"analytics\">Share Analytics</Label>\n          <Checkbox id=\"analytics\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"auto-update\">Auto Update</Label>\n          <Checkbox defaultChecked id=\"auto-update\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <Label htmlFor=\"dark-mode\">Dark Mode</Label>\n          <Checkbox id=\"dark-mode\" />\n        </div>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

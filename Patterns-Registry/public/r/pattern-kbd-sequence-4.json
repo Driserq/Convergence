@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-sequence-4",
+  "type": "registry:component",
+  "title": "Kbd Sequence 4",
+  "description": "A kbd pattern: kbd-sequence-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/sequence/kbd-sequence-4.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Vim Command Sequence\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <div className=\"flex items-center gap-1\">\n      <Kbd>:</Kbd>\n      <Kbd>W</Kbd>\n      <Kbd>Q</Kbd>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

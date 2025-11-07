@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-6",
+  "type": "registry:component",
+  "title": "Dialog Standard 6",
+  "description": "A dialog pattern: dialog-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-6.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Newsletter\";\n\nconst Example = () => (\n  <Dialog>\n    <DialogTrigger asChild>\n      <Button variant=\"outline\">Subscribe</Button>\n    </DialogTrigger>\n    <DialogContent className=\"sm:max-w-md\">\n      <DialogHeader>\n        <DialogTitle>Subscribe to our newsletter</DialogTitle>\n        <DialogDescription>\n          Get the latest updates and news delivered to your inbox.\n        </DialogDescription>\n      </DialogHeader>\n      <div className=\"space-y-2\">\n        <Label htmlFor=\"email\">Email address</Label>\n        <Input id=\"email\" placeholder=\"you@example.com\" type=\"email\" />\n      </div>\n      <DialogFooter>\n        <Button type=\"button\" variant=\"outline\">\n          Maybe Later\n        </Button>\n        <Button type=\"button\">Subscribe</Button>\n      </DialogFooter>\n    </DialogContent>\n  </Dialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

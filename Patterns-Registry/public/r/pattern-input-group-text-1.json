@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-text-1",
+  "type": "registry:component",
+  "title": "Input Group Text 1",
+  "description": "A input-group pattern: input-group-text-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/text/input-group-text-1.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Currency Input\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <InputGroupText>$</InputGroupText>\n      </InputGroupAddon>\n      <InputGroupInput placeholder=\"0.00\" />\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupText>USD</InputGroupText>\n      </InputGroupAddon>\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <InputGroupText>€</InputGroupText>\n      </InputGroupAddon>\n      <InputGroupInput placeholder=\"0.00\" />\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupText>EUR</InputGroupText>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-dialog-3",
+  "type": "registry:component",
+  "title": "Command Dialog 3",
+  "description": "A command pattern: command-dialog-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/dialog/command-dialog-3.tsx",
+      "content": "\"use client\";\n\nimport { File, Folder, Image, Music, Video } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  CommandDialog,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandSeparator,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command Dialog with Separators\";\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search Files</Button>\n      <CommandDialog onOpenChange={setOpen} open={open}>\n        <CommandInput placeholder=\"Search files...\" />\n        <CommandList>\n          <CommandEmpty>No files found.</CommandEmpty>\n          <CommandGroup heading=\"Recent\">\n            <CommandItem>\n              <File />\n              <span>Document.pdf</span>\n            </CommandItem>\n            <CommandItem>\n              <Image />\n              <span>Photo.jpg</span>\n            </CommandItem>\n          </CommandGroup>\n          <CommandSeparator />\n          <CommandGroup heading=\"Folders\">\n            <CommandItem>\n              <Folder />\n              <span>Projects</span>\n            </CommandItem>\n            <CommandItem>\n              <Folder />\n              <span>Documents</span>\n            </CommandItem>\n          </CommandGroup>\n          <CommandSeparator />\n          <CommandGroup heading=\"Media\">\n            <CommandItem>\n              <Video />\n              <span>Video.mp4</span>\n            </CommandItem>\n            <CommandItem>\n              <Music />\n              <span>Song.mp3</span>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </CommandDialog>\n    </>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

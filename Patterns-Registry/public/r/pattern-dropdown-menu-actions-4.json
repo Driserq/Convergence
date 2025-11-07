@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-actions-4",
+  "type": "registry:component",
+  "title": "Dropdown Menu Actions 4",
+  "description": "A dropdown-menu pattern: dropdown-menu-actions-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/actions/dropdown-menu-actions-4.tsx",
+      "content": "\"use client\";\n\nimport {\n  Archive,\n  CheckCircle,\n  ChevronDown,\n  Download,\n  Tag,\n  Trash2,\n  XCircle,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Batch Actions Dropdown\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button variant=\"outline\">\n        Batch Actions\n        <ChevronDown className=\"h-4 w-4\" />\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent className=\"w-56\">\n      <DropdownMenuLabel>3 items selected</DropdownMenuLabel>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <CheckCircle />\n        Mark as Complete\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <XCircle />\n        Mark as Incomplete\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <Tag />\n        Add Tags\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Download />\n        Export Selected\n        <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Archive />\n        Archive Selected\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem variant=\"destructive\">\n        <Trash2 />\n        Delete Selected\n        <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-item-media-2",
+  "type": "registry:component",
+  "title": "Item Media 2",
+  "description": "A item pattern: item-media-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/item/media/item-media-2.tsx",
+      "content": "import { Plus } from \"lucide-react\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemMedia,\n  ItemTitle,\n} from \"@/components/ui/item\";\n\nexport const title = \"Item with Avatar\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-lg flex-col gap-6\">\n    <Item className=\"bg-background\" variant=\"outline\">\n      <ItemMedia>\n        <Avatar className=\"size-10\">\n          <AvatarImage src=\"https://github.com/haydenbleasel.png\" />\n          <AvatarFallback>HB</AvatarFallback>\n        </Avatar>\n      </ItemMedia>\n      <ItemContent>\n        <ItemTitle>Hayden Bleasel</ItemTitle>\n        <ItemDescription>Last seen 5 months ago</ItemDescription>\n      </ItemContent>\n      <ItemActions>\n        <Button\n          aria-label=\"Invite\"\n          className=\"rounded-full\"\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <Plus />\n        </Button>\n      </ItemActions>\n    </Item>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

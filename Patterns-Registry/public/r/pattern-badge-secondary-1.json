@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-badge-secondary-1",
+  "type": "registry:component",
+  "title": "Badge Secondary 1",
+  "description": "A badge pattern: badge-secondary-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/badge/secondary/badge-secondary-1.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\n\nexport const title = \"Badge with Text\";\n\nconst Example = () => <Badge variant=\"secondary\">Badge</Badge>;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

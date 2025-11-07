@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-link-6",
+  "type": "registry:component",
+  "title": "Button Link 6",
+  "description": "A button pattern: button-link-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/link/button-link-6.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Button with Count\";\n\nconst Example = () => (\n  <Button className=\"gap-2\" variant=\"link\">\n    Button\n    <Badge className=\"rounded-full\" variant=\"secondary\">\n      3\n    </Badge>\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

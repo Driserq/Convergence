@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-inline-2",
+  "type": "registry:component",
+  "title": "Spinner Inline 2",
+  "description": "A spinner pattern: spinner-inline-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/inline/spinner-inline-2.tsx",
+      "content": "import { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Spinner Before Text\";\n\nconst Example = () => (\n  <p className=\"flex items-center gap-2 text-muted-foreground text-sm\">\n    <Spinner className=\"size-3\" />\n    Syncing your changes\n  </p>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

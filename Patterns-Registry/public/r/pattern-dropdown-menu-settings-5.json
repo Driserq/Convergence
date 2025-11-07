@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-settings-5",
+  "type": "registry:component",
+  "title": "Dropdown Menu Settings 5",
+  "description": "A dropdown-menu pattern: dropdown-menu-settings-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/settings/dropdown-menu-settings-5.tsx",
+      "content": "\"use client\";\n\nimport { Columns, Eye, Grid, List } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"View Options\";\n\nconst Example = () => {\n  const [layout, setLayout] = useState(\"grid\");\n  const [showHidden, setShowHidden] = useState(false);\n  const [compactMode, setCompactMode] = useState(false);\n  const [showPreview, setShowPreview] = useState(true);\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button size=\"icon\" variant=\"outline\">\n          <Eye className=\"h-4 w-4\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-56\">\n        <DropdownMenuLabel>Layout</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuRadioGroup onValueChange={setLayout} value={layout}>\n          <DropdownMenuRadioItem value=\"list\">\n            <List />\n            List View\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"grid\">\n            <Grid />\n            Grid View\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"columns\">\n            <Columns />\n            Column View\n          </DropdownMenuRadioItem>\n        </DropdownMenuRadioGroup>\n        <DropdownMenuSeparator />\n        <DropdownMenuLabel>Display Options</DropdownMenuLabel>\n        <DropdownMenuCheckboxItem\n          checked={showHidden}\n          onCheckedChange={setShowHidden}\n        >\n          Show Hidden Files\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={compactMode}\n          onCheckedChange={setCompactMode}\n        >\n          Compact Mode\n        </DropdownMenuCheckboxItem>\n        <DropdownMenuCheckboxItem\n          checked={showPreview}\n          onCheckedChange={setShowPreview}\n        >\n          Show Preview\n        </DropdownMenuCheckboxItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

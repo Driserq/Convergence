@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-standard-1",
+  "type": "registry:component",
+  "title": "Switch Standard 1",
+  "description": "A switch pattern: switch-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/standard/switch-standard-1.tsx",
+      "content": "\"use client\";\n\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Default Switch\";\n\nconst Example = () => <Switch />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-settings-1",
+  "type": "registry:component",
+  "title": "Dropdown Menu Settings 1",
+  "description": "A dropdown-menu pattern: dropdown-menu-settings-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/settings/dropdown-menu-settings-1.tsx",
+      "content": "\"use client\";\n\nimport { Monitor, Moon, Palette, Sun } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Theme Selector\";\n\nconst Example = () => {\n  const [theme, setTheme] = useState(\"system\");\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button size=\"icon\" variant=\"outline\">\n          <Palette className=\"h-4 w-4\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-48\">\n        <DropdownMenuLabel>Theme</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuRadioGroup onValueChange={setTheme} value={theme}>\n          <DropdownMenuRadioItem value=\"light\">\n            <Sun />\n            Light\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"dark\">\n            <Moon />\n            Dark\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"system\">\n            <Monitor />\n            System\n          </DropdownMenuRadioItem>\n        </DropdownMenuRadioGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

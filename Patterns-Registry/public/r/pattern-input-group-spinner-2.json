@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-spinner-2",
+  "type": "registry:component",
+  "title": "Input Group Spinner 2",
+  "description": "A input-group pattern: input-group-spinner-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/spinner/input-group-spinner-2.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText,\n} from \"@/components/ui/input-group\";\nimport { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Spinner with Text\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\" data-disabled>\n    <InputGroupInput disabled placeholder=\"Saving changes...\" />\n    <InputGroupAddon align=\"inline-end\">\n      <InputGroupText>Saving...</InputGroupText>\n      <Spinner />\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

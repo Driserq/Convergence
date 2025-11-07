@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-multi-section-4",
+  "type": "registry:component",
+  "title": "Sheet Multi Section 4",
+  "description": "A sheet pattern: sheet-multi-section-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/multi-section/sheet-multi-section-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Sheet with Action Buttons in Footer\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Create Task</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>New Task</SheetTitle>\n        <SheetDescription>\n          Create a new task and assign it to a team member\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"task-name\">Task Name</Label>\n          <Input id=\"task-name\" placeholder=\"Enter task name\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"assignee\">Assignee</Label>\n          <Input id=\"assignee\" placeholder=\"Select assignee\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"due-date\">Due Date</Label>\n          <Input id=\"due-date\" type=\"date\" />\n        </div>\n      </div>\n      <SheetFooter>\n        <Button variant=\"outline\">Save Draft</Button>\n        <Button>Create Task</Button>\n      </SheetFooter>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

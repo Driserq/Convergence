@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-editor-2",
+  "type": "registry:component",
+  "title": "Dropdown Menu Editor 2",
+  "description": "A dropdown-menu pattern: dropdown-menu-editor-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/editor/dropdown-menu-editor-2.tsx",
+      "content": "\"use client\";\n\nimport {\n  CheckSquare,\n  Code,\n  Image,\n  Link,\n  List,\n  ListOrdered,\n  Minus,\n  Plus,\n  Quote,\n  Type,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Block Type Selector\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button variant=\"outline\">\n        <Plus className=\"h-4 w-4\" />\n        Insert Block\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent className=\"w-56\">\n      <DropdownMenuLabel>Basic Blocks</DropdownMenuLabel>\n      <DropdownMenuItem>\n        <Type />\n        Text\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Quote />\n        Quote\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Minus />\n        Divider\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuLabel>Lists</DropdownMenuLabel>\n      <DropdownMenuItem>\n        <List />\n        Bulleted List\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <ListOrdered />\n        Numbered List\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <CheckSquare />\n        To-do List\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuLabel>Media</DropdownMenuLabel>\n      <DropdownMenuItem>\n        <Image />\n        Image\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Link />\n        Embed\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Code />\n        Code Block\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

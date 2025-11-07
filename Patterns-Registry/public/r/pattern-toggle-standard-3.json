@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-toggle-standard-3",
+  "type": "registry:component",
+  "title": "Toggle Standard 3",
+  "description": "A toggle pattern: toggle-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/toggle/standard/toggle-standard-3.tsx",
+      "content": "\"use client\";\n\nimport { UnderlineIcon } from \"lucide-react\";\nimport { Toggle } from \"@/components/ui/toggle\";\n\nexport const title = \"Disabled Toggle\";\n\nconst Example = () => (\n  <Toggle aria-label=\"Toggle underline\" disabled>\n    <UnderlineIcon />\n  </Toggle>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

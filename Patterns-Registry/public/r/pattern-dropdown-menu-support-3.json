@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-support-3",
+  "type": "registry:component",
+  "title": "Dropdown Menu Support 3",
+  "description": "A dropdown-menu pattern: dropdown-menu-support-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/support/dropdown-menu-support-3.tsx",
+      "content": "\"use client\";\n\nimport {\n  BookOpen,\n  Code,\n  ExternalLink,\n  FileText,\n  Github,\n  MessageSquare,\n  Video,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Resources Menu\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button variant=\"outline\">\n        <BookOpen className=\"h-4 w-4\" />\n        Resources\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent className=\"w-56\">\n      <DropdownMenuLabel>Learning Resources</DropdownMenuLabel>\n      <DropdownMenuSeparator />\n      <DropdownMenuGroup>\n        <DropdownMenuItem>\n          <BookOpen />\n          Getting Started\n          <ExternalLink className=\"ml-auto h-3 w-3\" />\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <FileText />\n          API Reference\n          <ExternalLink className=\"ml-auto h-3 w-3\" />\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Video />\n          Video Guides\n          <ExternalLink className=\"ml-auto h-3 w-3\" />\n        </DropdownMenuItem>\n      </DropdownMenuGroup>\n      <DropdownMenuSeparator />\n      <DropdownMenuLabel>Developer</DropdownMenuLabel>\n      <DropdownMenuGroup>\n        <DropdownMenuItem>\n          <Code />\n          Code Examples\n          <ExternalLink className=\"ml-auto h-3 w-3\" />\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Github />\n          GitHub Repository\n          <ExternalLink className=\"ml-auto h-3 w-3\" />\n        </DropdownMenuItem>\n      </DropdownMenuGroup>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <MessageSquare />\n        Community Forum\n        <ExternalLink className=\"ml-auto h-3 w-3\" />\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

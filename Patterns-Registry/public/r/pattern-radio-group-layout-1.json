@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-radio-group-layout-1",
+  "type": "registry:component",
+  "title": "Radio Group Layout 1",
+  "description": "A radio-group pattern: radio-group-layout-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/radio-group/layout/radio-group-layout-1.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"Horizontal RadioGroup\";\n\nconst Example = () => (\n  <RadioGroup className=\"flex flex-row space-x-4\" defaultValue=\"option-1\">\n    <div className=\"flex items-center space-x-2\">\n      <RadioGroupItem id=\"h1\" value=\"option-1\" />\n      <Label htmlFor=\"h1\">Option 1</Label>\n    </div>\n    <div className=\"flex items-center space-x-2\">\n      <RadioGroupItem id=\"h2\" value=\"option-2\" />\n      <Label htmlFor=\"h2\">Option 2</Label>\n    </div>\n    <div className=\"flex items-center space-x-2\">\n      <RadioGroupItem id=\"h3\" value=\"option-3\" />\n      <Label htmlFor=\"h3\">Option 3</Label>\n    </div>\n  </RadioGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

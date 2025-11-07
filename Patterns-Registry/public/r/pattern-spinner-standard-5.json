@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-standard-5",
+  "type": "registry:component",
+  "title": "Spinner Standard 5",
+  "description": "A spinner pattern: spinner-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/standard/spinner-standard-5.tsx",
+      "content": "import { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Muted Spinner\";\n\nconst Example = () => <Spinner className=\"text-muted-foreground\" />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

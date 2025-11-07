@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-profile-5",
+  "type": "registry:component",
+  "title": "Skeleton Profile 5",
+  "description": "A skeleton pattern: skeleton-profile-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/profile/skeleton-profile-5.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Team Member Card\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-xs flex-col items-center gap-4 rounded-md border p-6 text-center\">\n    <Skeleton className=\"size-20 rounded-full\" />\n    <div className=\"flex w-full flex-col items-center gap-2\">\n      <Skeleton className=\"h-5 w-32\" />\n      <Skeleton className=\"h-4 w-24\" />\n    </div>\n    <Skeleton className=\"h-4 w-full\" />\n    <Skeleton className=\"h-4 w-5/6\" />\n    <div className=\"flex gap-2 pt-2\">\n      <Skeleton className=\"size-8 rounded-full\" />\n      <Skeleton className=\"size-8 rounded-full\" />\n      <Skeleton className=\"size-8 rounded-full\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

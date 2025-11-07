@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-item-interactive-1",
+  "type": "registry:component",
+  "title": "Item Interactive 1",
+  "description": "A item pattern: item-interactive-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/item/interactive/item-interactive-1.tsx",
+      "content": "import { ChevronRightIcon, ExternalLinkIcon } from \"lucide-react\";\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemTitle,\n} from \"@/components/ui/item\";\n\nexport const title = \"Item as Link\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <Item asChild>\n      <a href=\"#\">\n        <ItemContent>\n          <ItemTitle>Visit our documentation</ItemTitle>\n          <ItemDescription>\n            Learn how to get started with our components.\n          </ItemDescription>\n        </ItemContent>\n        <ItemActions>\n          <ChevronRightIcon className=\"size-4\" />\n        </ItemActions>\n      </a>\n    </Item>\n    <Item asChild className=\"bg-background\" variant=\"outline\">\n      <a href=\"#\" rel=\"noopener noreferrer\" target=\"_blank\">\n        <ItemContent>\n          <ItemTitle>External resource</ItemTitle>\n          <ItemDescription>\n            Opens in a new tab with security attributes.\n          </ItemDescription>\n        </ItemContent>\n        <ItemActions>\n          <ExternalLinkIcon className=\"size-4\" />\n        </ItemActions>\n      </a>\n    </Item>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

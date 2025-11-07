@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-area-default",
+  "type": "registry:component",
+  "title": "Chart Area Default",
+  "description": "A chart pattern: chart-area-default",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/area/chart-area-default.tsx",
+      "content": "\"use client\";\n\nimport { Area, AreaChart, CartesianGrid, XAxis } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A simple area chart\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186 },\n  { month: \"February\", desktop: 305 },\n  { month: \"March\", desktop: 237 },\n  { month: \"April\", desktop: 73 },\n  { month: \"May\", desktop: 209 },\n  { month: \"June\", desktop: 214 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartAreaDefault = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <AreaChart\n        accessibilityLayer\n        data={chartData}\n        margin={{\n          left: 12,\n          right: 12,\n        }}\n      >\n        <CartesianGrid vertical={false} />\n        <XAxis\n          axisLine={false}\n          dataKey=\"month\"\n          tickFormatter={(value) => value.slice(0, 3)}\n          tickLine={false}\n          tickMargin={8}\n        />\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"line\" />}\n          cursor={false}\n        />\n        <Area\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.4}\n          stroke=\"var(--color-desktop)\"\n          type=\"natural\"\n        />\n      </AreaChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartAreaDefault;\n",
+      "type": "registry:component"
+    }
+  ]
+}

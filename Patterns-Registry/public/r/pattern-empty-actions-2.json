@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-actions-2",
+  "type": "registry:component",
+  "title": "Empty Actions 2",
+  "description": "A empty pattern: empty-actions-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/actions/empty-actions-2.tsx",
+      "content": "\"use client\";\n\nimport { Link, Upload } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Multiple Actions\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Upload />\n      </EmptyMedia>\n      <EmptyTitle>No files uploaded</EmptyTitle>\n      <EmptyDescription>\n        Upload files from your computer or import from a URL.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <div className=\"flex gap-2\">\n        <Button>\n          <Upload />\n          Upload File\n        </Button>\n        <Button variant=\"outline\">\n          <Link />\n          Import from URL\n        </Button>\n      </div>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

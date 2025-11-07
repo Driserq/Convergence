@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-navigation-2",
+  "type": "registry:component",
+  "title": "Sheet Navigation 2",
+  "description": "A sheet pattern: sheet-navigation-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/navigation/sheet-navigation-2.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Sidebar Navigation Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Navigation</Button>\n    </SheetTrigger>\n    <SheetContent side=\"left\">\n      <SheetHeader>\n        <SheetTitle>Navigation</SheetTitle>\n      </SheetHeader>\n      <nav className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <h3 className=\"font-semibold text-sm\">Dashboard</h3>\n          <a\n            className=\"pl-4 text-muted-foreground text-sm hover:text-foreground\"\n            href=\"#\"\n          >\n            Overview\n          </a>\n          <a\n            className=\"pl-4 text-muted-foreground text-sm hover:text-foreground\"\n            href=\"#\"\n          >\n            Analytics\n          </a>\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <h3 className=\"font-semibold text-sm\">Settings</h3>\n          <a\n            className=\"pl-4 text-muted-foreground text-sm hover:text-foreground\"\n            href=\"#\"\n          >\n            Profile\n          </a>\n          <a\n            className=\"pl-4 text-muted-foreground text-sm hover:text-foreground\"\n            href=\"#\"\n          >\n            Account\n          </a>\n        </div>\n      </nav>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

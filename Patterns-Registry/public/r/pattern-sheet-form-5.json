@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-form-5",
+  "type": "registry:component",
+  "title": "Sheet Form 5",
+  "description": "A sheet pattern: sheet-form-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/form/sheet-form-5.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Multi-Step Form Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Start Setup</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Account Setup</SheetTitle>\n        <SheetDescription>Step 1 of 3: Personal Information</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"first-name\">First Name</Label>\n          <Input id=\"first-name\" placeholder=\"Enter first name\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"last-name\">Last Name</Label>\n          <Input id=\"last-name\" placeholder=\"Enter last name\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"phone\">Phone Number</Label>\n          <Input id=\"phone\" placeholder=\"Enter phone number\" type=\"tel\" />\n        </div>\n      </div>\n      <SheetFooter>\n        <Button className=\"w-full\" variant=\"outline\">\n          Back\n        </Button>\n        <Button className=\"w-full\">Next</Button>\n      </SheetFooter>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

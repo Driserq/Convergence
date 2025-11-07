@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-basic-2",
+  "type": "registry:component",
+  "title": "Separator Basic 2",
+  "description": "A separator pattern: separator-basic-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/basic/separator-basic-2.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Vertical Separator\";\n\nconst Example = () => (\n  <div className=\"flex h-20 items-center space-x-4\">\n    <p className=\"text-sm\">Left</p>\n    <Separator orientation=\"vertical\" />\n    <p className=\"text-sm\">Center</p>\n    <Separator orientation=\"vertical\" />\n    <p className=\"text-sm\">Right</p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

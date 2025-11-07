@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-file-5",
+  "type": "registry:component",
+  "title": "Context Menu File 5",
+  "description": "A context-menu pattern: context-menu-file-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/file/context-menu-file-5.tsx",
+      "content": "import { Info, Lock, Users } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuLabel,\n  ContextMenuSeparator,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"File Properties Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on file\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuLabel>File Management</ContextMenuLabel>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Info />\n        <span>Get Info</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Lock />\n        <span>Permissions</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Users />\n        <span>Sharing Settings</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Info />\n        <span>Properties</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

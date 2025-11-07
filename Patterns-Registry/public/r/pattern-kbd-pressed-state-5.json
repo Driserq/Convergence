@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-pressed-state-5",
+  "type": "registry:component",
+  "title": "Kbd Pressed State 5",
+  "description": "A kbd pattern: kbd-pressed-state-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/pressed-state/kbd-pressed-state-5.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Hover State\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd className=\"cursor-pointer transition-colors hover:bg-accent hover:text-accent-foreground\">\n        ⌘\n      </Kbd>\n      <Kbd className=\"cursor-pointer transition-colors hover:bg-accent hover:text-accent-foreground\">\n        K\n      </Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

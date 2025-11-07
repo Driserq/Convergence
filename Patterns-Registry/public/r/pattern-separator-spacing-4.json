@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-spacing-4",
+  "type": "registry:component",
+  "title": "Separator Spacing 4",
+  "description": "A separator pattern: separator-spacing-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/spacing/separator-spacing-4.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"With Margins\";\n\nconst Example = () => (\n  <div>\n    <p className=\"text-sm\">Section 1</p>\n    <Separator className=\"my-6\" />\n    <p className=\"text-sm\">Section 2</p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

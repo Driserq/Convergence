@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-checkbox-standard-12",
+  "type": "registry:component",
+  "title": "Checkbox Standard 12",
+  "description": "A checkbox pattern: checkbox-standard-12",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/checkbox/standard/checkbox-standard-12.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"With Subtitle and Description\";\n\nconst Example = () => (\n  <div className=\"flex items-start space-x-2\">\n    <Checkbox className=\"mt-1\" id=\"subtitle-description\" />\n    <div className=\"space-y-1\">\n      <div className=\"flex items-baseline gap-2\">\n        <Label htmlFor=\"subtitle-description\">Security alerts</Label>\n        <span className=\"text-muted-foreground text-sm\">Recommended</span>\n      </div>\n      <p className=\"text-muted-foreground text-sm\">\n        Get notified about important security updates and potential threats to\n        your account.\n      </p>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

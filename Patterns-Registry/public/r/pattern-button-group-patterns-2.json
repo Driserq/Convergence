@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-patterns-2",
+  "type": "registry:component",
+  "title": "Button Group Patterns 2",
+  "description": "A button-group pattern: button-group-patterns-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/patterns/button-group-patterns-2.tsx",
+      "content": "\"use client\";\n\nimport { BoldIcon, ItalicIcon, UnderlineIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Contextual Toolbar\";\n\nconst Example = () => {\n  const [showToolbar, setShowToolbar] = useState(false);\n  const [selectedText, setSelectedText] = useState(\"\");\n\n  const handleTextSelect = (e: React.MouseEvent<HTMLDivElement>) => {\n    const selection = window.getSelection();\n    const text = selection?.toString() || \"\";\n    setSelectedText(text);\n    setShowToolbar(text.length > 0);\n  };\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <div\n        className=\"rounded-md border bg-background p-4\"\n        onMouseUp={handleTextSelect}\n      >\n        <p>Select this text to see the formatting toolbar appear.</p>\n      </div>\n      {showToolbar && (\n        <ButtonGroup>\n          <Button size=\"sm\" variant=\"outline\">\n            <BoldIcon />\n          </Button>\n          <Button size=\"sm\" variant=\"outline\">\n            <ItalicIcon />\n          </Button>\n          <Button size=\"sm\" variant=\"outline\">\n            <UnderlineIcon />\n          </Button>\n        </ButtonGroup>\n      )}\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          <BoldIcon />\n          Bold\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <ItalicIcon />\n          Italic\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <UnderlineIcon />\n          Underline\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

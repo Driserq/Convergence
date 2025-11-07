@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-popover-4",
+  "type": "registry:component",
+  "title": "Command Popover 4",
+  "description": "A command pattern: command-popover-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/popover/command-popover-4.tsx",
+      "content": "import { Code, Database, FileText, Package } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Command Popover with Badges\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">Browse Components</Button>\n    </PopoverTrigger>\n    <PopoverContent align=\"start\" className=\"w-[400px] p-0\">\n      <Command>\n        <CommandInput placeholder=\"Search components...\" />\n        <CommandList>\n          <CommandEmpty>No components found.</CommandEmpty>\n          <CommandGroup heading=\"Components\">\n            <CommandItem>\n              <FileText />\n              <span>Button</span>\n              <Badge className=\"ml-auto\" variant=\"secondary\">\n                Stable\n              </Badge>\n            </CommandItem>\n            <CommandItem>\n              <Code />\n              <span>Input</span>\n              <Badge className=\"ml-auto\" variant=\"secondary\">\n                Stable\n              </Badge>\n            </CommandItem>\n            <CommandItem>\n              <Database />\n              <span>Table</span>\n              <Badge className=\"ml-auto\" variant=\"outline\">\n                Beta\n              </Badge>\n            </CommandItem>\n            <CommandItem>\n              <Package />\n              <span>DataGrid</span>\n              <Badge className=\"ml-auto\" variant=\"outline\">\n                Beta\n              </Badge>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </Command>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

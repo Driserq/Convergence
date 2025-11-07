@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-bottom-4",
+  "type": "registry:component",
+  "title": "Drawer Bottom 4",
+  "description": "A drawer pattern: drawer-bottom-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/bottom/drawer-bottom-4.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Bottom Drawer with Snap Points\";\n\nconst Example = () => (\n  <Drawer snapPoints={['148px', '355px', 1]}>\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">Open with Snap Points</Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>Snap Points Drawer</DrawerTitle>\n        <DrawerDescription>\n          Drag to snap to 148px, 355px, or 100% of screen height.\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"p-4\">\n        <p className=\"mb-4 text-muted-foreground text-sm\">\n          This drawer has three snap points. Try dragging it to different\n          heights and it will snap to the nearest point.\n        </p>\n        <ul className=\"space-y-2 text-sm\">\n          <li>• 148px - Quick preview</li>\n          <li>• 355px - Half screen</li>\n          <li>• 100% - Full view</li>\n        </ul>\n      </div>\n      <DrawerFooter>\n        <DrawerClose asChild>\n          <Button variant=\"outline\">Close</Button>\n        </DrawerClose>\n      </DrawerFooter>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

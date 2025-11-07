@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-standard-4",
+  "type": "registry:component",
+  "title": "Command Standard 4",
+  "description": "A command pattern: command-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/standard/command-standard-4.tsx",
+      "content": "import { Code, Database, FileText, Package } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command with Badges\";\n\nconst Example = () => (\n  <Command className=\"h-auto w-full max-w-lg rounded-lg border shadow-md\">\n    <CommandInput placeholder=\"Search components...\" />\n    <CommandList>\n      <CommandEmpty>No components found.</CommandEmpty>\n      <CommandGroup heading=\"Components\">\n        <CommandItem>\n          <FileText />\n          <span>Button</span>\n          <Badge className=\"ml-auto\" variant=\"secondary\">\n            Stable\n          </Badge>\n        </CommandItem>\n        <CommandItem>\n          <Code />\n          <span>Input</span>\n          <Badge className=\"ml-auto\" variant=\"secondary\">\n            Stable\n          </Badge>\n        </CommandItem>\n        <CommandItem>\n          <Database />\n          <span>Table</span>\n          <Badge className=\"ml-auto\" variant=\"outline\">\n            Beta\n          </Badge>\n        </CommandItem>\n        <CommandItem>\n          <Package />\n          <span>DataGrid</span>\n          <Badge className=\"ml-auto\" variant=\"outline\">\n            Beta\n          </Badge>\n        </CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-buttons-2",
+  "type": "registry:component",
+  "title": "Input Group Buttons 2",
+  "description": "A input-group pattern: input-group-buttons-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/buttons/input-group-buttons-2.tsx",
+      "content": "\"use client\";\n\nimport { HeartIcon, InfoIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Multiple Action Buttons\";\n\nconst Example = () => {\n  const [favorited, setFavorited] = useState(false);\n\n  return (\n    <InputGroup className=\"w-full max-w-sm bg-background\">\n      <InputGroupInput placeholder=\"https://github.com/shadcn\" readOnly />\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupButton aria-label=\"Info\" size=\"icon-xs\" variant=\"ghost\">\n          <InfoIcon />\n        </InputGroupButton>\n      </InputGroupAddon>\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupButton\n          aria-label=\"Favorite\"\n          onClick={() => setFavorited(!favorited)}\n          size=\"icon-xs\"\n          variant=\"ghost\"\n        >\n          <HeartIcon className={favorited ? \"fill-current\" : \"\"} />\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

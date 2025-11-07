@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-radio-group-form-2",
+  "type": "registry:component",
+  "title": "Radio Group Form 2",
+  "description": "A radio-group pattern: radio-group-form-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/radio-group/form/radio-group-form-2.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"RadioGroup with Disabled States\";\n\nconst Example = () => (\n  <div className=\"space-y-6\">\n    <div>\n      <h3 className=\"mb-3 font-medium text-sm\">Regular State</h3>\n      <RadioGroup defaultValue=\"option-1\">\n        <div className=\"flex items-center space-x-2\">\n          <RadioGroupItem id=\"d1\" value=\"option-1\" />\n          <Label htmlFor=\"d1\">Enabled and selected</Label>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <RadioGroupItem id=\"d2\" value=\"option-2\" />\n          <Label htmlFor=\"d2\">Enabled</Label>\n        </div>\n      </RadioGroup>\n    </div>\n    <div>\n      <h3 className=\"mb-3 font-medium text-sm\">Disabled State</h3>\n      <RadioGroup defaultValue=\"option-3\" disabled>\n        <div className=\"flex items-center space-x-2\">\n          <RadioGroupItem id=\"d3\" value=\"option-3\" />\n          <Label htmlFor=\"d3\">Disabled and selected</Label>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <RadioGroupItem id=\"d4\" value=\"option-4\" />\n          <Label htmlFor=\"d4\">Disabled</Label>\n        </div>\n      </RadioGroup>\n    </div>\n    <div>\n      <h3 className=\"mb-3 font-medium text-sm\">Mixed State</h3>\n      <RadioGroup defaultValue=\"option-5\">\n        <div className=\"flex items-center space-x-2\">\n          <RadioGroupItem id=\"d5\" value=\"option-5\" />\n          <Label htmlFor=\"d5\">Enabled</Label>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <RadioGroupItem disabled id=\"d6\" value=\"option-6\" />\n          <Label className=\"opacity-50\" htmlFor=\"d6\">\n            Disabled option\n          </Label>\n        </div>\n      </RadioGroup>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

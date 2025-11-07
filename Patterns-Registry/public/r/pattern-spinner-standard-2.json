@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-standard-2",
+  "type": "registry:component",
+  "title": "Spinner Standard 2",
+  "description": "A spinner pattern: spinner-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/standard/spinner-standard-2.tsx",
+      "content": "import { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Small Spinner\";\n\nconst Example = () => <Spinner className=\"size-3\" />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

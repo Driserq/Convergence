@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-settings-3",
+  "type": "registry:component",
+  "title": "Sheet Settings 3",
+  "description": "A sheet pattern: sheet-settings-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/settings/sheet-settings-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Notification Preferences Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Notifications</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Notification Settings</SheetTitle>\n        <SheetDescription>\n          Choose what notifications you want to receive\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <h4 className=\"font-semibold text-sm\">Email Notifications</h4>\n          <div className=\"flex items-center justify-between\">\n            <Label htmlFor=\"email-updates\">Product Updates</Label>\n            <Checkbox defaultChecked id=\"email-updates\" />\n          </div>\n          <div className=\"flex items-center justify-between\">\n            <Label htmlFor=\"email-news\">Newsletter</Label>\n            <Checkbox id=\"email-news\" />\n          </div>\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <h4 className=\"font-semibold text-sm\">Push Notifications</h4>\n          <div className=\"flex items-center justify-between\">\n            <Label htmlFor=\"push-messages\">New Messages</Label>\n            <Checkbox defaultChecked id=\"push-messages\" />\n          </div>\n          <div className=\"flex items-center justify-between\">\n            <Label htmlFor=\"push-mentions\">Mentions</Label>\n            <Checkbox defaultChecked id=\"push-mentions\" />\n          </div>\n        </div>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

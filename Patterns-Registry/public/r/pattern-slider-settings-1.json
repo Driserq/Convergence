@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-settings-1",
+  "type": "registry:component",
+  "title": "Slider Settings 1",
+  "description": "A slider pattern: slider-settings-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/settings/slider-settings-1.tsx",
+      "content": "\"use client\";\n\nimport { Volume2Icon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Volume Control\";\n\nconst Example = () => {\n  const [value, setValue] = useState([65]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-2\">\n          <Volume2Icon className=\"size-4\" />\n          <Label htmlFor=\"slider\">Volume</Label>\n        </div>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}%</span>\n      </div>\n      <Slider id=\"slider\" onValueChange={setValue} value={value} />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

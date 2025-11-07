@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-advanced-5",
+  "type": "registry:component",
+  "title": "Field Advanced 5",
+  "description": "A field pattern: field-advanced-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/advanced/field-advanced-5.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\";\nimport {\n  Field,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldSeparator,\n  FieldSet,\n} from \"@/components/ui/field\";\n\nexport const title = \"Field Group with Separator\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldGroup>\n      <FieldSet>\n        <FieldLabel>Responses</FieldLabel>\n        <FieldDescription>\n          Get notified when ChatGPT responds to requests that take time, like\n          research or image generation.\n        </FieldDescription>\n        <FieldGroup data-slot=\"checkbox-group\">\n          <Field orientation=\"horizontal\">\n            <Checkbox defaultChecked disabled id=\"push\" />\n            <FieldLabel className=\"font-normal\" htmlFor=\"push\">\n              Push notifications\n            </FieldLabel>\n          </Field>\n        </FieldGroup>\n      </FieldSet>\n      <FieldSeparator />\n      <FieldSet>\n        <FieldLabel>Tasks</FieldLabel>\n        <FieldDescription>\n          Get notified when tasks you've created have updates.{\" \"}\n          <a href=\"#\">Manage tasks</a>\n        </FieldDescription>\n        <FieldGroup data-slot=\"checkbox-group\">\n          <Field orientation=\"horizontal\">\n            <Checkbox id=\"push-tasks\" />\n            <FieldLabel className=\"font-normal\" htmlFor=\"push-tasks\">\n              Push notifications\n            </FieldLabel>\n          </Field>\n          <Field orientation=\"horizontal\">\n            <Checkbox id=\"email-tasks\" />\n            <FieldLabel className=\"font-normal\" htmlFor=\"email-tasks\">\n              Email notifications\n            </FieldLabel>\n          </Field>\n        </FieldGroup>\n      </FieldSet>\n    </FieldGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

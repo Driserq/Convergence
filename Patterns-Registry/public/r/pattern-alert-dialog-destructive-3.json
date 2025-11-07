@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-destructive-3",
+  "type": "registry:component",
+  "title": "Alert Dialog Destructive 3",
+  "description": "A alert-dialog pattern: alert-dialog-destructive-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/destructive/alert-dialog-destructive-3.tsx",
+      "content": "import { AlertTriangle } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Destructive with Checkbox Confirmation\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"destructive\">Delete Account</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader className=\"items-center\">\n        <div className=\"flex size-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900\">\n          <AlertTriangle className=\"size-6 text-red-600 dark:text-red-400\" />\n        </div>\n        <AlertDialogTitle>Delete Account Permanently</AlertDialogTitle>\n        <AlertDialogDescription className=\"text-center\">\n          This is a permanent action. All your data, projects, and settings will\n          be deleted immediately and cannot be recovered.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"flex items-center space-x-2 rounded-md border p-4\">\n        <Checkbox id=\"confirm\" />\n        <Label className=\"font-normal text-sm\" htmlFor=\"confirm\">\n          I understand this action is permanent and irreversible\n        </Label>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction className=\"bg-destructive text-white hover:bg-destructive/90\">\n          Delete Account\n        </AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

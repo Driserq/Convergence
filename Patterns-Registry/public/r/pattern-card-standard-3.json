@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-card-standard-3",
+  "type": "registry:component",
+  "title": "Card Standard 3",
+  "description": "A card pattern: card-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/card/standard/card-standard-3.tsx",
+      "content": "import { faker } from \"@faker-js/faker\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\n\nexport const title = \"Meeting Notes Card\";\n\nconst attendees = Array.from({ length: 3 }, () => ({\n  name: faker.person.fullName(),\n  avatar: faker.image.avatar(),\n}));\n\nconst Example = () => (\n  <Card className=\"w-[1050px]\">\n    <CardHeader>\n      <CardTitle>Meeting Notes</CardTitle>\n      <CardDescription>\n        Transcript from the meeting with the client.\n      </CardDescription>\n    </CardHeader>\n    <CardContent className=\"space-y-4\">\n      <p>\n        Client requested dashboard redesign with focus on mobile responsiveness.\n      </p>\n      <ol className=\"list-inside list-decimal space-y-2\">\n        <li>New analytics widgets for daily/weekly metrics</li>\n        <li>Simplified navigation menu</li>\n        <li>Dark mode support</li>\n        <li>Timeline: 6 weeks</li>\n        <li>Follow-up meeting scheduled for next Tuesday</li>\n      </ol>\n    </CardContent>\n    <CardFooter>\n      <div className=\"-space-x-2 flex\">\n        {attendees.map((attendee, index) => (\n          <Avatar className=\"border-2 border-background\" key={index}>\n            <AvatarImage alt={attendee.name} src={attendee.avatar} />\n            <AvatarFallback>\n              {attendee.name\n                .split(\" \")\n                .map((n) => n[0])\n                .join(\"\")}\n            </AvatarFallback>\n          </Avatar>\n        ))}\n      </div>\n    </CardFooter>\n  </Card>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

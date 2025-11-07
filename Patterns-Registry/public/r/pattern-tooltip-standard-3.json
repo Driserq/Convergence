@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tooltip-standard-3",
+  "type": "registry:component",
+  "title": "Tooltip Standard 3",
+  "description": "A tooltip pattern: tooltip-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tooltip/standard/tooltip-standard-3.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Tooltip with Longer Text\";\n\nconst Example = () => (\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <Button variant=\"outline\">Hover for more info</Button>\n    </TooltipTrigger>\n    <TooltipContent className=\"max-w-xs\">\n      <p>\n        This is a longer tooltip message that provides more detailed information\n        to the user. It wraps to multiple lines when needed.\n      </p>\n    </TooltipContent>\n  </Tooltip>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

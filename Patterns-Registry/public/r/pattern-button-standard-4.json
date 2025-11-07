@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-standard-4",
+  "type": "registry:component",
+  "title": "Button Standard 4",
+  "description": "A button pattern: button-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/standard/button-standard-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\n\nexport const title = \"Rounded Button\";\n\nconst Example = () => <Button className=\"rounded-full\">Button</Button>;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

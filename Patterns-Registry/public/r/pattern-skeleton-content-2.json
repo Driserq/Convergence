@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-content-2",
+  "type": "registry:component",
+  "title": "Skeleton Content 2",
+  "description": "A skeleton pattern: skeleton-content-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/content/skeleton-content-2.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Blog Post\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-3xl flex-col gap-6\">\n    <Skeleton className=\"h-10 w-3/4\" />\n    <div className=\"flex items-center gap-4\">\n      <Skeleton className=\"size-12 rounded-full\" />\n      <div className=\"flex flex-col gap-2\">\n        <Skeleton className=\"h-4 w-32\" />\n        <Skeleton className=\"h-3 w-40\" />\n      </div>\n    </div>\n    <Skeleton className=\"h-64 w-full\" />\n    <div className=\"flex flex-col gap-3\">\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-5/6\" />\n    </div>\n    <div className=\"flex flex-col gap-3\">\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-full\" />\n      <Skeleton className=\"h-4 w-4/6\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

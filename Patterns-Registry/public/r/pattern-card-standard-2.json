@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-card-standard-2",
+  "type": "registry:component",
+  "title": "Card Standard 2",
+  "description": "A card pattern: card-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/card/standard/card-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Login Card\";\n\nconst Example = () => {\n  const [email, setEmail] = useState(\"\");\n  const [password, setPassword] = useState(\"\");\n\n  return (\n    <Card className=\"w-full max-w-md\">\n      <CardHeader>\n        <CardTitle>Login to your account</CardTitle>\n        <CardDescription>\n          Enter your email below to login to your account\n        </CardDescription>\n      </CardHeader>\n      <CardContent className=\"space-y-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email\">Email</Label>\n          <Input\n            id=\"email\"\n            onChange={(e) => setEmail(e.target.value)}\n            placeholder=\"m@example.com\"\n            type=\"email\"\n            value={email}\n          />\n        </div>\n        <div className=\"space-y-2\">\n          <div className=\"flex items-center justify-between\">\n            <Label htmlFor=\"password\">Password</Label>\n            <a className=\"text-sm hover:underline\" href=\"#\">\n              Forgot your password?\n            </a>\n          </div>\n          <Input\n            id=\"password\"\n            onChange={(e) => setPassword(e.target.value)}\n            type=\"password\"\n            value={password}\n          />\n        </div>\n        <Button className=\"w-full\">Login</Button>\n        <Button className=\"w-full\" variant=\"outline\">\n          Login with Google\n        </Button>\n      </CardContent>\n      <CardFooter className=\"flex justify-center\">\n        <p className=\"text-muted-foreground text-sm\">\n          Don't have an account?{\" \"}\n          <a className=\"underline\" href=\"#\">\n            Sign up\n          </a>\n        </p>\n      </CardFooter>\n    </Card>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

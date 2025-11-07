@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-radio-group-advanced-1",
+  "type": "registry:component",
+  "title": "Radio Group Advanced 1",
+  "description": "A radio-group pattern: radio-group-advanced-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/radio-group/advanced/radio-group-advanced-1.tsx",
+      "content": "import { CreditCard, Smartphone, Wallet } from \"lucide-react\";\nimport { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"RadioGroup with Icons\";\n\nconst Example = () => (\n  <RadioGroup defaultValue=\"card\">\n    <div className=\"flex items-center space-x-3\">\n      <RadioGroupItem id=\"card\" value=\"card\" />\n      <Label className=\"flex cursor-pointer items-center gap-2\" htmlFor=\"card\">\n        <CreditCard className=\"size-4\" />\n        <span>Credit Card</span>\n      </Label>\n    </div>\n    <div className=\"flex items-center space-x-3\">\n      <RadioGroupItem id=\"wallet\" value=\"wallet\" />\n      <Label\n        className=\"flex cursor-pointer items-center gap-2\"\n        htmlFor=\"wallet\"\n      >\n        <Wallet className=\"size-4\" />\n        <span>Digital Wallet</span>\n      </Label>\n    </div>\n    <div className=\"flex items-center space-x-3\">\n      <RadioGroupItem id=\"mobile\" value=\"mobile\" />\n      <Label\n        className=\"flex cursor-pointer items-center gap-2\"\n        htmlFor=\"mobile\"\n      >\n        <Smartphone className=\"size-4\" />\n        <span>Mobile Payment</span>\n      </Label>\n    </div>\n  </RadioGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

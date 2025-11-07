@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-info-5",
+  "type": "registry:component",
+  "title": "Alert Info 5",
+  "description": "A alert pattern: alert-info-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert/info/alert-info-5.tsx",
+      "content": "import { Info } from \"lucide-react\";\nimport { Alert, AlertDescription, AlertTitle } from \"@/components/ui/alert\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Info with Everything\";\n\nconst Example = () => (\n  <Alert className=\"w-full max-w-lg flex flex-row items-start gap-3 border-info/80 bg-info/5 text-info\">\n    <Info className=\"size-4 shrink-0 translate-y-0.5 text-info/60\" />\n    <div className=\"flex flex-1 items-start justify-between gap-4\">\n      <div className=\"flex flex-col gap-0.5\">\n        <AlertTitle>Info</AlertTitle>\n        <AlertDescription className=\"text-info/80\">\n          This feature is currently in beta and new updates are being released\n          regularly.\n        </AlertDescription>\n      </div>\n      <div className=\"flex shrink-0 gap-2\">\n        <Button\n          className=\"bg-info text-white hover:bg-info/90\"\n          size=\"sm\"\n          variant=\"default\"\n        >\n          Learn More\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Dismiss\n        </Button>\n      </div>\n    </div>\n  </Alert>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

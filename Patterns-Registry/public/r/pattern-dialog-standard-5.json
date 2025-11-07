@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-5",
+  "type": "registry:component",
+  "title": "Dialog Standard 5",
+  "description": "A dialog pattern: dialog-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Delete Confirmation\";\n\nconst Example = () => {\n  const [confirmText, setConfirmText] = useState(\"\");\n  const requiredText = \"delete my account\";\n\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"destructive\">Delete Account</Button>\n      </DialogTrigger>\n      <DialogContent className=\"sm:max-w-md\">\n        <DialogHeader>\n          <DialogTitle>Delete Account</DialogTitle>\n          <DialogDescription>\n            This action cannot be undone. This will permanently delete your\n            account and remove your data from our servers.\n          </DialogDescription>\n        </DialogHeader>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"confirm\">\n            Type <span className=\"font-mono font-semibold\">{requiredText}</span>{\" \"}\n            to confirm\n          </Label>\n          <Input\n            id=\"confirm\"\n            onChange={(e) => setConfirmText(e.target.value)}\n            placeholder={requiredText}\n            value={confirmText}\n          />\n        </div>\n        <DialogFooter>\n          <Button type=\"button\" variant=\"outline\">\n            Cancel\n          </Button>\n          <Button\n            disabled={confirmText !== requiredText}\n            type=\"button\"\n            variant=\"destructive\"\n          >\n            Delete Account\n          </Button>\n        </DialogFooter>\n      </DialogContent>\n    </Dialog>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

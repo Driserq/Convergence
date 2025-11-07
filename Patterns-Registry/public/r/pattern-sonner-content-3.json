@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-content-3",
+  "type": "registry:component",
+  "title": "Sonner Content 3",
+  "description": "A sonner pattern: sonner-content-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/content/sonner-content-3.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Toast with Custom Duration\";\n\nconst Example = () => (\n  <Button\n    onClick={() =>\n      toast(\"This toast will stay for 10 seconds\", {\n        duration: 10_000,\n      })\n    }\n    variant=\"outline\"\n  >\n    Show Toast\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

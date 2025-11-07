@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-informational-4",
+  "type": "registry:component",
+  "title": "Alert Dialog Informational 4",
+  "description": "A alert-dialog pattern: alert-dialog-informational-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/informational/alert-dialog-informational-4.tsx",
+      "content": "import { Bell } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Information with Action Button\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Show Info</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <div className=\"flex items-center gap-2\">\n          <Bell className=\"size-5 text-blue-500\" />\n          <AlertDialogTitle>Stay Updated</AlertDialogTitle>\n        </div>\n        <AlertDialogDescription>\n          Enable notifications to stay informed about important updates, new\n          messages, and team activities.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Not Now</AlertDialogCancel>\n        <AlertDialogAction>Learn More</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

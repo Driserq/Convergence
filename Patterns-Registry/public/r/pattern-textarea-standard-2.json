@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-standard-2",
+  "type": "registry:component",
+  "title": "Textarea Standard 2",
+  "description": "A textarea pattern: textarea-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/standard/textarea-standard-2.tsx",
+      "content": "import { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Disabled Textarea\";\n\nconst Example = () => (\n  <Textarea\n    className=\"w-full max-w-md bg-background\"\n    disabled\n    placeholder=\"This textarea is disabled\"\n  />\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

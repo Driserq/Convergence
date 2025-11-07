@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-content-4",
+  "type": "registry:component",
+  "title": "Sonner Content 4",
+  "description": "A sonner pattern: sonner-content-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/content/sonner-content-4.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Toast with Multi-line Content\";\n\nconst Example = () => (\n  <Button\n    onClick={() =>\n      toast.success(\"Profile updated successfully\", {\n        description:\n          \"Your profile has been updated with the latest information. All changes are now live and visible to other users.\",\n      })\n    }\n    variant=\"outline\"\n  >\n    Show Toast\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-types-3",
+  "type": "registry:component",
+  "title": "Input Types 3",
+  "description": "A input pattern: input-types-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/types/input-types-3.tsx",
+      "content": "\"use client\";\n\nimport { Minus, Plus } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Number Input with Controls\";\n\nconst Example = () => {\n  const [value, setValue] = useState(1);\n\n  return (\n    <div className=\"w-full max-w-sm space-y-2\">\n      <Label htmlFor=\"quantity\">Quantity</Label>\n      <div className=\"flex gap-2\">\n        <Button\n          onClick={() => setValue(Math.max(1, value - 1))}\n          size=\"icon\"\n          type=\"button\"\n          variant=\"outline\"\n        >\n          <Minus className=\"h-4 w-4\" />\n        </Button>\n        <Input\n          className=\"bg-background text-center\"\n          id=\"quantity\"\n          min=\"1\"\n          onChange={(e) => setValue(Number(e.target.value))}\n          type=\"number\"\n          value={value}\n        />\n        <Button\n          onClick={() => setValue(value + 1)}\n          size=\"icon\"\n          type=\"button\"\n          variant=\"outline\"\n        >\n          <Plus className=\"h-4 w-4\" />\n        </Button>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

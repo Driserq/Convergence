@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-forms-2",
+  "type": "registry:component",
+  "title": "Button Group Forms 2",
+  "description": "A button-group pattern: button-group-forms-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/forms/button-group-forms-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Priority Selector\";\n\nconst Example = () => {\n  const [priority, setPriority] = useState(\"medium\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setPriority(\"low\")}\n          size=\"sm\"\n          variant={priority === \"low\" ? \"default\" : \"outline\"}\n        >\n          Low\n        </Button>\n        <Button\n          onClick={() => setPriority(\"medium\")}\n          size=\"sm\"\n          variant={priority === \"medium\" ? \"default\" : \"outline\"}\n        >\n          Medium\n        </Button>\n        <Button\n          onClick={() => setPriority(\"high\")}\n          size=\"sm\"\n          variant={priority === \"high\" ? \"default\" : \"outline\"}\n        >\n          High\n        </Button>\n        <Button\n          onClick={() => setPriority(\"urgent\")}\n          size=\"sm\"\n          variant={priority === \"urgent\" ? \"default\" : \"outline\"}\n        >\n          Urgent\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setPriority(\"p1\")}\n          size=\"sm\"\n          variant={priority === \"p1\" ? \"default\" : \"outline\"}\n        >\n          P1\n        </Button>\n        <Button\n          onClick={() => setPriority(\"p2\")}\n          size=\"sm\"\n          variant={priority === \"p2\" ? \"default\" : \"outline\"}\n        >\n          P2\n        </Button>\n        <Button\n          onClick={() => setPriority(\"p3\")}\n          size=\"sm\"\n          variant={priority === \"p3\" ? \"default\" : \"outline\"}\n        >\n          P3\n        </Button>\n        <Button\n          onClick={() => setPriority(\"p4\")}\n          size=\"sm\"\n          variant={priority === \"p4\" ? \"default\" : \"outline\"}\n        >\n          P4\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

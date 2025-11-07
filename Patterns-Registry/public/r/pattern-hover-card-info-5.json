@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-info-5",
+  "type": "registry:component",
+  "title": "Hover Card Info 5",
+  "description": "A hover-card pattern: hover-card-info-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/info/hover-card-info-5.tsx",
+      "content": "\"use client\";\n\nimport { Code } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Technical Info\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2\">\n    <span className=\"text-sm\">API Endpoint</span>\n    <HoverCard>\n      <HoverCardTrigger>\n        <Code className=\"h-4 w-4 text-muted-foreground\" />\n      </HoverCardTrigger>\n      <HoverCardContent className=\"w-80\">\n        <div className=\"space-y-3\">\n          <h4 className=\"font-semibold text-sm\">Endpoint Details</h4>\n          <div className=\"space-y-2 text-sm\">\n            <div>\n              <span className=\"text-muted-foreground\">Method:</span>{\" \"}\n              <code className=\"rounded bg-muted px-1.5 py-0.5 text-xs\">\n                GET\n              </code>\n            </div>\n            <div>\n              <span className=\"text-muted-foreground\">URL:</span>{\" \"}\n              <code className=\"rounded bg-muted px-1.5 py-0.5 text-xs\">\n                /api/v1/users\n              </code>\n            </div>\n            <div>\n              <span className=\"text-muted-foreground\">Auth:</span>{\" \"}\n              <span className=\"text-xs\">Bearer Token Required</span>\n            </div>\n          </div>\n        </div>\n      </HoverCardContent>\n    </HoverCard>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

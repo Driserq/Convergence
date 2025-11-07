@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-info-3",
+  "type": "registry:component",
+  "title": "Hover Card Info 3",
+  "description": "A hover-card pattern: hover-card-info-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/info/hover-card-info-3.tsx",
+      "content": "\"use client\";\n\nimport { Shield } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Info with Icon and Badge\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <Badge className=\"cursor-pointer gap-1\" variant=\"secondary\">\n        <Shield className=\"h-3 w-3\" />\n        Verified\n      </Badge>\n    </HoverCardTrigger>\n    <HoverCardContent>\n      <div className=\"flex gap-3\">\n        <div className=\"flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100 dark:bg-green-900\">\n          <Shield className=\"h-5 w-5 text-green-600 dark:text-green-400\" />\n        </div>\n        <div className=\"space-y-1\">\n          <h4 className=\"font-semibold text-sm\">Verified Account</h4>\n          <p className=\"text-muted-foreground text-sm\">\n            This account has been verified by our team and meets our security\n            standards.\n          </p>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

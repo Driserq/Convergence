@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-left-1",
+  "type": "registry:component",
+  "title": "Drawer Left 1",
+  "description": "A drawer pattern: drawer-left-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/left/drawer-left-1.tsx",
+      "content": "\"use client\";\n\nimport { Menu } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Simple Left Drawer\";\n\nconst Example = () => (\n  <Drawer direction=\"left\">\n    <DrawerTrigger asChild>\n      <Button size=\"icon\" variant=\"outline\">\n        <Menu className=\"h-4 w-4\" />\n      </Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>Menu</DrawerTitle>\n        <DrawerDescription>\n          This drawer slides in from the left side.\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"p-4\">\n        <p className=\"text-muted-foreground text-sm\">\n          Left-side drawers are commonly used for navigation menus and sidebars.\n        </p>\n      </div>\n      <DrawerFooter>\n        <DrawerClose asChild>\n          <Button variant=\"outline\">Close</Button>\n        </DrawerClose>\n      </DrawerFooter>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

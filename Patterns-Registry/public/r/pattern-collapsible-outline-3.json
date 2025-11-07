@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-outline-3",
+  "type": "registry:component",
+  "title": "Collapsible Outline 3",
+  "description": "A collapsible pattern: collapsible-outline-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/outline/collapsible-outline-3.tsx",
+      "content": "import { Info } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Info Box Outline\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg rounded-lg border-2 border-blue-200 bg-blue-50 dark:border-blue-900 dark:bg-blue-950\">\n    <CollapsibleTrigger className=\"flex w-full items-center gap-3 p-4\">\n      <Info className=\"h-5 w-5 text-blue-600 dark:text-blue-400\" />\n      <span className=\"font-medium text-blue-900 dark:text-blue-100\">\n        Important Notice\n      </span>\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"border-blue-200 border-t-2 px-4 py-3 text-blue-800 text-sm dark:border-blue-900 dark:text-blue-200\">\n      This is an informational message that provides additional context and\n      details when expanded.\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

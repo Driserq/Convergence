@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-selects-7",
+  "type": "registry:component",
+  "title": "Field Selects 7",
+  "description": "A field pattern: field-selects-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/selects/field-selects-7.tsx",
+      "content": "import { Field, FieldDescription, FieldLabel } from \"@/components/ui/field\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Select with Default Value\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field>\n      <FieldLabel>Status</FieldLabel>\n      <Select defaultValue=\"active\">\n        <SelectTrigger className=\"bg-background\">\n          <SelectValue />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectItem value=\"active\">Active</SelectItem>\n          <SelectItem value=\"pending\">Pending</SelectItem>\n          <SelectItem value=\"suspended\">Suspended</SelectItem>\n          <SelectItem value=\"inactive\">Inactive</SelectItem>\n        </SelectContent>\n      </Select>\n      <FieldDescription>Current account status.</FieldDescription>\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

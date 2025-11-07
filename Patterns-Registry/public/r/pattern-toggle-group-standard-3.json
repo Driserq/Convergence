@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-toggle-group-standard-3",
+  "type": "registry:component",
+  "title": "Toggle Group Standard 3",
+  "description": "A toggle-group pattern: toggle-group-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/toggle-group/standard/toggle-group-standard-3.tsx",
+      "content": "\"use client\";\n\nimport { AlignCenterIcon, AlignLeftIcon, AlignRightIcon } from \"lucide-react\";\nimport { ToggleGroup, ToggleGroupItem } from \"@/components/ui/toggle-group\";\n\nexport const title = \"Single Selection Toggle Group\";\n\nconst Example = () => (\n  <ToggleGroup type=\"single\" variant=\"outline\">\n    <ToggleGroupItem aria-label=\"Align left\" value=\"left\">\n      <AlignLeftIcon />\n    </ToggleGroupItem>\n    <ToggleGroupItem aria-label=\"Align center\" value=\"center\">\n      <AlignCenterIcon />\n    </ToggleGroupItem>\n    <ToggleGroupItem aria-label=\"Align right\" value=\"right\">\n      <AlignRightIcon />\n    </ToggleGroupItem>\n  </ToggleGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

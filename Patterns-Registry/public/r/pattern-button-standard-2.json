@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-standard-2",
+  "type": "registry:component",
+  "title": "Button Standard 2",
+  "description": "A button pattern: button-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/standard/button-standard-2.tsx",
+      "content": "import { Mail } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Button with Left Icon\";\n\nconst Example = () => (\n  <Button className=\"gap-2\">\n    <Mail className=\"size-4\" />\n    Button\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

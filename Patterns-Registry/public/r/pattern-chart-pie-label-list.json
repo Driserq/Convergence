@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-pie-label-list",
+  "type": "registry:component",
+  "title": "Chart Pie Label List",
+  "description": "A chart pattern: chart-pie-label-list",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/pie/chart-pie-label-list.tsx",
+      "content": "\"use client\";\n\nimport { LabelList, Pie, PieChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A pie chart with a label list\";\n\nconst chartData = [\n  { browser: \"chrome\", visitors: 275, fill: \"var(--color-chrome)\" },\n  { browser: \"safari\", visitors: 200, fill: \"var(--color-safari)\" },\n  { browser: \"firefox\", visitors: 187, fill: \"var(--color-firefox)\" },\n  { browser: \"edge\", visitors: 173, fill: \"var(--color-edge)\" },\n  { browser: \"other\", visitors: 90, fill: \"var(--color-other)\" },\n];\n\nconst chartConfig = {\n  visitors: {\n    label: \"Visitors\",\n  },\n  chrome: {\n    label: \"Chrome\",\n    color: \"var(--chart-1)\",\n  },\n  safari: {\n    label: \"Safari\",\n    color: \"var(--chart-2)\",\n  },\n  firefox: {\n    label: \"Firefox\",\n    color: \"var(--chart-3)\",\n  },\n  edge: {\n    label: \"Edge\",\n    color: \"var(--chart-4)\",\n  },\n  other: {\n    label: \"Other\",\n    color: \"var(--chart-5)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartPieLabelList = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px] [&_.recharts-text]:fill-background\"\n      config={chartConfig}\n    >\n      <PieChart>\n        <ChartTooltip\n          content={<ChartTooltipContent hideLabel nameKey=\"visitors\" />}\n        />\n        <Pie data={chartData} dataKey=\"visitors\">\n          <LabelList\n            className=\"fill-background\"\n            dataKey=\"browser\"\n            fontSize={12}\n            formatter={(value: keyof typeof chartConfig) =>\n              chartConfig[value]?.label\n            }\n            stroke=\"none\"\n          />\n        </Pie>\n      </PieChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartPieLabelList;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-actions-5",
+  "type": "registry:component",
+  "title": "Dropdown Menu Actions 5",
+  "description": "A dropdown-menu pattern: dropdown-menu-actions-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/actions/dropdown-menu-actions-5.tsx",
+      "content": "\"use client\";\n\nimport {\n  Download,\n  Filter,\n  Plus,\n  RefreshCw,\n  Search,\n  Upload,\n  Zap,\n} from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Quick Actions Menu\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button>\n        <Zap className=\"h-4 w-4\" />\n        Quick Actions\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent className=\"w-56\">\n      <DropdownMenuLabel>Quick Actions</DropdownMenuLabel>\n      <DropdownMenuSeparator />\n      <DropdownMenuGroup>\n        <DropdownMenuItem>\n          <Plus />\n          Create New\n          <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Search />\n          Search\n          <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Filter />\n          Filter\n          <DropdownMenuShortcut>⌘F</DropdownMenuShortcut>\n        </DropdownMenuItem>\n      </DropdownMenuGroup>\n      <DropdownMenuSeparator />\n      <DropdownMenuLabel>Import/Export</DropdownMenuLabel>\n      <DropdownMenuGroup>\n        <DropdownMenuItem>\n          <Upload />\n          Import\n          <DropdownMenuShortcut>⌘I</DropdownMenuShortcut>\n        </DropdownMenuItem>\n        <DropdownMenuItem>\n          <Download />\n          Export\n          <DropdownMenuShortcut>⌘E</DropdownMenuShortcut>\n        </DropdownMenuItem>\n      </DropdownMenuGroup>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <RefreshCw />\n        Refresh\n        <DropdownMenuShortcut>⌘R</DropdownMenuShortcut>\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

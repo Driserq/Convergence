@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-textarea-2",
+  "type": "registry:component",
+  "title": "Input Group Textarea 2",
+  "description": "A input-group pattern: input-group-textarea-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/textarea/input-group-textarea-2.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupText,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Character Counter\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupTextarea\n      className=\"min-h-[120px]\"\n      maxLength={500}\n      placeholder=\"Enter your message...\"\n    />\n    <InputGroupAddon align=\"block-end\" className=\"border-t\">\n      <InputGroupText className=\"ml-auto\">0/500</InputGroupText>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

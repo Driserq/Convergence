@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-search-3",
+  "type": "registry:component",
+  "title": "Empty Search 3",
+  "description": "A empty pattern: empty-search-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/search/empty-search-3.tsx",
+      "content": "\"use client\";\n\nimport { SearchX } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"No Matches Found\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <SearchX />\n      </EmptyMedia>\n      <EmptyTitle>No matches found for \"query\"</EmptyTitle>\n      <EmptyDescription>\n        Check your spelling or try searching for something else.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <Button variant=\"ghost\">View All Items</Button>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-actions-5",
+  "type": "registry:component",
+  "title": "Empty Actions 5",
+  "description": "A empty pattern: empty-actions-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/actions/empty-actions-5.tsx",
+      "content": "\"use client\";\n\nimport { Upload, UserPlus, Users } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Stacked Actions\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Users />\n      </EmptyMedia>\n      <EmptyTitle>No team members yet</EmptyTitle>\n      <EmptyDescription>\n        Invite team members to collaborate on your projects.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <Button className=\"w-full\">\n        <UserPlus />\n        Invite Team Member\n      </Button>\n      <Button className=\"w-full\" variant=\"outline\">\n        <Upload />\n        Import from CSV\n      </Button>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

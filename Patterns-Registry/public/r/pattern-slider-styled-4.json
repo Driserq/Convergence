@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-styled-4",
+  "type": "registry:component",
+  "title": "Slider Styled 4",
+  "description": "A slider pattern: slider-styled-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/styled/slider-styled-4.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Minimal Style\";\n\nconst Example = () => {\n  const [value, setValue] = useState([40]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"slider\">Intensity</Label>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}</span>\n      </div>\n      <Slider\n        className=\"[&_[data-slot=slider-thumb]]:border-2 [&_[data-slot=slider-track]]:border [&_[data-slot=slider-track]]:bg-transparent\"\n        id=\"slider\"\n        onValueChange={setValue}\n        value={value}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

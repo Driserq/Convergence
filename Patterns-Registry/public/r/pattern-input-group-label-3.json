@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-label-3",
+  "type": "registry:component",
+  "title": "Input Group Label 3",
+  "description": "A input-group pattern: input-group-label-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/label/input-group-label-3.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Block Labels\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupInput id=\"name\" placeholder=\"Enter your name\" />\n      <InputGroupAddon align=\"block-start\">\n        <Label className=\"text-foreground\" htmlFor=\"name\">\n          Full Name\n        </Label>\n      </InputGroupAddon>\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea\n        className=\"min-h-[100px]\"\n        id=\"bio\"\n        placeholder=\"Tell us about yourself\"\n      />\n      <InputGroupAddon align=\"block-start\" className=\"border-b\">\n        <Label className=\"text-foreground\" htmlFor=\"bio\">\n          Bio\n        </Label>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

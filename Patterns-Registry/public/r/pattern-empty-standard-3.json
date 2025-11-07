@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-3",
+  "type": "registry:component",
+  "title": "Empty Standard 3",
+  "description": "A empty pattern: empty-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-3.tsx",
+      "content": "\"use client\";\n\nimport { Package } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Long Description\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Package />\n      </EmptyMedia>\n      <EmptyTitle>No products available</EmptyTitle>\n      <EmptyDescription>\n        There are no products in this category yet. Check back later or browse\n        other categories to discover what we have to offer.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

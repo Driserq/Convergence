@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-settings-4",
+  "type": "registry:component",
+  "title": "Slider Settings 4",
+  "description": "A slider pattern: slider-settings-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/settings/slider-settings-4.tsx",
+      "content": "\"use client\";\n\nimport { GaugeIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Speed Control\";\n\nconst Example = () => {\n  const [value, setValue] = useState([1]);\n\n  const speedLabels = [\"Slow\", \"Normal\", \"Fast\", \"Very Fast\"];\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-2\">\n          <GaugeIcon className=\"size-4\" />\n          <Label htmlFor=\"slider\">Speed</Label>\n        </div>\n        <span className=\"text-muted-foreground text-sm\">\n          {speedLabels[value[0]]}\n        </span>\n      </div>\n      <Slider\n        id=\"slider\"\n        max={3}\n        min={0}\n        onValueChange={setValue}\n        step={1}\n        value={value}\n      />\n      <div className=\"flex items-center justify-between text-muted-foreground text-xs\">\n        {speedLabels.map((label) => (\n          <span key={label}>{label}</span>\n        ))}\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

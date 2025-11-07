@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-ai-4",
+  "type": "registry:component",
+  "title": "Input Group Ai 4",
+  "description": "A input-group pattern: input-group-ai-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/ai/input-group-ai-4.tsx",
+      "content": "import { ArrowUpIcon, MicIcon, PaperclipIcon } from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\nimport { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"AI with Voice\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-2xl flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea placeholder=\"Type or speak your message...\" />\n      <InputGroupAddon align=\"block-end\">\n        <InputGroupButton size=\"icon-xs\" variant=\"ghost\">\n          <PaperclipIcon />\n        </InputGroupButton>\n        <InputGroupButton size=\"icon-xs\" variant=\"ghost\">\n          <MicIcon />\n        </InputGroupButton>\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <InputGroupButton className=\"ml-auto text-xs\" variant=\"ghost\">\n              Claude 3.5\n            </InputGroupButton>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"end\" side=\"top\">\n            <DropdownMenuItem>Claude 3.5 Sonnet</DropdownMenuItem>\n            <DropdownMenuItem>Claude 3 Opus</DropdownMenuItem>\n            <DropdownMenuItem>Claude 3 Haiku</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n        <Separator className=\"!h-4\" orientation=\"vertical\" />\n        <InputGroupButton\n          className=\"rounded-full\"\n          size=\"icon-xs\"\n          variant=\"default\"\n        >\n          <ArrowUpIcon />\n          <span className=\"sr-only\">Send</span>\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n    <small className=\"text-center text-muted-foreground\">\n      For better AI components, check out{\" \"}\n      <a className=\"underline\" href=\"https://ai-sdk.dev/elements/overview\">\n        AI Elements\n      </a>\n    </small>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

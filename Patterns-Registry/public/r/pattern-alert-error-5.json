@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-error-5",
+  "type": "registry:component",
+  "title": "Alert Error 5",
+  "description": "A alert pattern: alert-error-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert/error/alert-error-5.tsx",
+      "content": "import { CircleX } from \"lucide-react\";\nimport { Alert, AlertDescription, AlertTitle } from \"@/components/ui/alert\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Error with Everything\";\n\nconst Example = () => (\n  <Alert className=\"w-full max-w-lg flex flex-row items-start gap-3 border-destructive/80 bg-destructive/5 text-destructive\">\n    <CircleX className=\"size-4 shrink-0 translate-y-0.5 text-destructive/60\" />\n    <div className=\"flex flex-1 items-start justify-between gap-4\">\n      <div className=\"flex flex-col gap-0.5\">\n        <AlertTitle>Error</AlertTitle>\n        <AlertDescription className=\"text-destructive/80\">\n          There was a problem processing your request. Please try again later.\n        </AlertDescription>\n      </div>\n      <div className=\"flex shrink-0 gap-2\">\n        <Button size=\"sm\" variant=\"destructive\">\n          Retry\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Dismiss\n        </Button>\n      </div>\n    </div>\n  </Alert>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

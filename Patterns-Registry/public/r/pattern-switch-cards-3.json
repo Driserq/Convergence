@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-cards-3",
+  "type": "registry:component",
+  "title": "Switch Cards 3",
+  "description": "A switch pattern: switch-cards-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/cards/switch-cards-3.tsx",
+      "content": "\"use client\";\n\nimport { Label } from \"@/components/ui/label\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Settings List\";\n\nconst Example = () => (\n  <div className=\"flex flex-col divide-y rounded-lg border bg-background\">\n    <div className=\"flex items-center justify-between gap-4 p-4\">\n      <div className=\"flex flex-col gap-1\">\n        <Label className=\"font-medium\" htmlFor=\"marketing\">\n          Marketing emails\n        </Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Receive emails about new products\n        </p>\n      </div>\n      <Switch id=\"marketing\" />\n    </div>\n    <div className=\"flex items-center justify-between gap-4 p-4\">\n      <div className=\"flex flex-col gap-1\">\n        <Label className=\"font-medium\" htmlFor=\"security\">\n          Security emails\n        </Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Receive emails about account security\n        </p>\n      </div>\n      <Switch defaultChecked id=\"security\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

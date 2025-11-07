@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-aspect-ratio-standard-1",
+  "type": "registry:component",
+  "title": "Aspect Ratio Standard 1",
+  "description": "A aspect-ratio pattern: aspect-ratio-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/aspect-ratio/standard/aspect-ratio-standard-1.tsx",
+      "content": "import { AspectRatio } from \"@/components/ui/aspect-ratio\";\n\nexport const title = \"16:9 Aspect Ratio (Widescreen)\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <AspectRatio ratio={16 / 9}>\n      <div className=\"flex size-full items-center justify-center rounded-md bg-muted\">\n        <span className=\"text-muted-foreground text-sm\">16:9</span>\n      </div>\n    </AspectRatio>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

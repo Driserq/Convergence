@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-dialog-4",
+  "type": "registry:component",
+  "title": "Command Dialog 4",
+  "description": "A command pattern: command-dialog-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/dialog/command-dialog-4.tsx",
+      "content": "\"use client\";\n\nimport { Code, Database, FileText, Package } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  CommandDialog,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command Dialog with Badges\";\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Browse Components</Button>\n      <CommandDialog onOpenChange={setOpen} open={open}>\n        <CommandInput placeholder=\"Search components...\" />\n        <CommandList>\n          <CommandEmpty>No components found.</CommandEmpty>\n          <CommandGroup heading=\"Components\">\n            <CommandItem>\n              <FileText />\n              <span>Button</span>\n              <Badge className=\"ml-auto\" variant=\"secondary\">\n                Stable\n              </Badge>\n            </CommandItem>\n            <CommandItem>\n              <Code />\n              <span>Input</span>\n              <Badge className=\"ml-auto\" variant=\"secondary\">\n                Stable\n              </Badge>\n            </CommandItem>\n            <CommandItem>\n              <Database />\n              <span>Table</span>\n              <Badge className=\"ml-auto\" variant=\"outline\">\n                Beta\n              </Badge>\n            </CommandItem>\n            <CommandItem>\n              <Package />\n              <span>DataGrid</span>\n              <Badge className=\"ml-auto\" variant=\"outline\">\n                Beta\n              </Badge>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </CommandDialog>\n    </>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

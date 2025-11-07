@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-form-5",
+  "type": "registry:component",
+  "title": "Textarea Form 5",
+  "description": "A textarea pattern: textarea-form-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/form/textarea-form-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Textarea with Character Count\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n  const maxLength = 200;\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <Label htmlFor=\"tweet\">Tweet</Label>\n      <Textarea\n        className=\"bg-background\"\n        id=\"tweet\"\n        maxLength={maxLength}\n        onChange={(e) => setValue(e.target.value)}\n        placeholder=\"What's happening?\"\n        value={value}\n      />\n      <p className=\"text-right text-muted-foreground text-sm\">\n        {value.length}/{maxLength}\n      </p>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

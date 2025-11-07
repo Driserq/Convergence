@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-forms-1",
+  "type": "registry:component",
+  "title": "Button Group Forms 1",
+  "description": "A button-group pattern: button-group-forms-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/forms/button-group-forms-1.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Date Selector\";\n\nconst Example = () => {\n  const [period, setPeriod] = useState(\"today\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setPeriod(\"today\")}\n          size=\"sm\"\n          variant={period === \"today\" ? \"default\" : \"outline\"}\n        >\n          Today\n        </Button>\n        <Button\n          onClick={() => setPeriod(\"yesterday\")}\n          size=\"sm\"\n          variant={period === \"yesterday\" ? \"default\" : \"outline\"}\n        >\n          Yesterday\n        </Button>\n        <Button\n          onClick={() => setPeriod(\"last7days\")}\n          size=\"sm\"\n          variant={period === \"last7days\" ? \"default\" : \"outline\"}\n        >\n          Last 7 Days\n        </Button>\n        <Button\n          onClick={() => setPeriod(\"last30days\")}\n          size=\"sm\"\n          variant={period === \"last30days\" ? \"default\" : \"outline\"}\n        >\n          Last 30 Days\n        </Button>\n        <Button\n          onClick={() => setPeriod(\"custom\")}\n          size=\"sm\"\n          variant={period === \"custom\" ? \"default\" : \"outline\"}\n        >\n          Custom\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setPeriod(\"thisWeek\")}\n          size=\"sm\"\n          variant={period === \"thisWeek\" ? \"default\" : \"outline\"}\n        >\n          This Week\n        </Button>\n        <Button\n          onClick={() => setPeriod(\"thisMonth\")}\n          size=\"sm\"\n          variant={period === \"thisMonth\" ? \"default\" : \"outline\"}\n        >\n          This Month\n        </Button>\n        <Button\n          onClick={() => setPeriod(\"thisYear\")}\n          size=\"sm\"\n          variant={period === \"thisYear\" ? \"default\" : \"outline\"}\n        >\n          This Year\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

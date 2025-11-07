@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-layouts-1",
+  "type": "registry:component",
+  "title": "Field Layouts 1",
+  "description": "A field pattern: field-layouts-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/layouts/field-layouts-1.tsx",
+      "content": "import {\n  Field,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Vertical Layout (Default)\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldGroup>\n        <Field>\n          <FieldLabel htmlFor=\"name-vertical\">Name</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"name-vertical\"\n            placeholder=\"Your name\"\n            type=\"text\"\n          />\n          <FieldDescription>This will be displayed publicly.</FieldDescription>\n        </Field>\n        <Field>\n          <FieldLabel htmlFor=\"email-vertical\">Email</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"email-vertical\"\n            placeholder=\"you@example.com\"\n            type=\"email\"\n          />\n          <FieldDescription>We'll never share your email.</FieldDescription>\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

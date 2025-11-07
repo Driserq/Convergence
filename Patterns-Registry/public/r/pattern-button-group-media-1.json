@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-media-1",
+  "type": "registry:component",
+  "title": "Button Group Media 1",
+  "description": "A button-group pattern: button-group-media-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/media/button-group-media-1.tsx",
+      "content": "\"use client\";\n\nimport {\n  PauseIcon,\n  PlayIcon,\n  SkipBackIcon,\n  SkipForwardIcon,\n} from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Player Controls\";\n\nconst Example = () => {\n  const [isPlaying, setIsPlaying] = useState(false);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          <SkipBackIcon />\n        </Button>\n        <Button\n          onClick={() => setIsPlaying(!isPlaying)}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          {isPlaying ? <PauseIcon /> : <PlayIcon />}\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <SkipForwardIcon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          <SkipBackIcon />\n          Previous\n        </Button>\n        <Button\n          onClick={() => setIsPlaying(!isPlaying)}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          {isPlaying ? (\n            <>\n              <PauseIcon />\n              Pause\n            </>\n          ) : (\n            <>\n              <PlayIcon />\n              Play\n            </>\n          )}\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          Next\n          <SkipForwardIcon />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-radio-group-layout-2",
+  "type": "registry:component",
+  "title": "Radio Group Layout 2",
+  "description": "A radio-group pattern: radio-group-layout-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/radio-group/layout/radio-group-layout-2.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"RadioGroup with Cards\";\n\nconst Example = () => (\n  <RadioGroup className=\"gap-2\" defaultValue=\"card-1\">\n    <div className=\"relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent\">\n      <RadioGroupItem id=\"card-1\" value=\"card-1\" />\n      <div className=\"grid gap-1.5 leading-none\">\n        <Label className=\"cursor-pointer font-medium\" htmlFor=\"card-1\">\n          Starter Plan\n        </Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Perfect for individuals and small teams.\n        </p>\n      </div>\n    </div>\n    <div className=\"relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent\">\n      <RadioGroupItem id=\"card-2\" value=\"card-2\" />\n      <div className=\"grid gap-1.5 leading-none\">\n        <Label className=\"cursor-pointer font-medium\" htmlFor=\"card-2\">\n          Professional Plan\n        </Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Advanced features for growing businesses.\n        </p>\n      </div>\n    </div>\n    <div className=\"relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent\">\n      <RadioGroupItem id=\"card-3\" value=\"card-3\" />\n      <div className=\"grid gap-1.5 leading-none\">\n        <Label className=\"cursor-pointer font-medium\" htmlFor=\"card-3\">\n          Enterprise Plan\n        </Label>\n        <p className=\"text-muted-foreground text-sm\">\n          Custom solutions for large organizations.\n        </p>\n      </div>\n    </div>\n  </RadioGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

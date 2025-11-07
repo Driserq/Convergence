@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-validation-1",
+  "type": "registry:component",
+  "title": "Input Validation 1",
+  "description": "A input pattern: input-validation-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/validation/input-validation-1.tsx",
+      "content": "\"use client\";\n\nimport { AlertCircle } from \"lucide-react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Error State\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"email-error\">Email</Label>\n    <Input\n      aria-invalid=\"true\"\n      className=\"bg-background\"\n      defaultValue=\"invalid-email\"\n      id=\"email-error\"\n      placeholder=\"you@example.com\"\n      type=\"email\"\n    />\n    <div className=\"flex items-center gap-2 text-destructive text-sm\">\n      <AlertCircle className=\"h-4 w-4\" />\n      <span>Please enter a valid email address</span>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

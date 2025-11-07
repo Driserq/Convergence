@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-calendar-dialog-8",
+  "type": "registry:component",
+  "title": "Calendar Dialog 8",
+  "description": "A calendar pattern: calendar-dialog-8",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/calendar/dialog/calendar-dialog-8.tsx",
+      "content": "\"use client\";\n\nimport { faker } from \"@faker-js/faker\";\nimport { type ComponentProps, useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\n\nexport const title = \"Calendar with Custom Select Day Style in Dialog\";\n\nconst now = new Date();\nconst startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);\nconst endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);\n\nconst bookedDays = [\n  faker.date.between({\n    from: startOfMonth,\n    to: new Date(now.getFullYear(), now.getMonth(), 10),\n  }),\n  faker.date.between({\n    from: new Date(now.getFullYear(), now.getMonth(), 11),\n    to: new Date(now.getFullYear(), now.getMonth(), 20),\n  }),\n  faker.date.between({\n    from: new Date(now.getFullYear(), now.getMonth(), 21),\n    to: endOfMonth,\n  }),\n];\n\nconst Example = () => {\n  const [date, setDate] = useState<Date | undefined>(new Date());\n\n  const modifiers = {\n    booked: bookedDays,\n  };\n\n  const modifiersStyles: ComponentProps<typeof Calendar>[\"modifiersStyles\"] = {\n    booked: {\n      backgroundColor: \"#fbbf24\",\n      color: \"#78350f\",\n      fontWeight: \"bold\",\n    },\n  };\n\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Select Date</Button>\n      </DialogTrigger>\n      <DialogContent className=\"sm:max-w-[298px]\">\n        <DialogHeader>\n          <DialogTitle>Select Date</DialogTitle>\n        </DialogHeader>\n        <Calendar\n          className=\"rounded-md border\"\n          classNames={{\n            day_button: \"rounded-full\",\n            day: \"rounded-full\",\n            today: \"rounded-full\",\n          }}\n          mode=\"single\"\n          modifiers={modifiers}\n          modifiersStyles={modifiersStyles}\n          onSelect={setDate}\n          selected={date}\n        />\n      </DialogContent>\n    </Dialog>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

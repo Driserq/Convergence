@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-top-4",
+  "type": "registry:component",
+  "title": "Drawer Top 4",
+  "description": "A drawer pattern: drawer-top-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/top/drawer-top-4.tsx",
+      "content": "\"use client\";\n\nimport { Download, Plus, Settings, Share2, Upload, Zap } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerContent,\n  DrawerDescription,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Top Drawer Quick Actions\";\n\nconst Example = () => (\n  <Drawer direction=\"top\">\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">\n        <Zap className=\"mr-2 h-4 w-4\" />\n        Quick Actions\n      </Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>Quick Actions</DrawerTitle>\n        <DrawerDescription>\n          Perform common actions quickly from here\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"p-4\">\n        <div className=\"mx-auto grid max-w-2xl grid-cols-3 gap-4\">\n          <Button className=\"h-20 flex-col gap-2\" variant=\"outline\">\n            <Plus className=\"h-6 w-6\" />\n            <span className=\"text-xs\">New File</span>\n          </Button>\n          <Button className=\"h-20 flex-col gap-2\" variant=\"outline\">\n            <Upload className=\"h-6 w-6\" />\n            <span className=\"text-xs\">Upload</span>\n          </Button>\n          <Button className=\"h-20 flex-col gap-2\" variant=\"outline\">\n            <Download className=\"h-6 w-6\" />\n            <span className=\"text-xs\">Download</span>\n          </Button>\n          <Button className=\"h-20 flex-col gap-2\" variant=\"outline\">\n            <Share2 className=\"h-6 w-6\" />\n            <span className=\"text-xs\">Share</span>\n          </Button>\n          <Button className=\"h-20 flex-col gap-2\" variant=\"outline\">\n            <Settings className=\"h-6 w-6\" />\n            <span className=\"text-xs\">Settings</span>\n          </Button>\n          <Button className=\"h-20 flex-col gap-2\" variant=\"outline\">\n            <Plus className=\"h-6 w-6\" />\n            <span className=\"text-xs\">More</span>\n          </Button>\n        </div>\n      </div>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

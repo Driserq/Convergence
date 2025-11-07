@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-7",
+  "type": "registry:component",
+  "title": "Empty Standard 7",
+  "description": "A empty pattern: empty-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-7.tsx",
+      "content": "\"use client\";\n\nimport { Star } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Link in Description\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Star />\n      </EmptyMedia>\n      <EmptyTitle>No favorites yet</EmptyTitle>\n      <EmptyDescription>\n        Items you mark as favorites will appear here.{\" \"}\n        <a href=\"#\">Learn more about favorites</a>\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-standard-3",
+  "type": "registry:component",
+  "title": "Sonner Standard 3",
+  "description": "A sonner pattern: sonner-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/standard/sonner-standard-3.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Error Toast\";\n\nconst Example = () => (\n  <Button onClick={() => toast.error(\"Something went wrong\")} variant=\"outline\">\n    Show Error\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

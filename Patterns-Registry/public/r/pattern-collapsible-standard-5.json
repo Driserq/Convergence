@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-standard-5",
+  "type": "registry:component",
+  "title": "Collapsible Standard 5",
+  "description": "A collapsible pattern: collapsible-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/standard/collapsible-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Controlled Collapsible\";\n\nconst Example = () => {\n  const [isOpen, setIsOpen] = useState(false);\n\n  return (\n    <div className=\"w-full max-w-lg space-y-4\">\n      <div className=\"flex items-center gap-2\">\n        <span className=\"text-muted-foreground text-sm\">\n          Status: {isOpen ? \"Open\" : \"Closed\"}\n        </span>\n      </div>\n      <Collapsible onOpenChange={setIsOpen} open={isOpen}>\n        <CollapsibleTrigger className=\"font-medium text-sm underline-offset-4 hover:underline\">\n          Toggle content\n        </CollapsibleTrigger>\n        <CollapsibleContent className=\"mt-2 text-muted-foreground text-sm\">\n          This is a controlled collapsible component. The open state is managed\n          externally.\n        </CollapsibleContent>\n      </Collapsible>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

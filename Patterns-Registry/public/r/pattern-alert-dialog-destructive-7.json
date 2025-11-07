@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-destructive-7",
+  "type": "registry:component",
+  "title": "Alert Dialog Destructive 7",
+  "description": "A alert-dialog pattern: alert-dialog-destructive-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/destructive/alert-dialog-destructive-7.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Destructive with Item Count\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"destructive\">Delete Selected</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Delete 24 Items?</AlertDialogTitle>\n        <AlertDialogDescription>\n          You are about to permanently delete 24 selected items. This action\n          cannot be undone and all associated data will be lost.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"rounded-md border border-destructive/20 bg-destructive/5 p-3 text-sm\">\n        <span className=\"font-medium text-destructive\">Warning:</span> Some of\n        these items may be referenced by other resources.\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction className=\"bg-destructive text-white hover:bg-destructive/90\">\n          Delete 24 Items\n        </AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

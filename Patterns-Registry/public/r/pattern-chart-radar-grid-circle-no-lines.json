@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radar-grid-circle-no-lines",
+  "type": "registry:component",
+  "title": "Chart Radar Grid Circle No Lines",
+  "description": "A chart pattern: chart-radar-grid-circle-no-lines",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radar/chart-radar-grid-circle-no-lines.tsx",
+      "content": "\"use client\";\n\nimport { PolarAngleAxis, PolarGrid, Radar, RadarChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A radar chart with a grid and circle fill (no lines)\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186 },\n  { month: \"February\", desktop: 305 },\n  { month: \"March\", desktop: 237 },\n  { month: \"April\", desktop: 203 },\n  { month: \"May\", desktop: 209 },\n  { month: \"June\", desktop: 214 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadarGridCircleNoLines = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <RadarChart data={chartData}>\n        <ChartTooltip\n          content={<ChartTooltipContent hideLabel />}\n          cursor={false}\n        />\n        <PolarGrid gridType=\"circle\" radialLines={false} />\n        <PolarAngleAxis dataKey=\"month\" />\n        <Radar\n          dataKey=\"desktop\"\n          dot={{\n            r: 4,\n            fillOpacity: 1,\n          }}\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.6}\n        />\n      </RadarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadarGridCircleNoLines;\n",
+      "type": "registry:component"
+    }
+  ]
+}

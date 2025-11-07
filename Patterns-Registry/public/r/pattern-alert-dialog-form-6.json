@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-form-6",
+  "type": "registry:component",
+  "title": "Alert Dialog Form 6",
+  "description": "A alert-dialog pattern: alert-dialog-form-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/form/alert-dialog-form-6.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\nimport { Label } from \"@/components/ui/label\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"Form with Radio Group\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Export Data</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Export Format</AlertDialogTitle>\n        <AlertDialogDescription>\n          Choose the format you want to export your data in.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"py-4\">\n        <RadioGroup defaultValue=\"json\">\n          <div className=\"flex items-center space-x-2 rounded-lg border p-3 hover:bg-accent\">\n            <RadioGroupItem id=\"json\" value=\"json\" />\n            <Label className=\"flex-1 cursor-pointer\" htmlFor=\"json\">\n              <div className=\"font-medium\">JSON</div>\n              <div className=\"text-muted-foreground text-xs\">\n                JavaScript Object Notation\n              </div>\n            </Label>\n          </div>\n          <div className=\"flex items-center space-x-2 rounded-lg border p-3 hover:bg-accent\">\n            <RadioGroupItem id=\"csv\" value=\"csv\" />\n            <Label className=\"flex-1 cursor-pointer\" htmlFor=\"csv\">\n              <div className=\"font-medium\">CSV</div>\n              <div className=\"text-muted-foreground text-xs\">\n                Comma-separated values\n              </div>\n            </Label>\n          </div>\n          <div className=\"flex items-center space-x-2 rounded-lg border p-3 hover:bg-accent\">\n            <RadioGroupItem id=\"xml\" value=\"xml\" />\n            <Label className=\"flex-1 cursor-pointer\" htmlFor=\"xml\">\n              <div className=\"font-medium\">XML</div>\n              <div className=\"text-muted-foreground text-xs\">\n                Extensible Markup Language\n              </div>\n            </Label>\n          </div>\n        </RadioGroup>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction>Export</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

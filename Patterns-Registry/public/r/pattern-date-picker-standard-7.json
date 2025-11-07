@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-date-picker-standard-7",
+  "type": "registry:component",
+  "title": "Date Picker Standard 7",
+  "description": "A date-picker pattern: date-picker-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/date-picker/standard/date-picker-standard-7.tsx",
+      "content": "\"use client\";\n\nimport { faker } from \"@faker-js/faker\";\nimport { CalendarIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { cn } from \"@/lib/utils\";\n\nexport const title = \"Date Picker with Multiple Day Selection\";\n\nconst now = new Date();\nconst startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);\nconst endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);\n\nconst selectedDates = [\n  faker.date.between({\n    from: startOfMonth,\n    to: new Date(now.getFullYear(), now.getMonth(), 10),\n  }),\n  faker.date.between({\n    from: new Date(now.getFullYear(), now.getMonth(), 11),\n    to: new Date(now.getFullYear(), now.getMonth(), 20),\n  }),\n  faker.date.between({\n    from: new Date(now.getFullYear(), now.getMonth(), 21),\n    to: endOfMonth,\n  }),\n];\n\nconst Example = () => {\n  const [dates, setDates] = useState<Date[] | undefined>(selectedDates);\n\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button\n          className={cn(\n            \"w-[280px] justify-start text-left font-normal\",\n            !dates?.length && \"text-muted-foreground\"\n          )}\n          variant=\"outline\"\n        >\n          <CalendarIcon className=\"mr-2 h-4 w-4\" />\n          {dates && dates.length > 0 ? (\n            `${dates.length} date${dates.length > 1 ? \"s\" : \"\"} selected`\n          ) : (\n            <span>Pick dates</span>\n          )}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent align=\"start\" className=\"w-auto p-0\">\n        <Calendar mode=\"multiple\" onSelect={setDates} selected={dates} />\n      </PopoverContent>\n    </Popover>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

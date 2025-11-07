@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-sizes-4",
+  "type": "registry:component",
+  "title": "Kbd Sizes 4",
+  "description": "A kbd pattern: kbd-sizes-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/sizes/kbd-sizes-4.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Inline with Text\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <p className=\"text-sm\">\n      Press <Kbd>⌘</Kbd> <Kbd>K</Kbd> to open the command palette\n    </p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

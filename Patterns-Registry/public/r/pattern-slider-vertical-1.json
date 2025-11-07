@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-vertical-1",
+  "type": "registry:component",
+  "title": "Slider Vertical 1",
+  "description": "A slider pattern: slider-vertical-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/vertical/slider-vertical-1.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Volume Control Style\";\n\nconst Example = () => {\n  const [value, setValue] = useState([60]);\n\n  return (\n    <div className=\"flex flex-col items-center gap-4\">\n      <Label htmlFor=\"slider\">Volume</Label>\n      <Slider\n        className=\"h-48\"\n        id=\"slider\"\n        onValueChange={setValue}\n        orientation=\"vertical\"\n        value={value}\n      />\n      <span className=\"text-muted-foreground text-sm\">{value[0]}%</span>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

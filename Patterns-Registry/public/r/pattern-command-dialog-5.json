@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-dialog-5",
+  "type": "registry:component",
+  "title": "Command Dialog 5",
+  "description": "A command pattern: command-dialog-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/dialog/command-dialog-5.tsx",
+      "content": "\"use client\";\n\nimport { Mail, MapPin, Phone, User } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  CommandDialog,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command Dialog with Descriptions\";\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search Contacts</Button>\n      <CommandDialog onOpenChange={setOpen} open={open}>\n        <CommandInput placeholder=\"Search contacts...\" />\n        <CommandList>\n          <CommandEmpty>No contacts found.</CommandEmpty>\n          <CommandGroup heading=\"Contacts\">\n            <CommandItem>\n              <User />\n              <div className=\"flex flex-col\">\n                <span>John Doe</span>\n                <span className=\"text-muted-foreground text-xs\">\n                  Software Engineer\n                </span>\n              </div>\n            </CommandItem>\n            <CommandItem>\n              <Mail />\n              <div className=\"flex flex-col\">\n                <span>jane@example.com</span>\n                <span className=\"text-muted-foreground text-xs\">Email</span>\n              </div>\n            </CommandItem>\n            <CommandItem>\n              <Phone />\n              <div className=\"flex flex-col\">\n                <span>+1 (555) 123-4567</span>\n                <span className=\"text-muted-foreground text-xs\">Mobile</span>\n              </div>\n            </CommandItem>\n            <CommandItem>\n              <MapPin />\n              <div className=\"flex flex-col\">\n                <span>San Francisco, CA</span>\n                <span className=\"text-muted-foreground text-xs\">Location</span>\n              </div>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </CommandDialog>\n    </>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-label-1",
+  "type": "registry:component",
+  "title": "Input Group Label 1",
+  "description": "A input-group pattern: input-group-label-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/label/input-group-label-1.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Inline Labels\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupInput id=\"email\" placeholder=\"shadcn\" />\n      <InputGroupAddon>\n        <Label htmlFor=\"email\">@</Label>\n      </InputGroupAddon>\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <Label htmlFor=\"price\">$</Label>\n      </InputGroupAddon>\n      <InputGroupInput id=\"price\" placeholder=\"0.00\" />\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-text-3",
+  "type": "registry:component",
+  "title": "Input Group Text 3",
+  "description": "A input-group pattern: input-group-text-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/text/input-group-text-3.tsx",
+      "content": "import {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Email with Domain\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput placeholder=\"username\" />\n    <InputGroupAddon align=\"inline-end\">\n      <InputGroupText>@vercel.com</InputGroupText>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

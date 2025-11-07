@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-profile-4",
+  "type": "registry:component",
+  "title": "Hover Card Profile 4",
+  "description": "A hover-card pattern: hover-card-profile-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/profile/hover-card-profile-4.tsx",
+      "content": "\"use client\";\n\nimport { CalendarDays, MapPin } from \"lucide-react\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Profile with Location\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <a className=\"font-medium text-sm underline\" href=\"#\">\n        @haydenbleasel\n      </a>\n    </HoverCardTrigger>\n    <HoverCardContent className=\"w-80\">\n      <div className=\"flex gap-4\">\n        <Avatar className=\"h-12 w-12\">\n          <AvatarImage src=\"https://github.com/haydenbleasel.png\" />\n          <AvatarFallback>HB</AvatarFallback>\n        </Avatar>\n        <div className=\"flex-1 space-y-2\">\n          <div>\n            <h4 className=\"font-semibold text-sm\">Hayden Bleasel</h4>\n            <p className=\"text-muted-foreground text-sm\">@haydenbleasel</p>\n          </div>\n          <p className=\"text-sm\">\n            Product designer and developer building tools for creators.\n          </p>\n          <div className=\"flex items-center gap-4 text-muted-foreground text-xs\">\n            <div className=\"flex items-center gap-1\">\n              <MapPin className=\"h-3 w-3\" />\n              San Francisco\n            </div>\n            <div className=\"flex items-center gap-1\">\n              <CalendarDays className=\"h-3 w-3\" />\n              Joined 2020\n            </div>\n          </div>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

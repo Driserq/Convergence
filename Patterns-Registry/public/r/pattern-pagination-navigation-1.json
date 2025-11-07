@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-pagination-navigation-1",
+  "type": "registry:component",
+  "title": "Pagination Navigation 1",
+  "description": "A pagination pattern: pagination-navigation-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/pagination/navigation/pagination-navigation-1.tsx",
+      "content": "import {\n  Pagination,\n  PaginationContent,\n  PaginationItem,\n  PaginationNext,\n  PaginationPrevious,\n} from \"@/components/ui/pagination\";\n\nexport const title = \"Previous and Next Only\";\n\nconst Example = () => (\n  <Pagination>\n    <PaginationContent>\n      <PaginationItem>\n        <PaginationPrevious href=\"#\" />\n      </PaginationItem>\n      <PaginationItem>\n        <PaginationNext href=\"#\" />\n      </PaginationItem>\n    </PaginationContent>\n  </Pagination>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

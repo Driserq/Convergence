@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-table-advanced-1",
+  "type": "registry:component",
+  "title": "Table Advanced 1",
+  "description": "A table pattern: table-advanced-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/table/advanced/table-advanced-1.tsx",
+      "content": "import {\n  Table,\n  TableBody,\n  TableCell,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from \"@/components/ui/table\";\n\nexport const title = \"Table with Vertical Lines\";\n\nconst projects = [\n  {\n    name: \"Website Redesign\",\n    status: \"In Progress\",\n    priority: \"High\",\n    assignee: \"John Doe\",\n  },\n  {\n    name: \"Mobile App\",\n    status: \"Planning\",\n    priority: \"Medium\",\n    assignee: \"Jane Smith\",\n  },\n  {\n    name: \"API Integration\",\n    status: \"Completed\",\n    priority: \"High\",\n    assignee: \"Bob Johnson\",\n  },\n  {\n    name: \"Database Migration\",\n    status: \"In Progress\",\n    priority: \"Critical\",\n    assignee: \"Alice Williams\",\n  },\n];\n\nconst Example = () => (\n  <div className=\"w-full max-w-4xl rounded-md border bg-background\">\n    <Table>\n      <TableHeader>\n        <TableRow>\n          <TableHead className=\"border-r\">Project</TableHead>\n          <TableHead className=\"border-r\">Status</TableHead>\n          <TableHead className=\"border-r\">Priority</TableHead>\n          <TableHead>Assignee</TableHead>\n        </TableRow>\n      </TableHeader>\n      <TableBody>\n        {projects.map((project) => (\n          <TableRow key={project.name}>\n            <TableCell className=\"border-r font-medium\">\n              {project.name}\n            </TableCell>\n            <TableCell className=\"border-r\">{project.status}</TableCell>\n            <TableCell className=\"border-r\">{project.priority}</TableCell>\n            <TableCell>{project.assignee}</TableCell>\n          </TableRow>\n        ))}\n      </TableBody>\n    </Table>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

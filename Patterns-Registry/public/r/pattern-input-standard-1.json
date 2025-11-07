@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-standard-1",
+  "type": "registry:component",
+  "title": "Input Standard 1",
+  "description": "A input pattern: input-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/standard/input-standard-1.tsx",
+      "content": "\"use client\";\n\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Input with Label\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"name\">Name</Label>\n    <Input className=\"bg-background\" id=\"name\" placeholder=\"Enter your name\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-custom-3",
+  "type": "registry:component",
+  "title": "Input Group Custom 3",
+  "description": "A input-group pattern: input-group-custom-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/custom/input-group-custom-3.tsx",
+      "content": "import { BoldIcon, ItalicIcon, UnderlineIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Textarea with Toolbar\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-6\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea\n        className=\"min-h-[100px]\"\n        placeholder=\"Write your content...\"\n      />\n      <InputGroupAddon align=\"block-start\" className=\"border-b\">\n        <InputGroupButton aria-label=\"Bold\" size=\"icon-xs\" variant=\"ghost\">\n          <BoldIcon />\n        </InputGroupButton>\n        <InputGroupButton aria-label=\"Italic\" size=\"icon-xs\" variant=\"ghost\">\n          <ItalicIcon />\n        </InputGroupButton>\n        <InputGroupButton aria-label=\"Underline\" size=\"icon-xs\" variant=\"ghost\">\n          <UnderlineIcon />\n        </InputGroupButton>\n      </InputGroupAddon>\n      <InputGroupAddon align=\"block-end\">\n        <InputGroupButton className=\"ml-auto\" size=\"sm\" variant=\"default\">\n          Submit\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-pressed-state-4",
+  "type": "registry:component",
+  "title": "Kbd Pressed State 4",
+  "description": "A kbd pattern: kbd-pressed-state-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/pressed-state/kbd-pressed-state-4.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Pressed Down\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd className=\"translate-y-0.5 shadow-none\">⌘</Kbd>\n      <Kbd>K</Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

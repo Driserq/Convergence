@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-secondary-1",
+  "type": "registry:component",
+  "title": "Button Secondary 1",
+  "description": "A button pattern: button-secondary-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/secondary/button-secondary-1.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\n\nexport const title = \"Button with Text\";\n\nconst Example = () => <Button variant=\"secondary\">Button</Button>;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

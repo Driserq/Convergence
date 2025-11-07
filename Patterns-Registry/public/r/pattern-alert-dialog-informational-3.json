@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-informational-3",
+  "type": "registry:component",
+  "title": "Alert Dialog Informational 3",
+  "description": "A alert-dialog pattern: alert-dialog-informational-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/informational/alert-dialog-informational-3.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Information with Long Content\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Show Info</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle>Privacy Policy Update</AlertDialogTitle>\n        <AlertDialogDescription className=\"max-h-60 overflow-y-auto\">\n          We have updated our privacy policy to provide you with greater\n          transparency about how we collect, use, and protect your data.\n          <br />\n          <br />\n          Key changes include:\n          <ul className=\"mt-2 list-inside list-disc space-y-1\">\n            <li>Enhanced data encryption standards</li>\n            <li>Improved cookie management options</li>\n            <li>Clearer data retention policies</li>\n            <li>Expanded user rights and controls</li>\n            <li>Updated third-party data sharing guidelines</li>\n          </ul>\n          <br />\n          Please review the full policy in your account settings. By continuing\n          to use our service, you agree to these updated terms.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogAction>I Understand</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

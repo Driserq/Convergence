@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-sizes-3",
+  "type": "registry:component",
+  "title": "Kbd Sizes 3",
+  "description": "A kbd pattern: kbd-sizes-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/sizes/kbd-sizes-3.tsx",
+      "content": "import { Kbd, KbdGroup } from \"@/components/ui/kbd\";\n\nexport const title = \"Large Kbd\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <KbdGroup>\n      <Kbd className=\"h-8 min-w-8 px-2 text-base\">⌘</Kbd>\n      <Kbd className=\"h-8 min-w-8 px-2 text-base\">K</Kbd>\n    </KbdGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

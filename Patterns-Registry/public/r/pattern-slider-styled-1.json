@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-styled-1",
+  "type": "registry:component",
+  "title": "Slider Styled 1",
+  "description": "A slider pattern: slider-styled-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/styled/slider-styled-1.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Colored Slider\";\n\nconst Example = () => {\n  const [value, setValue] = useState([60]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"slider\">Success Rate</Label>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}%</span>\n      </div>\n      <Slider\n        className=\"[&_[data-slot=slider-range]]:bg-green-500 [&_[data-slot=slider-thumb]]:border-green-500\"\n        id=\"slider\"\n        onValueChange={setValue}\n        value={value}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

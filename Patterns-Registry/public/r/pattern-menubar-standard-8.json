@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-8",
+  "type": "registry:component",
+  "title": "Menubar Standard 8",
+  "description": "A menubar pattern: menubar-standard-8",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-8.tsx",
+      "content": "import {\n  Menubar,\n  MenubarContent,\n  MenubarItem,\n  MenubarMenu,\n  MenubarSeparator,\n  MenubarShortcut,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Application Menubar\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>File</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>\n          New File <MenubarShortcut>⌘N</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Open <MenubarShortcut>⌘O</MenubarShortcut>\n        </MenubarItem>\n        <MenubarSeparator />\n        <MenubarItem>\n          Save <MenubarShortcut>⌘S</MenubarShortcut>\n        </MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n    <MenubarMenu>\n      <MenubarTrigger>Edit</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>\n          Undo <MenubarShortcut>⌘Z</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>\n        </MenubarItem>\n        <MenubarSeparator />\n        <MenubarItem>\n          Cut <MenubarShortcut>⌘X</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Copy <MenubarShortcut>⌘C</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Paste <MenubarShortcut>⌘V</MenubarShortcut>\n        </MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n    <MenubarMenu>\n      <MenubarTrigger>View</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>Toggle Fullscreen</MenubarItem>\n        <MenubarSeparator />\n        <MenubarItem>Zoom In</MenubarItem>\n        <MenubarItem>Zoom Out</MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

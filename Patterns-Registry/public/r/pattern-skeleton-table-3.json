@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-table-3",
+  "type": "registry:component",
+  "title": "Skeleton Table 3",
+  "description": "A skeleton pattern: skeleton-table-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/table/skeleton-table-3.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Table with Avatars\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-2xl flex-col gap-3\">\n    <div className=\"grid grid-cols-4 gap-4 border-b pb-3\">\n      <Skeleton className=\"h-4 w-20\" />\n      <Skeleton className=\"h-4 w-16\" />\n      <Skeleton className=\"h-4 w-20\" />\n      <Skeleton className=\"h-4 w-16\" />\n    </div>\n    {Array.from({ length: 4 }).map((_, i) => (\n      <div className=\"grid grid-cols-4 items-center gap-4\" key={i}>\n        <div className=\"flex items-center gap-3\">\n          <Skeleton className=\"size-8 flex-shrink-0 rounded-full\" />\n          <Skeleton className=\"h-4 flex-1\" />\n        </div>\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n        <Skeleton className=\"h-4 w-full\" />\n      </div>\n    ))}\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

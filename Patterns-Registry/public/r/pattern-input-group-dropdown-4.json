@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-dropdown-4",
+  "type": "registry:component",
+  "title": "Input Group Dropdown 4",
+  "description": "A input-group pattern: input-group-dropdown-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/dropdown/input-group-dropdown-4.tsx",
+      "content": "import { ChevronDownIcon } from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Textarea with Dropdown\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea\n        className=\"min-h-[100px]\"\n        placeholder=\"Write your message...\"\n      />\n      <InputGroupAddon align=\"block-end\" className=\"border-t\">\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <InputGroupButton size=\"sm\" variant=\"ghost\">\n              Format <ChevronDownIcon className=\"size-3\" />\n            </InputGroupButton>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"start\">\n            <DropdownMenuItem>Plain Text</DropdownMenuItem>\n            <DropdownMenuItem>Markdown</DropdownMenuItem>\n            <DropdownMenuItem>HTML</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n        <InputGroupButton className=\"ml-auto\" size=\"sm\" variant=\"default\">\n          Send\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

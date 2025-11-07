@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-form-1",
+  "type": "registry:component",
+  "title": "Skeleton Form 1",
+  "description": "A skeleton pattern: skeleton-form-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/form/skeleton-form-1.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Input Fields\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-16\" />\n      <Skeleton className=\"h-10 w-full\" />\n    </div>\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-20\" />\n      <Skeleton className=\"h-10 w-full\" />\n    </div>\n    <div className=\"flex flex-col gap-2\">\n      <Skeleton className=\"h-4 w-24\" />\n      <Skeleton className=\"h-10 w-full\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

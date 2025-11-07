@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-pie-stacked",
+  "type": "registry:component",
+  "title": "Chart Pie Stacked",
+  "description": "A chart pattern: chart-pie-stacked",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/pie/chart-pie-stacked.tsx",
+      "content": "\"use client\";\n\nimport { Pie, PieChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A pie chart with stacked sections\";\n\nconst desktopData = [\n  { month: \"january\", desktop: 186, fill: \"var(--color-january)\" },\n  { month: \"february\", desktop: 305, fill: \"var(--color-february)\" },\n  { month: \"march\", desktop: 237, fill: \"var(--color-march)\" },\n  { month: \"april\", desktop: 173, fill: \"var(--color-april)\" },\n  { month: \"may\", desktop: 209, fill: \"var(--color-may)\" },\n];\n\nconst mobileData = [\n  { month: \"january\", mobile: 80, fill: \"var(--color-january)\" },\n  { month: \"february\", mobile: 200, fill: \"var(--color-february)\" },\n  { month: \"march\", mobile: 120, fill: \"var(--color-march)\" },\n  { month: \"april\", mobile: 190, fill: \"var(--color-april)\" },\n  { month: \"may\", mobile: 130, fill: \"var(--color-may)\" },\n];\n\nconst chartConfig = {\n  visitors: {\n    label: \"Visitors\",\n  },\n  desktop: {\n    label: \"Desktop\",\n  },\n  mobile: {\n    label: \"Mobile\",\n  },\n  january: {\n    label: \"January\",\n    color: \"var(--chart-1)\",\n  },\n  february: {\n    label: \"February\",\n    color: \"var(--chart-2)\",\n  },\n  march: {\n    label: \"March\",\n    color: \"var(--chart-3)\",\n  },\n  april: {\n    label: \"April\",\n    color: \"var(--chart-4)\",\n  },\n  may: {\n    label: \"May\",\n    color: \"var(--chart-5)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartPieStacked = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <PieChart>\n        <ChartTooltip\n          content={\n            <ChartTooltipContent\n              indicator=\"line\"\n              labelFormatter={(_, payload) =>\n                chartConfig[payload?.[0].dataKey as keyof typeof chartConfig]\n                  .label\n              }\n              labelKey=\"visitors\"\n              nameKey=\"month\"\n            />\n          }\n        />\n        <Pie data={desktopData} dataKey=\"desktop\" outerRadius={60} />\n        <Pie\n          data={mobileData}\n          dataKey=\"mobile\"\n          innerRadius={70}\n          outerRadius={90}\n        />\n      </PieChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartPieStacked;\n",
+      "type": "registry:component"
+    }
+  ]
+}

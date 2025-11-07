@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-line-dots-custom",
+  "type": "registry:component",
+  "title": "Chart Line Dots Custom",
+  "description": "A chart pattern: chart-line-dots-custom",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/line/chart-line-dots-custom.tsx",
+      "content": "\"use client\";\n\nimport { GitCommitVertical } from \"lucide-react\";\nimport { CartesianGrid, Line, LineChart, XAxis } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A line chart with custom dots\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 73, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartLineDotsCustom = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <LineChart\n        accessibilityLayer\n        data={chartData}\n        margin={{\n          left: 12,\n          right: 12,\n        }}\n      >\n        <CartesianGrid vertical={false} />\n        <XAxis\n          axisLine={false}\n          dataKey=\"month\"\n          tickFormatter={(value) => value.slice(0, 3)}\n          tickLine={false}\n          tickMargin={8}\n        />\n        <ChartTooltip\n          content={<ChartTooltipContent hideLabel />}\n          cursor={false}\n        />\n        <Line\n          dataKey=\"desktop\"\n          dot={({ cx, cy, payload }) => {\n            const r = 24;\n            return (\n              <GitCommitVertical\n                fill=\"hsl(var(--background))\"\n                height={r}\n                key={payload.month}\n                stroke=\"var(--color-desktop)\"\n                width={r}\n                x={cx - r / 2}\n                y={cy - r / 2}\n              />\n            );\n          }}\n          stroke=\"var(--color-desktop)\"\n          strokeWidth={2}\n          type=\"natural\"\n        />\n      </LineChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartLineDotsCustom;\n",
+      "type": "registry:component"
+    }
+  ]
+}

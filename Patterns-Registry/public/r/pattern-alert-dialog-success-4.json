@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-success-4",
+  "type": "registry:component",
+  "title": "Alert Dialog Success 4",
+  "description": "A alert-dialog pattern: alert-dialog-success-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/success/alert-dialog-success-4.tsx",
+      "content": "import { CheckCircle2 } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Success with Next Steps\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button>Complete Action</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <div className=\"flex items-center gap-2\">\n          <CheckCircle2 className=\"size-5 text-green-500\" />\n          <AlertDialogTitle>Project Created Successfully</AlertDialogTitle>\n        </div>\n        <AlertDialogDescription>\n          Your project has been created. Here's what you can do next:\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <div className=\"space-y-2 text-sm\">\n        <div className=\"flex items-start gap-2\">\n          <span className=\"text-muted-foreground\">1.</span>\n          <span>Invite team members to collaborate</span>\n        </div>\n        <div className=\"flex items-start gap-2\">\n          <span className=\"text-muted-foreground\">2.</span>\n          <span>Set up your project configuration</span>\n        </div>\n        <div className=\"flex items-start gap-2\">\n          <span className=\"text-muted-foreground\">3.</span>\n          <span>Create your first task</span>\n        </div>\n      </div>\n      <AlertDialogFooter>\n        <AlertDialogAction>Continue</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

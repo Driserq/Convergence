@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-item-interactive-2",
+  "type": "registry:component",
+  "title": "Item Interactive 2",
+  "description": "A item pattern: item-interactive-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/item/interactive/item-interactive-2.tsx",
+      "content": "\"use client\";\n\nimport { ChevronDownIcon } from \"lucide-react\";\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemMedia,\n  ItemTitle,\n} from \"@/components/ui/item\";\n\nexport const title = \"Item in Dropdown\";\n\nconst people = [\n  {\n    username: \"haydenbleasel\",\n    avatar: \"https://github.com/haydenbleasel.png\",\n    email: \"h****n@vercel.com\",\n  },\n  {\n    username: \"shadcn\",\n    avatar: \"https://github.com/shadcn.png\",\n    email: \"s****n@vercel.com\",\n  },\n  {\n    username: \"rauchg\",\n    avatar: \"https://github.com/rauchg.png\",\n    email: \"r****g@vercel.com\",\n  },\n];\n\nconst Example = () => (\n  <div className=\"flex min-h-64 w-full max-w-md flex-col items-center gap-6\">\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button className=\"w-fit\" size=\"sm\" variant=\"outline\">\n          Select <ChevronDownIcon />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent align=\"end\" className=\"w-72 [--radius:0.65rem]\">\n        {people.map((person) => (\n          <DropdownMenuItem className=\"p-0\" key={person.username}>\n            <Item className=\"w-full p-2\" size=\"sm\">\n              <ItemMedia>\n                <Avatar className=\"size-8\">\n                  <AvatarImage src={person.avatar} />\n                  <AvatarFallback>{person.username.charAt(0)}</AvatarFallback>\n                </Avatar>\n              </ItemMedia>\n              <ItemContent className=\"gap-0.5\">\n                <ItemTitle>{person.username}</ItemTitle>\n                <ItemDescription>{person.email}</ItemDescription>\n              </ItemContent>\n            </Item>\n          </DropdownMenuItem>\n        ))}\n      </DropdownMenuContent>\n    </DropdownMenu>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

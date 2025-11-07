@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-combobox-with-states-5",
+  "type": "registry:component",
+  "title": "Combobox With States 5",
+  "description": "A combobox pattern: combobox-with-states-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/combobox/with-states/combobox-with-states-5.tsx",
+      "content": "\"use client\";\n\nimport { Check, ChevronsUpDown } from \"lucide-react\";\nimport { useEffect, useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { cn } from \"@/lib/utils\";\n\nexport const title = \"With Validation Feedback\";\n\nconst currencies = [\"USD\", \"EUR\", \"GBP\", \"JPY\", \"CAD\"];\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n  const [value, setValue] = useState(\"\");\n  const [error, setError] = useState(\"Please select a currency\");\n\n  useEffect(() => {\n    if (value) {\n      setError(\"\");\n    } else {\n      setError(\"Please select a currency\");\n    }\n  }, [value]);\n\n  return (\n    <div className=\"space-y-2\">\n      <Popover onOpenChange={setOpen} open={open}>\n        <PopoverTrigger asChild>\n          <Button\n            aria-expanded={open}\n            className={cn(\n              \"w-[200px] justify-between\",\n              error && \"border-destructive\"\n            )}\n            role=\"combobox\"\n            variant=\"outline\"\n          >\n            {value || \"Select currency...\"}\n            <ChevronsUpDown className=\"ml-2 size-4 shrink-0 opacity-50\" />\n          </Button>\n        </PopoverTrigger>\n        <PopoverContent className=\"w-[200px] p-0\">\n          <Command>\n            <CommandInput placeholder=\"Search currency...\" />\n            <CommandList>\n              <CommandEmpty>No currency found.</CommandEmpty>\n              <CommandGroup>\n                {currencies.map((currency) => (\n                  <CommandItem\n                    key={currency}\n                    onSelect={(currentValue) => {\n                      setValue(currentValue === value ? \"\" : currentValue);\n                      setOpen(false);\n                    }}\n                    value={currency}\n                  >\n                    <Check\n                      className={cn(\n                        \"mr-2 size-4\",\n                        value === currency ? \"opacity-100\" : \"opacity-0\"\n                      )}\n                    />\n                    {currency}\n                  </CommandItem>\n                ))}\n              </CommandGroup>\n            </CommandList>\n          </Command>\n        </PopoverContent>\n      </Popover>\n      {error && <p className=\"text-destructive text-xs\">{error}</p>}\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

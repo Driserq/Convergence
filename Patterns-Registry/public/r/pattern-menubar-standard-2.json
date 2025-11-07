@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-2",
+  "type": "registry:component",
+  "title": "Menubar Standard 2",
+  "description": "A menubar pattern: menubar-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-2.tsx",
+      "content": "import {\n  Menubar,\n  MenubarContent,\n  MenubarItem,\n  MenubarMenu,\n  MenubarShortcut,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Menubar with Shortcuts\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>Edit</MenubarTrigger>\n      <MenubarContent>\n        <MenubarItem>\n          Undo <MenubarShortcut>⌘Z</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Cut <MenubarShortcut>⌘X</MenubarShortcut>\n        </MenubarItem>\n        <MenubarItem>\n          Copy <MenubarShortcut>⌘C</MenubarShortcut>\n        </MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

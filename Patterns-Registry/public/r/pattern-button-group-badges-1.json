@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-badges-1",
+  "type": "registry:component",
+  "title": "Button Group Badges 1",
+  "description": "A button-group pattern: button-group-badges-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/badges/button-group-badges-1.tsx",
+      "content": "import { BellIcon } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Notifications Button\";\n\nconst Example = () => (\n  <ButtonGroup>\n    <Button className=\"relative\" size=\"sm\" variant=\"outline\">\n      <BellIcon />\n      <Badge className=\"-top-1 -right-2 absolute z-10 h-5 min-w-5 rounded-full px-1 text-xs\">\n        12\n      </Badge>\n    </Button>\n    <Button className=\"relative\" size=\"sm\" variant=\"outline\">\n      <BellIcon />\n      <Badge\n        className=\"-top-1 -right-2 absolute z-10 h-5 min-w-5 rounded-full px-1 text-xs\"\n        variant=\"destructive\"\n      >\n        99+\n      </Badge>\n    </Button>\n  </ButtonGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

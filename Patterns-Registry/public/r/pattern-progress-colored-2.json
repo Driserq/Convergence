@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-progress-colored-2",
+  "type": "registry:component",
+  "title": "Progress Colored 2",
+  "description": "A progress pattern: progress-colored-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/progress/colored/progress-colored-2.tsx",
+      "content": "import { Progress } from \"@/components/ui/progress\";\n\nexport const title = \"Warning\";\n\nconst Example = () => (\n  <Progress\n    className=\"w-full max-w-md bg-yellow-200 [&>[data-slot=progress-indicator]]:bg-yellow-500\"\n    value={50}\n  />\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

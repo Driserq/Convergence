@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-advanced-7",
+  "type": "registry:component",
+  "title": "Field Advanced 7",
+  "description": "A field pattern: field-advanced-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/advanced/field-advanced-7.tsx",
+      "content": "import {\n  Field,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldSeparator,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Mixed Field Types with Separators\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldGroup>\n      <FieldSet>\n        <FieldLabel>Contact Information</FieldLabel>\n        <FieldDescription>\n          How should we get in touch with you?\n        </FieldDescription>\n        <FieldGroup>\n          <Field>\n            <FieldLabel htmlFor=\"phone\">Phone Number</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"phone\"\n              placeholder=\"+1 (555) 000-0000\"\n              type=\"tel\"\n            />\n          </Field>\n          <Field>\n            <FieldLabel htmlFor=\"contact-email\">Email Address</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"contact-email\"\n              placeholder=\"you@example.com\"\n              type=\"email\"\n            />\n          </Field>\n        </FieldGroup>\n      </FieldSet>\n      <FieldSeparator>Additional Details</FieldSeparator>\n      <Field>\n        <FieldLabel htmlFor=\"additional-info\">\n          Additional Information\n        </FieldLabel>\n        <Textarea\n          className=\"bg-background\"\n          id=\"additional-info\"\n          placeholder=\"Any other details you'd like to share...\"\n          rows={3}\n        />\n      </Field>\n    </FieldGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

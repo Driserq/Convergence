@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-card-1",
+  "type": "registry:component",
+  "title": "Skeleton Card 1",
+  "description": "A skeleton pattern: skeleton-card-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/card/skeleton-card-1.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Simple Card with Image and Text\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-3\">\n    <Skeleton className=\"h-48 w-full\" />\n    <Skeleton className=\"h-4 w-3/4\" />\n    <Skeleton className=\"h-4 w-1/2\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

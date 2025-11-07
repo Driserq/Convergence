@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-standard-5",
+  "type": "registry:component",
+  "title": "Dropdown Menu Standard 5",
+  "description": "A dropdown-menu pattern: dropdown-menu-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/standard/dropdown-menu-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { ChevronDown } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Dropdown with Radio Items\";\n\nconst Example = () => {\n  const [position, setPosition] = useState(\"bottom\");\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant=\"outline\">\n          Position\n          <ChevronDown className=\"h-4 w-4\" />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-56\">\n        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>\n        <DropdownMenuSeparator />\n        <DropdownMenuRadioGroup onValueChange={setPosition} value={position}>\n          <DropdownMenuRadioItem value=\"top\">Top</DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"bottom\">Bottom</DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"right\">Right</DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"left\">Left</DropdownMenuRadioItem>\n        </DropdownMenuRadioGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

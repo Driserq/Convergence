@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-styled-1",
+  "type": "registry:component",
+  "title": "Separator Styled 1",
+  "description": "A separator pattern: separator-styled-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/styled/separator-styled-1.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Thick Separator\";\n\nconst Example = () => (\n  <div className=\"space-y-4\">\n    <p className=\"text-sm\">Above</p>\n    <Separator className=\"h-1\" />\n    <p className=\"text-sm\">Below</p>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

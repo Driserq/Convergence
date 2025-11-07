@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-square-3",
+  "type": "registry:component",
+  "title": "Switch Square 3",
+  "description": "A switch pattern: switch-square-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/square/switch-square-3.tsx",
+      "content": "\"use client\";\n\nimport { useId } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Square Switch with Label\";\n\nconst Example = () => {\n  const id = useId();\n\n  return (\n    <div className=\"flex items-center gap-2\">\n      <Switch className=\"rounded-sm [&_span]:rounded\" defaultChecked id={id} />\n      <Label htmlFor={id}>Enable notifications</Label>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

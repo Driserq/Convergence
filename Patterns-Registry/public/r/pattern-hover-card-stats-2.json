@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-stats-2",
+  "type": "registry:component",
+  "title": "Hover Card Stats 2",
+  "description": "A hover-card pattern: hover-card-stats-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/stats/hover-card-stats-2.tsx",
+      "content": "\"use client\";\n\nimport { ArrowUp } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Growth Stats\";\n\nconst Example = () => (\n  <HoverCard>\n    <HoverCardTrigger asChild>\n      <button className=\"flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm hover:bg-accent\">\n        <span className=\"font-semibold\">$12,543</span>\n        <span className=\"flex items-center gap-1 text-green-600 text-xs dark:text-green-400\">\n          <ArrowUp className=\"h-3 w-3\" />\n          12.5%\n        </span>\n      </button>\n    </HoverCardTrigger>\n    <HoverCardContent>\n      <div className=\"space-y-3\">\n        <div>\n          <h4 className=\"font-semibold text-sm\">Revenue Growth</h4>\n          <p className=\"text-muted-foreground text-xs\">vs. previous period</p>\n        </div>\n        <div className=\"space-y-2 text-sm\">\n          <div className=\"flex justify-between\">\n            <span className=\"text-muted-foreground\">Current:</span>\n            <span className=\"font-medium\">$12,543</span>\n          </div>\n          <div className=\"flex justify-between\">\n            <span className=\"text-muted-foreground\">Previous:</span>\n            <span className=\"font-medium\">$11,156</span>\n          </div>\n          <div className=\"flex justify-between\">\n            <span className=\"text-muted-foreground\">Change:</span>\n            <span className=\"font-medium text-green-600 dark:text-green-400\">\n              +$1,387\n            </span>\n          </div>\n        </div>\n      </div>\n    </HoverCardContent>\n  </HoverCard>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

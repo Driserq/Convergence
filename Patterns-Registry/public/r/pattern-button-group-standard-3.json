@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-standard-3",
+  "type": "registry:component",
+  "title": "Button Group Standard 3",
+  "description": "A button-group pattern: button-group-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/standard/button-group-standard-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Button Group Variants\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button variant=\"outline\">Copy</Button>\n      <Button variant=\"outline\">Paste</Button>\n      <Button variant=\"outline\">Cut</Button>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button variant=\"outline\">Undo</Button>\n      <Button variant=\"outline\">Redo</Button>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

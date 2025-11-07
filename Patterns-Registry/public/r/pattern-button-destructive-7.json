@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-destructive-7",
+  "type": "registry:component",
+  "title": "Button Destructive 7",
+  "description": "A button pattern: button-destructive-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/destructive/button-destructive-7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Button with Kbd\";\n\nconst Example = () => (\n  <Button className=\"gap-2\" variant=\"destructive\">\n    Button\n    <Kbd className=\"bg-white/20 text-white\">⌘K</Kbd>\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-toggles-2",
+  "type": "registry:component",
+  "title": "Field Toggles 2",
+  "description": "A field pattern: field-toggles-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/toggles/field-toggles-2.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\";\nimport {\n  Field,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n} from \"@/components/ui/field\";\n\nexport const title = \"Multiple Checkboxes\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldLegend variant=\"label\">Show these items on the desktop</FieldLegend>\n      <FieldDescription>\n        Select the items you want to show on the desktop.\n      </FieldDescription>\n      <FieldGroup className=\"gap-3\">\n        <Field orientation=\"horizontal\">\n          <Checkbox defaultChecked id=\"hard-disks\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"hard-disks\">\n            Hard disks\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <Checkbox id=\"external-disks\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"external-disks\">\n            External disks\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <Checkbox id=\"cds-dvds\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"cds-dvds\">\n            CDs, DVDs, and iPods\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <Checkbox id=\"connected-servers\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"connected-servers\">\n            Connected servers\n          </FieldLabel>\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

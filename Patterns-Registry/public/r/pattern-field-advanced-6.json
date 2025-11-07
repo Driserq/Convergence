@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-advanced-6",
+  "type": "registry:component",
+  "title": "Field Advanced 6",
+  "description": "A field pattern: field-advanced-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/advanced/field-advanced-6.tsx",
+      "content": "import {\n  Field,\n  FieldGroup,\n  FieldLabel,\n  FieldLegend,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Complex Multi-Field Form\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md space-y-6\">\n    <FieldSet>\n      <FieldLegend>Personal Information</FieldLegend>\n      <FieldGroup>\n        <div className=\"grid grid-cols-2 gap-4\">\n          <Field>\n            <FieldLabel htmlFor=\"first\">First Name</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"first\"\n              placeholder=\"John\"\n              type=\"text\"\n            />\n          </Field>\n          <Field>\n            <FieldLabel htmlFor=\"last\">Last Name</FieldLabel>\n            <Input\n              className=\"bg-background\"\n              id=\"last\"\n              placeholder=\"Doe\"\n              type=\"text\"\n            />\n          </Field>\n        </div>\n        <Field>\n          <FieldLabel htmlFor=\"email-complex\">Email</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"email-complex\"\n            placeholder=\"john@example.com\"\n            type=\"email\"\n          />\n        </Field>\n        <Field>\n          <FieldLabel>Country</FieldLabel>\n          <Select>\n            <SelectTrigger className=\"bg-background\">\n              <SelectValue placeholder=\"Select country\" />\n            </SelectTrigger>\n            <SelectContent>\n              <SelectItem value=\"us\">United States</SelectItem>\n              <SelectItem value=\"uk\">United Kingdom</SelectItem>\n              <SelectItem value=\"ca\">Canada</SelectItem>\n            </SelectContent>\n          </Select>\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

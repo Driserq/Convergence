@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-standard-5",
+  "type": "registry:component",
+  "title": "Input Standard 5",
+  "description": "A input pattern: input-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/standard/input-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Optional Field\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"middlename\">\n      Middle Name{\" \"}\n      <span className=\"font-normal text-muted-foreground text-xs\">\n        (optional)\n      </span>\n    </Label>\n    <Input\n      className=\"bg-background\"\n      id=\"middlename\"\n      placeholder=\"Enter your middle name\"\n    />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

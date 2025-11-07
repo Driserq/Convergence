@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-outline-4",
+  "type": "registry:component",
+  "title": "Button Outline 4",
+  "description": "A button pattern: button-outline-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/outline/button-outline-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\n\nexport const title = \"Rounded Button\";\n\nconst Example = () => (\n  <Button className=\"rounded-full\" variant=\"outline\">\n    Button\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

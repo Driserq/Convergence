@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-badge-outline-4",
+  "type": "registry:component",
+  "title": "Badge Outline 4",
+  "description": "A badge pattern: badge-outline-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/badge/outline/badge-outline-4.tsx",
+      "content": "import { Star } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\n\nexport const title = \"Badge with Icon on Right\";\n\nconst Example = () => (\n  <Badge variant=\"outline\">\n    Badge\n    <Star className=\"ml-1 size-3\" />\n  </Badge>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-standard-3",
+  "type": "registry:component",
+  "title": "Collapsible Standard 3",
+  "description": "A collapsible pattern: collapsible-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/standard/collapsible-standard-3.tsx",
+      "content": "import { Plus } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Collapsible with Icon\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg space-y-2\">\n    <CollapsibleTrigger className=\"flex items-center gap-2 font-medium text-sm hover:underline\">\n      <Plus className=\"h-4 w-4\" />\n      Show more information\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"space-y-2\">\n      <p className=\"text-muted-foreground text-sm\">\n        Additional details about this section can be found here.\n      </p>\n      <p className=\"text-muted-foreground text-sm\">\n        This content was hidden by default but can be revealed by clicking the\n        trigger.\n      </p>\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-range-4",
+  "type": "registry:component",
+  "title": "Slider Range 4",
+  "description": "A slider pattern: slider-range-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/range/slider-range-4.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Range with Constraints\";\n\nconst Example = () => {\n  const [value, setValue] = useState([20, 60]);\n\n  const handleValueChange = (newValue: number[]) => {\n    // Ensure minimum distance of 10 between handles\n    if (newValue[1] - newValue[0] >= 10) {\n      setValue(newValue);\n    }\n  };\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"slider\">Constrained Range</Label>\n        <span className=\"text-muted-foreground text-sm\">\n          {value[0]} - {value[1]}\n        </span>\n      </div>\n      <Slider\n        id=\"slider\"\n        max={100}\n        min={0}\n        onValueChange={handleValueChange}\n        value={value}\n      />\n      <p className=\"text-muted-foreground text-xs\">Minimum gap: 10</p>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

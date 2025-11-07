@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-checkbox-standard-6",
+  "type": "registry:component",
+  "title": "Checkbox Standard 6",
+  "description": "A checkbox pattern: checkbox-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/checkbox/standard/checkbox-standard-6.tsx",
+      "content": "import { Check } from \"lucide-react\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Custom Indicator Checkbox\";\n\nconst Example = () => (\n  <div className=\"flex items-center space-x-2\">\n    <Checkbox\n      className=\"data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500\"\n      id=\"custom\"\n    >\n      <Check className=\"h-4 w-4 text-white\" />\n    </Checkbox>\n    <Label htmlFor=\"custom\">Custom green checkmark</Label>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

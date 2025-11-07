@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-navigation-menu-standard-4",
+  "type": "registry:component",
+  "title": "Navigation Menu Standard 4",
+  "description": "A navigation-menu pattern: navigation-menu-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/navigation-menu/standard/navigation-menu-standard-4.tsx",
+      "content": "\"use client\";\n\nimport {\n  NavigationMenu,\n  NavigationMenuContent,\n  NavigationMenuItem,\n  NavigationMenuLink,\n  NavigationMenuList,\n  NavigationMenuTrigger,\n} from \"@/components/ui/navigation-menu\";\n\nexport const title = \"Navigation without Viewport\";\n\nconst menuSections = [\n  {\n    trigger: \"Products\",\n    items: [\n      { label: \"Product 1\", href: \"#\" },\n      { label: \"Product 2\", href: \"#\" },\n      { label: \"Product 3\", href: \"#\" },\n      { label: \"Product 4\", href: \"#\" },\n    ],\n  },\n  {\n    trigger: \"Company\",\n    items: [\n      { label: \"About\", href: \"#\" },\n      { label: \"Team\", href: \"#\" },\n      { label: \"Careers\", href: \"#\" },\n      { label: \"Contact\", href: \"#\" },\n    ],\n  },\n];\n\nconst Example = () => (\n  <div className=\"pr-[50vw] pb-[50vh]\">\n    <div className=\"w-full max-w-md rounded-md border bg-background p-px\">\n      <NavigationMenu viewport={false}>\n        <NavigationMenuList>\n          {menuSections.map((section, index) => (\n            <NavigationMenuItem key={index}>\n              <NavigationMenuTrigger>{section.trigger}</NavigationMenuTrigger>\n              <NavigationMenuContent>\n                <div className=\"w-48 p-2\">\n                  {section.items.map((item, itemIndex) => (\n                    <NavigationMenuLink href={item.href} key={itemIndex}>\n                      {item.label}\n                    </NavigationMenuLink>\n                  ))}\n                </div>\n              </NavigationMenuContent>\n            </NavigationMenuItem>\n          ))}\n        </NavigationMenuList>\n      </NavigationMenu>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

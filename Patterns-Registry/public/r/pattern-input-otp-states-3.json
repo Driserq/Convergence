@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-states-3",
+  "type": "registry:component",
+  "title": "Input Otp States 3",
+  "description": "A input-otp pattern: input-otp-states-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/states/input-otp-states-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Error State\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n  const [error, setError] = useState(\"\");\n\n  const handleChange = (newValue: string) => {\n    setValue(newValue);\n    setError(\"\");\n    if (newValue.length === 6) {\n      // Simulate validation\n      if (newValue !== \"123456\") {\n        setError(\"Invalid code. Please try again.\");\n      }\n    }\n  };\n\n  return (\n    <div className=\"space-y-2\">\n      <div className={error ? \"animate-shake\" : \"\"}>\n        <InputOTP maxLength={6} onChange={handleChange} value={value}>\n          <InputOTPGroup>\n            <InputOTPSlot className=\"bg-background\" index={0} />\n            <InputOTPSlot className=\"bg-background\" index={1} />\n            <InputOTPSlot className=\"bg-background\" index={2} />\n          </InputOTPGroup>\n          <InputOTPSeparator />\n          <InputOTPGroup>\n            <InputOTPSlot className=\"bg-background\" index={3} />\n            <InputOTPSlot className=\"bg-background\" index={4} />\n            <InputOTPSlot className=\"bg-background\" index={5} />\n          </InputOTPGroup>\n        </InputOTP>\n      </div>\n      {error && <p className=\"text-destructive text-sm\">{error}</p>}\n      <p className=\"text-muted-foreground text-xs\">Hint: Try entering 123456</p>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

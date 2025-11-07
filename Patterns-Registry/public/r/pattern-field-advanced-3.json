@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-advanced-3",
+  "type": "registry:component",
+  "title": "Field Advanced 3",
+  "description": "A field pattern: field-advanced-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/advanced/field-advanced-3.tsx",
+      "content": "import {\n  Field,\n  FieldContent,\n  FieldDescription,\n  FieldGroup,\n  FieldLabel,\n  FieldSet,\n  FieldTitle,\n} from \"@/components/ui/field\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"Choice Cards\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldGroup>\n      <FieldSet>\n        <FieldLabel htmlFor=\"compute-environment\">\n          Compute Environment\n        </FieldLabel>\n        <FieldDescription>\n          Select the compute environment for your cluster.\n        </FieldDescription>\n        <RadioGroup defaultValue=\"kubernetes\">\n          <FieldLabel className=\"bg-background\" htmlFor=\"kubernetes\">\n            <Field orientation=\"horizontal\">\n              <FieldContent>\n                <FieldTitle>Kubernetes</FieldTitle>\n                <FieldDescription>\n                  Run GPU workloads on a K8s configured cluster.\n                </FieldDescription>\n              </FieldContent>\n              <RadioGroupItem id=\"kubernetes\" value=\"kubernetes\" />\n            </Field>\n          </FieldLabel>\n          <FieldLabel className=\"bg-background\" htmlFor=\"vm\">\n            <Field orientation=\"horizontal\">\n              <FieldContent>\n                <FieldTitle>Virtual Machine</FieldTitle>\n                <FieldDescription>\n                  Access a VM configured cluster to run GPU workloads.\n                </FieldDescription>\n              </FieldContent>\n              <RadioGroupItem id=\"vm\" value=\"vm\" />\n            </Field>\n          </FieldLabel>\n        </RadioGroup>\n      </FieldSet>\n    </FieldGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-15",
+  "type": "registry:component",
+  "title": "Popover Standard 15",
+  "description": "A popover pattern: popover-standard-15",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-15.tsx",
+      "content": "import { MessageSquare } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Feedback Popover\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">\n        <MessageSquare className=\"h-4 w-4\" />\n        Feedback\n      </Button>\n    </PopoverTrigger>\n    <PopoverContent className=\"w-80\">\n      <div className=\"space-y-4\">\n        <div>\n          <h4 className=\"mb-1 font-semibold\">Send Feedback</h4>\n          <p className=\"text-muted-foreground text-xs\">\n            We'd love to hear your thoughts!\n          </p>\n        </div>\n        <Textarea placeholder=\"Share your feedback...\" rows={4} />\n        <Button className=\"w-full\">Submit Feedback</Button>\n      </div>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

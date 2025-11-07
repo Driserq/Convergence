@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-text-3",
+  "type": "registry:component",
+  "title": "Context Menu Text 3",
+  "description": "A context-menu pattern: context-menu-text-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/text/context-menu-text-3.tsx",
+      "content": "import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Text Alignment Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click to align text\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuSub>\n        <ContextMenuSubTrigger>\n          <div className=\"flex items-center gap-2\">\n            <AlignLeft />\n            <span>Align Text</span>\n          </div>\n        </ContextMenuSubTrigger>\n        <ContextMenuSubContent className=\"w-48\">\n          <ContextMenuItem>\n            <AlignLeft />\n            <span>Left</span>\n          </ContextMenuItem>\n          <ContextMenuItem>\n            <AlignCenter />\n            <span>Center</span>\n          </ContextMenuItem>\n          <ContextMenuItem>\n            <AlignRight />\n            <span>Right</span>\n          </ContextMenuItem>\n          <ContextMenuItem>\n            <AlignJustify />\n            <span>Justify</span>\n          </ContextMenuItem>\n        </ContextMenuSubContent>\n      </ContextMenuSub>\n      <ContextMenuSeparator />\n      <ContextMenuItem>Increase Indent</ContextMenuItem>\n      <ContextMenuItem>Decrease Indent</ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-labeled-3",
+  "type": "registry:component",
+  "title": "Switch Labeled 3",
+  "description": "A switch pattern: switch-labeled-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/labeled/switch-labeled-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Switch with State Labels\";\n\nconst Example = () => {\n  const [checked, setChecked] = useState(false);\n\n  return (\n    <div className=\"flex items-center gap-2\">\n      <span className=\"font-medium text-sm\">{checked ? \"On\" : \"Off\"}</span>\n      <Switch checked={checked} onCheckedChange={setChecked} />\n      <span className=\"text-muted-foreground text-sm\">\n        {checked ? \"Off\" : \"On\"}\n      </span>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-toggles-4",
+  "type": "registry:component",
+  "title": "Field Toggles 4",
+  "description": "A field pattern: field-toggles-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/toggles/field-toggles-4.tsx",
+      "content": "import {\n  Field,\n  FieldDescription,\n  FieldLabel,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"Radio with Descriptions\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldLabel>Subscription Plan</FieldLabel>\n      <FieldDescription>\n        Yearly and lifetime plans offer significant savings.\n      </FieldDescription>\n      <RadioGroup defaultValue=\"monthly\">\n        <Field orientation=\"horizontal\">\n          <RadioGroupItem id=\"plan-monthly\" value=\"monthly\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"plan-monthly\">\n            Monthly ($9.99/month)\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <RadioGroupItem id=\"plan-yearly\" value=\"yearly\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"plan-yearly\">\n            Yearly ($99.99/year)\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <RadioGroupItem id=\"plan-lifetime\" value=\"lifetime\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"plan-lifetime\">\n            Lifetime ($299.99)\n          </FieldLabel>\n        </Field>\n      </RadioGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-destructive-2",
+  "type": "registry:component",
+  "title": "Alert Dialog Destructive 2",
+  "description": "A alert-dialog pattern: alert-dialog-destructive-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/destructive/alert-dialog-destructive-2.tsx",
+      "content": "import { Trash2 } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Delete Confirmation with Icon\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"destructive\">Delete</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <div className=\"flex items-center gap-2\">\n          <Trash2 className=\"size-5 text-destructive\" />\n          <AlertDialogTitle>Delete Project</AlertDialogTitle>\n        </div>\n        <AlertDialogDescription>\n          This will permanently delete the project and all of its contents. This\n          action cannot be undone.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Cancel</AlertDialogCancel>\n        <AlertDialogAction className=\"bg-destructive text-white hover:bg-destructive/90\">\n          Delete Project\n        </AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-13",
+  "type": "registry:component",
+  "title": "Dialog Standard 13",
+  "description": "A dialog pattern: dialog-standard-13",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-13.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Card Details\";\n\nconst Example = () => (\n  <Dialog>\n    <DialogTrigger asChild>\n      <Button variant=\"outline\">Add Payment Method</Button>\n    </DialogTrigger>\n    <DialogContent className=\"sm:max-w-md\">\n      <DialogHeader>\n        <DialogTitle>Add card details</DialogTitle>\n        <DialogDescription>\n          Enter your card information to add a payment method.\n        </DialogDescription>\n      </DialogHeader>\n      <div className=\"space-y-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"cardName\">Cardholder name</Label>\n          <Input id=\"cardName\" placeholder=\"John Doe\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"cardNumber\">Card number</Label>\n          <Input id=\"cardNumber\" placeholder=\"1234 5678 9012 3456\" />\n        </div>\n        <div className=\"grid grid-cols-2 gap-4\">\n          <div className=\"space-y-2\">\n            <Label htmlFor=\"expiry\">Expiry date</Label>\n            <Input id=\"expiry\" placeholder=\"MM/YY\" />\n          </div>\n          <div className=\"space-y-2\">\n            <Label htmlFor=\"cvc\">CVC</Label>\n            <Input id=\"cvc\" placeholder=\"123\" />\n          </div>\n        </div>\n        <div className=\"flex items-center space-x-2\">\n          <Checkbox id=\"default\" />\n          <Label className=\"font-normal text-sm\" htmlFor=\"default\">\n            Set as default payment method\n          </Label>\n        </div>\n      </div>\n      <DialogFooter>\n        <Button type=\"button\" variant=\"outline\">\n          Cancel\n        </Button>\n        <Button type=\"button\">Add Card</Button>\n      </DialogFooter>\n    </DialogContent>\n  </Dialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

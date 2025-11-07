@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-dialog-7",
+  "type": "registry:component",
+  "title": "Command Dialog 7",
+  "description": "A command pattern: command-dialog-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/dialog/command-dialog-7.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  CommandDialog,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command Dialog with Status Indicators\";\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>View Services</Button>\n      <CommandDialog onOpenChange={setOpen} open={open}>\n        <CommandInput placeholder=\"Search services...\" />\n        <CommandList>\n          <CommandEmpty>No services found.</CommandEmpty>\n          <CommandGroup heading=\"Services\">\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-green-500 text-green-500\" />\n              <span>API Server</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Running\n              </span>\n            </CommandItem>\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-green-500 text-green-500\" />\n              <span>Database</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Running\n              </span>\n            </CommandItem>\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-yellow-500 text-yellow-500\" />\n              <span>Cache Server</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Warning\n              </span>\n            </CommandItem>\n            <CommandItem>\n              <div className=\"size-3 rounded-full bg-red-500 text-red-500\" />\n              <span>Queue Worker</span>\n              <span className=\"ml-auto text-muted-foreground text-xs\">\n                Stopped\n              </span>\n            </CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </CommandDialog>\n    </>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-table-1",
+  "type": "registry:component",
+  "title": "Context Menu Table 1",
+  "description": "A context-menu pattern: context-menu-table-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/table/context-menu-table-1.tsx",
+      "content": "import { ArrowDown, ArrowUp } from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Table Sort Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on column header\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuItem>\n        <ArrowUp />\n        <span>Sort Ascending</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <ArrowDown />\n        <span>Sort Descending</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>Clear Sort</ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

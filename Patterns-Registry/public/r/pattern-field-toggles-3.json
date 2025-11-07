@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-toggles-3",
+  "type": "registry:component",
+  "title": "Field Toggles 3",
+  "description": "A field pattern: field-toggles-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/toggles/field-toggles-3.tsx",
+      "content": "import {\n  Field,\n  FieldDescription,\n  FieldLabel,\n  FieldSet,\n} from \"@/components/ui/field\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\";\n\nexport const title = \"Radio Buttons\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldLabel>Notification Method</FieldLabel>\n      <FieldDescription>Choose how you want to be notified.</FieldDescription>\n      <RadioGroup defaultValue=\"email\">\n        <Field orientation=\"horizontal\">\n          <RadioGroupItem id=\"notify-email\" value=\"email\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"notify-email\">\n            Email\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <RadioGroupItem id=\"notify-sms\" value=\"sms\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"notify-sms\">\n            SMS\n          </FieldLabel>\n        </Field>\n        <Field orientation=\"horizontal\">\n          <RadioGroupItem id=\"notify-push\" value=\"push\" />\n          <FieldLabel className=\"font-normal\" htmlFor=\"notify-push\">\n            Push Notification\n          </FieldLabel>\n        </Field>\n      </RadioGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

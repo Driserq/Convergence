@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-4",
+  "type": "registry:component",
+  "title": "Menubar Standard 4",
+  "description": "A menubar pattern: menubar-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-4.tsx",
+      "content": "import {\n  Menubar,\n  MenubarCheckboxItem,\n  MenubarContent,\n  MenubarMenu,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Menubar with Checkboxes\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>View</MenubarTrigger>\n      <MenubarContent>\n        <MenubarCheckboxItem checked>Show Toolbar</MenubarCheckboxItem>\n        <MenubarCheckboxItem>Show Sidebar</MenubarCheckboxItem>\n        <MenubarCheckboxItem checked>Show Status Bar</MenubarCheckboxItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

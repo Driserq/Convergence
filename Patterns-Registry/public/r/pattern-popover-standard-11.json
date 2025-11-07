@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-11",
+  "type": "registry:component",
+  "title": "Popover Standard 11",
+  "description": "A popover pattern: popover-standard-11",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-11.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Popover with Steps\";\n\nconst Example = () => {\n  const [step, setStep] = useState(1);\n\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button variant=\"outline\">Start Tour</Button>\n      </PopoverTrigger>\n      <PopoverContent>\n        <div className=\"space-y-4\">\n          <div>\n            <h4 className=\"mb-2 font-semibold\">Step {step} of 3</h4>\n            <p className=\"text-muted-foreground text-sm\">\n              {step === 1 && \"Welcome to the tour. Let's get started!\"}\n              {step === 2 && \"Here's an important feature to know about.\"}\n              {step === 3 && \"You're all set! Enjoy using the app.\"}\n            </p>\n          </div>\n          <div className=\"flex justify-between gap-2\">\n            <Button\n              disabled={step === 1}\n              onClick={() => setStep(step - 1)}\n              size=\"sm\"\n              variant=\"outline\"\n            >\n              Previous\n            </Button>\n            <Button\n              disabled={step === 3}\n              onClick={() => setStep(step + 1)}\n              size=\"sm\"\n            >\n              Next\n            </Button>\n          </div>\n        </div>\n      </PopoverContent>\n    </Popover>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

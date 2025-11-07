@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-interactive-2",
+  "type": "registry:component",
+  "title": "Slider Interactive 2",
+  "description": "A slider pattern: slider-interactive-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/interactive/slider-interactive-2.tsx",
+      "content": "\"use client\";\n\nimport { MinusIcon, PlusIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"With Increment/Decrement Buttons\";\n\nconst Example = () => {\n  const [value, setValue] = useState([50]);\n\n  const increment = () => {\n    setValue([Math.min(100, value[0] + 10)]);\n  };\n\n  const decrement = () => {\n    setValue([Math.max(0, value[0] - 10)]);\n  };\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"slider\">Quantity</Label>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}</span>\n      </div>\n      <div className=\"flex items-center gap-2\">\n        <Button onClick={decrement} size=\"icon\" variant=\"outline\">\n          <MinusIcon className=\"size-4\" />\n        </Button>\n        <Slider\n          className=\"flex-1\"\n          id=\"slider\"\n          onValueChange={setValue}\n          value={value}\n        />\n        <Button onClick={increment} size=\"icon\" variant=\"outline\">\n          <PlusIcon className=\"size-4\" />\n        </Button>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

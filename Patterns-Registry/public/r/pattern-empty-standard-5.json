@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-standard-5",
+  "type": "registry:component",
+  "title": "Empty Standard 5",
+  "description": "A empty pattern: empty-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/standard/empty-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { Calendar } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Multiple Paragraphs\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Calendar />\n      </EmptyMedia>\n      <EmptyTitle>No upcoming events</EmptyTitle>\n      <EmptyDescription>\n        You don't have any events scheduled for the next 7 days.\n        <br />\n        <br />\n        Create a new event to get started with your calendar.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-basic-inputs-1",
+  "type": "registry:component",
+  "title": "Field Basic Inputs 1",
+  "description": "A field pattern: field-basic-inputs-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/basic-inputs/field-basic-inputs-1.tsx",
+      "content": "import { Field, FieldLabel } from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Simple Input with Label\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field>\n      <FieldLabel htmlFor=\"email\">Email</FieldLabel>\n      <Input\n        className=\"bg-background\"\n        id=\"email\"\n        placeholder=\"you@example.com\"\n        type=\"email\"\n      />\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

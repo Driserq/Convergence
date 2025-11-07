@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-kbd-function-keys-3",
+  "type": "registry:component",
+  "title": "Kbd Function Keys 3",
+  "description": "A kbd pattern: kbd-function-keys-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/kbd/function-keys/kbd-function-keys-3.tsx",
+      "content": "import { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Function Keys Row\";\n\nconst Example = () => (\n  <div className=\"rounded-md border bg-background p-4\">\n    <div className=\"flex gap-1\">\n      {Array.from({ length: 12 }, (_, i) => (\n        <Kbd key={i}>F{i + 1}</Kbd>\n      ))}\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

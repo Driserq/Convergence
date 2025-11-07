@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-9",
+  "type": "registry:component",
+  "title": "Dialog Standard 9",
+  "description": "A dialog pattern: dialog-standard-9",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-9.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"OTP Code\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Enter Code</Button>\n      </DialogTrigger>\n      <DialogContent className=\"sm:max-w-md\">\n        <DialogHeader>\n          <DialogTitle>Verify your email</DialogTitle>\n          <DialogDescription>\n            We've sent a 6-digit code to your email address. Please enter it\n            below.\n          </DialogDescription>\n        </DialogHeader>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"otp\">Verification code</Label>\n          <div className=\"flex justify-center\">\n            <InputOTP maxLength={6} onChange={setValue} value={value}>\n              <InputOTPGroup>\n                <InputOTPSlot index={0} />\n                <InputOTPSlot index={1} />\n                <InputOTPSlot index={2} />\n                <InputOTPSlot index={3} />\n                <InputOTPSlot index={4} />\n                <InputOTPSlot index={5} />\n              </InputOTPGroup>\n            </InputOTP>\n          </div>\n          <p className=\"text-center text-muted-foreground text-sm\">\n            Didn't receive the code?{\" \"}\n            <button className=\"font-medium underline\" type=\"button\">\n              Resend\n            </button>\n          </p>\n        </div>\n        <DialogFooter>\n          <Button disabled={value.length !== 6} type=\"button\">\n            Verify\n          </Button>\n        </DialogFooter>\n      </DialogContent>\n    </Dialog>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

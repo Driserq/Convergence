@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-details-1",
+  "type": "registry:component",
+  "title": "Sheet Details 1",
+  "description": "A sheet pattern: sheet-details-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/details/sheet-details-1.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Product Details Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">View Details</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Premium Headphones</SheetTitle>\n        <SheetDescription>\n          High-quality wireless headphones with noise cancellation\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <img\n          alt=\"Premium Headphones\"\n          className=\"w-full rounded-md object-cover\"\n          src=\"https://placehold.co/400x300/6366f1/ffffff?text=Premium+Headphones\"\n        />\n        <div className=\"flex items-center gap-2\">\n          <Badge>In Stock</Badge>\n          <span className=\"font-bold text-2xl\">$299.99</span>\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <h4 className=\"font-semibold text-sm\">Features</h4>\n          <ul className=\"list-inside list-disc space-y-1 text-muted-foreground text-sm\">\n            <li>Active noise cancellation</li>\n            <li>30-hour battery life</li>\n            <li>Bluetooth 5.0</li>\n            <li>Premium comfort design</li>\n          </ul>\n        </div>\n        <Button className=\"w-full\">Add to Cart</Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

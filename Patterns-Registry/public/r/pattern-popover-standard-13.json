@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-popover-standard-13",
+  "type": "registry:component",
+  "title": "Popover Standard 13",
+  "description": "A popover pattern: popover-standard-13",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/popover/standard/popover-standard-13.tsx",
+      "content": "import { Filter } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\n\nexport const title = \"Filter Popover\";\n\nconst Example = () => (\n  <Popover>\n    <PopoverTrigger asChild>\n      <Button variant=\"outline\">\n        <Filter className=\"h-4 w-4\" />\n        Filter\n      </Button>\n    </PopoverTrigger>\n    <PopoverContent className=\"w-80\">\n      <div className=\"space-y-4\">\n        <h4 className=\"font-semibold\">Filter Options</h4>\n        <div className=\"space-y-3\">\n          <div className=\"flex items-center gap-2\">\n            <Checkbox defaultChecked id=\"active\" />\n            <Label className=\"cursor-pointer\" htmlFor=\"active\">\n              Active\n            </Label>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            <Checkbox id=\"pending\" />\n            <Label className=\"cursor-pointer\" htmlFor=\"pending\">\n              Pending\n            </Label>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            <Checkbox id=\"archived\" />\n            <Label className=\"cursor-pointer\" htmlFor=\"archived\">\n              Archived\n            </Label>\n          </div>\n        </div>\n        <Button className=\"w-full\" size=\"sm\">\n          Apply Filters\n        </Button>\n      </div>\n    </PopoverContent>\n  </Popover>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

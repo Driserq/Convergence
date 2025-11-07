@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-standard-7",
+  "type": "registry:component",
+  "title": "Command Standard 7",
+  "description": "A command pattern: command-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/standard/command-standard-7.tsx",
+      "content": "import {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Command with Status Indicators\";\n\nconst Example = () => (\n  <Command className=\"h-auto w-full max-w-lg rounded-lg border shadow-md\">\n    <CommandInput placeholder=\"Search services...\" />\n    <CommandList>\n      <CommandEmpty>No services found.</CommandEmpty>\n      <CommandGroup heading=\"Services\">\n        <CommandItem>\n          <div className=\"size-3 rounded-full bg-green-500 text-green-500\" />\n          <span>API Server</span>\n          <span className=\"ml-auto text-muted-foreground text-xs\">Running</span>\n        </CommandItem>\n        <CommandItem>\n          <div className=\"size-3 rounded-full bg-green-500 text-green-500\" />\n          <span>Database</span>\n          <span className=\"ml-auto text-muted-foreground text-xs\">Running</span>\n        </CommandItem>\n        <CommandItem>\n          <div className=\"size-3 rounded-full bg-yellow-500 text-yellow-500\" />\n          <span>Cache Server</span>\n          <span className=\"ml-auto text-muted-foreground text-xs\">Warning</span>\n        </CommandItem>\n        <CommandItem>\n          <div className=\"size-3 rounded-full bg-red-500 text-red-500\" />\n          <span>Queue Worker</span>\n          <span className=\"ml-auto text-muted-foreground text-xs\">Stopped</span>\n        </CommandItem>\n      </CommandGroup>\n    </CommandList>\n  </Command>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

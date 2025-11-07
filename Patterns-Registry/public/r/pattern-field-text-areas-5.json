@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-text-areas-5",
+  "type": "registry:component",
+  "title": "Field Text Areas 5",
+  "description": "A field pattern: field-text-areas-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/text-areas/field-text-areas-5.tsx",
+      "content": "import { Field, FieldGroup, FieldLabel, FieldSet } from \"@/components/ui/field\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Multiple Textareas - Different Sizes\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldGroup>\n        <Field>\n          <FieldLabel htmlFor=\"short-note\">Short Note</FieldLabel>\n          <Textarea\n            className=\"bg-background\"\n            id=\"short-note\"\n            placeholder=\"Brief note...\"\n            rows={2}\n          />\n        </Field>\n        <Field>\n          <FieldLabel htmlFor=\"medium-comment\">Comment</FieldLabel>\n          <Textarea\n            className=\"bg-background\"\n            id=\"medium-comment\"\n            placeholder=\"Your comment...\"\n            rows={4}\n          />\n        </Field>\n        <Field>\n          <FieldLabel htmlFor=\"long-essay\">Essay</FieldLabel>\n          <Textarea\n            className=\"bg-background\"\n            id=\"long-essay\"\n            placeholder=\"Write your essay...\"\n            rows={8}\n          />\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

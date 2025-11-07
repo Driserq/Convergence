@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-skeleton-form-5",
+  "type": "registry:component",
+  "title": "Skeleton Form 5",
+  "description": "A skeleton pattern: skeleton-form-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/skeleton/form/skeleton-form-5.tsx",
+      "content": "import { Skeleton } from \"@/components/ui/skeleton\";\n\nexport const title = \"Search Form\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <div className=\"flex gap-2\">\n      <Skeleton className=\"h-10 flex-1\" />\n      <Skeleton className=\"h-10 w-24\" />\n    </div>\n    <div className=\"flex flex-col gap-3\">\n      <Skeleton className=\"h-4 w-16\" />\n      <div className=\"flex flex-wrap gap-2\">\n        <Skeleton className=\"h-8 w-20 rounded-full\" />\n        <Skeleton className=\"h-8 w-24 rounded-full\" />\n        <Skeleton className=\"h-8 w-16 rounded-full\" />\n        <Skeleton className=\"h-8 w-28 rounded-full\" />\n      </div>\n    </div>\n    <Skeleton className=\"h-px w-full\" />\n    <div className=\"flex items-center justify-between\">\n      <Skeleton className=\"h-4 w-32\" />\n      <Skeleton className=\"h-8 w-20\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

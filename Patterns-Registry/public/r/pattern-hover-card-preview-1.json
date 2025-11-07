@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-preview-1",
+  "type": "registry:component",
+  "title": "Hover Card Preview 1",
+  "description": "A hover-card pattern: hover-card-preview-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/preview/hover-card-preview-1.tsx",
+      "content": "\"use client\";\n\nimport { ExternalLink } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Link Preview\";\n\nconst Example = () => (\n  <p className=\"text-muted-foreground text-sm\">\n    Check out{\" \"}\n    <HoverCard>\n      <HoverCardTrigger asChild>\n        <a\n          className=\"font-medium text-foreground underline underline-offset-4\"\n          href=\"#\"\n        >\n          this article\n        </a>\n      </HoverCardTrigger>\n      <HoverCardContent className=\"w-80\">\n        <div className=\"space-y-2\">\n          <h4 className=\"font-semibold text-sm\">\n            Getting Started with React Server Components\n          </h4>\n          <p className=\"text-muted-foreground text-sm\">\n            Learn how to build modern React applications with server components,\n            streaming, and Suspense.\n          </p>\n          <div className=\"flex items-center gap-2 text-muted-foreground text-xs\">\n            <ExternalLink className=\"h-3 w-3\" />\n            example.com\n          </div>\n        </div>\n      </HoverCardContent>\n    </HoverCard>{\" \"}\n    for more information.\n  </p>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

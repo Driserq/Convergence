@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-pie-label",
+  "type": "registry:component",
+  "title": "Chart Pie Label",
+  "description": "A chart pattern: chart-pie-label",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/pie/chart-pie-label.tsx",
+      "content": "\"use client\";\n\nimport { Pie, PieChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A pie chart with a label\";\n\nconst chartData = [\n  { browser: \"chrome\", visitors: 275, fill: \"var(--color-chrome)\" },\n  { browser: \"safari\", visitors: 200, fill: \"var(--color-safari)\" },\n  { browser: \"firefox\", visitors: 187, fill: \"var(--color-firefox)\" },\n  { browser: \"edge\", visitors: 173, fill: \"var(--color-edge)\" },\n  { browser: \"other\", visitors: 90, fill: \"var(--color-other)\" },\n];\n\nconst chartConfig = {\n  visitors: {\n    label: \"Visitors\",\n  },\n  chrome: {\n    label: \"Chrome\",\n    color: \"var(--chart-1)\",\n  },\n  safari: {\n    label: \"Safari\",\n    color: \"var(--chart-2)\",\n  },\n  firefox: {\n    label: \"Firefox\",\n    color: \"var(--chart-3)\",\n  },\n  edge: {\n    label: \"Edge\",\n    color: \"var(--chart-4)\",\n  },\n  other: {\n    label: \"Other\",\n    color: \"var(--chart-5)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartPieLabel = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px] pb-0 [&_.recharts-pie-label-text]:fill-foreground\"\n      config={chartConfig}\n    >\n      <PieChart>\n        <ChartTooltip content={<ChartTooltipContent hideLabel />} />\n        <Pie data={chartData} dataKey=\"visitors\" label nameKey=\"browser\" />\n      </PieChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartPieLabel;\n",
+      "type": "registry:component"
+    }
+  ]
+}

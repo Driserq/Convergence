@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-search-5",
+  "type": "registry:component",
+  "title": "Empty Search 5",
+  "description": "A empty pattern: empty-search-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/search/empty-search-5.tsx",
+      "content": "\"use client\";\n\nimport { Filter, RotateCcw } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Clear Filters Suggestion\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Filter />\n      </EmptyMedia>\n      <EmptyTitle>No results with current filters</EmptyTitle>\n      <EmptyDescription>\n        Your current filter combination returned no results. Try removing some\n        filters or starting over.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <div className=\"flex gap-2\">\n        <Button>\n          <RotateCcw />\n          Clear All Filters\n        </Button>\n        <Button variant=\"outline\">Browse All</Button>\n      </div>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

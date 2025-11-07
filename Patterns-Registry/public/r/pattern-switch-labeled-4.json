@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-switch-labeled-4",
+  "type": "registry:component",
+  "title": "Switch Labeled 4",
+  "description": "A switch pattern: switch-labeled-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/switch/labeled/switch-labeled-4.tsx",
+      "content": "\"use client\";\n\nimport { Label } from \"@/components/ui/label\";\nimport { Switch } from \"@/components/ui/switch\";\n\nexport const title = \"Switch with Description\";\n\nconst Example = () => (\n  <div className=\"flex items-center justify-between gap-4\">\n    <div className=\"flex flex-col gap-1\">\n      <Label htmlFor=\"notifications\">Push Notifications</Label>\n      <p className=\"text-muted-foreground text-sm\">\n        Receive notifications on your device\n      </p>\n    </div>\n    <Switch id=\"notifications\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

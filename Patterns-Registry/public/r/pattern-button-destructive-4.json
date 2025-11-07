@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-destructive-4",
+  "type": "registry:component",
+  "title": "Button Destructive 4",
+  "description": "A button pattern: button-destructive-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/destructive/button-destructive-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\n\nexport const title = \"Rounded Button\";\n\nconst Example = () => (\n  <Button className=\"rounded-full\" variant=\"destructive\">\n    Button\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

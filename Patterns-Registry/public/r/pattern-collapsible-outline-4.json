@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-outline-4",
+  "type": "registry:component",
+  "title": "Collapsible Outline 4",
+  "description": "A collapsible pattern: collapsible-outline-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/outline/collapsible-outline-4.tsx",
+      "content": "import {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Dashed Outline\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg rounded-lg border-2 border-dashed\">\n    <CollapsibleTrigger className=\"flex w-full items-center justify-between p-4 font-medium text-sm\">\n      <span>Optional Configuration</span>\n      <span className=\"text-muted-foreground text-xs\">[expand]</span>\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"border-t-2 border-dashed p-4\">\n      <div className=\"space-y-3 text-sm\">\n        <div className=\"flex items-center justify-between\">\n          <span className=\"text-muted-foreground\">Option A</span>\n          <span>Enabled</span>\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <span className=\"text-muted-foreground\">Option B</span>\n          <span>Disabled</span>\n        </div>\n      </div>\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

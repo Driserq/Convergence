@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-informational-6",
+  "type": "registry:component",
+  "title": "Alert Dialog Informational 6",
+  "description": "A alert-dialog pattern: alert-dialog-informational-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/informational/alert-dialog-informational-6.tsx",
+      "content": "import { Calendar } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Information with Status Badge\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Show Info</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <AlertDialogTitle className=\"flex items-center gap-2\">\n          <Calendar className=\"size-5\" />\n          Scheduled Maintenance\n        </AlertDialogTitle>\n        <div className=\"inline-flex w-fit items-center rounded-full bg-blue-100 px-2.5 py-0.5 font-semibold text-blue-700 text-xs dark:bg-blue-900 dark:text-blue-300\">\n          Upcoming\n        </div>\n        <AlertDialogDescription>\n          We'll be performing scheduled maintenance on Sunday, March 15th from\n          2:00 AM - 4:00 AM EST. During this time, the service may be\n          temporarily unavailable.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogAction>Understood</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

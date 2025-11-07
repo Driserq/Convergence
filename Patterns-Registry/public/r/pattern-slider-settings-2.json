@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-settings-2",
+  "type": "registry:component",
+  "title": "Slider Settings 2",
+  "description": "A slider pattern: slider-settings-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/settings/slider-settings-2.tsx",
+      "content": "\"use client\";\n\nimport { SunIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Brightness Control\";\n\nconst Example = () => {\n  const [value, setValue] = useState([80]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-2\">\n          <SunIcon className=\"size-4\" />\n          <Label htmlFor=\"slider\">Brightness</Label>\n        </div>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}%</span>\n      </div>\n      <Slider\n        className=\"[&_[data-slot=slider-range]]:bg-yellow-500 [&_[data-slot=slider-thumb]]:border-yellow-500\"\n        id=\"slider\"\n        onValueChange={setValue}\n        value={value}\n      />\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

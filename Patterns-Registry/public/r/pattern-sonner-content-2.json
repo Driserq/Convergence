@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-content-2",
+  "type": "registry:component",
+  "title": "Sonner Content 2",
+  "description": "A sonner pattern: sonner-content-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/content/sonner-content-2.tsx",
+      "content": "\"use client\";\n\nimport { CheckCircleIcon } from \"lucide-react\";\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Toast with Custom Icon\";\n\nconst Example = () => (\n  <Button\n    onClick={() =>\n      toast(\"Payment successful\", {\n        icon: <CheckCircleIcon className=\"size-4\" />,\n        description: \"Your payment has been processed\",\n      })\n    }\n    variant=\"outline\"\n  >\n    Show Toast\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

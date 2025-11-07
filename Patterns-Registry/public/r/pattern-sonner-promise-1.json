@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sonner-promise-1",
+  "type": "registry:component",
+  "title": "Sonner Promise 1",
+  "description": "A sonner pattern: sonner-promise-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sonner/promise/sonner-promise-1.tsx",
+      "content": "\"use client\";\n\nimport { toast } from \"sonner\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Basic Promise Toast\";\n\nconst Example = () => {\n  const handleClick = () => {\n    const promise = new Promise((resolve) => {\n      setTimeout(() => resolve({ name: \"User data\" }), 2000);\n    });\n\n    toast.promise(promise, {\n      loading: \"Loading...\",\n      success: \"Data loaded successfully\",\n      error: \"Failed to load data\",\n    });\n  };\n\n  return (\n    <Button onClick={handleClick} variant=\"outline\">\n      Load Data\n    </Button>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

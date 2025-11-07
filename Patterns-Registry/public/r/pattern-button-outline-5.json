@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-outline-5",
+  "type": "registry:component",
+  "title": "Button Outline 5",
+  "description": "A button pattern: button-outline-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/outline/button-outline-5.tsx",
+      "content": "import { Loader2 } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Loading Button\";\n\nconst Example = () => (\n  <Button className=\"gap-2\" disabled variant=\"outline\">\n    <Loader2 className=\"size-4 animate-spin\" />\n    Loading\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

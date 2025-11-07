@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-menubar-standard-9",
+  "type": "registry:component",
+  "title": "Menubar Standard 9",
+  "description": "A menubar pattern: menubar-standard-9",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/menubar/standard/menubar-standard-9.tsx",
+      "content": "import {\n  Menubar,\n  MenubarContent,\n  MenubarItem,\n  MenubarLabel,\n  MenubarMenu,\n  MenubarSeparator,\n  MenubarTrigger,\n} from \"@/components/ui/menubar\";\n\nexport const title = \"Menubar with Sections\";\n\nconst Example = () => (\n  <Menubar>\n    <MenubarMenu>\n      <MenubarTrigger>Edit</MenubarTrigger>\n      <MenubarContent>\n        <MenubarLabel>Actions</MenubarLabel>\n        <MenubarItem>Cut</MenubarItem>\n        <MenubarItem>Copy</MenubarItem>\n        <MenubarItem>Paste</MenubarItem>\n        <MenubarSeparator />\n        <MenubarLabel>History</MenubarLabel>\n        <MenubarItem>Undo</MenubarItem>\n        <MenubarItem>Redo</MenubarItem>\n      </MenubarContent>\n    </MenubarMenu>\n  </Menubar>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

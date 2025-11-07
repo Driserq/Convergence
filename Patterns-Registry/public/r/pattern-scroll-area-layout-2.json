@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-scroll-area-layout-2",
+  "type": "registry:component",
+  "title": "Scroll Area Layout 2",
+  "description": "A scroll-area pattern: scroll-area-layout-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/scroll-area/layout/scroll-area-layout-2.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { ScrollArea, ScrollBar } from \"@/components/ui/scroll-area\";\n\nexport const title = \"Scrollable Tags\";\n\nconst tags = [\n  \"React\",\n  \"Next.js\",\n  \"TypeScript\",\n  \"Tailwind CSS\",\n  \"shadcn/ui\",\n  \"Radix UI\",\n  \"JavaScript\",\n  \"Node.js\",\n  \"Express\",\n  \"MongoDB\",\n  \"PostgreSQL\",\n  \"GraphQL\",\n  \"REST API\",\n  \"Docker\",\n  \"Kubernetes\",\n  \"AWS\",\n  \"Vercel\",\n  \"Git\",\n  \"GitHub\",\n  \"CI/CD\",\n];\n\nconst Example = () => (\n  <div className=\"w-full max-w-md space-y-2\">\n    <h3 className=\"font-semibold text-sm\">Technologies</h3>\n    <ScrollArea className=\"w-full whitespace-nowrap rounded-md border bg-background\">\n      <div className=\"flex w-max space-x-2 p-4\">\n        {tags.map((tag) => (\n          <Badge key={tag} variant=\"secondary\">\n            {tag}\n          </Badge>\n        ))}\n      </div>\n      <ScrollBar orientation=\"horizontal\" />\n    </ScrollArea>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

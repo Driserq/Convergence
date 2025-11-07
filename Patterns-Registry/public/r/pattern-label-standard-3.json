@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-3",
+  "type": "registry:component",
+  "title": "Label Standard 3",
+  "description": "A label pattern: label-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-3.tsx",
+      "content": "import { Info } from \"lucide-react\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Label with Tooltip\";\n\nconst Example = () => (\n  <Label>\n    API Key\n    <TooltipProvider>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <Info className=\"h-3.5 w-3.5 text-muted-foreground\" />\n        </TooltipTrigger>\n        <TooltipContent>Your secret API key for authentication</TooltipContent>\n      </Tooltip>\n    </TooltipProvider>\n  </Label>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

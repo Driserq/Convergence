@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-badge-secondary-5",
+  "type": "registry:component",
+  "title": "Badge Secondary 5",
+  "description": "A badge pattern: badge-secondary-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/badge/secondary/badge-secondary-5.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\n\nexport const title = \"Circular Badge with Count\";\n\nconst Example = () => (\n  <Badge\n    className=\"flex size-6 items-center justify-center rounded-full p-0\"\n    variant=\"secondary\"\n  >\n    3\n  </Badge>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

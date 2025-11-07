@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-top-2",
+  "type": "registry:component",
+  "title": "Drawer Top 2",
+  "description": "A drawer pattern: drawer-top-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/top/drawer-top-2.tsx",
+      "content": "\"use client\";\n\nimport { Clock, File, Folder, Search } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Drawer, DrawerContent, DrawerTrigger } from \"@/components/ui/drawer\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Top Drawer Search Bar\";\n\nconst Example = () => (\n  <Drawer direction=\"top\">\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">\n        <Search className=\"mr-2 h-4 w-4\" />\n        Search\n      </Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <div className=\"space-y-4 p-4\">\n        <div className=\"relative\">\n          <Search className=\"-translate-y-1/2 absolute top-1/2 left-3 h-5 w-5 text-muted-foreground\" />\n          <Input\n            className=\"h-12 pl-10 text-base\"\n            placeholder=\"Search for files, folders, or content...\"\n          />\n        </div>\n        <div className=\"space-y-2\">\n          <h4 className=\"font-medium text-muted-foreground text-xs uppercase\">\n            Recent Searches\n          </h4>\n          <div className=\"space-y-1\">\n            <Button className=\"w-full justify-start\" size=\"sm\" variant=\"ghost\">\n              <Clock className=\"mr-3 h-4 w-4\" />\n              Project files\n            </Button>\n            <Button className=\"w-full justify-start\" size=\"sm\" variant=\"ghost\">\n              <Clock className=\"mr-3 h-4 w-4\" />\n              Team documents\n            </Button>\n          </div>\n        </div>\n        <div className=\"space-y-2\">\n          <h4 className=\"font-medium text-muted-foreground text-xs uppercase\">\n            Quick Access\n          </h4>\n          <div className=\"space-y-1\">\n            <Button className=\"w-full justify-start\" size=\"sm\" variant=\"ghost\">\n              <Folder className=\"mr-3 h-4 w-4\" />\n              My Projects\n            </Button>\n            <Button className=\"w-full justify-start\" size=\"sm\" variant=\"ghost\">\n              <File className=\"mr-3 h-4 w-4\" />\n              Recent Files\n            </Button>\n          </div>\n        </div>\n      </div>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-editor-5",
+  "type": "registry:component",
+  "title": "Dropdown Menu Editor 5",
+  "description": "A dropdown-menu pattern: dropdown-menu-editor-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/editor/dropdown-menu-editor-5.tsx",
+      "content": "\"use client\";\n\nimport { AlignCenter, AlignJustify, AlignLeft, AlignRight } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Alignment Options\";\n\nconst Example = () => {\n  const [alignment, setAlignment] = useState(\"left\");\n\n  const getIcon = () => {\n    switch (alignment) {\n      case \"center\":\n        return <AlignCenter className=\"h-4 w-4\" />;\n      case \"right\":\n        return <AlignRight className=\"h-4 w-4\" />;\n      case \"justify\":\n        return <AlignJustify className=\"h-4 w-4\" />;\n      default:\n        return <AlignLeft className=\"h-4 w-4\" />;\n    }\n  };\n\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button size=\"icon\" variant=\"outline\">\n          {getIcon()}\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className=\"w-48\">\n        <DropdownMenuRadioGroup onValueChange={setAlignment} value={alignment}>\n          <DropdownMenuRadioItem value=\"left\">\n            <AlignLeft />\n            Align Left\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"center\">\n            <AlignCenter />\n            Align Center\n          </DropdownMenuRadioItem>\n          <DropdownMenuRadioItem value=\"right\">\n            <AlignRight />\n            Align Right\n          </DropdownMenuRadioItem>\n          <DropdownMenuSeparator />\n          <DropdownMenuRadioItem value=\"justify\">\n            <AlignJustify />\n            Justify\n          </DropdownMenuRadioItem>\n        </DropdownMenuRadioGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

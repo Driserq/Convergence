@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-standard-2",
+  "type": "registry:component",
+  "title": "Button Group Standard 2",
+  "description": "A button-group pattern: button-group-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/standard/button-group-standard-2.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Vertical Button Group\";\n\nconst Example = () => (\n  <div className=\"flex gap-4\">\n    <ButtonGroup orientation=\"vertical\">\n      <Button variant=\"outline\">Top</Button>\n      <Button variant=\"outline\">Middle</Button>\n      <Button variant=\"outline\">Bottom</Button>\n    </ButtonGroup>\n    <ButtonGroup orientation=\"vertical\">\n      <Button size=\"sm\" variant=\"outline\">\n        Option 1\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        Option 2\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        Option 3\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        Option 4\n      </Button>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

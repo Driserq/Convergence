@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-form-4",
+  "type": "registry:component",
+  "title": "Textarea Form 4",
+  "description": "A textarea pattern: textarea-form-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/form/textarea-form-4.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Textarea with Hint\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-2\">\n    <div className=\"flex items-center justify-between\">\n      <Label htmlFor=\"description\">Description</Label>\n      <span className=\"text-muted-foreground text-sm\">Optional</span>\n    </div>\n    <Textarea\n      className=\"bg-background\"\n      id=\"description\"\n      placeholder=\"Add a description...\"\n    />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

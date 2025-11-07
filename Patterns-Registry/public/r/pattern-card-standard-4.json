@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-card-standard-4",
+  "type": "registry:component",
+  "title": "Card Standard 4",
+  "description": "A card pattern: card-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/card/standard/card-standard-4.tsx",
+      "content": "import { faker } from \"@faker-js/faker\";\nimport { Bath, Bed, Maximize } from \"lucide-react\";\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardFooter,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\n\nexport const title = \"Image Card\";\n\nconst price = faker.commerce.price({ min: 100_000, max: 500_000, dec: 0 });\nconst beds = faker.number.int({ min: 2, max: 5 });\nconst baths = faker.number.int({ min: 1, max: 3 });\nconst area = faker.number.int({ min: 200, max: 500 });\n\nconst Example = () => (\n  <Card className=\"w-full max-w-md overflow-hidden\">\n    <CardHeader>\n      <CardTitle>3-Bedroom House</CardTitle>\n      <CardDescription>\n        A luxurious 3-bedroom house with a modern design.\n      </CardDescription>\n    </CardHeader>\n    <CardContent className=\"p-0\">\n      {/** biome-ignore lint/performance/noImgElement: \"Kibo UI is framework agnostic\" */}\n      <img\n        alt=\"\"\n        height={1380}\n        src=\"https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\"\n        width={2070}\n      />\n    </CardContent>\n    <CardFooter className=\"flex items-center justify-between\">\n      <div className=\"flex items-center gap-2\">\n        <div className=\"flex items-center gap-2 rounded-full border px-4 py-2\">\n          <Bed className=\"h-4 w-4\" />\n          <span className=\"font-medium text-sm\">{beds}</span>\n        </div>\n        <div className=\"flex items-center gap-2 rounded-full border px-4 py-2\">\n          <Bath className=\"h-4 w-4\" />\n          <span className=\"font-medium text-sm\">{baths}</span>\n        </div>\n        <div className=\"flex items-center gap-2 rounded-full border px-4 py-2\">\n          <Maximize className=\"h-4 w-4\" />\n          <span className=\"font-medium text-sm\">{area}m²</span>\n        </div>\n      </div>\n      <p className=\"font-bold text-2xl\">${Number(price).toLocaleString()}</p>\n    </CardFooter>\n  </Card>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

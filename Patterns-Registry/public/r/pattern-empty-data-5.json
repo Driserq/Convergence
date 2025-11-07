@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-data-5",
+  "type": "registry:component",
+  "title": "Empty Data 5",
+  "description": "A empty pattern: empty-data-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/data/empty-data-5.tsx",
+      "content": "\"use client\";\n\nimport { FileText, Plus, Upload } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"No Files\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <FileText />\n      </EmptyMedia>\n      <EmptyTitle>No files uploaded</EmptyTitle>\n      <EmptyDescription>\n        This folder is empty. Upload files or create new documents to get\n        started.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <div className=\"flex gap-2\">\n        <Button>\n          <Upload />\n          Upload Files\n        </Button>\n        <Button variant=\"outline\">\n          <Plus />\n          Create Document\n        </Button>\n      </div>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

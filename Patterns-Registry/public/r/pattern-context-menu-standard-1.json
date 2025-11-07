@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-standard-1",
+  "type": "registry:component",
+  "title": "Context Menu Standard 1",
+  "description": "A context-menu pattern: context-menu-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/standard/context-menu-standard-1.tsx",
+      "content": "import {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Simple Context Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click here\n    </ContextMenuTrigger>\n    <ContextMenuContent>\n      <ContextMenuItem>Back</ContextMenuItem>\n      <ContextMenuItem>Forward</ContextMenuItem>\n      <ContextMenuItem>Reload</ContextMenuItem>\n      <ContextMenuItem>More Options</ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tooltip-content-2",
+  "type": "registry:component",
+  "title": "Tooltip Content 2",
+  "description": "A tooltip pattern: tooltip-content-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tooltip/content/tooltip-content-2.tsx",
+      "content": "\"use client\";\n\nimport { CheckCircleIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Tooltip with Icon\";\n\nconst Example = () => (\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <Button variant=\"outline\">Status</Button>\n    </TooltipTrigger>\n    <TooltipContent>\n      <div className=\"flex items-center gap-2\">\n        <CheckCircleIcon className=\"size-4 text-primary-foreground\" />\n        <p>All systems operational</p>\n      </div>\n    </TooltipContent>\n  </Tooltip>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

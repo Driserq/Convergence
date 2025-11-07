@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-bar-negative",
+  "type": "registry:component",
+  "title": "Chart Bar Negative",
+  "description": "A chart pattern: chart-bar-negative",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/bar/chart-bar-negative.tsx",
+      "content": "\"use client\";\n\nimport { Bar, BarChart, CartesianGrid, Cell, LabelList } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A bar chart with negative values\";\n\nconst chartData = [\n  { month: \"January\", visitors: 186 },\n  { month: \"February\", visitors: 205 },\n  { month: \"March\", visitors: -207 },\n  { month: \"April\", visitors: 173 },\n  { month: \"May\", visitors: -209 },\n  { month: \"June\", visitors: 214 },\n];\n\nconst chartConfig = {\n  visitors: {\n    label: \"Visitors\",\n  },\n} satisfies ChartConfig;\n\nconst ChartBarNegative = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer config={chartConfig}>\n      <BarChart accessibilityLayer data={chartData}>\n        <CartesianGrid vertical={false} />\n        <ChartTooltip\n          content={<ChartTooltipContent hideIndicator hideLabel />}\n          cursor={false}\n        />\n        <Bar dataKey=\"visitors\">\n          <LabelList dataKey=\"month\" fillOpacity={1} position=\"top\" />\n          {chartData.map((item) => (\n            <Cell\n              fill={item.visitors > 0 ? \"var(--chart-1)\" : \"var(--chart-2)\"}\n              key={item.month}\n            />\n          ))}\n        </Bar>\n      </BarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartBarNegative;\n",
+      "type": "registry:component"
+    }
+  ]
+}

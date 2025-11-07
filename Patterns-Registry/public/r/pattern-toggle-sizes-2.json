@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-toggle-sizes-2",
+  "type": "registry:component",
+  "title": "Toggle Sizes 2",
+  "description": "A toggle pattern: toggle-sizes-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/toggle/sizes/toggle-sizes-2.tsx",
+      "content": "\"use client\";\n\nimport { ItalicIcon } from \"lucide-react\";\nimport { Toggle } from \"@/components/ui/toggle\";\n\nexport const title = \"Default Size Toggle\";\n\nconst Example = () => (\n  <Toggle aria-label=\"Toggle italic\">\n    <ItalicIcon />\n  </Toggle>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

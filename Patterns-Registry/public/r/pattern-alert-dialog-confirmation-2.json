@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-alert-dialog-confirmation-2",
+  "type": "registry:component",
+  "title": "Alert Dialog Confirmation 2",
+  "description": "A alert-dialog pattern: alert-dialog-confirmation-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/alert-dialog/confirmation/alert-dialog-confirmation-2.tsx",
+      "content": "import { AlertCircle } from \"lucide-react\";\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n} from \"@/components/ui/alert-dialog\";\nimport { Button } from \"@/components/ui/button\";\n\nexport const title = \"Confirmation with Icon\";\n\nconst Example = () => (\n  <AlertDialog>\n    <AlertDialogTrigger asChild>\n      <Button variant=\"outline\">Open Dialog</Button>\n    </AlertDialogTrigger>\n    <AlertDialogContent>\n      <AlertDialogHeader>\n        <div className=\"flex items-center gap-2\">\n          <AlertCircle className=\"size-5 text-amber-500\" />\n          <AlertDialogTitle>Confirm Changes</AlertDialogTitle>\n        </div>\n        <AlertDialogDescription>\n          You have unsaved changes. Are you sure you want to continue? Your\n          changes will be lost.\n        </AlertDialogDescription>\n      </AlertDialogHeader>\n      <AlertDialogFooter>\n        <AlertDialogCancel>Go Back</AlertDialogCancel>\n        <AlertDialogAction>Continue</AlertDialogAction>\n      </AlertDialogFooter>\n    </AlertDialogContent>\n  </AlertDialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

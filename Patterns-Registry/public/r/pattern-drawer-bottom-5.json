@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-bottom-5",
+  "type": "registry:component",
+  "title": "Drawer Bottom 5",
+  "description": "A drawer pattern: drawer-bottom-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/bottom/drawer-bottom-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Nested Bottom Drawers\";\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <Drawer onOpenChange={setOpen} open={open}>\n      <DrawerTrigger asChild>\n        <Button variant=\"outline\">Open Parent Drawer</Button>\n      </DrawerTrigger>\n      <DrawerContent>\n        <DrawerHeader>\n          <DrawerTitle>Parent Drawer</DrawerTitle>\n          <DrawerDescription>\n            This drawer contains another drawer inside.\n          </DrawerDescription>\n        </DrawerHeader>\n        <div className=\"p-4\">\n          <p className=\"mb-4 text-muted-foreground text-sm\">\n            Nested drawers allow you to create multi-level interactions.\n          </p>\n          <Drawer>\n            <DrawerTrigger asChild>\n              <Button>Open Nested Drawer</Button>\n            </DrawerTrigger>\n            <DrawerContent>\n              <DrawerHeader>\n                <DrawerTitle>Nested Drawer</DrawerTitle>\n                <DrawerDescription>\n                  This is a drawer inside another drawer.\n                </DrawerDescription>\n              </DrawerHeader>\n              <div className=\"p-4\">\n                <p className=\"text-muted-foreground text-sm\">\n                  Nested content goes here. You can close this to return to the\n                  parent drawer.\n                </p>\n              </div>\n              <DrawerFooter>\n                <DrawerClose asChild>\n                  <Button variant=\"outline\">Close Nested</Button>\n                </DrawerClose>\n              </DrawerFooter>\n            </DrawerContent>\n          </Drawer>\n        </div>\n        <DrawerFooter>\n          <DrawerClose asChild>\n            <Button variant=\"outline\">Close</Button>\n          </DrawerClose>\n        </DrawerFooter>\n      </DrawerContent>\n    </Drawer>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

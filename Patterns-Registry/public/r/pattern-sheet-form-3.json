@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-form-3",
+  "type": "registry:component",
+  "title": "Sheet Form 3",
+  "description": "A sheet pattern: sheet-form-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/form/sheet-form-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Search and Filter Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Filters</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Search & Filter</SheetTitle>\n        <SheetDescription>\n          Refine your search with filters below.\n        </SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"search\">Search</Label>\n          <Input id=\"search\" placeholder=\"Search...\" />\n        </div>\n        <div className=\"flex flex-col gap-3\">\n          <Label>Categories</Label>\n          <div className=\"flex items-center gap-2\">\n            <Checkbox id=\"cat1\" />\n            <label className=\"text-sm\" htmlFor=\"cat1\">\n              Category 1\n            </label>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            <Checkbox id=\"cat2\" />\n            <label className=\"text-sm\" htmlFor=\"cat2\">\n              Category 2\n            </label>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            <Checkbox id=\"cat3\" />\n            <label className=\"text-sm\" htmlFor=\"cat3\">\n              Category 3\n            </label>\n          </div>\n        </div>\n        <Button className=\"w-full\">Apply Filters</Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-form-4",
+  "type": "registry:component",
+  "title": "Sheet Form 4",
+  "description": "A sheet pattern: sheet-form-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/form/sheet-form-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Create New Item Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Create New</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Create New Item</SheetTitle>\n        <SheetDescription>Add a new item to your collection.</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"item-name\">Item Name</Label>\n          <Input id=\"item-name\" placeholder=\"Enter item name\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"description\">Description</Label>\n          <Input id=\"description\" placeholder=\"Enter description\" />\n        </div>\n        <div className=\"flex flex-col gap-2\">\n          <Label htmlFor=\"price\">Price</Label>\n          <Input id=\"price\" placeholder=\"0.00\" type=\"number\" />\n        </div>\n      </div>\n      <SheetFooter>\n        <Button className=\"w-full\" variant=\"outline\">\n          Cancel\n        </Button>\n        <Button className=\"w-full\">Create</Button>\n      </SheetFooter>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-8",
+  "type": "registry:component",
+  "title": "Label Standard 8",
+  "description": "A label pattern: label-standard-8",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-8.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\n\nexport const title = \"Section Label\";\n\nconst Example = () => (\n  <Label className=\"font-semibold text-base\">Personal Information</Label>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

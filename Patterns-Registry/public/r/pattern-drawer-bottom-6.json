@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-drawer-bottom-6",
+  "type": "registry:component",
+  "title": "Drawer Bottom 6",
+  "description": "A drawer pattern: drawer-bottom-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/drawer/bottom/drawer-bottom-6.tsx",
+      "content": "\"use client\";\n\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Drawer,\n  DrawerContent,\n  DrawerDescription,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger,\n} from \"@/components/ui/drawer\";\n\nexport const title = \"Bottom Drawer No Scale Background\";\n\nconst Example = () => (\n  <Drawer shouldScaleBackground={false}>\n    <DrawerTrigger asChild>\n      <Button variant=\"outline\">Open (No Scaling)</Button>\n    </DrawerTrigger>\n    <DrawerContent>\n      <DrawerHeader>\n        <DrawerTitle>No Background Scaling</DrawerTitle>\n        <DrawerDescription>\n          The background doesn't scale when this drawer opens.\n        </DrawerDescription>\n      </DrawerHeader>\n      <div className=\"p-4\">\n        <p className=\"text-muted-foreground text-sm\">\n          By default, drawers scale the background content. This drawer has{\" \"}\n          <code className=\"rounded bg-muted px-1 py-0.5 text-xs\">\n            shouldScaleBackground=false\n          </code>{\" \"}\n          so the background remains static.\n        </p>\n      </div>\n    </DrawerContent>\n  </Drawer>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

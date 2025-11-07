@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-dropdown-3",
+  "type": "registry:component",
+  "title": "Input Group Dropdown 3",
+  "description": "A input-group pattern: input-group-dropdown-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/dropdown/input-group-dropdown-3.tsx",
+      "content": "import { ChevronDownIcon } from \"lucide-react\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"URL Builder with Dropdown\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupAddon>\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <InputGroupButton className=\"text-xs\" variant=\"ghost\">\n              https:// <ChevronDownIcon className=\"size-3\" />\n            </InputGroupButton>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"start\">\n            <DropdownMenuItem>https://</DropdownMenuItem>\n            <DropdownMenuItem>http://</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      </InputGroupAddon>\n      <InputGroupInput placeholder=\"example.com\" />\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupInput placeholder=\"subdomain\" />\n      <InputGroupAddon align=\"inline-end\">\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <InputGroupButton className=\"text-xs\" variant=\"ghost\">\n              .com <ChevronDownIcon className=\"size-3\" />\n            </InputGroupButton>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align=\"end\">\n            <DropdownMenuItem>.com</DropdownMenuItem>\n            <DropdownMenuItem>.net</DropdownMenuItem>\n            <DropdownMenuItem>.org</DropdownMenuItem>\n            <DropdownMenuItem>.io</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

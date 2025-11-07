@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-details-4",
+  "type": "registry:component",
+  "title": "Sheet Details 4",
+  "description": "A sheet pattern: sheet-details-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/details/sheet-details-4.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Article Preview Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Read More</Button>\n    </SheetTrigger>\n    <SheetContent>\n      <SheetHeader>\n        <SheetTitle>Getting Started with React</SheetTitle>\n        <SheetDescription>A comprehensive guide for beginners</SheetDescription>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex items-center gap-2 text-muted-foreground text-sm\">\n          <span>By John Smith</span>\n          <span>•</span>\n          <span>5 min read</span>\n        </div>\n        <div className=\"space-y-3 text-sm\">\n          <p>\n            React is a popular JavaScript library for building user interfaces.\n            In this guide, we'll cover the basics of getting started with React.\n          </p>\n          <p>\n            You'll learn about components, props, state, and how to create your\n            first React application from scratch.\n          </p>\n        </div>\n        <Button className=\"w-full\">Read Full Article</Button>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-badges-3",
+  "type": "registry:component",
+  "title": "Button Group Badges 3",
+  "description": "A button-group pattern: button-group-badges-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/badges/button-group-badges-3.tsx",
+      "content": "import { ShoppingCartIcon } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup, ButtonGroupText } from \"@/components/ui/button-group\";\n\nexport const title = \"Cart Button\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button className=\"relative\" size=\"sm\" variant=\"outline\">\n        <ShoppingCartIcon />\n        Cart\n        <Badge className=\"-top-1 -right-2 absolute h-5 min-w-5 rounded-full px-1 text-xs\">\n          3\n        </Badge>\n      </Button>\n      <ButtonGroupText>$127.50</ButtonGroupText>\n    </ButtonGroup>\n    <ButtonGroup>\n      <Button className=\"relative\" size=\"sm\" variant=\"outline\">\n        <ShoppingCartIcon />\n        <Badge className=\"-top-1 -right-2 absolute h-5 min-w-5 rounded-full px-1 text-xs\">\n          5\n        </Badge>\n      </Button>\n      <ButtonGroupText className=\"font-medium\">5 items</ButtonGroupText>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

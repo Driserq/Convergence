@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-standard-6",
+  "type": "registry:component",
+  "title": "Context Menu Standard 6",
+  "description": "A context-menu pattern: context-menu-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/standard/context-menu-standard-6.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuLabel,\n  ContextMenuRadioGroup,\n  ContextMenuRadioItem,\n  ContextMenuSeparator,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Context Menu with Radio Items\";\n\nconst Example = () => {\n  const [position, setPosition] = useState(\"bottom\");\n\n  return (\n    <ContextMenu>\n      <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n        Right click here\n      </ContextMenuTrigger>\n      <ContextMenuContent className=\"w-56\">\n        <ContextMenuLabel>Panel Position</ContextMenuLabel>\n        <ContextMenuSeparator />\n        <ContextMenuRadioGroup onValueChange={setPosition} value={position}>\n          <ContextMenuRadioItem value=\"top\">Top</ContextMenuRadioItem>\n          <ContextMenuRadioItem value=\"bottom\">Bottom</ContextMenuRadioItem>\n          <ContextMenuRadioItem value=\"right\">Right</ContextMenuRadioItem>\n          <ContextMenuRadioItem value=\"left\">Left</ContextMenuRadioItem>\n        </ContextMenuRadioGroup>\n      </ContextMenuContent>\n    </ContextMenu>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

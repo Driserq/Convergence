@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tabs-layout-2",
+  "type": "registry:component",
+  "title": "Tabs Layout 2",
+  "description": "A tabs pattern: tabs-layout-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tabs/layout/tabs-layout-2.tsx",
+      "content": "import { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/ui/tabs\";\n\nexport const title = \"Full Width Tabs\";\n\nconst Example = () => (\n  <Tabs className=\"w-full max-w-md\" defaultValue=\"all\">\n    <TabsList className=\"grid w-full grid-cols-3\">\n      <TabsTrigger value=\"all\">All</TabsTrigger>\n      <TabsTrigger value=\"active\">Active</TabsTrigger>\n      <TabsTrigger value=\"completed\">Completed</TabsTrigger>\n    </TabsList>\n    <TabsContent value=\"all\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-4 font-semibold text-lg\">All Tasks</h3>\n        <div className=\"space-y-3\">\n          <div className=\"flex items-center gap-3 rounded-md border p-3\">\n            <div className=\"size-2 rounded-full bg-blue-500\" />\n            <span className=\"text-sm\">Review pull request #123</span>\n          </div>\n          <div className=\"flex items-center gap-3 rounded-md border p-3\">\n            <div className=\"size-2 rounded-full bg-green-500\" />\n            <span className=\"text-sm\">Update documentation</span>\n          </div>\n          <div className=\"flex items-center gap-3 rounded-md border p-3\">\n            <div className=\"size-2 rounded-full bg-blue-500\" />\n            <span className=\"text-sm\">Fix bug in authentication</span>\n          </div>\n        </div>\n      </div>\n    </TabsContent>\n    <TabsContent value=\"active\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-4 font-semibold text-lg\">Active Tasks</h3>\n        <div className=\"space-y-3\">\n          <div className=\"flex items-center gap-3 rounded-md border p-3\">\n            <div className=\"size-2 rounded-full bg-blue-500\" />\n            <span className=\"text-sm\">Review pull request #123</span>\n          </div>\n          <div className=\"flex items-center gap-3 rounded-md border p-3\">\n            <div className=\"size-2 rounded-full bg-blue-500\" />\n            <span className=\"text-sm\">Fix bug in authentication</span>\n          </div>\n        </div>\n      </div>\n    </TabsContent>\n    <TabsContent value=\"completed\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-4 font-semibold text-lg\">Completed Tasks</h3>\n        <div className=\"space-y-3\">\n          <div className=\"flex items-center gap-3 rounded-md border p-3\">\n            <div className=\"size-2 rounded-full bg-green-500\" />\n            <span className=\"text-sm\">Update documentation</span>\n          </div>\n        </div>\n      </div>\n    </TabsContent>\n  </Tabs>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

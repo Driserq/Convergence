@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-search-1",
+  "type": "registry:component",
+  "title": "Empty Search 1",
+  "description": "A empty pattern: empty-search-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/search/empty-search-1.tsx",
+      "content": "\"use client\";\n\nimport { Search } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"No Search Results\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Search />\n      </EmptyMedia>\n      <EmptyTitle>No results found</EmptyTitle>\n      <EmptyDescription>\n        We couldn't find anything matching your search. Try different keywords.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

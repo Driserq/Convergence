@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-calendar-dialog-3",
+  "type": "registry:component",
+  "title": "Calendar Dialog 3",
+  "description": "A calendar pattern: calendar-dialog-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/calendar/dialog/calendar-dialog-3.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { ScrollArea } from \"@/components/ui/scroll-area\";\n\nexport const title = \"Calendar as Appointment Picker in Dialog\";\n\nconst Example = () => {\n  const [date, setDate] = useState<Date | undefined>(new Date());\n  const [selectedTime, setSelectedTime] = useState<string | null>(null);\n\n  const availableTimes = [\n    \"09:00 AM\",\n    \"09:30 AM\",\n    \"10:00 AM\",\n    \"10:30 AM\",\n    \"11:00 AM\",\n    \"11:30 AM\",\n    \"01:00 PM\",\n    \"01:30 PM\",\n    \"02:00 PM\",\n    \"02:30 PM\",\n    \"03:00 PM\",\n    \"03:30 PM\",\n    \"04:00 PM\",\n    \"04:30 PM\",\n  ];\n\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant=\"outline\">Book Appointment</Button>\n      </DialogTrigger>\n      <DialogContent className=\"sm:max-w-[550px]\">\n        <DialogHeader>\n          <DialogTitle>Book Appointment</DialogTitle>\n        </DialogHeader>\n        <div className=\"flex divide-x overflow-hidden rounded-md border bg-background\">\n          <Calendar mode=\"single\" onSelect={setDate} selected={date} />\n          <div className=\"relative w-[249px] overflow-hidden\">\n            <div className=\"absolute inset-0 grid gap-4\">\n              <div className=\"space-y-2 px-4 pt-4\">\n                <p className=\"text-center font-medium text-sm\">\n                  Available Times\n                </p>\n              </div>\n              <ScrollArea className=\"h-full overflow-y-auto\">\n                <div className=\"grid grid-cols-1 gap-2 px-4 pb-4\">\n                  {availableTimes.map((time) => (\n                    <Button\n                      key={time}\n                      onClick={() => setSelectedTime(time)}\n                      size=\"sm\"\n                      variant={selectedTime === time ? \"default\" : \"outline\"}\n                    >\n                      {time}\n                    </Button>\n                  ))}\n                </div>\n              </ScrollArea>\n            </div>\n          </div>\n        </div>\n      </DialogContent>\n    </Dialog>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

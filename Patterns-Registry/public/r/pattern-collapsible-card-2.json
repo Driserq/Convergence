@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-card-2",
+  "type": "registry:component",
+  "title": "Collapsible Card 2",
+  "description": "A collapsible pattern: collapsible-card-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/card/collapsible-card-2.tsx",
+      "content": "import { Plus } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Card with Icon Header\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg rounded-lg border bg-card text-card-foreground shadow-sm\">\n    <CollapsibleTrigger className=\"flex w-full items-center gap-3 p-4\">\n      <div className=\"flex h-8 w-8 items-center justify-center rounded-md bg-primary/10\">\n        <Plus className=\"h-4 w-4 text-primary\" />\n      </div>\n      <div className=\"flex-1 text-left\">\n        <h4 className=\"font-medium\">Additional Information</h4>\n        <p className=\"text-muted-foreground text-sm\">Click to expand</p>\n      </div>\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"border-t px-4 py-3 text-muted-foreground text-sm\">\n      Here you can find additional details and information about this section.\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

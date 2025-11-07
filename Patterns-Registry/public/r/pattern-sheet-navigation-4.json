@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-navigation-4",
+  "type": "registry:component",
+  "title": "Sheet Navigation 4",
+  "description": "A sheet pattern: sheet-navigation-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/navigation/sheet-navigation-4.tsx",
+      "content": "import { Avatar } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Navigation with User Profile Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button variant=\"outline\">Menu</Button>\n    </SheetTrigger>\n    <SheetContent side=\"left\">\n      <SheetHeader>\n        <SheetTitle>Menu</SheetTitle>\n      </SheetHeader>\n      <div className=\"flex flex-col gap-4 p-4\">\n        <div className=\"flex items-center gap-3 rounded-md bg-muted p-3\">\n          <Avatar>\n            <div className=\"flex h-full w-full items-center justify-center bg-primary text-primary-foreground text-sm\">\n              JD\n            </div>\n          </Avatar>\n          <div className=\"flex flex-col\">\n            <span className=\"font-medium text-sm\">John Doe</span>\n            <span className=\"text-muted-foreground text-xs\">\n              john@example.com\n            </span>\n          </div>\n        </div>\n        <nav className=\"flex flex-col gap-2\">\n          <a className=\"font-medium text-sm hover:underline\" href=\"#\">\n            Dashboard\n          </a>\n          <a className=\"font-medium text-sm hover:underline\" href=\"#\">\n            Projects\n          </a>\n          <a className=\"font-medium text-sm hover:underline\" href=\"#\">\n            Settings\n          </a>\n          <a className=\"font-medium text-sm hover:underline\" href=\"#\">\n            Sign Out\n          </a>\n        </nav>\n      </div>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-layouts-2",
+  "type": "registry:component",
+  "title": "Field Layouts 2",
+  "description": "A field pattern: field-layouts-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/layouts/field-layouts-2.tsx",
+      "content": "import { Field, FieldGroup, FieldLabel, FieldSet } from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Horizontal Layout\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <FieldSet>\n      <FieldGroup>\n        <Field orientation=\"horizontal\">\n          <FieldLabel htmlFor=\"username-h\">Username</FieldLabel>\n          <Input\n            className=\"bg-background\"\n            id=\"username-h\"\n            placeholder=\"johndoe\"\n            type=\"text\"\n          />\n        </Field>\n        <Field orientation=\"horizontal\">\n          <FieldLabel>Language</FieldLabel>\n          <Select defaultValue=\"en\">\n            <SelectTrigger className=\"bg-background\">\n              <SelectValue />\n            </SelectTrigger>\n            <SelectContent>\n              <SelectItem value=\"en\">English</SelectItem>\n              <SelectItem value=\"es\">Spanish</SelectItem>\n              <SelectItem value=\"fr\">French</SelectItem>\n            </SelectContent>\n          </Select>\n        </Field>\n      </FieldGroup>\n    </FieldSet>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

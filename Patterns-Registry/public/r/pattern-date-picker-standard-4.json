@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-date-picker-standard-4",
+  "type": "registry:component",
+  "title": "Date Picker Standard 4",
+  "description": "A date-picker pattern: date-picker-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/date-picker/standard/date-picker-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { format } from \"date-fns\";\nimport { CalendarIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { cn } from \"@/lib/utils\";\n\nexport const title = \"Date Picker with Date and Time\";\n\nconst Example = () => {\n  const [date, setDate] = useState<Date | undefined>(new Date());\n  const [time, setTime] = useState<string>(\"12:00\");\n\n  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {\n    setTime(e.target.value);\n    if (date) {\n      const [hours, minutes] = e.target.value.split(\":\");\n      const newDate = new Date(date);\n      newDate.setHours(\n        Number.parseInt(hours, 10),\n        Number.parseInt(minutes, 10)\n      );\n      setDate(newDate);\n    }\n  };\n\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button\n          className={cn(\n            \"w-[280px] justify-start text-left font-normal\",\n            !date && \"text-muted-foreground\"\n          )}\n          variant=\"outline\"\n        >\n          <CalendarIcon className=\"mr-2 h-4 w-4\" />\n          {date ? (\n            `${format(date, \"PPP\")} at ${time}`\n          ) : (\n            <span>Pick a date and time</span>\n          )}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent align=\"start\" className=\"w-auto p-0\">\n        <div className=\"divide-y overflow-hidden bg-background\">\n          <Calendar mode=\"single\" onSelect={setDate} selected={date} />\n          <div className=\"space-y-2 p-4\">\n            <Label htmlFor=\"time\">Time</Label>\n            <Input\n              className=\"w-full\"\n              id=\"time\"\n              onChange={handleTimeChange}\n              type=\"time\"\n              value={time}\n            />\n          </div>\n        </div>\n      </PopoverContent>\n    </Popover>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

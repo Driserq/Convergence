@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tabs-standard-1",
+  "type": "registry:component",
+  "title": "Tabs Standard 1",
+  "description": "A tabs pattern: tabs-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tabs/standard/tabs-standard-1.tsx",
+      "content": "import { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/ui/tabs\";\n\nexport const title = \"Basic Tabs\";\n\nconst Example = () => (\n  <Tabs className=\"w-full max-w-md\" defaultValue=\"overview\">\n    <TabsList>\n      <TabsTrigger value=\"overview\">Overview</TabsTrigger>\n      <TabsTrigger value=\"analytics\">Analytics</TabsTrigger>\n      <TabsTrigger value=\"reports\">Reports</TabsTrigger>\n      <TabsTrigger value=\"notifications\">Notifications</TabsTrigger>\n    </TabsList>\n    <TabsContent value=\"overview\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-2 font-semibold text-lg\">Overview</h3>\n        <p className=\"text-muted-foreground text-sm\">\n          View a comprehensive summary of your account activity, recent updates,\n          and key metrics at a glance.\n        </p>\n      </div>\n    </TabsContent>\n    <TabsContent value=\"analytics\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-2 font-semibold text-lg\">Analytics</h3>\n        <p className=\"text-muted-foreground text-sm\">\n          Dive deep into your data with detailed analytics, trends, and insights\n          to help you make informed decisions.\n        </p>\n      </div>\n    </TabsContent>\n    <TabsContent value=\"reports\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-2 font-semibold text-lg\">Reports</h3>\n        <p className=\"text-muted-foreground text-sm\">\n          Generate and view comprehensive reports on various aspects of your\n          account performance and activity.\n        </p>\n      </div>\n    </TabsContent>\n    <TabsContent value=\"notifications\">\n      <div className=\"rounded-lg border bg-card p-6 text-card-foreground shadow-sm\">\n        <h3 className=\"mb-2 font-semibold text-lg\">Notifications</h3>\n        <p className=\"text-muted-foreground text-sm\">\n          Manage your notification preferences and view recent alerts and\n          updates from your account.\n        </p>\n      </div>\n    </TabsContent>\n  </Tabs>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

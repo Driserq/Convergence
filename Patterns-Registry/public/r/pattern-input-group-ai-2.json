@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-ai-2",
+  "type": "registry:component",
+  "title": "Input Group Ai 2",
+  "description": "A input-group pattern: input-group-ai-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/ai/input-group-ai-2.tsx",
+      "content": "import { ArrowUpIcon, SparklesIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupText,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\nimport { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"Simple AI Prompt\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-2xl flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea placeholder=\"Ask me anything...\" />\n      <InputGroupAddon align=\"block-end\">\n        <InputGroupButton size=\"icon-xs\" variant=\"ghost\">\n          <SparklesIcon />\n        </InputGroupButton>\n        <InputGroupText className=\"ml-auto\">0/4000</InputGroupText>\n        <Separator className=\"!h-4\" orientation=\"vertical\" />\n        <InputGroupButton\n          className=\"rounded-full\"\n          size=\"icon-xs\"\n          variant=\"default\"\n        >\n          <ArrowUpIcon />\n          <span className=\"sr-only\">Send</span>\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n    <small className=\"text-center text-muted-foreground\">\n      For better AI components, check out{\" \"}\n      <a className=\"underline\" href=\"https://ai-sdk.dev/elements/overview\">\n        AI Elements\n      </a>\n    </small>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

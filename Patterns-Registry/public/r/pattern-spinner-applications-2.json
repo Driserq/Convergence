@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-spinner-applications-2",
+  "type": "registry:component",
+  "title": "Spinner Applications 2",
+  "description": "A spinner pattern: spinner-applications-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/spinner/applications/spinner-applications-2.tsx",
+      "content": "import { ArrowUpIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n  InputGroupTextarea,\n} from \"@/components/ui/input-group\";\nimport { Spinner } from \"@/components/ui/spinner\";\n\nexport const title = \"Spinner in Input Group\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-4\">\n    <InputGroup className=\"bg-background\">\n      <InputGroupInput disabled placeholder=\"Send a message...\" />\n      <InputGroupAddon align=\"inline-end\">\n        <Spinner />\n      </InputGroupAddon>\n    </InputGroup>\n    <InputGroup className=\"bg-background\">\n      <InputGroupTextarea disabled placeholder=\"Send a message...\" />\n      <InputGroupAddon align=\"block-end\">\n        <Spinner /> Validating...\n        <InputGroupButton className=\"ml-auto\" variant=\"default\">\n          <ArrowUpIcon />\n          <span className=\"sr-only\">Send</span>\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

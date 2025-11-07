@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-command-dialog-1",
+  "type": "registry:component",
+  "title": "Command Dialog 1",
+  "description": "A command pattern: command-dialog-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/command/dialog/command-dialog-1.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  CommandDialog,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\";\n\nexport const title = \"Simple Command Dialog\";\n\nconst Example = () => {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Open Command Menu</Button>\n      <CommandDialog onOpenChange={setOpen} open={open}>\n        <CommandInput placeholder=\"Type a command or search...\" />\n        <CommandList>\n          <CommandEmpty>No results found.</CommandEmpty>\n          <CommandGroup heading=\"Suggestions\">\n            <CommandItem>Calendar</CommandItem>\n            <CommandItem>Search Emoji</CommandItem>\n            <CommandItem>Calculator</CommandItem>\n          </CommandGroup>\n        </CommandList>\n      </CommandDialog>\n    </>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

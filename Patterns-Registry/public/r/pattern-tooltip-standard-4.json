@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-tooltip-standard-4",
+  "type": "registry:component",
+  "title": "Tooltip Standard 4",
+  "description": "A tooltip pattern: tooltip-standard-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/tooltip/standard/tooltip-standard-4.tsx",
+      "content": "\"use client\";\n\nimport { InfoIcon } from \"lucide-react\";\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/components/ui/tooltip\";\n\nexport const title = \"Tooltip on Icon\";\n\nconst Example = () => (\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <button className=\"rounded-full p-2 hover:bg-accent\">\n        <InfoIcon className=\"size-4 text-muted-foreground\" />\n      </button>\n    </TooltipTrigger>\n    <TooltipContent>\n      <p>More information</p>\n    </TooltipContent>\n  </Tooltip>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

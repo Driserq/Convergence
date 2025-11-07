@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-progress-sizes-3",
+  "type": "registry:component",
+  "title": "Progress Sizes 3",
+  "description": "A progress pattern: progress-sizes-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/progress/sizes/progress-sizes-3.tsx",
+      "content": "import { Progress } from \"@/components/ui/progress\";\n\nexport const title = \"Default\";\n\nconst Example = () => <Progress className=\"w-full max-w-md\" value={60} />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

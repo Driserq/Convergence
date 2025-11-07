@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-chart-radar-label-custom",
+  "type": "registry:component",
+  "title": "Chart Radar Label Custom",
+  "description": "A chart pattern: chart-radar-label-custom",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/chart/radar/chart-radar-label-custom.tsx",
+      "content": "\"use client\";\n\nimport { PolarAngleAxis, PolarGrid, Radar, RadarChart } from \"recharts\";\n\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\n\nexport const title = \"A radar chart with a custom label\";\n\nconst chartData = [\n  { month: \"January\", desktop: 186, mobile: 80 },\n  { month: \"February\", desktop: 305, mobile: 200 },\n  { month: \"March\", desktop: 237, mobile: 120 },\n  { month: \"April\", desktop: 73, mobile: 190 },\n  { month: \"May\", desktop: 209, mobile: 130 },\n  { month: \"June\", desktop: 214, mobile: 140 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n  mobile: {\n    label: \"Mobile\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadarLabelCustom = () => (\n  <div className=\"w-full max-w-xl rounded-md border bg-background p-4\">\n    <ChartContainer\n      className=\"mx-auto aspect-square max-h-[250px]\"\n      config={chartConfig}\n    >\n      <RadarChart\n        data={chartData}\n        margin={{\n          top: 10,\n          right: 10,\n          bottom: 10,\n          left: 10,\n        }}\n      >\n        <ChartTooltip\n          content={<ChartTooltipContent indicator=\"line\" />}\n          cursor={false}\n        />\n        <PolarAngleAxis\n          dataKey=\"month\"\n          tick={({ x, y, textAnchor, value, index, ...props }) => {\n            const data = chartData[index];\n\n            return (\n              <text\n                fontSize={13}\n                fontWeight={500}\n                textAnchor={textAnchor}\n                x={x}\n                y={index === 0 ? y - 10 : y}\n                {...props}\n              >\n                <tspan>{data.desktop}</tspan>\n                <tspan className=\"fill-muted-foreground\">/</tspan>\n                <tspan>{data.mobile}</tspan>\n                <tspan\n                  className=\"fill-muted-foreground\"\n                  dy={\"1rem\"}\n                  fontSize={12}\n                  x={x}\n                >\n                  {data.month}\n                </tspan>\n              </text>\n            );\n          }}\n        />\n\n        <PolarGrid />\n        <Radar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.6}\n        />\n        <Radar dataKey=\"mobile\" fill=\"var(--color-mobile)\" />\n      </RadarChart>\n    </ChartContainer>\n  </div>\n);\n\nexport default ChartRadarLabelCustom;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-standard-7",
+  "type": "registry:component",
+  "title": "Input Standard 7",
+  "description": "A input pattern: input-standard-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/standard/input-standard-7.tsx",
+      "content": "\"use client\";\n\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Inline Label\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-sm items-center gap-4\">\n    <Label className=\"w-24 text-right\" htmlFor=\"age\">\n      Age\n    </Label>\n    <Input\n      className=\"flex-1 bg-background\"\n      id=\"age\"\n      placeholder=\"25\"\n      type=\"number\"\n    />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

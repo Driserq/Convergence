@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-display-2",
+  "type": "registry:component",
+  "title": "Button Group Display 2",
+  "description": "A button-group pattern: button-group-display-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/display/button-group-display-2.tsx",
+      "content": "\"use client\";\n\nimport { MapIcon, Navigation2Icon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Map Controls\";\n\nconst Example = () => {\n  const [mapView, setMapView] = useState(\"satellite\");\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setMapView(\"satellite\")}\n          size=\"sm\"\n          variant={mapView === \"satellite\" ? \"default\" : \"outline\"}\n        >\n          Satellite\n        </Button>\n        <Button\n          onClick={() => setMapView(\"road\")}\n          size=\"sm\"\n          variant={mapView === \"road\" ? \"default\" : \"outline\"}\n        >\n          Road\n        </Button>\n        <Button\n          onClick={() => setMapView(\"terrain\")}\n          size=\"sm\"\n          variant={mapView === \"terrain\" ? \"default\" : \"outline\"}\n        >\n          Terrain\n        </Button>\n        <Button\n          onClick={() => setMapView(\"hybrid\")}\n          size=\"sm\"\n          variant={mapView === \"hybrid\" ? \"default\" : \"outline\"}\n        >\n          Hybrid\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          onClick={() => setMapView(\"map\")}\n          size=\"sm\"\n          variant={mapView === \"map\" ? \"default\" : \"outline\"}\n        >\n          <MapIcon />\n          Map\n        </Button>\n        <Button\n          onClick={() => setMapView(\"street\")}\n          size=\"sm\"\n          variant={mapView === \"street\" ? \"default\" : \"outline\"}\n        >\n          <Navigation2Icon />\n          Street\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

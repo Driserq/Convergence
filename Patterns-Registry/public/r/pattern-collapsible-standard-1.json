@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-standard-1",
+  "type": "registry:component",
+  "title": "Collapsible Standard 1",
+  "description": "A collapsible pattern: collapsible-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/standard/collapsible-standard-1.tsx",
+      "content": "import { ChevronDown } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Simple Collapsible\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg\">\n    <CollapsibleTrigger asChild>\n      <Button variant=\"ghost\">\n        Toggle <ChevronDown className=\"ml-2 h-4 w-4\" />\n      </Button>\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"mt-2\">\n      <p className=\"text-muted-foreground text-sm\">\n        This is the collapsible content. You can put any content here.\n      </p>\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

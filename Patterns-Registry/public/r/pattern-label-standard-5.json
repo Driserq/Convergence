@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-label-standard-5",
+  "type": "registry:component",
+  "title": "Label Standard 5",
+  "description": "A label pattern: label-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/label/standard/label-standard-5.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\n\nexport const title = \"Label with Optional Indicator\";\n\nconst Example = () => (\n  <Label>\n    Phone Number{\" \"}\n    <span className=\"font-normal text-muted-foreground\">(optional)</span>\n  </Label>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

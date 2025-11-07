@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-buttons-1",
+  "type": "registry:component",
+  "title": "Input Group Buttons 1",
+  "description": "A input-group pattern: input-group-buttons-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/buttons/input-group-buttons-1.tsx",
+      "content": "\"use client\";\n\nimport { CheckIcon, CopyIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Copy Button\";\n\nconst Example = () => {\n  const [copied, setCopied] = useState(false);\n\n  const handleCopy = () => {\n    setCopied(true);\n    setTimeout(() => setCopied(false), 2000);\n  };\n\n  return (\n    <InputGroup className=\"w-full max-w-sm bg-background\">\n      <InputGroupInput placeholder=\"https://x.com/shadcn\" readOnly />\n      <InputGroupAddon align=\"inline-end\">\n        <InputGroupButton aria-label=\"Copy\" onClick={handleCopy} size=\"icon-xs\">\n          {copied ? <CheckIcon /> : <CopyIcon />}\n        </InputGroupButton>\n      </InputGroupAddon>\n    </InputGroup>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

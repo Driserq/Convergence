@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-patterns-3",
+  "type": "registry:component",
+  "title": "Button Group Patterns 3",
+  "description": "A button-group pattern: button-group-patterns-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/patterns/button-group-patterns-3.tsx",
+      "content": "\"use client\";\n\nimport { CopyIcon, DownloadIcon, Share2Icon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Loading States\";\n\nconst Example = () => {\n  const [loading, setLoading] = useState<string | null>(null);\n\n  const handleAction = (action: string) => {\n    setLoading(action);\n    setTimeout(() => setLoading(null), 2000);\n  };\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          disabled={loading === \"copy\"}\n          onClick={() => handleAction(\"copy\")}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <CopyIcon />\n          {loading === \"copy\" ? \"Copying...\" : \"Copy\"}\n        </Button>\n        <Button\n          disabled={loading === \"download\"}\n          onClick={() => handleAction(\"download\")}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <DownloadIcon />\n          {loading === \"download\" ? \"Downloading...\" : \"Download\"}\n        </Button>\n        <Button\n          disabled={loading === \"share\"}\n          onClick={() => handleAction(\"share\")}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          <Share2Icon />\n          {loading === \"share\" ? \"Sharing...\" : \"Share\"}\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button\n          disabled={loading !== null}\n          onClick={() => handleAction(\"action1\")}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          Action 1\n        </Button>\n        <Button\n          disabled={loading !== null}\n          onClick={() => handleAction(\"action2\")}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          Action 2\n        </Button>\n        <Button\n          disabled={loading !== null}\n          onClick={() => handleAction(\"action3\")}\n          size=\"sm\"\n          variant=\"outline\"\n        >\n          Action 3\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

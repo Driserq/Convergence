@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-date-picker-standard-6",
+  "type": "registry:component",
+  "title": "Date Picker Standard 6",
+  "description": "A date-picker pattern: date-picker-standard-6",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/date-picker/standard/date-picker-standard-6.tsx",
+      "content": "\"use client\";\n\nimport { faker } from \"@faker-js/faker\";\nimport { format } from \"date-fns\";\nimport { CalendarIcon } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { Calendar } from \"@/components/ui/calendar\";\nimport {\n  Popover,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/ui/popover\";\nimport { cn } from \"@/lib/utils\";\n\nexport const title = \"Date Picker with Disabled Dates\";\n\nconst now = new Date();\nconst startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);\nconst endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);\n\nconst disabledRangeStart = faker.date.between({\n  from: startOfMonth,\n  to: new Date(now.getFullYear(), now.getMonth(), 7),\n});\nconst disabledRangeEnd = new Date(disabledRangeStart);\ndisabledRangeEnd.setDate(disabledRangeStart.getDate() + 4);\n\nconst specificDisabledDate = faker.date.between({\n  from: new Date(now.getFullYear(), now.getMonth(), 15),\n  to: endOfMonth,\n});\n\nconst Example = () => {\n  const [date, setDate] = useState<Date | undefined>(new Date());\n\n  const disabledDays = [\n    { from: disabledRangeStart, to: disabledRangeEnd },\n    { dayOfWeek: [0, 6] }, // Disable weekends\n    specificDisabledDate, // Disable specific date\n  ];\n\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button\n          className={cn(\n            \"w-[280px] justify-start text-left font-normal\",\n            !date && \"text-muted-foreground\"\n          )}\n          variant=\"outline\"\n        >\n          <CalendarIcon className=\"mr-2 h-4 w-4\" />\n          {date ? format(date, \"PPP\") : <span>Pick a date</span>}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent align=\"start\" className=\"w-auto p-0\">\n        <Calendar\n          disabled={disabledDays}\n          mode=\"single\"\n          onSelect={setDate}\n          selected={date}\n        />\n      </PopoverContent>\n    </Popover>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

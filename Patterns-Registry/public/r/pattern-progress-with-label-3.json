@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-progress-with-label-3",
+  "type": "registry:component",
+  "title": "Progress With Label 3",
+  "description": "A progress pattern: progress-with-label-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/progress/with-label/progress-with-label-3.tsx",
+      "content": "import { Progress } from \"@/components/ui/progress\";\n\nexport const title = \"With Label Below\";\n\nconst Example = () => {\n  const value = 80;\n  return (\n    <div className=\"w-full max-w-md space-y-2\">\n      <Progress value={value} />\n      <span className=\"text-muted-foreground text-sm\">Almost there!</span>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

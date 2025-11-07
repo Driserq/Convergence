@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-slider-standard-5",
+  "type": "registry:component",
+  "title": "Slider Standard 5",
+  "description": "A slider pattern: slider-standard-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/slider/standard/slider-standard-5.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Label } from \"@/components/ui/label\";\nimport { Slider } from \"@/components/ui/slider\";\n\nexport const title = \"Slider with Step Indicators\";\n\nconst Example = () => {\n  const [value, setValue] = useState([50]);\n\n  return (\n    <div className=\"flex w-full max-w-md flex-col gap-2\">\n      <div className=\"flex items-center justify-between\">\n        <Label htmlFor=\"slider\">Level</Label>\n        <span className=\"text-muted-foreground text-sm\">{value[0]}</span>\n      </div>\n      <Slider\n        id=\"slider\"\n        max={100}\n        min={0}\n        onValueChange={setValue}\n        step={25}\n        value={value}\n      />\n      <div className=\"flex items-center justify-between text-muted-foreground text-xs tabular-nums\">\n        <span className=\"w-6 text-left\">0</span>\n        <span className=\"w-6 text-center\">25</span>\n        <span className=\"w-6 text-center\">50</span>\n        <span className=\"w-6 text-center\">75</span>\n        <span className=\"w-6 text-right\">100</span>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

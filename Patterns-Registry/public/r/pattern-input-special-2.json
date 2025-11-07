@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-special-2",
+  "type": "registry:component",
+  "title": "Input Special 2",
+  "description": "A input pattern: input-special-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input/special/input-special-2.tsx",
+      "content": "\"use client\";\n\nimport { Clock } from \"lucide-react\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Time Input\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm space-y-2\">\n    <Label htmlFor=\"time-input\">Meeting Time</Label>\n    <div className=\"relative\">\n      <Clock className=\"-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 text-muted-foreground\" />\n      <Input className=\"bg-background pl-9\" id=\"time-input\" type=\"time\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

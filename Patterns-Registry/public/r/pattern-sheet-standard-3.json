@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-sheet-standard-3",
+  "type": "registry:component",
+  "title": "Sheet Standard 3",
+  "description": "A sheet pattern: sheet-standard-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/sheet/standard/sheet-standard-3.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\n\nexport const title = \"Left-Sided Sheet\";\n\nconst Example = () => (\n  <Sheet>\n    <SheetTrigger asChild>\n      <Button>Open Sheet</Button>\n    </SheetTrigger>\n    <SheetContent side=\"left\">\n      <SheetHeader>\n        <SheetTitle>Left Sheet</SheetTitle>\n        <SheetDescription>\n          This sheet slides in from the left side of the screen.\n        </SheetDescription>\n      </SheetHeader>\n    </SheetContent>\n  </Sheet>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

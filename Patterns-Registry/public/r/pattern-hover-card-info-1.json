@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-hover-card-info-1",
+  "type": "registry:component",
+  "title": "Hover Card Info 1",
+  "description": "A hover-card pattern: hover-card-info-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/hover-card/info/hover-card-info-1.tsx",
+      "content": "\"use client\";\n\nimport { HelpCircle } from \"lucide-react\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/ui/hover-card\";\n\nexport const title = \"Simple Info Tooltip\";\n\nconst Example = () => (\n  <div className=\"flex items-center gap-2\">\n    <span className=\"text-sm\">Storage Limit</span>\n    <HoverCard>\n      <HoverCardTrigger>\n        <HelpCircle className=\"h-4 w-4 text-muted-foreground\" />\n      </HoverCardTrigger>\n      <HoverCardContent>\n        <p className=\"text-sm\">\n          Your current plan includes 100GB of storage. Upgrade to get more space\n          for your files.\n        </p>\n      </HoverCardContent>\n    </HoverCard>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

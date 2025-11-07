@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-form-advanced-1",
+  "type": "registry:component",
+  "title": "Form Advanced 1",
+  "description": "A form pattern: form-advanced-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/form/advanced/form-advanced-1.tsx",
+      "content": "\"use client\";\n\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { useForm } from \"react-hook-form\";\nimport { z } from \"zod\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Form,\n  FormControl,\n  FormDescription,\n  FormField,\n  FormItem,\n  FormLabel,\n  FormMessage,\n} from \"@/components/ui/form\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\n\nexport const title = \"Form with Select\";\n\nconst formSchema = z.object({\n  country: z.string({\n    required_error: \"Please select a country.\",\n  }),\n});\n\nconst Example = () => {\n  const form = useForm<z.infer<typeof formSchema>>({\n    resolver: zodResolver(formSchema),\n  });\n\n  function onSubmit(values: z.infer<typeof formSchema>) {\n    console.log(values);\n  }\n\n  return (\n    <div className=\"w-full max-w-md\">\n      <Form {...form}>\n        <form className=\"space-y-4\" onSubmit={form.handleSubmit(onSubmit)}>\n          <FormField\n            control={form.control}\n            name=\"country\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel>Country</FormLabel>\n                <Select\n                  defaultValue={field.value}\n                  onValueChange={field.onChange}\n                >\n                  <FormControl>\n                    <SelectTrigger className=\"bg-background\">\n                      <SelectValue placeholder=\"Select a country\" />\n                    </SelectTrigger>\n                  </FormControl>\n                  <SelectContent>\n                    <SelectItem value=\"us\">United States</SelectItem>\n                    <SelectItem value=\"uk\">United Kingdom</SelectItem>\n                    <SelectItem value=\"ca\">Canada</SelectItem>\n                    <SelectItem value=\"au\">Australia</SelectItem>\n                    <SelectItem value=\"de\">Germany</SelectItem>\n                    <SelectItem value=\"fr\">France</SelectItem>\n                  </SelectContent>\n                </Select>\n                <FormDescription>\n                  Select your country of residence.\n                </FormDescription>\n                <FormMessage />\n              </FormItem>\n            )}\n          />\n          <Button type=\"submit\">Continue</Button>\n        </form>\n      </Form>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

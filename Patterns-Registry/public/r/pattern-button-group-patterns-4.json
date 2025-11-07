@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-patterns-4",
+  "type": "registry:component",
+  "title": "Button Group Patterns 4",
+  "description": "A button-group pattern: button-group-patterns-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/patterns/button-group-patterns-4.tsx",
+      "content": "import { CopyIcon, DownloadIcon, SaveIcon } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\nimport { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Keyboard Shortcuts\";\n\nconst Example = () => (\n  <div className=\"flex flex-col gap-4\">\n    <ButtonGroup>\n      <Button size=\"sm\" variant=\"outline\">\n        <CopyIcon />\n        Copy\n        <Kbd className=\"ml-2\">⌘C</Kbd>\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        <SaveIcon />\n        Save\n        <Kbd className=\"ml-2\">⌘S</Kbd>\n      </Button>\n      <Button size=\"sm\" variant=\"outline\">\n        <DownloadIcon />\n        Export\n        <Kbd className=\"ml-2\">⌘E</Kbd>\n      </Button>\n    </ButtonGroup>\n    <ButtonGroup orientation=\"vertical\">\n      <Button className=\"justify-between\" size=\"sm\" variant=\"outline\">\n        <div className=\"flex items-center gap-2\">\n          <CopyIcon />\n          Copy\n        </div>\n        <Kbd>⌘C</Kbd>\n      </Button>\n      <Button className=\"justify-between\" size=\"sm\" variant=\"outline\">\n        <div className=\"flex items-center gap-2\">\n          <SaveIcon />\n          Save\n        </div>\n        <Kbd>⌘S</Kbd>\n      </Button>\n      <Button className=\"justify-between\" size=\"sm\" variant=\"outline\">\n        <div className=\"flex items-center gap-2\">\n          <DownloadIcon />\n          Export\n        </div>\n        <Kbd>⌘E</Kbd>\n      </Button>\n    </ButtonGroup>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

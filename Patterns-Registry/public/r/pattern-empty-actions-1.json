@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-actions-1",
+  "type": "registry:component",
+  "title": "Empty Actions 1",
+  "description": "A empty pattern: empty-actions-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/actions/empty-actions-1.tsx",
+      "content": "\"use client\";\n\nimport { Plus } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"Empty with Single Action\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Plus />\n      </EmptyMedia>\n      <EmptyTitle>No projects yet</EmptyTitle>\n      <EmptyDescription>\n        Get started by creating your first project.\n      </EmptyDescription>\n    </EmptyHeader>\n    <EmptyContent>\n      <Button>\n        <Plus />\n        Create Project\n      </Button>\n    </EmptyContent>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

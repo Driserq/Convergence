@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dialog-standard-11",
+  "type": "registry:component",
+  "title": "Dialog Standard 11",
+  "description": "A dialog pattern: dialog-standard-11",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dialog/standard/dialog-standard-11.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport {\n  Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger,\n} from \"@/components/ui/dialog\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\n\nexport const title = \"Signin Form\";\n\nconst Example = () => (\n  <Dialog>\n    <DialogTrigger asChild>\n      <Button variant=\"outline\">Sign In</Button>\n    </DialogTrigger>\n    <DialogContent className=\"sm:max-w-md\">\n      <DialogHeader>\n        <DialogTitle>Welcome back</DialogTitle>\n        <DialogDescription>\n          Enter your credentials to access your account.\n        </DialogDescription>\n      </DialogHeader>\n      <div className=\"space-y-4\">\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"email\">Email</Label>\n          <Input id=\"email\" placeholder=\"you@example.com\" type=\"email\" />\n        </div>\n        <div className=\"space-y-2\">\n          <Label htmlFor=\"password\">Password</Label>\n          <Input id=\"password\" type=\"password\" />\n        </div>\n        <div className=\"flex items-center justify-between\">\n          <div className=\"flex items-center space-x-2\">\n            <Checkbox id=\"remember\" />\n            <Label className=\"font-normal text-sm\" htmlFor=\"remember\">\n              Remember me\n            </Label>\n          </div>\n          <button className=\"font-medium text-sm underline\" type=\"button\">\n            Forgot password?\n          </button>\n        </div>\n      </div>\n      <DialogFooter>\n        <Button className=\"w-full\">Sign In</Button>\n      </DialogFooter>\n      <p className=\"text-center text-muted-foreground text-sm\">\n        Don't have an account?{\" \"}\n        <button className=\"font-medium underline\" type=\"button\">\n          Sign up\n        </button>\n      </p>\n    </DialogContent>\n  </Dialog>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

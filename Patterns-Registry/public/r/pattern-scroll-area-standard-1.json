@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-scroll-area-standard-1",
+  "type": "registry:component",
+  "title": "Scroll Area Standard 1",
+  "description": "A scroll-area pattern: scroll-area-standard-1",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/scroll-area/standard/scroll-area-standard-1.tsx",
+      "content": "import { ScrollArea } from \"@/components/ui/scroll-area\";\n\nexport const title = \"Basic ScrollArea\";\n\nconst Example = () => (\n  <ScrollArea className=\"h-72 w-full max-w-md rounded-md border\">\n    <div className=\"p-4\">\n      <h4 className=\"mb-4 font-medium text-sm leading-none\">\n        Terms of Service\n      </h4>\n      <div className=\"space-y-4 text-muted-foreground text-sm\">\n        <p>\n          Welcome to our service. By accessing or using our service, you agree\n          to be bound by these Terms of Service and all applicable laws and\n          regulations.\n        </p>\n        <p>\n          You must be at least 18 years old to use this service. By using this\n          service, you represent and warrant that you are at least 18 years of\n          age.\n        </p>\n        <p>\n          We reserve the right to modify or discontinue, temporarily or\n          permanently, the service (or any part thereof) with or without notice.\n        </p>\n        <p>\n          You agree not to reproduce, duplicate, copy, sell, resell or exploit\n          any portion of the service without express written permission by us.\n        </p>\n        <p>\n          We reserve the right to refuse service to anyone for any reason at any\n          time. You understand that your content may be transferred unencrypted\n          and involve transmissions over various networks.\n        </p>\n        <p>\n          We do not warrant that the service will be uninterrupted, timely,\n          secure, or error-free. You agree that from time to time we may remove\n          the service for indefinite periods of time or cancel the service at\n          any time.\n        </p>\n        <p>\n          You agree to indemnify and hold us and our affiliates, officers,\n          agents, and employees harmless from any claim or demand, including\n          reasonable attorneys' fees, made by any third party due to or arising\n          out of your breach of these Terms of Service.\n        </p>\n      </div>\n    </div>\n  </ScrollArea>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

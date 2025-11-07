@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-canvas-5",
+  "type": "registry:component",
+  "title": "Context Menu Canvas 5",
+  "description": "A context-menu pattern: context-menu-canvas-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/canvas/context-menu-canvas-5.tsx",
+      "content": "import {\n  FlipHorizontal,\n  FlipVertical,\n  Maximize2,\n  RotateCw,\n} from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Transform Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on object\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuSub>\n        <ContextMenuSubTrigger>\n          <div className=\"flex items-center gap-2\">\n            <RotateCw />\n            <span>Rotate</span>\n          </div>\n        </ContextMenuSubTrigger>\n        <ContextMenuSubContent className=\"w-48\">\n          <ContextMenuItem>Rotate 90° CW</ContextMenuItem>\n          <ContextMenuItem>Rotate 90° CCW</ContextMenuItem>\n          <ContextMenuItem>Rotate 180°</ContextMenuItem>\n        </ContextMenuSubContent>\n      </ContextMenuSub>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <FlipHorizontal />\n        <span>Flip Horizontal</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <FlipVertical />\n        <span>Flip Vertical</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Maximize2 />\n        <span>Scale</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

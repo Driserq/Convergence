@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-group-buttons-3",
+  "type": "registry:component",
+  "title": "Input Group Buttons 3",
+  "description": "A input-group pattern: input-group-buttons-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-group/buttons/input-group-buttons-3.tsx",
+      "content": "import { SearchIcon } from \"lucide-react\";\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\n\nexport const title = \"Search Button\";\n\nconst Example = () => (\n  <InputGroup className=\"w-full max-w-sm bg-background\">\n    <InputGroupInput placeholder=\"Search...\" />\n    <InputGroupAddon align=\"inline-end\" className=\"pr-2\">\n      <InputGroupButton size=\"sm\" variant=\"secondary\">\n        Search\n        <SearchIcon />\n      </InputGroupButton>\n    </InputGroupAddon>\n  </InputGroup>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

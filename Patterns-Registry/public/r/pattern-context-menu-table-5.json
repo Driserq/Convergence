@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-context-menu-table-5",
+  "type": "registry:component",
+  "title": "Context Menu Table 5",
+  "description": "A context-menu pattern: context-menu-table-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/context-menu/table/context-menu-table-5.tsx",
+      "content": "import {\n  ArrowLeftRight,\n  ArrowRightLeft,\n  Columns,\n  Eye,\n  EyeOff,\n} from \"lucide-react\";\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuTrigger,\n} from \"@/components/ui/context-menu\";\n\nexport const title = \"Table Column Operations Menu\";\n\nconst Example = () => (\n  <ContextMenu>\n    <ContextMenuTrigger className=\"flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm\">\n      Right click on column\n    </ContextMenuTrigger>\n    <ContextMenuContent className=\"w-56\">\n      <ContextMenuItem>\n        <Eye />\n        <span>Show Column</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <EyeOff />\n        <span>Hide Column</span>\n        <ContextMenuShortcut>⌘H</ContextMenuShortcut>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <ArrowLeftRight />\n        <span>Move Left</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <ArrowRightLeft />\n        <span>Move Right</span>\n      </ContextMenuItem>\n      <ContextMenuSeparator />\n      <ContextMenuItem>\n        <Columns />\n        <span>Resize Column</span>\n      </ContextMenuItem>\n      <ContextMenuItem>\n        <Columns />\n        <span>Auto-fit Columns</span>\n      </ContextMenuItem>\n    </ContextMenuContent>\n  </ContextMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

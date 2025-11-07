@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-form-validation-2",
+  "type": "registry:component",
+  "title": "Form Validation 2",
+  "description": "A form pattern: form-validation-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/form/validation/form-validation-2.tsx",
+      "content": "\"use client\";\n\nimport { zodResolver } from \"@hookform/resolvers/zod\";\nimport { useForm } from \"react-hook-form\";\nimport { z } from \"zod\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  Form,\n  FormControl,\n  FormDescription,\n  FormField,\n  FormItem,\n  FormLabel,\n  FormMessage,\n} from \"@/components/ui/form\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Min/Max Length Validation\";\n\nconst formSchema = z.object({\n  username: z\n    .string()\n    .min(3, \"Username must be at least 3 characters\")\n    .max(20, \"Username must not exceed 20 characters\"),\n  bio: z\n    .string()\n    .min(10, \"Bio must be at least 10 characters\")\n    .max(160, \"Bio must not exceed 160 characters\"),\n});\n\nconst Example = () => {\n  const form = useForm<z.infer<typeof formSchema>>({\n    resolver: zodResolver(formSchema),\n    defaultValues: {\n      username: \"\",\n      bio: \"\",\n    },\n  });\n\n  function onSubmit(values: z.infer<typeof formSchema>) {\n    console.log(values);\n  }\n\n  return (\n    <div className=\"w-full max-w-md\">\n      <Form {...form}>\n        <form className=\"space-y-4\" onSubmit={form.handleSubmit(onSubmit)}>\n          <FormField\n            control={form.control}\n            name=\"username\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel>Username</FormLabel>\n                <FormControl>\n                  <Input\n                    className=\"bg-background\"\n                    placeholder=\"Enter username\"\n                    {...field}\n                  />\n                </FormControl>\n                <FormDescription>3-20 characters required.</FormDescription>\n                <FormMessage />\n              </FormItem>\n            )}\n          />\n          <FormField\n            control={form.control}\n            name=\"bio\"\n            render={({ field }) => (\n              <FormItem>\n                <FormLabel>Bio</FormLabel>\n                <FormControl>\n                  <Input\n                    className=\"bg-background\"\n                    placeholder=\"Tell us about yourself\"\n                    {...field}\n                  />\n                </FormControl>\n                <FormDescription>\n                  10-160 characters. {field.value.length}/160\n                </FormDescription>\n                <FormMessage />\n              </FormItem>\n            )}\n          />\n          <Button type=\"submit\">Save</Button>\n        </form>\n      </Form>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-field-basic-inputs-3",
+  "type": "registry:component",
+  "title": "Field Basic Inputs 3",
+  "description": "A field pattern: field-basic-inputs-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/field/basic-inputs/field-basic-inputs-3.tsx",
+      "content": "import { Field, FieldDescription, FieldLabel } from \"@/components/ui/field\";\nimport { Input } from \"@/components/ui/input\";\n\nexport const title = \"Input with Description Above\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-md\">\n    <Field>\n      <FieldLabel htmlFor=\"password\">Password</FieldLabel>\n      <FieldDescription>Must be at least 8 characters long.</FieldDescription>\n      <Input\n        className=\"bg-background\"\n        id=\"password\"\n        placeholder=\"********\"\n        type=\"password\"\n      />\n    </Field>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

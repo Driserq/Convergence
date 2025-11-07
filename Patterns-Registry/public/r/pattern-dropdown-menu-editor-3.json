@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-dropdown-menu-editor-3",
+  "type": "registry:component",
+  "title": "Dropdown Menu Editor 3",
+  "description": "A dropdown-menu pattern: dropdown-menu-editor-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/dropdown-menu/editor/dropdown-menu-editor-3.tsx",
+      "content": "\"use client\";\n\nimport { Code, FileText, Image, Link, Plus, Table, Video } from \"lucide-react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuSeparator,\n  DropdownMenuShortcut,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\n\nexport const title = \"Insert Options Dropdown\";\n\nconst Example = () => (\n  <DropdownMenu>\n    <DropdownMenuTrigger asChild>\n      <Button size=\"icon\" variant=\"outline\">\n        <Plus className=\"h-4 w-4\" />\n      </Button>\n    </DropdownMenuTrigger>\n    <DropdownMenuContent className=\"w-48\">\n      <DropdownMenuItem>\n        <Image />\n        Image\n        <DropdownMenuShortcut>⌘⇧I</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Video />\n        Video\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Link />\n        Link\n        <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <Table />\n        Table\n        <DropdownMenuShortcut>⌘⇧T</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuItem>\n        <Code />\n        Code Block\n        <DropdownMenuShortcut>⌘⇧C</DropdownMenuShortcut>\n      </DropdownMenuItem>\n      <DropdownMenuSeparator />\n      <DropdownMenuItem>\n        <FileText />\n        File\n      </DropdownMenuItem>\n    </DropdownMenuContent>\n  </DropdownMenu>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

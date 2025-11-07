@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-empty-data-3",
+  "type": "registry:component",
+  "title": "Empty Data 3",
+  "description": "A empty pattern: empty-data-3",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/empty/data/empty-data-3.tsx",
+      "content": "\"use client\";\n\nimport { Bell } from \"lucide-react\";\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle,\n} from \"@/components/ui/empty\";\n\nexport const title = \"No Notifications\";\n\nconst Example = () => (\n  <Empty>\n    <EmptyHeader>\n      <EmptyMedia variant=\"icon\">\n        <Bell />\n      </EmptyMedia>\n      <EmptyTitle>No notifications</EmptyTitle>\n      <EmptyDescription>\n        You're all caught up! We'll notify you when something new happens.\n      </EmptyDescription>\n    </EmptyHeader>\n  </Empty>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

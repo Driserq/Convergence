@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-navigation-menu-standard-2",
+  "type": "registry:component",
+  "title": "Navigation Menu Standard 2",
+  "description": "A navigation-menu pattern: navigation-menu-standard-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/navigation-menu/standard/navigation-menu-standard-2.tsx",
+      "content": "\"use client\";\n\nimport { Heart, Package, Shield, Zap } from \"lucide-react\";\nimport {\n  NavigationMenu,\n  NavigationMenuContent,\n  NavigationMenuItem,\n  NavigationMenuLink,\n  NavigationMenuList,\n  NavigationMenuTrigger,\n} from \"@/components/ui/navigation-menu\";\n\nexport const title = \"Navigation with Icons\";\n\nconst features = [\n  { icon: Package, label: \"Components\", href: \"#\" },\n  { icon: Zap, label: \"Performance\", href: \"#\" },\n  { icon: Shield, label: \"Security\", href: \"#\" },\n  { icon: Heart, label: \"Accessibility\", href: \"#\" },\n];\n\nconst Example = () => (\n  <div className=\"pr-[50vw] pb-[50vh]\">\n    <div className=\"w-full max-w-md rounded-md border bg-background p-px\">\n      <NavigationMenu>\n        <NavigationMenuList>\n          <NavigationMenuItem>\n            <NavigationMenuTrigger>Features</NavigationMenuTrigger>\n            <NavigationMenuContent>\n              <div className=\"w-56 p-2\">\n                {features.map((feature, index) => {\n                  const Icon = feature.icon;\n                  return (\n                    <NavigationMenuLink href={feature.href} key={index}>\n                      <Icon />\n                      <div>\n                        <span className=\"font-medium\">{feature.label}</span>\n                      </div>\n                    </NavigationMenuLink>\n                  );\n                })}\n              </div>\n            </NavigationMenuContent>\n          </NavigationMenuItem>\n        </NavigationMenuList>\n      </NavigationMenu>\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

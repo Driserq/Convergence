@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-card-4",
+  "type": "registry:component",
+  "title": "Collapsible Card 4",
+  "description": "A collapsible pattern: collapsible-card-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/card/collapsible-card-4.tsx",
+      "content": "import { ChevronDown } from \"lucide-react\";\nimport { Badge } from \"@/components/ui/badge\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Card with Badge\";\n\nconst Example = () => (\n  <Collapsible className=\"w-full max-w-lg rounded-lg border bg-card text-card-foreground shadow-sm\">\n    <CollapsibleTrigger className=\"flex w-full items-center justify-between p-4\">\n      <div className=\"flex items-center gap-2\">\n        <span className=\"font-medium\">Premium Features</span>\n        <Badge variant=\"secondary\">New</Badge>\n      </div>\n      <ChevronDown className=\"h-4 w-4\" />\n    </CollapsibleTrigger>\n    <CollapsibleContent className=\"border-t p-4 text-muted-foreground text-sm\">\n      Unlock advanced features with our premium plan including priority support,\n      advanced analytics, and custom integrations.\n    </CollapsibleContent>\n  </Collapsible>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

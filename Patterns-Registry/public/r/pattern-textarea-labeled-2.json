@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-textarea-labeled-2",
+  "type": "registry:component",
+  "title": "Textarea Labeled 2",
+  "description": "A textarea pattern: textarea-labeled-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/textarea/labeled/textarea-labeled-2.tsx",
+      "content": "import { Label } from \"@/components/ui/label\";\nimport { Textarea } from \"@/components/ui/textarea\";\n\nexport const title = \"Textarea with Description\";\n\nconst Example = () => (\n  <div className=\"flex w-full max-w-md flex-col gap-2\">\n    <div className=\"flex flex-col gap-1\">\n      <Label htmlFor=\"notes\">Notes</Label>\n      <p className=\"text-muted-foreground text-sm\">\n        Add any additional notes here\n      </p>\n    </div>\n    <Textarea className=\"bg-background\" id=\"notes\" placeholder=\"Type here...\" />\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-progress-basic-5",
+  "type": "registry:component",
+  "title": "Progress Basic 5",
+  "description": "A progress pattern: progress-basic-5",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/progress/basic/progress-basic-5.tsx",
+      "content": "import { Progress } from \"@/components/ui/progress\";\n\nexport const title = \"Complete Progress\";\n\nconst Example = () => <Progress className=\"w-full max-w-md\" value={100} />;\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

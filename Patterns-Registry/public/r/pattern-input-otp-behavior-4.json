@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-input-otp-behavior-4",
+  "type": "registry:component",
+  "title": "Input Otp Behavior 4",
+  "description": "A input-otp pattern: input-otp-behavior-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/input-otp/behavior/input-otp-behavior-4.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot,\n} from \"@/components/ui/input-otp\";\n\nexport const title = \"OTP with Resend Flow\";\n\nconst Example = () => {\n  const [value, setValue] = useState(\"\");\n  const [countdown, setCountdown] = useState(60);\n  const [canResend, setCanResend] = useState(false);\n\n  useEffect(() => {\n    if (countdown > 0) {\n      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);\n      return () => clearTimeout(timer);\n    }\n    setCanResend(true);\n  }, [countdown]);\n\n  const handleResend = () => {\n    setCountdown(60);\n    setCanResend(false);\n    setValue(\"\");\n    // Simulate resending code\n    console.log(\"Resending code...\");\n  };\n\n  return (\n    <div className=\"space-y-4\">\n      <InputOTP maxLength={6} onChange={setValue} value={value}>\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={0} />\n          <InputOTPSlot className=\"bg-background\" index={1} />\n          <InputOTPSlot className=\"bg-background\" index={2} />\n        </InputOTPGroup>\n        <InputOTPSeparator />\n        <InputOTPGroup>\n          <InputOTPSlot className=\"bg-background\" index={3} />\n          <InputOTPSlot className=\"bg-background\" index={4} />\n          <InputOTPSlot className=\"bg-background\" index={5} />\n        </InputOTPGroup>\n      </InputOTP>\n      <div className=\"flex items-center justify-between text-sm\">\n        <span className=\"text-muted-foreground\">\n          {canResend\n            ? \"Didn't receive the code?\"\n            : `Resend code in ${countdown}s`}\n        </span>\n        <Button\n          className=\"h-auto p-0\"\n          disabled={!canResend}\n          onClick={handleResend}\n          size=\"sm\"\n          variant=\"link\"\n        >\n          Resend Code\n        </Button>\n      </div>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

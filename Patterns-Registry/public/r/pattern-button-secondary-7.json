@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-secondary-7",
+  "type": "registry:component",
+  "title": "Button Secondary 7",
+  "description": "A button pattern: button-secondary-7",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button/secondary/button-secondary-7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Kbd } from \"@/components/ui/kbd\";\n\nexport const title = \"Button with Kbd\";\n\nconst Example = () => (\n  <Button className=\"gap-2\" variant=\"secondary\">\n    Button\n    <Kbd className=\"border\">⌘K</Kbd>\n  </Button>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

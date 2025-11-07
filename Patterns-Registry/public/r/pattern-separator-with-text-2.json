@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-separator-with-text-2",
+  "type": "registry:component",
+  "title": "Separator With Text 2",
+  "description": "A separator pattern: separator-with-text-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/separator/with-text/separator-with-text-2.tsx",
+      "content": "import { Separator } from \"@/components/ui/separator\";\n\nexport const title = \"With Text Left\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-sm\">\n    <div className=\"relative flex items-center gap-2\">\n      <span className=\"shrink-0 pr-2 text-muted-foreground text-xs\">\n        Continue with\n      </span>\n      <Separator className=\"flex-1\" />\n    </div>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

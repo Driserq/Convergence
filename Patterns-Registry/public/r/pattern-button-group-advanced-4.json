@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-button-group-advanced-4",
+  "type": "registry:component",
+  "title": "Button Group Advanced 4",
+  "description": "A button-group pattern: button-group-advanced-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/button-group/advanced/button-group-advanced-4.tsx",
+      "content": "\"use client\";\n\nimport {\n  AlignCenterIcon,\n  AlignLeftIcon,\n  AlignRightIcon,\n  BoldIcon,\n  ItalicIcon,\n  ListIcon,\n  ListOrderedIcon,\n  UnderlineIcon,\n} from \"lucide-react\";\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ButtonGroup } from \"@/components/ui/button-group\";\n\nexport const title = \"Rich Text Toolbar\";\n\nconst Example = () => {\n  const [bold, setBold] = useState(false);\n  const [italic, setItalic] = useState(false);\n  const [underline, setUnderline] = useState(false);\n\n  return (\n    <div className=\"flex flex-col gap-4\">\n      <ButtonGroup>\n        <Button\n          onClick={() => setBold(!bold)}\n          size=\"sm\"\n          variant={bold ? \"default\" : \"outline\"}\n        >\n          <BoldIcon />\n        </Button>\n        <Button\n          onClick={() => setItalic(!italic)}\n          size=\"sm\"\n          variant={italic ? \"default\" : \"outline\"}\n        >\n          <ItalicIcon />\n        </Button>\n        <Button\n          onClick={() => setUnderline(!underline)}\n          size=\"sm\"\n          variant={underline ? \"default\" : \"outline\"}\n        >\n          <UnderlineIcon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          <AlignLeftIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <AlignCenterIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <AlignRightIcon />\n        </Button>\n      </ButtonGroup>\n      <ButtonGroup>\n        <Button size=\"sm\" variant=\"outline\">\n          <BoldIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <ItalicIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <ListIcon />\n        </Button>\n        <Button size=\"sm\" variant=\"outline\">\n          <ListOrderedIcon />\n        </Button>\n      </ButtonGroup>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

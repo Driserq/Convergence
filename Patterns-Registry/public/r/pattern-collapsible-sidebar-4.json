@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-collapsible-sidebar-4",
+  "type": "registry:component",
+  "title": "Collapsible Sidebar 4",
+  "description": "A collapsible pattern: collapsible-sidebar-4",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/collapsible/sidebar/collapsible-sidebar-4.tsx",
+      "content": "import { ChevronDown } from \"lucide-react\";\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger,\n} from \"@/components/ui/collapsible\";\n\nexport const title = \"Minimal Sidebar Group\";\n\nconst Example = () => (\n  <div className=\"w-full max-w-lg\">\n    <Collapsible>\n      <CollapsibleTrigger className=\"flex w-full items-center justify-between px-2 py-1 font-semibold text-muted-foreground text-xs uppercase tracking-wider hover:text-foreground\">\n        <span>Getting Started</span>\n        <ChevronDown className=\"h-3 w-3\" />\n      </CollapsibleTrigger>\n      <CollapsibleContent className=\"mt-1 space-y-1\">\n        <div className=\"rounded-md px-2 py-1.5 text-sm hover:bg-muted\">\n          Introduction\n        </div>\n        <div className=\"rounded-md px-2 py-1.5 text-sm hover:bg-muted\">\n          Installation\n        </div>\n        <div className=\"rounded-md px-2 py-1.5 text-sm hover:bg-muted\">\n          Quick Start\n        </div>\n      </CollapsibleContent>\n    </Collapsible>\n  </div>\n);\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pattern-scroll-area-advanced-2",
+  "type": "registry:component",
+  "title": "Scroll Area Advanced 2",
+  "description": "A scroll-area pattern: scroll-area-advanced-2",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/patterns/scroll-area/advanced/scroll-area-advanced-2.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { Button } from \"@/components/ui/button\";\nimport { ScrollArea } from \"@/components/ui/scroll-area\";\n\nexport const title = \"Dynamic Content\";\n\nconst Example = () => {\n  const [items, setItems] = useState(\n    Array.from({ length: 10 }, (_, i) => ({\n      id: i + 1,\n      title: `Item ${i + 1}`,\n      description: `This is the description for item ${i + 1}`,\n    }))\n  );\n\n  const loadMore = () => {\n    const newItems = Array.from({ length: 5 }, (_, i) => ({\n      id: items.length + i + 1,\n      title: `Item ${items.length + i + 1}`,\n      description: `This is the description for item ${items.length + i + 1}`,\n    }));\n    setItems([...items, ...newItems]);\n  };\n\n  return (\n    <div className=\"w-full max-w-md space-y-4\">\n      <ScrollArea className=\"h-[400px] rounded-md border bg-background\">\n        <div className=\"space-y-4 p-4\">\n          {items.map((item) => (\n            <div\n              className=\"rounded-lg border bg-card p-4 text-card-foreground shadow-sm\"\n              key={item.id}\n            >\n              <h3 className=\"font-semibold text-sm\">{item.title}</h3>\n              <p className=\"mt-1 text-muted-foreground text-sm\">\n                {item.description}\n              </p>\n            </div>\n          ))}\n          <Button className=\"w-full\" onClick={loadMore} variant=\"outline\">\n            Load More\n          </Button>\n        </div>\n      </ScrollArea>\n      <p className=\"text-center text-muted-foreground text-sm\">\n        Showing {items.length} items\n      </p>\n    </div>\n  );\n};\n\nexport default Example;\n",
+      "type": "registry:component"
+    }
+  ]
+}
