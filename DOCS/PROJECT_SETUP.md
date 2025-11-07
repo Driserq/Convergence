@@ -29,8 +29,9 @@ node_modules/
 
 Environment variables
 .env
+.env.*
 .env.local
-.env.*.local
+.env.production
 
 Build outputs
 dist/
@@ -69,10 +70,14 @@ coverage/
 Misc
 .cache/
 
-### 5. Create .env.example File
-Create a file named .env.example as a template (this WILL be committed to git):
+### 5. Environment Setup (Local → Production)
 
-Supabase Configuration
+You'll work with two environments: **local testing** (Supabase Docker) and **production** (Digital Ocean + Supabase cloud).
+
+#### Create .env.local File
+Create a file named .env.local for local development:
+
+Local Supabase (Docker)
 SUPABASE_URL=http://localhost:54321
 SUPABASE_ANON_KEY=your_local_anon_key_here
 
@@ -86,21 +91,40 @@ Server Configuration
 PORT=3000
 HOST=0.0.0.0
 
-### 6. Create Your Actual .env File
-cp .env.example .env
-
-**Important**: Edit .env and add your actual API keys. This file will NOT be committed to git.
+**To get your anon key**: Run npx supabase start and copy the anon key from output.
 
 **To get your Google AI API key:**
 1. Go to https://aistudio.google.com/
 2. Click "Get API Key"
 3. Create new API key or use existing
-4. Copy key to .env file
+4. Copy key to .env.local file
 
-### 7. Initialize Node.js Project
+#### Create .env.production File
+Create a file named .env.production for production deployment:
+
+Supabase Cloud (Production)
+SUPABASE_URL=https://your-production-project-id.supabase.co
+SUPABASE_ANON_KEY=your_production_anon_key
+
+Google Gemini AI Configuration
+GOOGLE_AI_API_KEY=your_google_ai_key_here
+
+Environment
+NODE_ENV=production
+
+Server Configuration (Digital Ocean sets PORT)
+PORT=${PORT}
+HOST=0.0.0.0
+
+**Important**: 
+- .env.local is for local development (99% of the time)
+- .env.production is for production deployment
+- Both files will NOT be committed to git (protected by .gitignore)
+
+### 6. Initialize Node.js Project
 npm init -y
 
-### 8. Install Core Dependencies
+### 7. Install Core Dependencies
 Fastify and React
 npm install fastify @fastify/react @fastify/cors @fastify/env
 
@@ -124,12 +148,12 @@ npm install tailwindcss postcss autoprefixer
 npm install class-variance-authority clsx tailwind-merge
 npm install lucide-react
 
-### 9. Install Development Dependencies
+### 8. Install Development Dependencies
 npm install --save-dev typescript @types/node @types/react @types/react-dom
 npm install --save-dev tsx nodemon
 npm install --save-dev supabase
 
-### 10. Initialize TypeScript
+### 9. Initialize TypeScript
 npx tsc --init
 
 Update tsconfig.json with these settings:
@@ -152,7 +176,7 @@ Update tsconfig.json with these settings:
 "exclude": ["node_modules", "dist"]
 }
 
-### 11. Initialize TailwindCSS
+### 10. Initialize TailwindCSS
 npx tailwindcss init -p
 
 Update tailwind.config.js:
@@ -167,13 +191,13 @@ extend: {},
 plugins: [],
 }
 
-### 12. Initialize Supabase Locally
+### 11. Initialize Supabase Locally
 npx supabase init
 npx supabase start
 
-**Save the output**: Supabase will display URLs and keys. Copy the anon key to your .env file.
+**Save the output**: Supabase will display URLs and keys. Copy the anon key to your .env.local file.
 
-### 13. Set Up Database Schema
+### 12. Set Up Database Schema
 1. Go to http://localhost:54323 (Supabase Studio)
 2. Navigate to SQL Editor
 3. Paste and run the SQL from SCHEMA.md
@@ -184,8 +208,8 @@ Create this folder structure manually or let Warp create it:
 
 convergence-app/
 ├── .git/ # Git repository
-├── .env # Environment variables (NOT in git)
-├── .env.example # Template (IN git)
+├── .env.local # Local environment (NOT in git)
+├── .env.production # Production environment (NOT in git)
 ├── .gitignore # Git ignore rules
 ├── package.json # Dependencies
 ├── tsconfig.json # TypeScript config
@@ -236,12 +260,56 @@ Add these scripts to your package.json:
 "scripts": {
 "dev": "tsx watch src/server.ts",
 "build": "tsc",
-"start": "node dist/server.js",
+"start": "NODE_ENV=production node dist/server.js",
 "supabase:start": "npx supabase start",
 "supabase:stop": "npx supabase stop",
 "supabase:status": "npx supabase status"
 }
 }
+
+**Note**: 
+- npm run dev automatically uses .env.local
+- npm start (on Digital Ocean) uses .env.production
+
+## Workflow: Local Testing → Production
+
+### Daily Development (Local)
+Terminal 1: Start Supabase locally (run once, keeps running)
+npx supabase start
+
+Terminal 2: Run app with local Supabase
+npm run dev
+
+App runs at http://localhost:3000
+
+**Use this 99% of the time during development.**
+
+### Deploy to Production
+1. Test locally first
+npm run dev
+
+2. Commit your changes
+git add .
+git commit -m "Add new feature"
+
+3. Push to production (triggers automatic deploy on Digital Ocean)
+git push origin main
+
+**Digital Ocean automatically runs:**
+- npm install
+- npm run build
+- npm start (uses .env.production)
+
+### Supabase Production Setup
+Create one Supabase cloud project for production:
+
+1. Go to https://supabase.com/dashboard
+2. Create new project: convergence-prod
+3. Copy URL + anon key to .env.production
+4. Run SQL schema from SCHEMA.md in Supabase Studio
+5. Add these credentials to Digital Ocean environment variables
+
+**Local Supabase (Docker)** handles all local testing - no cloud needed during development.
 
 ## Verification Checklist
 
@@ -249,8 +317,8 @@ Before starting development, verify:
 
 - [ ] Node.js 22.x installed (node --version)
 - [ ] Git repository initialized (git status works)
-- [ ] .env file created with actual API keys (Supabase + Google AI)
-- [ ] .gitignore in place (.env should NOT show in git status)
+- [ ] .env.local file created with actual API keys (Supabase + Google AI)
+- [ ] .gitignore in place (.env.local should NOT show in git status)
 - [ ] Dependencies installed (node_modules/ exists)
 - [ ] Supabase running locally (npx supabase status)
 - [ ] Database schema created (check Supabase Studio)
@@ -277,16 +345,16 @@ Open browser at http://localhost:3000
 - Verify tsconfig.json settings match above
 
 ### Missing API keys
-- **Solution**: Check .env file exists and has all keys
-- Copy from .env.example and add real values
+- **Solution**: Check .env.local file exists and has all keys
 - Get Google AI key from https://aistudio.google.com/
+- Get Supabase anon key from npx supabase status
 
 ### Can't connect to Supabase
 - **Solution**: Run npx supabase status to get connection details
-- Update SUPABASE_URL and SUPABASE_ANON_KEY in .env
+- Update SUPABASE_URL and SUPABASE_ANON_KEY in .env.local
 
 ### Gemini API errors
-- **Solution**: Verify GOOGLE_AI_API_KEY in .env is correct
+- **Solution**: Verify GOOGLE_AI_API_KEY in .env.local is correct
 - Check free tier limits (1,500 requests/day)
 - Ensure API key has Gemini API enabled
 

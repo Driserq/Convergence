@@ -1,0 +1,32 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "noImplicitAny": false
+  },
+  "include": [
+    "src/server.ts",
+    "src/routes/**/*",
+    "src/lib/supabase.server.ts",
+    "src/lib/gemini.ts",
+    "src/lib/transcript.ts",
+    "src/types/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/main.tsx",
+    "src/App.tsx",
+    "src/lib/supabase.ts",
+    "src/components/**/*",
+    "src/pages/**/*",
+    "src/hooks/**/*",
+    "src/contexts/**/*",
+    "src/styles/**/*"
+  ]
+}

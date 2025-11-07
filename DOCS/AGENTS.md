@@ -72,9 +72,10 @@ try {
 ## API & External Services
 
 ### YouTube Transcript Fetching
-- **Package**: Use `youtube-transcript` npm package  
+- **Service**: Use Supadata.ai REST API (no npm package needed)
 - **Duration limit**: Warn users if video > 90 minutes  
-- **Error handling**: Catch transcript unavailable errors gracefully  
+- **Error handling**: Catch transcript unavailable errors gracefully
+- **API calls**: Server-side HTTP requests only (never expose API key to client)
 
 ### Google Gemini API Calls
 - **Model**: Use `gemini-2.5-flash` for all processing

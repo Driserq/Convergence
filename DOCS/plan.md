@@ -69,9 +69,9 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Extract transcripts from YouTube videos
 
 ### Deliverables
-- [ ] Install `youtube-transcript` package
+- [ ] Create transcript service using Supadata.ai REST API (no npm package needed)
 - [ ] Create API route `/api/transcript` in Fastify
-- [ ] Implement transcript fetching logic
+- [ ] Implement transcript fetching logic with HTTP requests to Supadata
 - [ ] Handle errors (video unavailable, no transcript)
 - [ ] Add loading state in UI
 - [ ] Log transcript length to console
@@ -205,23 +205,75 @@ Make habits specific, sequential, and directly related to the user's goal.
 ---
 
 ## Phase 9: UI Polish & Refinement
-**Goal**: Improve visual design and user experience
+**Goal**: Complete page structure with polished UI using Kibo UI components
 
-### Deliverables
-- [ ] Improve form layout and spacing
-- [ ] Add smooth transitions/animations for expandable sections
-- [ ] Enhance button states (hover, active, disabled)
-- [ ] Improve error message styling
-- [ ] Add empty states with helpful prompts
-- [ ] Responsive design check (mobile-friendly)
-- [ ] Accessibility improvements (keyboard navigation, aria labels)
-- [ ] Visual hierarchy for summary/mistakes/guidance/steps sections
+### Page Structure (Updated)
+**Public Pages (Unauthenticated):**
+- Landing Page (`/`) - Marketing page with value prop, demo, FAQ
+- Login Page (`/login`) - Authentication
+
+**Protected Pages (Authenticated):**
+- Dashboard Page (`/dashboard`) - Stats + blueprint creation form + analytics cards
+- History Page (`/history`) - Dedicated past blueprints page
+- Blueprint Detail Page (`/blueprints/[id]`) - Individual blueprint view
+- Profile/Settings Page (`/profile`) - Account management, data export, preferences
+
+**Support Pages:**
+- 404 Page - Error handling
+
+### Implementation Order
+1. **Foundation Setup**
+   - [ ] Sync Kibo UI registry components via shadcn MCP
+   - [ ] Create UI inventory and route map documentation (DOCS/UI_INVENTORY.md)
+   - [ ] Establish AppShell layout and enhanced Header with navigation
+
+2. **Page Development**
+   - [ ] Landing Page - Hero, value props, how it works, FAQ
+   - [ ] Enhanced Dashboard - Welcome + stats + form + analytics cards below form
+   - [ ] Dedicated History Page - Search, filter, sort, pagination
+   - [ ] Blueprint Detail Page - Expandable sections with smooth animations
+   - [ ] Profile/Settings Page - Account, usage stats, data management (blueprint only)
+   - [ ] Login Page modernization
+   - [ ] Support pages (404, error states, loading states)
+
+3. **Dashboard Analytics Cards** (Below blueprint form)
+   - [ ] Content Processed (30 days) - Count of blueprints created
+   - [ ] Time Saved (30 days) - YouTube duration + text reading time calculation
+   - [ ] Content Type Ratio (30 days) - YouTube vs Text percentage split
+   - [ ] Data source: Supabase + Supadata API + reading time formula (200 WPM)
+
+4. **Cross-cutting Polish**
+   - [ ] Consistent spacing (space-y-6/8, card p-6 sm:p-8)
+   - [ ] Button states (hover, active, disabled with loading)
+   - [ ] Error message styling (inline + form-level alerts)
+   - [ ] Empty states with helpful CTAs
+   - [ ] Smooth transitions (motion-safe classes)
+   - [ ] Accessibility (labels, aria-*, skip links, keyboard nav)
+   - [ ] Visual hierarchy (section headings, separators, color accents)
+   - [ ] Mobile responsiveness (iPhone SE + Android widths)
+
+5. **TypeScript & Data Integration**
+   - [ ] Strict types, no `any`, align UI with DOCS/SCHEMA.md
+   - [ ] Data hooks (useAnalytics, useBlueprints) with try-catch
+   - [ ] Respect RLS policies, 45-second AI timeout handling
+
+### Kibo UI Components to Add
+- **Core inputs**: button, input, textarea, select, label, checkbox, radio-group, switch, form
+- **Layout**: card, tabs, accordion, collapsible, separator, scroll-area
+- **Feedback**: alert, badge, progress, skeleton, tooltip
+- **Navigation**: navigation-menu, breadcrumb, pagination, dropdown-menu
+- **Overlays**: dialog, sheet
+- **Helpers**: command (combobox), avatar, cn utility
 
 ### Success Criteria
 - UI looks polished and professional
-- App is mobile-responsive
-- No visual glitches
+- App is mobile-responsive with no visual glitches
 - Clear visual distinction between blueprint sections
+- Smooth transitions for expandable sections
+- All 6 pages functional with proper navigation
+- Analytics cards show meaningful 30-day metrics
+- Strict TypeScript, components under 200 lines each
+- Accessibility compliant (keyboard nav, screen readers)
 
 ---
 
@@ -251,20 +303,27 @@ Make habits specific, sequential, and directly related to the user's goal.
 **Goal**: Deploy to Digital Ocean App Platform
 
 ### Deliverables
-- [ ] Update environment variables for production Supabase
-- [ ] Add production `GOOGLE_AI_API_KEY`
-- [ ] Run final local tests with production database
-- [ ] Create production build
-- [ ] Configure Digital Ocean app settings
+- [ ] Create production Supabase project at supabase.com
+- [ ] Run SQL schema in production Supabase
+- [ ] Create `.env.production` with production Supabase credentials
+- [ ] Test locally one final time (`npm run dev`)
+- [ ] Create production build locally to verify (`npm run build`)
+- [ ] Push to GitHub (`git push origin main`)
+- [ ] Configure Digital Ocean App Platform:
+  - Connect GitHub repo
+  - Add environment variables from `.env.production`
+  - Set build command: `npm run build`
+  - Set run command: `npm start`
 - [ ] Deploy to Digital Ocean
 - [ ] Verify deployment (test auth, input, generation, history)
-- [ ] Monitor console for production errors
+- [ ] Monitor Digital Ocean logs for errors
 
 ### Success Criteria
 - App is live and accessible
 - All features work in production
 - No console errors in production
-- Complete blueprints (summary, mistakes, guidance, steps) generate correctly
+- Local and production databases are separate
+
 
 ---
 
