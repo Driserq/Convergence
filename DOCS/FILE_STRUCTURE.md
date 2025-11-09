@@ -1,304 +1,102 @@
 # File Structure - Convergence Habit Blueprint MVP
 
 ## Overview
-This document describes the current file structure after implementing Vite-based client bundling with Fastify server.
+This document reflects the repository structure and runtime flow as of **2025-11-09**. The project runs a Fastify server that serves a Vite-built React SPA alongside API routes for AI blueprint generation.
 
 ## Architecture Summary
-- **Frontend**: React SPA bundled with Vite (located in `dist/client/`)
-- **Backend**: Fastify server compiled from TypeScript (located in `dist/`)
-- **Development**: Concurrent build/watch with separate client and server processes
-- **Routing**: Client-side SPA routing using custom RouterContext
+- **Frontend**: React 19 SPA bundled by Vite 7 → output in `dist/client`
+- **Backend**: Fastify 5 TypeScript server (`src/server.ts`) serving static assets and registering API routes
+- **Runtime**: Client-side routing managed manually in `App.tsx` (no React Router)
+- **State**: Zustand for auth/session state, React Hook Form + Zod for forms (in progress)
+- **Styling**: TailwindCSS v4 utilities + shadcn/ui primitives
 
 ---
 
 ## Root Directory
 
 ```
-convergence/
-├── .env.local              # Local environment variables (NOT in git)
-├── .env.production         # Production environment variables (NOT in git)
-├── .gitignore              # Git ignore rules
-├── package.json            # Dependencies and scripts
-├── tsconfig.json           # TypeScript config for client
-├── tsconfig.server.json    # TypeScript config for server (excludes React)
-├── vite.config.ts          # Vite bundler configuration
-├── postcss.config.mjs      # PostCSS with TailwindCSS v4 plugin
-├── tailwind.config.ts      # TailwindCSS configuration
-├── index.html              # Vite entry point (loads main.tsx)
-├── supabase/               # Supabase local development files
-├── src/                    # Source code (see below)
-├── dist/                   # Build output (NOT in git)
-│   ├── client/             # Vite-built React app
-│   │   ├── index.html      # Client entry HTML
-│   │   └── assets/         # Bundled JS/CSS
-│   ├── server.js           # Compiled Fastify server
-│   ├── routes/             # Compiled API routes
-│   └── lib/                # Compiled utilities
-├── DOCS/                   # Documentation
-└── design-docs/            # UI/UX design specs
+Convergence/
+├── .env*                 # Local environment files (never committed)
+├── .gitignore
+├── components.json       # shadcn/ui registry config
+├── design-docs/          # UI/UX references
+├── dist/                 # Build output (client + compiled server)
+│   ├── client/           # Vite output served in production
+│   ├── server.js         # Transpiled Fastify server entry
+│   ├── routes/           # Transpiled API routes
+│   └── lib/              # Transpiled server utilities
+├── DOCS/                 # Internal documentation (this file, plan, etc.)
+├── index.html            # Vite HTML entry
+├── node_modules/
+├── package.json / package-lock.json
+├── Patterns-Registry/    # Local pattern inventory from registries
+├── postcss.config.js     # Tailwind v4 PostCSS hook
+├── src/                  # Application source code (see below)
+├── SUPADATA_DEBUG.md     # Notes for transcript debugging
+├── tailwind.config.js
+├── tsconfig.json         # Client TS config (`strict: true`, `@` alias)
+├── tsconfig.server.json  # Server TS config (relaxed strictness)
+├── vite.config.ts        # Vite + dev proxy configuration
+└── WARP.md               # Project rules + overview
 ```
 
+> **Note**: A `.supabase` directory is *not* committed. Run `npx supabase start` locally to provision the development stack when needed.
+
 ---
 
-## Source Code Structure (`src/`)
+## Build Outputs (`dist/`)
+- `dist/client/`: Static assets produced by `vite build`. Served by Fastify in production and during `npm run dev` after the pre-build step.
+- `dist/server.js`: Compiled version of `src/server.ts` generated via `tsc --project tsconfig.server.json`.
+- `dist/routes/`, `dist/lib/`: Transpiled API routes and server utilities used by the production server entry.
+
+---
+
+## Source Code Overview (`src/`)
 
 ### Entry Points
+- `main.tsx`: Hydrates the React app, injects `VITE_*` env vars into `window`, and mounts `<App />`.
+- `App.tsx`: SPA shell providing custom routing (`navigate()` via context), authentication gating, and global layout decisions.
+- `server.ts`: Fastify bootstrap that loads env vars, registers plugins (CORS, env schema, static serving), mounts API routes, and serves the SPA fallback.
 
-#### `src/main.tsx` - Client Entry Point
-- **Purpose**: React app entry point, loaded by Vite
-- **Responsibilities**:
-  - Injects Vite environment variables into `window` for client-side access
-  - Renders the root `<App />` component
-  - Initializes React DOM
-- **Environment**: Client-side only
-- **Used by**: `index.html` via Vite
+### Key Directories
+- `components/`: UI building blocks. Includes shadcn primitives under `ui/` and feature modules (e.g., `blueprint/BlueprintForm.tsx`). Recent shadcn imports have been converted to relative paths per import policy.
+- `pages/`: Page-level components rendered by the custom router (Landing, Login, Dashboard, History, Profile, BlueprintDetail, NotFound). Landing and Dashboard currently exceed the 200-line target and are earmarked for future decomposition.
+- `hooks/`: Custom hooks such as `useAuth.ts`, which wraps Supabase auth via Zustand.
+- `contexts/`: React context providers (e.g., `RouterContext.tsx`).
+- `lib/`: Shared utilities split between client and server concerns (`supabase.ts`, `supabase.server.ts`, `transcript.ts`, `gemini.ts` placeholder, `utils.ts`).
+- `routes/`: Fastify route registrations (`blueprint.ts`, `transcript.ts`). These are TypeScript during development but compiled to `.js` in `dist/` for production. Awareness: `server.ts` dynamically imports `./routes/blueprint.js`, so the build step must run before production starts.
+- `styles/`: Tailwind v4 global stylesheet (`globals.css`).
+- `types/`: Centralized TypeScript types (`blueprint.ts`, `user.ts` placeholder, etc.).
 
-#### `src/server.ts` - Server Entry Point
-- **Purpose**: Fastify server initialization
-- **Responsibilities**:
-  - Starts Fastify HTTP server
-  - Registers API routes (`/api/*`)
-  - Serves static Vite-built client from `dist/client/`
-  - Handles server-side environment variables
-- **Environment**: Server-side only (Node.js)
-- **Used by**: `npm run dev`, `npm start`
-
----
-
-### Core Application Files
-
-#### `src/App.tsx` - Main React Application
-- **Purpose**: Root component managing routing and layout
-- **Key Features**:
-  - Client-side SPA routing (no external router library)
-  - Authentication state management via `useAuth`
-  - Route protection (redirects unauthenticated users)
-  - Conditional Navigation bar rendering
-- **Routes**:
-  - `/` → Landing (public)
-  - `/login` → Login (public)
-  - `/dashboard` → Dashboard (protected)
-  - `/history` → History (protected)
-  - `/profile` → Profile (protected)
-  - `/blueprints/:id` → Blueprint Detail (protected)
-- **Provides**: RouterContext to entire app
+### Notable Implementation Details
+- The SPA navigation intercepts anchor clicks to keep client-side routing without React Router.
+- API routes assume Supabase JWT auth headers and delegate to Supabase for data access (RLS-aware).
+- `BlueprintForm.tsx` already wires up React Hook Form controls but still requires validation + submission integration in upcoming phases.
 
 ---
 
-### Contexts (`src/contexts/`)
-
-#### `src/contexts/RouterContext.tsx`
-- **Purpose**: Provides client-side navigation without page reloads
-- **Exports**:
-  - `RouterProvider` - Context provider wrapping the app
-  - `useRouter()` - Hook to access `navigate(path)` function
-- **Used by**: App.tsx, Navigation.tsx, Landing.tsx, other pages
-- **Why**: Enables SPA navigation so clicking links updates URL without full page reload
+## Supporting Directories & Files
+- `Patterns-Registry/`: Snapshot of imported patterns (KiboUI/shadcn). These files often ship with `src/` imports; run through the import checklist before using any pattern.
+- `design-docs/`: UX notes, wireframes, and design explorations.
+- `DOCS/`: Project documentation (tech stack, schema, import policy, plan, etc.).
+- `server.log`: Local Fastify log output for debugging.
 
 ---
 
-### Pages (`src/pages/`)
+## Tooling & Configuration Highlights
 
-#### `src/pages/Landing.tsx`
-- **Purpose**: Landing page for unauthenticated users
-- **Features**:
-  - Hero section with CTA buttons
-  - Pain points, outcomes, and product explanations
-  - FAQ accordion
-  - Footer
-- **Styling**: Dark theme (gray-900 background, white text)
-- **Uses**: `useRouter` for navigation to `/login`
+### TypeScript
+- `tsconfig.json`: `strict: true` for client code, includes `@/*` path alias (policy still prefers relative imports; see Import Guidelines).
+- `tsconfig.server.json`: Extends client config but relaxes strictness and excludes React-specific directories. Used by `npm run build:server`.
 
-#### `src/pages/Login.tsx`
-- **Purpose**: Login/signup page
-- **Features**: LoginForm component for authentication
-- **Redirects**: To `/dashboard` after successful login
+### Vite (`vite.config.ts`)
+- React plugin enabled.
+- Alias `@` → `./src` (available but intentionally unused in commits).
+- Production output routed to `dist/client`.
+- Dev server proxy routes `/api` and `/health` to Fastify at `http://localhost:3001`.
+- `server.host` set to `localhost`, dev port `5173`.
 
-#### `src/pages/Dashboard.tsx`
-- **Purpose**: Main authenticated page
-- **Features**:
-  - Welcome section
-  - Blueprint creation form
-  - Stats cards (placeholders)
-  - Analytics cards
-  - Help section
-- **Protected**: Requires authentication
-
-#### `src/pages/History.tsx`
-- **Purpose**: List of user's saved blueprints
-- **Status**: Placeholder (Phase 5)
-
-#### `src/pages/Profile.tsx`
-- **Purpose**: User profile and settings
-- **Status**: Placeholder (Phase 10)
-
-#### `src/pages/BlueprintDetail.tsx`
-- **Purpose**: Individual blueprint view with full details
-- **Status**: Placeholder (Phase 5)
-
-#### `src/pages/NotFound.tsx`
-- **Purpose**: 404 error page for invalid routes
-
----
-
-### Components (`src/components/`)
-
-#### `src/components/ui/Navigation.tsx`
-- **Purpose**: Top navigation bar for authenticated pages
-- **Features**:
-  - Logo/brand (links to Dashboard)
-  - Main nav links (Dashboard, History)
-  - User dropdown menu (Profile, Log out)
-  - Avatar with user initials
-  - Responsive mobile menu
-- **Uses**: `useRouter` for SPA navigation
-- **Styling**: Dark theme (gray-800 bg, sticky header)
-- **Shows on**: All protected pages (not on Landing/Login)
-
-#### `src/components/ui/` (Shadcn Components)
-- **Purpose**: Reusable UI primitives from Shadcn UI
-- **Files**:
-  - `button.tsx` - Button component
-  - `badge.tsx` - Badge component
-  - `card.tsx` - Card component with header/content
-  - `separator.tsx` - Horizontal divider
-  - `alert.tsx` - Alert/notification component
-  - `accordion.tsx` - Collapsible FAQ component
-  - `dropdown-menu.tsx` - Dropdown menu for user menu
-  - `avatar.tsx` - User avatar component
-- **Installation**: Via shadcn CLI (`npx shadcn add <component>`)
-- **Styling**: Dark theme overrides in component files
-
----
-
-### Hooks (`src/hooks/`)
-
-#### `src/hooks/useAuth.ts`
-- **Purpose**: Authentication state management
-- **Features**:
-  - `initialize()` - Set up auth listener (called once in App.tsx)
-  - `user` - Current authenticated user
-  - `loading` - Auth loading state
-  - `login(email, password)` - Sign in
-  - `signup(email, password)` - Sign up
-  - `logout()` - Sign out
-- **Used by**: App.tsx, Navigation.tsx, LoginForm.tsx
-- **State**: Uses Zustand for global state
-
----
-
-### Library Files (`src/lib/`)
-
-#### `src/lib/supabase.ts` - Client-Side Supabase
-- **Purpose**: Supabase client for browser (React components/hooks)
-- **Environment**: Uses `window.SUPABASE_URL` and `window.SUPABASE_ANON_KEY` (injected by Vite)
-- **Features**:
-  - Session persistence enabled
-  - Auto token refresh
-  - Warns if environment variables missing
-- **Used by**: useAuth.ts, client-side components
-
-#### `src/lib/supabase.server.ts` - Server-Side Supabase
-- **Purpose**: Supabase client for Node.js server (API routes)
-- **Environment**: Uses `process.env.SUPABASE_URL` and `process.env.SUPABASE_ANON_KEY`
-- **Features**:
-  - No session persistence (server doesn't need it)
-  - No auto refresh
-- **Used by**: Server-side API routes (blueprint.ts)
-
-#### `src/lib/database.ts`
-- **Purpose**: Database helper functions
-- **Features**:
-  - `getServiceClient()` - Creates service role client (bypasses RLS)
-  - `saveBlueprintToDatabase()` - Saves blueprint with user context
-- **Used by**: API routes for database operations
-
-#### `src/lib/gemini.ts`
-- **Purpose**: Google Gemini AI client setup
-- **Status**: Placeholder (Phase 4)
-
-#### `src/lib/transcript.ts`
-- **Purpose**: YouTube transcript extraction via Supadata API
-- **Features**:
-  - Handles both sync (200) and async (202) responses
-  - Polls for job completion
-  - Error handling and retries
-- **Used by**: API routes for YouTube content
-
-#### `src/lib/utils.ts`
-- **Purpose**: General utility functions (e.g., `cn()` for className merging)
-
----
-
-### Routes (`src/routes/`)
-
-#### `src/routes/blueprint.ts`
-- **Purpose**: API endpoints for blueprints
-- **Endpoints**:
-  - `GET /api/blueprints` - Fetch user's blueprints
-  - `POST /api/create-blueprint` - Create new blueprint from YouTube/text
-- **Features**:
-  - Authentication via JWT token in Authorization header
-  - YouTube transcript extraction
-  - Gemini AI blueprint generation
-  - Database persistence
-- **Uses**: supabase.server.ts, database.ts, transcript.ts
-
----
-
-### Types (`src/types/`)
-
-#### `src/types/blueprint.ts`
-- **Purpose**: TypeScript types for blueprints
-- **Exports**: BlueprintFormData, ContentType, AIBlueprint, etc.
-
-#### `src/types/user.ts`
-- **Purpose**: TypeScript types for users
-- **Status**: Placeholder
-
----
-
-### Styles (`src/styles/`)
-
-#### `src/styles/globals.css`
-- **Purpose**: Global CSS and TailwindCSS imports
-- **Content**:
-  ```css
-  @import "tailwindcss";
-  ```
-- **TailwindCSS v4**: Uses new single import syntax
-
----
-
-## Configuration Files
-
-### `tsconfig.json` - Client TypeScript Config
-- **Purpose**: TypeScript configuration for React client code
-- **Includes**: All `src/**/*` files
-- **Target**: ES2022, JSX react-jsx, DOM lib
-- **Paths**: `@/*` alias for `src/*`
-
-### `tsconfig.server.json` - Server TypeScript Config
-- **Purpose**: TypeScript configuration for Node.js server code
-- **Extends**: `tsconfig.json`
-- **Includes**: Only server files (server.ts, routes/, lib/server files)
-- **Excludes**: All React/client files (components/, pages/, hooks/, contexts/)
-- **Target**: ES2022, NO DOM lib
-- **Strict**: Disabled for MVP speed (type assertions used)
-
-### `vite.config.ts` - Vite Bundler Config
-- **Purpose**: Configure Vite for React SPA bundling
-- **Features**:
-  - React plugin for JSX/TSX
-  - Path aliases (`@/` → `src/`)
-  - Build output to `dist/client/`
-  - Dev proxy for `/api/*` requests to Fastify server
-
-### `postcss.config.mjs` - PostCSS Config
-- **Purpose**: Configure PostCSS for TailwindCSS v4
-- **Plugin**: `@tailwindcss/postcss`
-
-### `package.json` - Scripts
+### Package Scripts (excerpt)
 ```json
 {
   "scripts": {
@@ -312,135 +110,68 @@ convergence/
 }
 ```
 
+- `npm run dev` performs a one-time client build before launching the server watcher so the SPA assets exist for Fastify.
+- Use `npm run dev:client` when iterating purely on UI with hot module reload (proxy keeps API calls functional).
+
+### Tailwind & PostCSS
+- `tailwind.config.js`: Tailwind v4 config (utility-first with dark theme defaults).
+- `postcss.config.js`: Loads `@tailwindcss/postcss` plugin for Vite builds.
+
 ---
 
-## Build Process
+## Build & Runtime Workflow
 
 ### Development (`npm run dev`)
-1. **Build client**: `vite build` → `dist/client/`
-2. **Watch server**: `tsx watch src/server.ts` (recompiles on changes)
-3. Server serves static client from `dist/client/`
-4. Server runs API routes on `/api/*`
+1. Vite builds client assets into `dist/client`.
+2. `tsx watch src/server.ts` recompiles the Fastify server on change.
+3. Fastify serves static assets from `dist/client` and proxies API routes on `/api/*`.
 
 ### Production (`npm run build` → `npm start`)
-1. **Build client**: `vite build` → `dist/client/`
-2. **Build server**: `tsc --project tsconfig.server.json` → `dist/`
-3. **Start**: `node dist/server.js`
-4. Server serves static client and API routes
-
----
-
-## Key Decisions & Patterns
-
-### Client-Side Routing
-- **No external router**: Custom routing in App.tsx using `window.location.pathname` and `window.history.pushState`
-- **RouterContext**: Provides `navigate()` function to entire app
-- **Why**: Keeps bundle size small, full control over routing logic
-
-### Supabase Split
-- **Client**: `supabase.ts` uses `window` env vars for browser
-- **Server**: `supabase.server.ts` uses `process.env` for Node.js
-- **Why**: Browser can't access `process.env`, server can't access `window`
-
-### TypeScript Config Split
-- **Client**: Includes React code, DOM types
-- **Server**: Excludes React code, no DOM types, relaxed strictness
-- **Why**: Prevents server build from trying to compile React code with browser globals
-
-### Dark Theme
-- **Temporary**: Gray-900/800 backgrounds, white text
-- **Reason**: Placeholder until brand colors decided
-- **Applied**: Landing, Dashboard, Navigation, Shadcn components
+1. `vite build` creates optimized client bundle in `dist/client`.
+2. `tsc` compiles server and route files into `dist/`.
+3. `node dist/server.js` launches Fastify with static file serving + API routes.
 
 ---
 
 ## Environment Variables
 
-### Client (Browser)
-- Accessed via `window.SUPABASE_URL`, `window.SUPABASE_ANON_KEY`
-- Injected by `main.tsx` from Vite's `import.meta.env.VITE_*`
-- **Must have `VITE_` prefix** in `.env` file
+### Client (`VITE_*`)
+- Injected at build time, surfaced globally by `main.tsx` on `window`.
+- Required: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`.
 
-### Server (Node.js)
-- Accessed via `process.env.*`
-- Loaded from `.env` by server startup
-- **No `VITE_` prefix needed**
+### Server
+- Loaded via `dotenv` in `src/server.ts`, validated by `@fastify/env`.
+- Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `GOOGLE_AI_API_KEY` (Supadata + optional `SUPADATA_API_KEY`).
+- `.env`, `.env.local`, `.env.production` remain local secrets.
 
-### Required Variables
+### Sample Development Entries
 ```env
-# .env.local (development)
 VITE_SUPABASE_URL=http://localhost:54321
-VITE_SUPABASE_ANON_KEY=your_local_anon_key
+VITE_SUPABASE_ANON_KEY=<anon-key>
 SUPABASE_URL=http://localhost:54321
-SUPABASE_ANON_KEY=your_local_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
-GOOGLE_AI_API_KEY=your_gemini_key
-SUPADATA_API_KEY=your_supadata_key
+SUPABASE_ANON_KEY=<anon-key>
+GOOGLE_AI_API_KEY=<gemini-key>
+SUPADATA_API_KEY=<supadata-key>
 ```
 
 ---
 
-## Next Steps (Roadmap)
-
-### Phase 2: Authentication Flow
-- ✅ Login page with LoginForm
-- ✅ useAuth hook
-- ✅ Protected routes
-- TODO: Signup flow, password reset
-
-### Phase 3: Navigation
-- ✅ Navigation bar component
-- ✅ User dropdown menu
-- ✅ Client-side routing
-- TODO: Active route highlighting
-
-### Phase 4: Blueprint Form
-- TODO: Form validation
-- TODO: YouTube URL validation
-- TODO: Text input support
-
-### Phase 5: Blueprint Display
-- TODO: History page with blueprint list
-- TODO: Blueprint detail page
-- TODO: Overview + habits sections
-
-### Phase 9: Dashboard
-- ✅ Welcome section
-- ✅ Placeholder stats cards
-- ✅ Help section
-- TODO: Wire up real stats
+## Current Implementation Status (Nov 2025)
+- **Authentication flow** (Phase 2): Login, logout, and protected routes operational; signup/password reset still pending.
+- **Navigation shell** (Phase 3): Navigation bar + custom router in place; active state styling TODO.
+- **Blueprint form** (Phase 3/4): `BlueprintForm.tsx` scaffolded with React Hook Form controls; validation + submit wiring in progress.
+- **Dashboard UI** (Phase 9 preview): Cards and placeholder analytics rendered with static data.
+- **API integration** (Phases 4-5): `routes/blueprint.ts` contains transcript + Gemini pipeline scaffolding; final Gemini client implementation pending.
+- **History/Profile pages**: Present but populated with placeholder content awaiting Supabase integration.
 
 ---
 
-## Common Tasks
-
-### Add New Page
-1. Create `src/pages/NewPage.tsx`
-2. Add route in `src/App.tsx` `renderPage()` function
-3. Import page component at top of `App.tsx`
-4. Add navigation link in `Navigation.tsx` (if needed)
-
-### Add New API Route
-1. Create `src/routes/newroute.ts`
-2. Export `default async function(fastify: FastifyInstance)`
-3. Register in `src/server.ts`
-4. Add to `tsconfig.server.json` includes
-
-### Add New Shadcn Component
-1. Run `npx shadcn add <component-name>`
-2. Component appears in `src/components/ui/`
-3. Import and use in your pages/components
-
-### Add New Hook
-1. Create `src/hooks/useNewHook.ts`
-2. Use Zustand for global state if needed
-3. Import and use in components
-
-### Update Styles
-1. Modify `src/styles/globals.css` for global changes
-2. Use Tailwind classes inline for component-specific styles
-3. Dark theme: `bg-gray-900`, `text-white`, etc.
+## Common Contributor Tasks
+- **Add a page**: Create `src/pages/NewPage.tsx`, import in `App.tsx`, update route switch, and (optionally) add navigation links.
+- **Add a shadcn component**: `npx shadcn add <component>` → fix generated imports to be relative and run `npm run build:client`.
+- **Add a Fastify route**: Implement `src/routes/new-route.ts`, include it in `server.ts`, and ensure it’s listed in `tsconfig.server.json`.
+- **Refine large components**: When touching Landing or Dashboard, break sections into smaller components under `src/components/` to respect line targets.
 
 ---
 
-**Last Updated**: 2025-10-22 (After Vite + SPA routing implementation)
+**Last Updated**: 2025-11-09

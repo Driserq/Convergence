@@ -1,63 +1,66 @@
 # Convergence (Habit Blueprint MVP) - Warp Project Rules
 
 ## Project Overview
-MVP that transforms self-improvement content into actionable habit blueprints. Users input goals + content (YouTube/text) → AI generates overview (summary, mistakes, guidance) + 3-5 sequential action steps.
+MVP that transforms self-improvement content into actionable habit blueprints. Users input goals plus optional content (YouTube/text) → AI generates overview (summary, mistakes, guidance) and 3-5 sequential action steps.
 
 ## Tech Stack (Current)
-- **Frontend/Backend**: @fastify/react (SSR, single server)
+- **Frontend**: React 19 + Vite 7 (client build served from `dist/client`)
+- **Backend**: Fastify 5 TypeScript server serving static client assets and API routes
 - **Database/Auth**: Supabase (PostgreSQL + RLS)
-- **AI**: Google Gemini 2.5 Flash (1M token context, free tier)
-- **UI**: TailwindCSS + Shadcn UI + Zustand
-- **Deployment**: Local Supabase (Docker) → Digital Ocean App Platform
+- **AI**: Google Gemini 2.0 Flash Experimental (current API usage, 45s timeout target)
+- **UI**: TailwindCSS v4 + Shadcn UI + Zustand
+- **Deployment Target**: Local Supabase (Docker) → Digital Ocean App Platform
 
 ## File Structure
 src/
-├── server.ts # Fastify server entry
-├── components/ # React components
-├── pages/ # Page components
-├── lib/ # Utilities (supabase.ts, gemini.ts)
-├── hooks/ # Custom React hooks
-├── types/ # TypeScript types
-├── routes/ # Fastify API routes
-└── styles/ # Global styles
+├── server.ts # Fastify server entry (serves built client + APIs)
+├── App.tsx # SPA router shell
+├── components/ # React components (shadcn + custom)
+├── pages/ # Page-level components
+├── hooks/ # Zustand-backed auth + other hooks
+├── lib/ # Utilities (supabase clients, transcript, gemini placeholders)
+├── routes/ # Fastify API routes (e.g., blueprint.ts)
+└── styles/ # Global styles (Tailwind v4)
 
 DOCS/
 ├── TECH_STACK.md # Detailed tech decisions
 ├── SCHEMA.md # Database schema + SQL
-├── rules.md # Coding standards
+├── AGENTS.md # Coding standards for contributors
 ├── PLAN.md # Development phases
 ├── PROJECT_SETUP.md # Setup instructions
-└── EXAMPLES.md # Sample data
+└── IMPORT_GUIDELINES.md # Relative import policy
 
 
 ## Core Development Rules
 
 ### Code Style
-- **TypeScript strict mode** - No `any` types
-- **Max file length**: Components 200 lines, others 300 lines
-- **Max function length**: API routes 50 lines, utilities 30 lines
+- **TypeScript strict mode** - `strict` enabled for client config
+- **File size targets**: Components ≤200 lines, other modules ≤300 lines (current dashboard/landing exceed; schedule refactors)
 - **Naming**: Components PascalCase, utilities camelCase, constants UPPER_SNAKE_CASE
+- **Imports**: Relative paths preferred even though `@` alias exists in configs
 
 ### Environment & Workflow
-- **Local testing**: Use `npm run dev` (Supabase Docker at localhost:54321)
-- **Production**: Push to `main` branch → auto-deploys to Digital Ocean
-- **No staging environment** until >1,000 users (MVP speed priority)
-- **Environment files**: `.env.local` (local), `.env.production` (prod) - never commit
+- **Local testing**: `npm run dev` (runs `vite build` once, watches Fastify via `tsx`) with Supabase Docker at localhost:54321
+- **Client dev only**: `npm run dev:client` launches Vite dev server on 5173 (proxy to Fastify 3001)
+- **Production**: `npm run build` → `npm start`; push to `main` when ready for Digital Ocean deploy
+- **Environment files**: `.env`, `.env.local`, `.env.production` - never commit upstream
 
 ### Error Handling
 - **Console logging only** for MVP (no toast libraries yet)
 - Format: `console.error('[ComponentName] Error:', error)`
 - All async operations must have try-catch blocks
 - Display user-friendly messages (not raw errors)
+- Loading indicators required for long-running actions (form submit, AI calls)
 
 ### API Integration Rules
-- **Gemini AI**: Use `gemini-2.5-flash` model, 45-second timeout, must return JSON with `overview` (text) + `habits` (array)
-- **YouTube Transcripts**: Warn if video >90 minutes, handle "transcript unavailable" errors
+- **Gemini AI**: Current route calls `gemini-2.0-flash-exp`; align SDK wrapper in `lib/gemini.ts`, enforce 45-second timeout, and return JSON with overview + sequenced habits
+- **YouTube Transcripts**: Warn if video >90 minutes, handle "transcript unavailable" errors (via Supadata REST API)
 - **Supabase**: Use RLS policies (no manual filtering), use `.from()` query builder
+- **Routes**: API handlers live in `src/routes` and are registered from `server.ts`
 
 ### Database Schema
 - **Table**: `habit_blueprints` with columns: id, user_id, goal, habits_to_kill, habits_to_develop, content_source, content_type, ai_output (JSONB)
-- **AI Output Structure**: `{ overview: "text with \n\n breaks", habits: [{id, title, description, timeframe}] }`
+- **AI Output Structure**: `{ overview: { summary, mistakes[], guidance[] }, sequential_steps?: [], daily_habits?: [], trigger_actions?: [], decision_checklist?: [], resources?: [] }`
 - See `DOCS/SCHEMA.md` for complete SQL
 
 ### Security
@@ -69,14 +72,14 @@ DOCS/
 ## Key References
 - **Development phases**: See `DOCS/PLAN.md` (12 phases from auth → deployment)
 - **Setup instructions**: See `DOCS/PROJECT_SETUP.md` for npm commands
-- **Coding standards**: See `DOCS/rules.md` for detailed style guide
+- **Coding standards**: See `DOCS/AGENTS.md` for contributor rules
 - **Database setup**: See `DOCS/SCHEMA.md` for SQL commands
 - **⚠️ Import paths**: See `DOCS/IMPORT_GUIDELINES.md` - CRITICAL for avoiding Vite build errors
 - **KiboUI patterns**: See `DOCS/KIBOUI_URL_FORMAT.md` - URL format for browsing patterns
 
 ## Current Phase
-**Phase 1**: Foundation & Setup (in progress)
-Next: Phase 2 - Authentication Flow
+**Phase 3-4**: Dashboard + Blueprint form UI under active development
+Next: Phase 4-5 integration (transcript + Gemini pipeline)
 
 ## Important Constraints
 - **MVP timeline**: 1-2 weeks build time

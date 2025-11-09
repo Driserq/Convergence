@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { Navigation } from './components/ui/Navigation'
 import { RouterProvider } from './contexts/RouterContext'
@@ -12,11 +12,69 @@ import { BlueprintDetail } from './pages/BlueprintDetail'
 import { Profile } from './pages/Profile'
 import { NotFound } from './pages/NotFound'
 
+type BrowserWindow = {
+  location: {
+    pathname: string
+    origin: string
+  }
+  history: {
+    pushState: (data: unknown, unused: string, url?: string) => void
+  }
+  addEventListener: (type: string, listener: (event: unknown) => void) => void
+  removeEventListener: (type: string, listener: (event: unknown) => void) => void
+}
+
+type BrowserDocument = {
+  documentElement?: {
+    classList?: {
+      add?: (...tokens: string[]) => void
+    }
+  }
+  addEventListener: (type: string, listener: (event: unknown) => void) => void
+  removeEventListener: (type: string, listener: (event: unknown) => void) => void
+}
+
+const getBrowserWindow = (): BrowserWindow | undefined => {
+  if (typeof globalThis === 'undefined') return undefined
+  const globalWithWindow = globalThis as typeof globalThis & { window?: unknown }
+  const maybeWindow = globalWithWindow.window
+  if (maybeWindow && typeof maybeWindow === 'object') {
+    return maybeWindow as BrowserWindow
+  }
+  return undefined
+}
+
+const getBrowserDocument = (): BrowserDocument | undefined => {
+  if (typeof globalThis === 'undefined') return undefined
+  const globalWithDocument = globalThis as typeof globalThis & { document?: unknown }
+  const maybeDocument = globalWithDocument.document
+  if (maybeDocument && typeof maybeDocument === 'object') {
+    return maybeDocument as BrowserDocument
+  }
+  return undefined
+}
+
 export const App: React.FC = () => {
   const { user, loading, initialize } = useAuth()
-  const [currentPath, setCurrentPath] = useState(
-    typeof window !== 'undefined' ? window.location.pathname : '/'
-  )
+  const [currentPath, setCurrentPath] = useState(() => {
+    const win = getBrowserWindow()
+    return win?.location.pathname ?? '/'
+  })
+
+  const navigate = useCallback((path: string) => {
+    setCurrentPath(prev => {
+      if (path === prev) {
+        return prev
+      }
+
+      const win = getBrowserWindow()
+      if (win) {
+        win.history.pushState({}, '', path)
+      }
+
+      return path
+    })
+  }, [])
 
   // Initialize auth globally - this ensures we only have one auth listener
   useEffect(() => {
@@ -25,48 +83,69 @@ export const App: React.FC = () => {
   }, [initialize])
 
   useEffect(() => {
-    document.documentElement.classList.add('dark')
+    const doc = getBrowserDocument()
+    doc?.documentElement?.classList?.add?.('dark')
   }, [])
 
   // Handle browser back/forward navigation
   useEffect(() => {
+    const win = getBrowserWindow()
+    if (!win) return
+
     const handlePopState = () => {
-      setCurrentPath(window.location.pathname)
+      setCurrentPath(win.location.pathname)
     }
 
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
+    win.addEventListener('popstate', handlePopState)
+    return () => win.removeEventListener('popstate', handlePopState)
   }, [])
 
   // Intercept link clicks for client-side navigation
   useEffect(() => {
-    const handleLinkClick = (e: Event) => {
-      const target = e.target as HTMLAnchorElement
-      
-      // Only handle <a> tags with href that are internal links
-      if (
-        target.tagName === 'A' && 
-        target.href && 
-        target.href.startsWith(window.location.origin) &&
-        !target.hasAttribute('target') // Don't intercept target="_blank" links
-      ) {
-        e.preventDefault()
-        const path = new URL(target.href).pathname
-        navigate(path)
+    const win = getBrowserWindow()
+    const doc = getBrowserDocument()
+    if (!win || !doc) return
+
+    type AnchorCandidate = {
+      tagName?: string
+      href?: string
+      hasAttribute?: (name: string) => boolean
+      closest?: (selector: string) => AnchorCandidate | null
+    }
+
+    const resolveAnchor = (target: unknown): AnchorCandidate | null => {
+      if (!target || typeof target !== 'object') return null
+      const candidate = target as AnchorCandidate
+      if (typeof candidate.tagName === 'string' && candidate.tagName.toUpperCase() === 'A') {
+        return candidate
       }
+      if (typeof candidate.closest === 'function') {
+        return candidate.closest('a')
+      }
+      return null
     }
 
-    document.addEventListener('click', handleLinkClick)
-    return () => document.removeEventListener('click', handleLinkClick)
-  }, [])
+    const handleLinkClick = (event: unknown) => {
+      const clickEvent = event as { target?: unknown; preventDefault?: () => void }
+      const anchor = resolveAnchor(clickEvent.target)
 
-  // Navigate function for programmatic navigation
-  const navigate = (path: string) => {
-    if (path !== currentPath) {
-      window.history.pushState({}, '', path)
-      setCurrentPath(path)
+      if (
+        !anchor ||
+        typeof anchor.href !== 'string' ||
+        !anchor.href.startsWith(win.location.origin) ||
+        (typeof anchor.hasAttribute === 'function' && anchor.hasAttribute('target'))
+      ) {
+        return
+      }
+
+      clickEvent.preventDefault?.()
+      const path = anchor.href.slice(win.location.origin.length) || '/'
+      navigate(path)
     }
-  }
+
+    doc.addEventListener('click', handleLinkClick)
+    return () => doc.removeEventListener('click', handleLinkClick)
+  }, [navigate])
 
   // Show loading state while checking authentication
   if (loading) {

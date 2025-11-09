@@ -97,7 +97,7 @@ export const Landing: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <section className="border-b border-border bg-card py-20 md:py-32">
+      <section className="bg-gradient-to-b from-background via-background to-background/90 py-28 md:py-32">
         <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 text-center sm:px-6 lg:px-8">
           <div className="space-y-6">
             <h1 className="text-balance text-4xl font-bold tracking-tight md:text-6xl">
@@ -107,17 +107,14 @@ export const Landing: React.FC = () => {
               For anyone overwhelmed by self-improvement content, Convergence transforms YouTube videos and articles into personalized habit blueprints with concrete steps you can actually follow.
             </p>
           </div>
-          <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 text-left">
-            {HERO_BULLETS.map((bullet, index) => (
+          <div className="mx-auto w-full max-w-3xl space-y-4 text-left">
+            {HERO_BULLETS.map((bullet) => (
               <div
                 key={bullet}
-                className="flex items-start gap-3 rounded-2xl border border-border bg-background/80 p-4 shadow-sm backdrop-blur-sm"
+                className="flex items-start gap-4"
               >
-                <Badge className="mt-1 flex items-center gap-2 px-3 py-1 text-sm font-semibold">
-                  <CheckCircle2 aria-hidden className="size-4" />
-                  {index + 1}
-                </Badge>
-                <p className="text-base md:text-lg">{bullet}</p>
+                <CheckCircle2 aria-hidden className="mt-1 size-5 shrink-0 text-primary" />
+                <p className="text-base text-foreground/90 md:text-lg">{bullet}</p>
               </div>
             ))}
           </div>
@@ -150,12 +147,12 @@ export const Landing: React.FC = () => {
             {PAIN_POINTS.map((pain) => (
               <Card
                 key={pain.title}
-                className="flex h-full flex-col border-border/70 bg-card/70 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+                className="flex h-full flex-col border border-border/50 bg-card/70 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
               >
-                <CardHeader className="space-y-4">
-                  <span className="text-4xl" aria-hidden>
+                <CardHeader className="space-y-6">
+                  <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl" aria-hidden>
                     {pain.icon}
-                  </span>
+                  </div>
                   <CardTitle>{pain.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -208,12 +205,12 @@ export const Landing: React.FC = () => {
             {OUTCOMES.map((outcome) => (
               <Card
                 key={outcome.title}
-                className="flex h-full flex-col border-border/70 bg-background/80 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+                className="flex h-full flex-col border border-border/50 bg-card/70 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
               >
-                <CardHeader className="space-y-4">
-                  <span className="text-4xl" aria-hidden>
+                <CardHeader className="space-y-6">
+                  <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl" aria-hidden>
                     {outcome.icon}
-                  </span>
+                  </div>
                   <CardTitle>{outcome.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -248,13 +245,13 @@ export const Landing: React.FC = () => {
               <div className="grid gap-8 md:grid-cols-3">
                 {['Share Your Content 🎥', 'AI Analyzes & Structures 🤖', 'Get Your Blueprint & Take Action ✅'].map(
                   (step, index) => (
-                    <div key={step} className="flex flex-col items-center gap-4 rounded-2xl border border-border/80 bg-card/60 p-8">
-                      <Badge
-                        variant="outline"
-                        className="size-12 rounded-full border border-border/80 bg-background/80 text-lg font-semibold"
-                      >
+                    <div
+                      key={step}
+                      className="flex flex-col items-center gap-4 rounded-2xl border border-border/40 bg-background/70 p-8"
+                    >
+                      <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-lg font-semibold text-primary">
                         {index + 1}
-                      </Badge>
+                      </div>
                       <p className="text-base font-semibold text-foreground md:text-lg">{step}</p>
                     </div>
                   )
@@ -264,32 +261,31 @@ export const Landing: React.FC = () => {
 
             <div className="mx-auto max-w-4xl space-y-8">
               <h3 className="text-2xl font-bold">Adaptive Blueprint Types</h3>
-              <div className="grid gap-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 {BLUEPRINT_TYPES.map((type) => (
-                  <Card
+                  <div
                     key={type.type}
-                    className="border border-border/70 bg-card/70 shadow-sm transition hover:shadow-md"
+                    className="flex items-center gap-4 rounded-2xl border border-border/50 bg-background/70 p-5"
                   >
-                    <CardContent className="flex items-center gap-3 py-4">
-                      <Badge variant="secondary" className="size-10 rounded-full justify-center text-lg">
-                        {type.icon}
-                      </Badge>
-                      <div>
-                        <p className="font-semibold">{type.type}</p>
-                        <p className="text-sm text-muted-foreground">{type.description}</p>
-                      </div>
-                    </CardContent>
-                  </Card>
+                    <div className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-lg" aria-hidden>
+                      {type.icon}
+                    </div>
+                    <div>
+                      <p className="font-semibold">{type.type}</p>
+                      <p className="text-sm text-muted-foreground">{type.description}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
 
-            <Card className="border border-border/70 bg-card/70 shadow-sm">
-              <CardContent className="flex flex-col gap-4 p-8 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-start gap-3">
-                  <Badge variant="outline" className="mt-1 size-10 rounded-full justify-center">
-                    <Quote aria-hidden className="size-5" />
-                  </Badge>
+            <Card className="border border-border/60 bg-card/70 shadow-sm">
+              <CardContent className="flex flex-col gap-6 p-8 md:flex-row md:items-center">
+                <div className="hidden h-full w-1 rounded-full bg-primary md:block" aria-hidden />
+                <div className="flex items-start gap-4">
+                  <div className="flex size-10 items-center justify-center rounded-full bg-primary/10" aria-hidden>
+                    <Quote className="size-5 text-primary" />
+                  </div>
                   <div className="space-y-3 text-left">
                     <p className="text-sm uppercase tracking-wide text-muted-foreground">Message From the Founder</p>
                     <p className="text-base text-muted-foreground">
@@ -302,9 +298,9 @@ export const Landing: React.FC = () => {
               </CardContent>
             </Card>
 
-            <Card className="border border-border/80 bg-card/80 shadow-lg">
+            <Card className="border border-border bg-card shadow-xl">
               <CardContent className="flex flex-col gap-6 p-10 text-center">
-                <h3 className="text-2xl font-bold md:text-4xl">Stop Consuming. Start Transforming.</h3>
+                <h3 className="text-3xl font-bold md:text-4xl">Stop Consuming. Start Transforming.</h3>
                 <p className="text-lg text-muted-foreground">
                   Join hundreds of people turning their Watch Later lists into action plans.
                 </p>
@@ -321,9 +317,7 @@ export const Landing: React.FC = () => {
                     No credit card required
                   </Button>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Get your first blueprint in 60 seconds.
-                </p>
+                <p className="text-sm text-muted-foreground">Get your first blueprint in 60 seconds.</p>
               </CardContent>
             </Card>
           </div>
@@ -340,16 +334,12 @@ export const Landing: React.FC = () => {
             <h2 className="text-3xl font-bold tracking-tight">Frequently Asked Questions</h2>
           </div>
           <Accordion
-            className="-space-y-px w-full overflow-hidden rounded-2xl border border-border"
+            className="w-full overflow-hidden rounded-2xl border border-border/80 divide-y divide-border/60"
             collapsible
             type="single"
           >
             {FAQS.map((faq) => (
-              <AccordionItem
-                key={faq.question}
-                value={faq.question}
-                className="border-b border-border bg-background/80 last:border-b-0"
-              >
+              <AccordionItem key={faq.question} value={faq.question} className="bg-background/80">
                 <AccordionTrigger className="px-6 py-4 text-left text-base font-semibold">
                   {faq.question}
                 </AccordionTrigger>
@@ -362,9 +352,9 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      <footer className="border-t border-border bg-background py-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <Separator className="mb-6" />
+      <footer className="bg-background py-12">
+        <div className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
+          <Separator />
           <nav className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
             {['About', 'Privacy', 'Terms', 'Contact'].map((label) => (
               <a key={label} className="transition-colors hover:text-foreground" href="#">
@@ -372,6 +362,7 @@ export const Landing: React.FC = () => {
               </a>
             ))}
           </nav>
+          <p className="text-center text-xs text-muted-foreground/80">© 2025 Convergence. All rights reserved.</p>
         </div>
       </footer>
     </div>

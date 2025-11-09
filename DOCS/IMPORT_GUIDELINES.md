@@ -4,7 +4,7 @@
 
 **Problem**: Using `src/` prefix imports (e.g., `import { cn } from "src/lib/utils"`) **WILL BREAK** Vite production builds even if they work in development.
 
-**Solution**: Always use relative paths (e.g., `import { cn } from "../../lib/utils"`).
+**Solution**: Always use relative paths (e.g., `import { cn } from "../../lib/utils"`). The tooling exposes an `@` alias for `src/`, but we intentionally avoid it to keep parity between dev and production builds.
 
 ---
 
@@ -69,11 +69,11 @@ import { Button } from "src/components/ui/button"
 
 | From Location | To Import | Correct Path | ❌ Wrong Path |
 |---------------|-----------|--------------|--------------|
-| `/src/components/ui/` | `/src/lib/utils` | `../../lib/utils` | `src/lib/utils` |
-| `/src/components/` | `/src/components/ui/button` | `./ui/button` | `src/components/ui/button` |
-| `/src/components/history/` | `/src/components/ui/card` | `../ui/card` | `src/components/ui/card` |
-| `/src/pages/` | `/src/lib/supabase` | `../lib/supabase` | `src/lib/supabase` |
-| `/src/pages/` | `/src/components/ui/button` | `../components/ui/button` | `src/components/ui/button` |
+| `/src/components/ui/` | `/src/lib/utils` | `../../lib/utils` | `src/lib/utils`, `@/lib/utils` |
+| `/src/components/` | `/src/components/ui/button` | `./ui/button` | `src/components/ui/button`, `@/components/ui/button` |
+| `/src/components/history/` | `/src/components/ui/card` | `../ui/card` | `src/components/ui/card`, `@/components/ui/card` |
+| `/src/pages/` | `/src/lib/supabase` | `../lib/supabase` | `src/lib/supabase`, `@/lib/supabase` |
+| `/src/pages/` | `/src/components/ui/button` | `../components/ui/button` | `src/components/ui/button`, `@/components/ui/button` |
 
 ---
 
@@ -92,7 +92,7 @@ import { Button } from "src/components/ui/button"
 Vite's production build uses Rollup, which doesn't recognize `src/` as a module path. It expects either:
 1. Relative paths (e.g., `../../lib/utils`)
 2. Node modules (e.g., `lucide-react`)
-3. Configured aliases (e.g., `@/` - which we deliberately avoid for SSR compatibility)
+3. Configured aliases (e.g., `@/`) — even though `@` currently resolves to `src/`, we treat it as off-limits so server builds and pattern imports stay consistent
 
 ---
 
@@ -100,7 +100,8 @@ Vite's production build uses Rollup, which doesn't recognize `src/` as a module 
 
 ### Search for problematic imports:
 ```bash
-grep -r 'from "src/' src/
+git grep "from \"src/"" src
+git grep "from \"@/"" src
 ```
 
 ### Common fixes:
@@ -181,6 +182,6 @@ Before committing new components:
 
 ---
 
-**Last Updated**: 2025-10-22  
+**Last Updated**: 2025-11-09  
 **Build System**: Vite 7.x + Rollup  
 **Project**: Convergence (Fastify/React)

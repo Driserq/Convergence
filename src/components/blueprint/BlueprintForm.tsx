@@ -1,7 +1,22 @@
 import React, { useState } from 'react'
+import { CheckCircle2, FileText, Loader2, PlayCircle } from 'lucide-react'
+
 import { blueprintFormSchema, validateYouTubeUrl, validateTextContent } from '../../lib/validation'
 import type { BlueprintFormData, ContentType, FormErrors } from '../../types/blueprint'
 import { useBlueprint } from '../../hooks/useBlueprint'
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
+import { Button } from '../ui/button'
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSet
+} from '../ui/field'
+import { Input } from '../ui/input'
+import { Separator } from '../ui/separator'
+import { Textarea } from '../ui/textarea'
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group'
 import { BlueprintDetail } from './BlueprintDetail'
 
 interface BlueprintFormProps {
@@ -10,11 +25,11 @@ interface BlueprintFormProps {
 
 export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
   const [formData, setFormData] = useState<BlueprintFormData>({
-    goal: 'I want to learn how to market my vibe coded app from scratch',
+    goal: '',
     habitsToKill: '',
     habitsToDevelop: '',
     contentType: 'youtube',
-    youtubeUrl: 'https://www.youtube.com/watch?v=WJlvQu3yeCY&list=WL&index=3&pp=gAQBiAQB',
+    youtubeUrl: '',
     textContent: ''
   })
 
@@ -136,238 +151,190 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
   }
 
   return (
-    <>
-      <div className="w-full max-w-4xl mx-auto">
-        <div className="bg-white shadow-lg rounded-lg p-8">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Your Habit Blueprint</h2>
-            <p className="text-gray-600">
-              Tell us your goal and provide content to analyze. We'll create a personalized habit transformation plan.
-            </p>
-          </div>
+    <div className="space-y-8">
+      <div className="space-y-2 text-left">
+        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">Create Your Habit Blueprint</h2>
+        <p className="text-sm text-muted-foreground md:text-base">
+          Tell us your goal, choose the content source, and we&apos;ll turn it into a personalized habit plan.
+        </p>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Primary Goal */}
-          <div>
-            <label htmlFor="goal" className="block text-sm font-medium text-gray-700 mb-2">
-              Primary Goal *
-            </label>
-            <input
-              type="text"
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <FieldSet className="space-y-6">
+          <Field className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm">
+            <FieldLabel htmlFor="goal">Primary Goal *</FieldLabel>
+            <FieldDescription>
+              Be specific about what you want to achieve ({formData.goal.length}/500 characters)
+            </FieldDescription>
+            <Input
               id="goal"
               value={formData.goal}
               onChange={(e) => handleInputChange('goal', e.target.value)}
               disabled={isCreatingBlueprint}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
               placeholder="e.g., I want to wake up at 5 AM every day and feel energized"
               maxLength={500}
             />
-            {errors.goal && (
-              <p className="mt-1 text-sm text-red-600">{errors.goal}</p>
-            )}
-            <p className="mt-1 text-sm text-gray-500">
-              Be specific about what you want to achieve ({formData.goal.length}/500 characters)
-            </p>
-          </div>
+            {errors.goal && <p className="text-sm text-destructive">{errors.goal}</p>}
+          </Field>
 
-          {/* Habits to Kill */}
-          <div>
-            <label htmlFor="habitsToKill" className="block text-sm font-medium text-gray-700 mb-2">
-              Habits to Eliminate (Optional)
-            </label>
-            <input
-              type="text"
-              id="habitsToKill"
-              value={formData.habitsToKill}
-              onChange={(e) => handleInputChange('habitsToKill', e.target.value)}
-              disabled={isCreatingBlueprint}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="e.g., staying up late, checking phone first thing, drinking too much coffee"
-              maxLength={1000}
-            />
-            {errors.habitsToKill && (
-              <p className="mt-1 text-sm text-red-600">{errors.habitsToKill}</p>
-            )}
-            <p className="mt-1 text-sm text-gray-500">
-              Separate multiple habits with commas ({formData.habitsToKill.length}/1000 characters)
-            </p>
-          </div>
-
-          {/* Habits to Develop */}
-          <div>
-            <label htmlFor="habitsToDevelop" className="block text-sm font-medium text-gray-700 mb-2">
-              Habits to Develop (Optional)
-            </label>
-            <input
-              type="text"
-              id="habitsToDevelop"
-              value={formData.habitsToDevelop}
-              onChange={(e) => handleInputChange('habitsToDevelop', e.target.value)}
-              disabled={isCreatingBlueprint}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="e.g., morning meditation, drinking more water, reading before bed"
-              maxLength={1000}
-            />
-            {errors.habitsToDevelop && (
-              <p className="mt-1 text-sm text-red-600">{errors.habitsToDevelop}</p>
-            )}
-            <p className="mt-1 text-sm text-gray-500">
-              Separate multiple habits with commas ({formData.habitsToDevelop.length}/1000 characters)
-            </p>
-          </div>
-
-          {/* Content Source Toggle */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-4">
-              Content Source *
-            </label>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <button
-                type="button"
-                onClick={() => handleContentTypeChange('youtube')}
+          <FieldGroup>
+            <Field className="rounded-2xl border border-border/60 bg-background/80 p-6 shadow-sm">
+              <FieldLabel htmlFor="habitsToKill">Habits to Eliminate (Optional)</FieldLabel>
+              <FieldDescription>
+                Separate multiple habits with commas ({formData.habitsToKill.length}/1000 characters)
+              </FieldDescription>
+              <Input
+                id="habitsToKill"
+                value={formData.habitsToKill}
+                onChange={(e) => handleInputChange('habitsToKill', e.target.value)}
                 disabled={isCreatingBlueprint}
-                className={`p-4 border-2 rounded-lg text-left transition-colors duration-200 disabled:opacity-50 ${
-                  formData.contentType === 'youtube'
-                    ? 'border-blue-500 bg-blue-50 text-blue-900'
-                    : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                <div className="flex items-center mb-2">
-                  <span className="text-lg">📺</span>
-                  <span className="ml-2 font-medium">YouTube Video</span>
-                </div>
-                <p className="text-sm text-gray-600">
-                  Analyze content from a YouTube video
-                </p>
-              </button>
+                placeholder="e.g., staying up late, checking phone first thing, drinking too much coffee"
+                maxLength={1000}
+              />
+              {errors.habitsToKill && <p className="text-sm text-destructive">{errors.habitsToKill}</p>}
+            </Field>
 
-              <button
-                type="button"
-                onClick={() => handleContentTypeChange('text')}
+            <Field className="rounded-2xl border border-border/60 bg-background/80 p-6 shadow-sm">
+              <FieldLabel htmlFor="habitsToDevelop">Habits to Develop (Optional)</FieldLabel>
+              <FieldDescription>
+                Separate multiple habits with commas ({formData.habitsToDevelop.length}/1000 characters)
+              </FieldDescription>
+              <Input
+                id="habitsToDevelop"
+                value={formData.habitsToDevelop}
+                onChange={(e) => handleInputChange('habitsToDevelop', e.target.value)}
                 disabled={isCreatingBlueprint}
-                className={`p-4 border-2 rounded-lg text-left transition-colors duration-200 disabled:opacity-50 ${
-                  formData.contentType === 'text'
-                    ? 'border-blue-500 bg-blue-50 text-blue-900'
-                    : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
-                }`}
+                placeholder="e.g., morning meditation, drinking more water, reading before bed"
+                maxLength={1000}
+              />
+              {errors.habitsToDevelop && <p className="text-sm text-destructive">{errors.habitsToDevelop}</p>}
+            </Field>
+          </FieldGroup>
+
+          <Field className="rounded-2xl border border-border bg-background/90 p-6 shadow-sm">
+            <FieldLabel>Content Source *</FieldLabel>
+            <FieldDescription>Choose what we should analyze to build your blueprint.</FieldDescription>
+            <ToggleGroup
+              type="single"
+              value={formData.contentType}
+              onValueChange={(value) => value && handleContentTypeChange(value as ContentType)}
+              className="grid gap-3 md:grid-cols-2"
+            >
+              <ToggleGroupItem
+                value="youtube"
+                className="flex flex-col items-start gap-2 rounded-2xl border border-border/70 bg-background px-4 py-3 text-left data-[state=on]:border-primary data-[state=on]:bg-primary/5"
+                disabled={isCreatingBlueprint}
               >
-                <div className="flex items-center mb-2">
-                  <span className="text-lg">📝</span>
-                  <span className="ml-2 font-medium">Text Content</span>
+                <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <PlayCircle className="size-4" aria-hidden />
+                  YouTube Video
                 </div>
-                <p className="text-sm text-gray-600">
-                  Paste your own text to analyze
+                <p className="text-xs text-muted-foreground">
+                  Paste a YouTube link and we&apos;ll extract the transcript for you.
                 </p>
-              </button>
-            </div>
+              </ToggleGroupItem>
+              <ToggleGroupItem
+                value="text"
+                className="flex flex-col items-start gap-2 rounded-2xl border border-border/70 bg-background px-4 py-3 text-left data-[state=on]:border-primary data-[state=on]:bg-primary/5"
+                disabled={isCreatingBlueprint}
+              >
+                <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                  <FileText className="size-4" aria-hidden />
+                  Text Content
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Paste any article, notes, or transcript for analysis.
+                </p>
+              </ToggleGroupItem>
+            </ToggleGroup>
+            {errors.contentType && <p className="text-sm text-destructive">{errors.contentType}</p>}
+          </Field>
 
-            {errors.contentType && (
-              <p className="mt-1 text-sm text-red-600">{errors.contentType}</p>
-            )}
-          </div>
-
-          {/* YouTube URL Input */}
           {formData.contentType === 'youtube' && (
-            <div>
-              <label htmlFor="youtubeUrl" className="block text-sm font-medium text-gray-700 mb-2">
-                YouTube URL *
-              </label>
-              <input
-                type="url"
+            <Field className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm">
+              <FieldLabel htmlFor="youtubeUrl">YouTube URL *</FieldLabel>
+              <FieldDescription>
+                Provide the video link you want to convert into actionable steps.
+              </FieldDescription>
+              <Input
                 id="youtubeUrl"
+                type="url"
                 value={formData.youtubeUrl}
                 onChange={(e) => handleInputChange('youtubeUrl', e.target.value)}
                 disabled={isCreatingBlueprint}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-                placeholder="https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID"
+                placeholder="https://www.youtube.com/watch?v=VIDEO_ID"
               />
-              {errors.youtubeUrl && (
-                <p className="mt-1 text-sm text-red-600">{errors.youtubeUrl}</p>
-              )}
-              
+              {errors.youtubeUrl && <p className="text-sm text-destructive">{errors.youtubeUrl}</p>}
               {youtubeValidation.videoId && (
-                <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
-                  <div className="flex items-center">
-                    <span className="text-green-600">✅</span>
-                    <span className="ml-2 text-sm text-green-700">
-                      Video ID detected: {youtubeValidation.videoId}
-                    </span>
-                  </div>
-                </div>
+                <Alert className="mt-3 border-green-200 bg-green-50">
+                  <AlertDescription className="flex items-center gap-2 text-sm text-green-700">
+                    <CheckCircle2 className="size-4" aria-hidden />
+                    Video ID detected: {youtubeValidation.videoId}
+                  </AlertDescription>
+                </Alert>
               )}
-              
-              <p className="mt-1 text-sm text-gray-500">
-                Paste a YouTube video URL. We'll extract the transcript for analysis.
-              </p>
-            </div>
+            </Field>
           )}
 
-          {/* Text Content Input */}
           {formData.contentType === 'text' && (
-            <div>
-              <label htmlFor="textContent" className="block text-sm font-medium text-gray-700 mb-2">
-                Text Content *
-              </label>
-              <textarea
+            <Field className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm">
+              <FieldLabel htmlFor="textContent">Text Content *</FieldLabel>
+              <FieldDescription>
+                Minimum 50 characters required ({formData.textContent.length}/50,000 characters)
+              </FieldDescription>
+              <Textarea
                 id="textContent"
                 value={formData.textContent}
                 onChange={(e) => handleInputChange('textContent', e.target.value)}
                 disabled={isCreatingBlueprint}
-                rows={8}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500 resize-vertical"
-                placeholder="Paste your content here (book excerpt, article, transcript, etc.). Minimum 50 characters required for meaningful analysis."
+                placeholder="Paste your content here (book excerpt, article, transcript, etc.)."
                 maxLength={50000}
               />
-              {errors.textContent && (
-                <p className="mt-1 text-sm text-red-600">{errors.textContent}</p>
-              )}
-              <p className="mt-1 text-sm text-gray-500">
-                Minimum 50 characters required ({formData.textContent.length}/50,000 characters)
-              </p>
-            </div>
+              {errors.textContent && <p className="text-sm text-destructive">{errors.textContent}</p>}
+            </Field>
           )}
+        </FieldSet>
 
-          {/* Blueprint Error */}
-          {blueprintError && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-              {blueprintError}
-            </div>
-          )}
+        {blueprintError && (
+          <Alert variant="destructive" className="border-destructive/30 bg-destructive/10">
+            <AlertTitle>Blueprint request failed</AlertTitle>
+            <AlertDescription>{blueprintError}</AlertDescription>
+          </Alert>
+        )}
 
-          {/* Blueprint Success Message */}
-          {blueprint && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-              🎉 Blueprint created successfully! Scroll down to view your personalized plan.
-            </div>
-          )}
+        {blueprint && (
+          <Alert className="border-primary/20 bg-primary/5">
+            <AlertTitle>Blueprint created</AlertTitle>
+            <AlertDescription>
+              We generated your personalized plan below. Scroll down to review the details.
+            </AlertDescription>
+          </Alert>
+        )}
 
-          {/* Submit Button */}
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={isCreatingBlueprint}
-              className="px-8 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              {isCreatingBlueprint ? (
-                <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white inline mr-2"></div>
-                  Creating Blueprint...
-                </>
-              ) : (
-                'Create Habit Blueprint'
-              )}
-            </button>
+        <div className="flex flex-col gap-4 border border-border/70 bg-background/90 p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-1 text-sm text-muted-foreground">
+            <p className="font-medium text-foreground">Ready to build your blueprint?</p>
+            <p>We&apos;ll analyze your content and return sequential steps, habits, and pitfalls within a minute.</p>
           </div>
-        </form>
+          <Button type="submit" size="lg" disabled={isCreatingBlueprint} className="gap-2 rounded-full px-6">
+            {isCreatingBlueprint ? (
+              <>
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+                Creating Blueprint...
+              </>
+            ) : (
+              'Create Habit Blueprint'
+            )}
+          </Button>
         </div>
-      </div>
+      </form>
 
-      {/* Display Created Blueprint */}
       {blueprint && (
-        <div className="mt-8">
+        <>
+          <Separator className="my-6" />
           <BlueprintDetail blueprint={blueprint} />
-        </div>
+        </>
       )}
-    </>
+    </div>
   )
 }

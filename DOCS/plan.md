@@ -9,13 +9,13 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Get development environment working with auth
 
 ### Deliverables
-- [ ] Initialize Git repository
-- [ ] Create `.env` file with required keys
-- [ ] Configure `.gitignore` (include `.env`, `node_modules`, `dist`)
-- [ ] Install dependencies (@fastify/react, Supabase, @google/generative-ai, TailwindCSS, Shadcn UI)
+- [x] Initialize Git repository
+- [x] Create `.env` file with required keys
+- [x] Configure `.gitignore` (include `.env`, `node_modules`, `dist`)
+- [x] Install dependencies (@fastify/react, Supabase, @google/generative-ai, TailwindCSS, Shadcn UI)
 - [ ] Set up local Supabase (`npx supabase start`)
 - [ ] Run SQL commands to create `habit_blueprints` table
-- [ ] Configure Supabase client in `/lib/supabase.ts`
+- [x] Configure Supabase client in `/lib/supabase.ts`
 - [ ] Verify connection to local Supabase in browser console
 
 ### Success Criteria
@@ -29,15 +29,15 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Users can sign up and log in
 
 ### Deliverables
-- [ ] Create auth UI components (LoginForm, SignupForm)
-- [ ] Implement Supabase email/password auth
-- [ ] Add auth state management (Zustand store for user state)
-- [ ] Create protected route wrapper
-- [ ] Build simple header with logout button
+- [x] Create auth UI components (LoginForm, SignupForm)
+- [x] Implement Supabase email/password auth
+- [x] Add auth state management (Zustand store for user state)
+- [x] Create protected route handling in `App.tsx`
+- [x] Build header with logout button (Navigation component)
 - [ ] Test auth flow: signup → login → logout
 
-### Success Criteria
-- Users can create accounts and log in
+-### Success Criteria
+- Users can create accounts and log in (manual end-to-end verification still pending)
 - Auth state persists across page refreshes
 - Console logs show user ID after login
 
@@ -47,19 +47,19 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Users can input goals and content source
 
 ### Deliverables
-- [ ] Create input form component with fields:
+- [x] Create input form component with fields:
   - Primary goal (text input, required)
   - Habits to kill (optional, comma-separated)
   - Habits to develop (optional, comma-separated)
   - Content source (YouTube URL or text toggle)
-- [ ] Add YouTube URL validation (client-side)
+- [x] Add YouTube URL validation (client-side)
 - [ ] Add video duration warning (> 90 min)
-- [ ] Create text input area (for direct text input)
-- [ ] Add form validation with Zod schemas
+- [x] Create text input area (for direct text input)
+- [x] Add form validation with Zod schemas
 - [ ] Style with TailwindCSS + Shadcn UI components
 
 ### Success Criteria
-- Form validates inputs before submission
+- Form validates inputs before submission (duration warning pending)
 - YouTube URLs parse correctly
 - User sees helpful error messages
 
@@ -69,16 +69,16 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Extract transcripts from YouTube videos
 
 ### Deliverables
-- [ ] Create transcript service using Supadata.ai REST API (no npm package needed)
-- [ ] Create API route `/api/transcript` in Fastify
-- [ ] Implement transcript fetching logic with HTTP requests to Supadata
-- [ ] Handle errors (video unavailable, no transcript)
-- [ ] Add loading state in UI
-- [ ] Log transcript length to console
-- [ ] Return transcript to frontend
+- [x] Create transcript service using Supadata.ai REST API (no npm package needed)
+- [ ] Create API route `/api/transcript` in Fastify (route file exists; needs registration in `server.ts`)
+- [x] Implement transcript fetching logic with HTTP requests to Supadata
+- [x] Handle errors (video unavailable, no transcript)
+- [x] Add loading state in UI
+- [x] Log transcript length to console
+- [x] Return transcript to frontend (currently through the blueprint pipeline)
 
 ### Success Criteria
-- YouTube videos return transcripts
+- YouTube videos return transcripts (dedicated `/api/transcript` endpoint registration still outstanding)
 - Errors display user-friendly messages
 - Loading indicator shows during fetch
 
@@ -88,15 +88,15 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Generate complete blueprint from content + goals
 
 ### Deliverables
-- [ ] Configure Gemini AI client with API key from .env
-- [ ] Create API route /api/generate-blueprint in Fastify
-- [ ] Design AI prompt with two required outputs:
+- [ ] Configure Gemini AI SDK wrapper in `src/lib/gemini.ts` (current implementation uses direct fetch in route)
+- [x] Create API route for blueprint generation (currently `/api/create-blueprint`)
+- [x] Design AI prompt with two required outputs:
   1. **Overview**: Single cohesive text containing:
      - Summary of key insights (2-3 sentences)
      - Mistakes to avoid (2-4 common pitfalls)
      - Guidance for success (2-4 strategic tips)
   2. **Habits**: Array of 3-5 specific, sequential action steps
-- [ ] Prompt includes: user goal, habits to kill, habits to develop, transcript/text
+- [x] Prompt includes: user goal, habits to kill, habits to develop, transcript/text
 - [ ] Implement Gemini API call (gemini-2.5-flash model)
 - [ ] Parse AI response and validate JSON structure
 - [ ] Handle AI errors (timeout, rate limit, invalid response)
@@ -138,7 +138,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 - AI generates both sections (overview + habits)
 - Overview is cohesive and contains insights, mistakes, and guidance
 - Habits are specific and actionable (3-5 steps)
-- Response structure is consistent JSON
+- Response structure is consistent JSON (current handler still normalizing Gemini fetch output)
 
 ---
 
@@ -146,17 +146,17 @@ Make habits specific, sequential, and directly related to the user's goal.
 **Goal**: Store complete blueprints in Supabase
 
 ### Deliverables
-- [ ] Create Supabase insert function in `/api/save-blueprint`
-- [ ] Map form data + complete AI output to `habit_blueprints` schema
-- [ ] Store entire AI response (summary, mistakes, guidance, steps) in `ai_output` JSONB field
-- [ ] Handle database errors
-- [ ] Return success/failure to frontend
+- [x] Create Supabase insert helper (`saveBlueprintToDatabase` in `src/lib/database.ts`)
+- [x] Map form data + complete AI output to `habit_blueprints` schema
+- [x] Store entire AI response (summary, mistakes, guidance, steps) in `ai_output` JSONB field
+- [x] Handle database errors
+- [x] Return success/failure to frontend
 - [ ] Test RLS policies (verify users only see own data)
-- [ ] Log database operations to console
+- [x] Log database operations to console
 
 ### Success Criteria
 - Complete blueprints save to database (all four AI sections)
-- Users can only see their own blueprints
+- Users can only see their own blueprints (RLS verification outstanding)
 - Database errors handled gracefully
 
 ---
@@ -165,7 +165,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 **Goal**: Show past blueprints to logged-in users
 
 ### Deliverables
-- [ ] Create history page component
+- [ ] Create history page component (placeholder exists; needs Supabase data wiring)
 - [ ] Fetch blueprints from Supabase (`SELECT * FROM habit_blueprints WHERE user_id = ...`)
 - [ ] Display blueprints in card format:
   - Goal
@@ -178,7 +178,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 - [ ] Style with TailwindCSS
 
 ### Success Criteria
-- History page loads user's past blueprints
+- History page loads user's past blueprints (current page is static placeholder)
 - Overview displays with proper formatting (paragraph breaks)
 - Habits display in clean, numbered list format
 - Most recent blueprints appear first
@@ -191,14 +191,14 @@ Make habits specific, sequential, and directly related to the user's goal.
 
 ### Deliverables
 - [ ] Connect all phases: login → input → generate → save → history
-- [ ] Add navigation between pages
+- [x] Add navigation between pages (Navigation component + RouterContext)
 - [ ] Implement loading states throughout flow
 - [ ] Test complete flow with sample data
 - [ ] Fix any discovered bugs
 - [ ] Verify console logs show no errors
 
 ### Success Criteria
-- User can complete full flow without errors
+- User can complete full flow without errors (blocked by pending Supabase integration on history page)
 - Complete data (summary, mistakes, guidance, steps) persists correctly
 - UI feels responsive (loading indicators work)
 
@@ -228,12 +228,12 @@ Make habits specific, sequential, and directly related to the user's goal.
    - [ ] Establish AppShell layout and enhanced Header with navigation
 
 2. **Page Development**
-   - [ ] Landing Page - Hero, value props, how it works, FAQ
-   - [ ] Enhanced Dashboard - Welcome + stats + form + analytics cards below form
+   - [ ] Landing Page - Hero, value props, how it works, FAQ (initial content live; needs polishing + responsiveness passes)
+   - [ ] Enhanced Dashboard - Welcome + stats + form + analytics cards below form (baseline UI in place with static metrics)
    - [ ] Dedicated History Page - Search, filter, sort, pagination
    - [ ] Blueprint Detail Page - Expandable sections with smooth animations
    - [ ] Profile/Settings Page - Account, usage stats, data management (blueprint only)
-   - [ ] Login Page modernization
+   - [ ] Login Page modernization (current version functional but utilitarian)
    - [ ] Support pages (404, error states, loading states)
 
 3. **Dashboard Analytics Cards** (Below blueprint form)
@@ -252,6 +252,8 @@ Make habits specific, sequential, and directly related to the user's goal.
    - [ ] Visual hierarchy (section headings, separators, color accents)
    - [ ] Mobile responsiveness (iPhone SE + Android widths)
 
+> Many components already include disabled/loading states and inline error messaging; keep this checklist to track remaining polish gaps.
+
 5. **TypeScript & Data Integration**
    - [ ] Strict types, no `any`, align UI with DOCS/SCHEMA.md
    - [ ] Data hooks (useAnalytics, useBlueprints) with try-catch
@@ -267,7 +269,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 
 ### Success Criteria
 - UI looks polished and professional
-- App is mobile-responsive with no visual glitches
+- App is mobile-responsive with no visual glitches (current pages need additional responsive QA)
 - Clear visual distinction between blueprint sections
 - Smooth transitions for expandable sections
 - All 6 pages functional with proper navigation

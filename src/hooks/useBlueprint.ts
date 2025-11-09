@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import type { BlueprintFormData, AIBlueprint } from '../types/blueprint'
+import { supabase } from '../lib/supabase'
 
 interface BlueprintState {
   isLoading: boolean
@@ -30,11 +31,28 @@ export const useBlueprint = (): UseBlueprintReturn => {
     try {
       console.log('[useBlueprint] Starting blueprint creation for:', formData.goal)
 
+      // Ensure the user is authenticated before calling the backend
+      const {
+        data: { session },
+        error: sessionError
+      } = await supabase.auth.getSession()
+
+      if (sessionError || !session?.access_token) {
+        console.error('[useBlueprint] Missing auth session for blueprint creation', sessionError)
+        setState(prev => ({
+          ...prev,
+          isLoading: false,
+          error: 'Authentication required. Please log in.'
+        }))
+        return false
+      }
+
       // Call single blueprint creation endpoint
       const response = await fetch('/api/create-blueprint', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`
         },
         body: JSON.stringify(formData)
       })

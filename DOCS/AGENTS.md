@@ -3,7 +3,7 @@
 ## Code Style & Formatting
 
 ### TypeScript
-- **Strict TypeScript**: Use TypeScript throughout, avoid `any` types  
+- **Strict TypeScript**: Client build (`tsconfig.json`) runs in `strict` mode; server build (`tsconfig.server.json`) is temporarily relaxed—avoid introducing new `any` usages without justification  
 - **Type definitions**: Create interfaces for all data structures  
 - **Explicit returns**: Always specify function return types  
 
@@ -20,17 +20,18 @@
 - **Utilities**: camelCase (e.g., `formatDate.ts`)  
 - **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_VIDEO_DURATION`)  
 - **Types/Interfaces**: PascalCase with descriptive names (e.g., `Blueprint`, `UserGoal`)  
+- **Imports**: Prefer relative paths; the `@` alias to `src/` exists but should remain unused to keep parity with production builds  
 
 ## File Length & Organization
-- **Maximum file length**: 300 lines per file  
-- **Component files**: Keep under 200 lines — split into smaller components if needed  
-- **API route files**: One route per file, max 150 lines  
-- **Utility files**: Group related functions, max 250 lines  
+- **Maximum file length**: Target ≤300 lines per file  
+- **Component files**: Aim for ≤200 lines — current Landing/Dashboard exceed and must be refactored into smaller pieces  
+- **API route files**: One route per file, target ≤150 lines  
+- **Utility files**: Group related functions, target ≤250 lines  
 
 ## Security Requirements
 
 ### Environment Variables
-- **Never commit**: Add `.env` to `.gitignore` immediately  
+- **Never commit**: `.env`, `.env.local`, `.env.production` stay local  
 - **Naming**: Use descriptive UPPER_SNAKE_CASE (e.g., `GOOGLE_AI_API_KEY`)  
 - **Required variables**:  
 SUPABASE_URL=  
@@ -114,14 +115,16 @@ async function generateBlueprint(transcript: string, userGoal: string) { ... }
 ## Testing & Development
 
 ### Local Testing
+- **Full stack**: `npm run dev` performs a one-time Vite client build then watches the Fastify server via `tsx`  
+- **Client only**: `npm run dev:client` starts Vite on `http://localhost:5173` (proxies API requests to Fastify `http://localhost:3001`)  
 - **Supabase local**: Always test with `npx supabase start` before deploying  
 - **Console verification**: Check browser console for errors during testing  
 - **Test data**: Use sample YouTube videos (< 30 min) for quick iteration  
 
 ### Before Committing
-- **TypeScript check**: Ensure no TypeScript errors  
+- **TypeScript check**: Ensure no TypeScript errors (`npm run build` must succeed)  
 - **Console cleanup**: Remove debug logs (keep error logs)  
-- **Env variables**: Verify `.env` not tracked in git  
+- **Env variables**: Verify `.env*` not tracked in git  
 
 ## Performance Considerations
 
