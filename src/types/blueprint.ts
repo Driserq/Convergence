@@ -4,8 +4,6 @@ export type ContentType = 'youtube' | 'text'
 // Input form data types
 export interface BlueprintFormData {
   goal: string
-  habitsToKill: string
-  habitsToDevelop: string
   contentType: ContentType
   youtubeUrl: string
   textContent: string
@@ -100,8 +98,6 @@ export interface Blueprint {
   id: string
   user_id: string
   goal: string
-  habits_to_kill: string[] | null
-  habits_to_develop: string[] | null
   content_source: string // YouTube URL or "Text Input"
   content_type: ContentType
   ai_output: AIBlueprint
@@ -125,8 +121,6 @@ export interface SavedBlueprintResponse {
 // Form validation errors
 export interface FormErrors {
   goal?: string
-  habitsToKill?: string
-  habitsToDevelop?: string
   youtubeUrl?: string
   textContent?: string
   contentType?: string

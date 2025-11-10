@@ -9,7 +9,6 @@ import { Button } from '../ui/button'
 import {
   Field,
   FieldDescription,
-  FieldGroup,
   FieldLabel,
   FieldSet
 } from '../ui/field'
@@ -26,8 +25,6 @@ interface BlueprintFormProps {
 export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
   const [formData, setFormData] = useState<BlueprintFormData>({
     goal: '',
-    habitsToKill: '',
-    habitsToDevelop: '',
     contentType: 'youtube',
     youtubeUrl: '',
     textContent: ''
@@ -176,41 +173,6 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
             />
             {errors.goal && <p className="text-sm text-destructive">{errors.goal}</p>}
           </Field>
-
-          <FieldGroup>
-            <Field className="rounded-2xl border border-border/60 bg-background/80 p-6 shadow-sm">
-              <FieldLabel htmlFor="habitsToKill">Habits to Eliminate (Optional)</FieldLabel>
-              <FieldDescription>
-                Separate multiple habits with commas ({formData.habitsToKill.length}/1000 characters)
-              </FieldDescription>
-              <Input
-                id="habitsToKill"
-                value={formData.habitsToKill}
-                onChange={(e) => handleInputChange('habitsToKill', e.target.value)}
-                disabled={isCreatingBlueprint}
-                placeholder="e.g., staying up late, checking phone first thing, drinking too much coffee"
-                maxLength={1000}
-              />
-              {errors.habitsToKill && <p className="text-sm text-destructive">{errors.habitsToKill}</p>}
-            </Field>
-
-            <Field className="rounded-2xl border border-border/60 bg-background/80 p-6 shadow-sm">
-              <FieldLabel htmlFor="habitsToDevelop">Habits to Develop (Optional)</FieldLabel>
-              <FieldDescription>
-                Separate multiple habits with commas ({formData.habitsToDevelop.length}/1000 characters)
-              </FieldDescription>
-              <Input
-                id="habitsToDevelop"
-                value={formData.habitsToDevelop}
-                onChange={(e) => handleInputChange('habitsToDevelop', e.target.value)}
-                disabled={isCreatingBlueprint}
-                placeholder="e.g., morning meditation, drinking more water, reading before bed"
-                maxLength={1000}
-              />
-              {errors.habitsToDevelop && <p className="text-sm text-destructive">{errors.habitsToDevelop}</p>}
-            </Field>
-          </FieldGroup>
-
           <Field className="rounded-2xl border border-border bg-background/90 p-6 shadow-sm">
             <FieldLabel>Content Source *</FieldLabel>
             <FieldDescription>Choose what we should analyze to build your blueprint.</FieldDescription>
@@ -222,7 +184,7 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
             >
               <ToggleGroupItem
                 value="youtube"
-                className="flex flex-col items-start gap-2 rounded-2xl border border-border/70 bg-background px-4 py-3 text-left data-[state=on]:border-primary data-[state=on]:bg-primary/5"
+                className="flex min-h-[5.5rem] flex-col items-start gap-2 rounded-2xl border border-border/70 bg-background px-4 py-5 text-left data-[state=on]:border-primary data-[state=on]:bg-primary/5"
                 disabled={isCreatingBlueprint}
               >
                 <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
@@ -235,7 +197,7 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
               </ToggleGroupItem>
               <ToggleGroupItem
                 value="text"
-                className="flex flex-col items-start gap-2 rounded-2xl border border-border/70 bg-background px-4 py-3 text-left data-[state=on]:border-primary data-[state=on]:bg-primary/5"
+                className="flex min-h-[5.5rem] flex-col items-start gap-2 rounded-2xl border border-border/70 bg-background px-4 py-5 text-left data-[state=on]:border-primary data-[state=on]:bg-primary/5"
                 disabled={isCreatingBlueprint}
               >
                 <div className="flex items-center gap-2 text-sm font-semibold text-foreground">

@@ -50,20 +50,6 @@ export const blueprintFormSchema = z.object({
     .max(500, 'Goal should be less than 500 characters')
     .trim(),
 
-  // Habits to kill (optional, comma-separated)
-  habitsToKill: z
-    .string()
-    .max(1000, 'Habits to kill should be less than 1000 characters')
-    .optional()
-    .default(''),
-
-  // Habits to develop (optional, comma-separated)  
-  habitsToDevelop: z
-    .string()
-    .max(1000, 'Habits to develop should be less than 1000 characters')
-    .optional()
-    .default(''),
-
   // Content type selection
   contentType: contentTypeSchema,
 
@@ -135,16 +121,4 @@ export const validateTextContent = (text: string): { isValid: boolean; error?: s
   }
 
   return { isValid: true }
-}
-
-// Helper to parse comma-separated habits
-export const parseHabits = (habitString: string): string[] => {
-  if (!habitString || habitString.trim() === '') {
-    return []
-  }
-  
-  return habitString
-    .split(',')
-    .map(habit => habit.trim())
-    .filter(habit => habit.length > 0)
 }

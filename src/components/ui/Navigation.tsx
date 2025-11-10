@@ -15,10 +15,15 @@ import { Avatar, AvatarFallback } from './avatar'
 export const Navigation: React.FC = () => {
   const { user, logout } = useAuth()
   const { navigate } = useRouter()
+  const headerClasses = 'sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60'
+
+  const containerClasses = 'relative z-10 mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6 lg:px-8'
+
+  const mobileNavClasses = 'relative z-10 flex w-full items-center justify-center gap-4 px-4 pb-4 text-sm font-semibold md:hidden'
 
   const handleLogout = async () => {
     await logout()
-    navigate('/')
+    navigate('landing')
   }
 
   // Get user initials for avatar
@@ -28,103 +33,95 @@ export const Navigation: React.FC = () => {
   }
 
   return (
-    <header className="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo/Brand */}
-          <div className="flex items-center">
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="text-xl font-bold text-white hover:text-gray-300 transition-colors"
-            >
-              Convergence
-            </button>
-          </div>
+    <header className={headerClasses}>
+      <div className={containerClasses}>
+        <button
+          onClick={() => navigate('landing')}
+          className="text-xl font-bold text-foreground transition-colors hover:text-primary"
+        >
+          Convergence
+        </button>
 
-          {/* Main Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
-            >
-              Dashboard
-            </button>
-            <button
-              onClick={() => navigate('/history')}
-              className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
-            >
-              History
-            </button>
-          </nav>
-
-          {/* User Menu */}
-          <div className="flex items-center">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                  <Avatar className="h-10 w-10">
-                    <AvatarFallback className="bg-gray-700 text-white">
-                      {getUserInitials()}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 bg-gray-800 border-gray-700 text-white" align="end">
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">Account</p>
-                    <p className="text-xs leading-none text-gray-400">
-                      {user?.email || 'user@example.com'}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-gray-700" />
-                <DropdownMenuItem
-                  onClick={() => navigate('/profile')}
-                  className="cursor-pointer hover:bg-gray-700 focus:bg-gray-700"
-                >
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => navigate('/dashboard')}
-                  className="cursor-pointer hover:bg-gray-700 focus:bg-gray-700"
-                >
-                  Dashboard
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => navigate('/history')}
-                  className="cursor-pointer hover:bg-gray-700 focus:bg-gray-700"
-                >
-                  History
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-gray-700" />
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="cursor-pointer hover:bg-gray-700 focus:bg-gray-700 text-red-400"
-                >
-                  Log out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <nav className="md:hidden pb-4 space-y-1">
+        <nav className="hidden flex-1 items-center justify-center gap-6 text-sm font-semibold md:flex">
           <button
-            onClick={() => navigate('/dashboard')}
-            className="block w-full text-left text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
+            onClick={() => navigate('dashboard')}
+            className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Dashboard
           </button>
           <button
-            onClick={() => navigate('/history')}
-            className="block w-full text-left text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
+            onClick={() => navigate('history')}
+            className="text-muted-foreground transition-colors hover:text-foreground"
           >
             History
           </button>
         </nav>
+
+        <div className="flex items-center gap-3">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                <Avatar className="h-10 w-10">
+                  <AvatarFallback className="bg-primary/10 text-primary">
+                    {getUserInitials()}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 border border-border/60 bg-card text-foreground" align="end">
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">Account</p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {user?.email || 'user@example.com'}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem
+                onClick={() => navigate('profile')}
+                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
+              >
+                Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigate('dashboard')}
+                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
+              >
+                Dashboard
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigate('history')}
+                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
+              >
+                History
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem
+                onClick={handleLogout}
+                className="cursor-pointer text-destructive transition-colors hover:bg-muted/40 focus:bg-muted/40"
+              >
+                Log out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
+
+      <nav className={mobileNavClasses}>
+        <button
+          onClick={() => navigate('dashboard')}
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Dashboard
+        </button>
+        <button
+          onClick={() => navigate('history')}
+          className="text-muted-foreground transition-colors hover:text-foreground"
+        >
+          History
+        </button>
+      </nav>
     </header>
   )
 }

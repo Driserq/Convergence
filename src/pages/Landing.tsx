@@ -2,6 +2,7 @@ import React from 'react'
 import { ArrowRight, CheckCircle2, Quote, Sparkles } from 'lucide-react'
 
 import { useRouter } from '../contexts/RouterContext'
+import { useAuth } from '../hooks/useAuth'
 import { Button } from '../components/ui/button'
 import { Badge } from '../components/ui/badge'
 import {
@@ -18,6 +19,14 @@ import {
   AccordionTrigger
 } from '../components/ui/accordion'
 import { Separator } from '../components/ui/separator'
+
+const SECTION_LINKS = [
+  { label: 'Overview', target: 'hero' },
+  { label: 'Pain Points', target: 'pain-points' },
+  { label: 'Outcomes', target: 'outcomes' },
+  { label: 'How It Works', target: 'how-it-works' },
+  { label: 'FAQ', target: 'faq' }
+]
 
 const HERO_BULLETS = [
   'Extract actionable steps from any YouTube video or text—no more "just be aware" advice',
@@ -94,10 +103,73 @@ const FAQS = [
 
 export const Landing: React.FC = () => {
   const { navigate } = useRouter()
+  const { user } = useAuth()
+
+  const handleSectionScroll = (target: string) => {
+    if (typeof window === 'undefined') return
+    const element = document.getElementById(target)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
+  const handleAuthNavigation = () => {
+    if (user) {
+      navigate('dashboard')
+    } else {
+      navigate('login')
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <section className="bg-gradient-to-b from-background via-background to-background/90 py-28 md:py-32">
+      <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur">
+        <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+          <button
+            onClick={() => handleSectionScroll('hero')}
+            className="text-xl font-bold text-foreground transition-colors hover:text-primary"
+          >
+            Convergence
+          </button>
+          <nav className="hidden flex-1 items-center justify-center gap-6 text-sm font-semibold md:flex">
+            {SECTION_LINKS.map((link) => (
+              <button
+                key={link.target}
+                onClick={() => handleSectionScroll(link.target)}
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {link.label}
+              </button>
+            ))}
+          </nav>
+          <div className="flex items-center gap-3">
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={handleAuthNavigation}
+              className="rounded-full px-4"
+            >
+              {user ? 'Go to Dashboard' : 'Log In'}
+            </Button>
+          </div>
+        </div>
+        <nav className="flex w-full items-center justify-center gap-4 px-4 pb-4 text-sm font-semibold md:hidden">
+          {SECTION_LINKS.map((link) => (
+            <button
+              key={link.target}
+              onClick={() => handleSectionScroll(link.target)}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {link.label}
+            </button>
+          ))}
+        </nav>
+      </header>
+
+      <section
+        id="hero"
+        className="scroll-mt-24 bg-gradient-to-b from-background via-background to-background/90 py-28 md:py-32"
+      >
         <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 text-center sm:px-6 lg:px-8">
           <div className="space-y-6">
             <h1 className="text-balance text-4xl font-bold tracking-tight md:text-6xl">
@@ -122,19 +194,23 @@ export const Landing: React.FC = () => {
             <Button
               size="lg"
               className="gap-2 rounded-full px-8 py-6 text-base font-semibold md:text-lg"
-              onClick={() => navigate('/login')}
+              onClick={handleAuthNavigation}
             >
               Create Your First Blueprint (Free)
               <ArrowRight aria-hidden className="size-5" />
             </Button>
-            <Button variant="link" asChild className="text-base">
-              <a href="#how-it-works">See how it works</a>
+            <Button
+              variant="link"
+              className="text-base"
+              onClick={() => handleSectionScroll('how-it-works')}
+            >
+              See how it works
             </Button>
           </div>
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section id="pain-points" className="scroll-mt-24 bg-background py-20">
         <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
           <div className="space-y-4 text-center">
             <Badge variant="secondary" className="mx-auto w-fit gap-2 px-4 py-1 text-sm">
@@ -190,7 +266,7 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      <section className="border-y border-border bg-card py-20">
+      <section id="outcomes" className="scroll-mt-24 border-y border-border bg-card py-20">
         <div className="mx-auto flex max-w-6xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
           <div className="space-y-4 text-center">
             <Badge variant="secondary" className="mx-auto w-fit gap-2 px-4 py-1 text-sm">
@@ -224,7 +300,7 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      <section className="bg-background py-20" id="how-it-works">
+      <section id="how-it-works" className="scroll-mt-24 bg-background py-20">
         <div className="mx-auto flex max-w-6xl flex-col gap-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Badge variant="secondary" className="mx-auto mb-4 w-fit gap-2 px-4 py-1 text-sm">
@@ -308,7 +384,7 @@ export const Landing: React.FC = () => {
                   <Button
                     size="lg"
                     className="gap-2 rounded-full px-8 py-6 text-base font-semibold md:text-lg"
-                    onClick={() => navigate('/login')}
+                    onClick={handleAuthNavigation}
                   >
                     Create Your First Blueprint (Free)
                     <ArrowRight aria-hidden className="size-5" />
@@ -324,7 +400,7 @@ export const Landing: React.FC = () => {
         </div>
       </section>
 
-      <section className="border-t border-border bg-card py-20">
+      <section id="faq" className="scroll-mt-24 border-t border-border bg-card py-20">
         <div className="mx-auto max-w-3xl space-y-10 px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Badge variant="secondary" className="mx-auto mb-4 w-fit gap-2 px-4 py-1 text-sm">

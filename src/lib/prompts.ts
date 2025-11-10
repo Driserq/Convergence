@@ -144,11 +144,7 @@ export function buildBlueprintPrompt(
   formData: BlueprintFormData,
   content: string
 ): string {
-  const userContext = [
-    `User Goal: ${formData.goal}`,
-    formData.habitsToKill ? `Habits to Eliminate: ${formData.habitsToKill}` : null,
-    formData.habitsToDevelop ? `Habits to Develop: ${formData.habitsToDevelop}` : null
-  ].filter(Boolean).join('\n')
+  const userContext = `User Goal: ${formData.goal}`
 
   return [
     BLUEPRINT_PROMPT_CONFIG.systemRole,

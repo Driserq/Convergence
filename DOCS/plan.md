@@ -36,7 +36,7 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 - [x] Build header with logout button (Navigation component)
 - [ ] Test auth flow: signup → login → logout
 
--### Success Criteria
+### Success Criteria
 - Users can create accounts and log in (manual end-to-end verification still pending)
 - Auth state persists across page refreshes
 - Console logs show user ID after login
@@ -47,7 +47,7 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 **Goal**: Users can input goals and content source
 
 ### Deliverables
-- [x] Create input form component with fields:
+- [ ] Create input form component with fields:
   - Primary goal (text input, required)
   - Habits to kill (optional, comma-separated)
   - Habits to develop (optional, comma-separated)
@@ -56,7 +56,7 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
 - [ ] Add video duration warning (> 90 min)
 - [x] Create text input area (for direct text input)
 - [x] Add form validation with Zod schemas
-- [ ] Style with TailwindCSS + Shadcn UI components
+- [x] Style with TailwindCSS + Shadcn UI components
 
 ### Success Criteria
 - Form validates inputs before submission (duration warning pending)
@@ -97,10 +97,10 @@ Build order prioritizes functionality over polish. Supabase auth integrated from
      - Guidance for success (2-4 strategic tips)
   2. **Habits**: Array of 3-5 specific, sequential action steps
 - [x] Prompt includes: user goal, habits to kill, habits to develop, transcript/text
-- [ ] Implement Gemini API call (gemini-2.5-flash model)
-- [ ] Parse AI response and validate JSON structure
-- [ ] Handle AI errors (timeout, rate limit, invalid response)
-- [ ] Return complete structured blueprint to frontend
+- [x] Implement Gemini API call (Gemini 2.x model via REST)
+- [x] Parse AI response and validate JSON structure
+- [x] Handle AI errors (timeout, rate limit, invalid response)
+- [x] Return complete structured blueprint to frontend
 
 ### AI Prompt Structure Example:
 You are a habit formation expert. Analyze this content and create a personalized habit blueprint.
@@ -165,20 +165,20 @@ Make habits specific, sequential, and directly related to the user's goal.
 **Goal**: Show past blueprints to logged-in users
 
 ### Deliverables
-- [ ] Create history page component (placeholder exists; needs Supabase data wiring)
-- [ ] Fetch blueprints from Supabase (`SELECT * FROM habit_blueprints WHERE user_id = ...`)
-- [ ] Display blueprints in card format:
+- [x] Create history page component (placeholder exists; needs Supabase data wiring)
+- [x] Fetch blueprints from Supabase (`SELECT * FROM habit_blueprints WHERE user_id = ...`)
+- [x] Display blueprints in card format:
   - Goal
   - Timestamp
   - Content source
   - Overview (visible by default, formatted with line breaks)
   - Habits to Implement (expandable section with list)
-- [ ] Add sorting (most recent first)
-- [ ] Add empty state (no blueprints yet)
-- [ ] Style with TailwindCSS
+- [x] Add sorting (most recent first)
+- [x] Add empty state (no blueprints yet)
+- [x] Style with TailwindCSS
 
 ### Success Criteria
-- History page loads user's past blueprints (current page is static placeholder)
+- History page loads user's past blueprints via Supabase queries
 - Overview displays with proper formatting (paragraph breaks)
 - Habits display in clean, numbered list format
 - Most recent blueprints appear first
@@ -190,7 +190,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 **Goal**: Complete user journey works seamlessly
 
 ### Deliverables
-- [ ] Connect all phases: login → input → generate → save → history
+- [ ] Connect all phases: login → input → generate → save → history (blocked by pending Supabase verification)
 - [x] Add navigation between pages (Navigation component + RouterContext)
 - [ ] Implement loading states throughout flow
 - [ ] Test complete flow with sample data
@@ -198,7 +198,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 - [ ] Verify console logs show no errors
 
 ### Success Criteria
-- User can complete full flow without errors (blocked by pending Supabase integration on history page)
+- User can complete full flow without errors (blocked by pending Supabase verification/RLS setup)
 - Complete data (summary, mistakes, guidance, steps) persists correctly
 - UI feels responsive (loading indicators work)
 
@@ -230,7 +230,7 @@ Make habits specific, sequential, and directly related to the user's goal.
 2. **Page Development**
    - [ ] Landing Page - Hero, value props, how it works, FAQ (initial content live; needs polishing + responsiveness passes)
    - [ ] Enhanced Dashboard - Welcome + stats + form + analytics cards below form (baseline UI in place with static metrics)
-   - [ ] Dedicated History Page - Search, filter, sort, pagination
+   - [x] Dedicated History Page - Search, filter, sort, pagination
    - [ ] Blueprint Detail Page - Expandable sections with smooth animations
    - [ ] Profile/Settings Page - Account, usage stats, data management (blueprint only)
    - [ ] Login Page modernization (current version functional but utilitarian)

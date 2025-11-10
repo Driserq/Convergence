@@ -1,7 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { Navigation } from './components/ui/Navigation'
 import { RouterProvider } from './contexts/RouterContext'
+import {
+  isProtectedRoute,
+  resolveRoute,
+  routeDictionary,
+  type RouteArgs,
+  type NavigateFn,
+  type RouteMatch,
+  type RouteName,
+} from './routes/map'
 
 // Import all pages
 import { Landing } from './pages/Landing'
@@ -56,25 +65,31 @@ const getBrowserDocument = (): BrowserDocument | undefined => {
 
 export const App: React.FC = () => {
   const { user, loading, initialize } = useAuth()
-  const [currentPath, setCurrentPath] = useState(() => {
+  const [currentRoute, setCurrentRoute] = useState<RouteMatch>(() => {
     const win = getBrowserWindow()
-    return win?.location.pathname ?? '/'
+    const initialPath = win?.location.pathname ?? '/'
+    return resolveRoute(initialPath)
   })
 
-  const navigate = useCallback((path: string) => {
-    setCurrentPath(prev => {
-      if (path === prev) {
+  const applyRoute = useCallback((path: string, shouldPush: boolean) => {
+    setCurrentRoute(prev => {
+      if (path === prev.path) {
         return prev
       }
-
-      const win = getBrowserWindow()
-      if (win) {
-        win.history.pushState({}, '', path)
+      const nextRoute = resolveRoute(path)
+      if (shouldPush) {
+        const win = getBrowserWindow()
+        win?.history.pushState({}, '', nextRoute.path)
       }
-
-      return path
+      return nextRoute
     })
   }, [])
+
+  const navigate = useCallback(<Name extends RouteName>(name: Name, ...args: RouteArgs<Name>) => {
+    const record = routeDictionary[name]
+    const path = record.buildPath(...args)
+    applyRoute(path, true)
+  }, [applyRoute]) as NavigateFn
 
   // Initialize auth globally - this ensures we only have one auth listener
   useEffect(() => {
@@ -93,12 +108,12 @@ export const App: React.FC = () => {
     if (!win) return
 
     const handlePopState = () => {
-      setCurrentPath(win.location.pathname)
+      applyRoute(win.location.pathname, false)
     }
 
     win.addEventListener('popstate', handlePopState)
     return () => win.removeEventListener('popstate', handlePopState)
-  }, [])
+  }, [applyRoute])
 
   // Intercept link clicks for client-side navigation
   useEffect(() => {
@@ -140,96 +155,81 @@ export const App: React.FC = () => {
 
       clickEvent.preventDefault?.()
       const path = anchor.href.slice(win.location.origin.length) || '/'
-      navigate(path)
+      applyRoute(path, true)
     }
 
     doc.addEventListener('click', handleLinkClick)
     return () => doc.removeEventListener('click', handleLinkClick)
-  }, [navigate])
+  }, [applyRoute])
 
-  // Show loading state while checking authentication
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        </div>
-        <p className="text-center mt-4 text-gray-600">Loading application...</p>
-      </div>
-    )
-  }
+  useEffect(() => {
+    if (loading) return
+    if (!user && isProtectedRoute(currentRoute.name)) {
+      navigate('login')
+    } else if (user && currentRoute.name === 'login') {
+      navigate('dashboard')
+    }
+  }, [currentRoute.name, loading, navigate, user])
 
-  // Route matching and rendering
-  const renderPage = () => {
-    // Handle blueprint detail routes with ID parameter
-    const blueprintDetailMatch = currentPath.match(/^\/blueprints\/([^\/]+)$/)
-    if (blueprintDetailMatch) {
-      // Protected route
-      if (!user) {
-        navigate('/login')
-        return <Login />
-      }
-      return <BlueprintDetail />
+  const renderRoute = () => {
+    if (!user && isProtectedRoute(currentRoute.name)) {
+      return <Login />
     }
 
-    switch (currentPath) {
-      case '/':
-        // Always show Landing page at root
+    if (user && currentRoute.name === 'login') {
+      return <Dashboard />
+    }
+
+    switch (currentRoute.name) {
+      case 'landing':
         return <Landing />
-      
-      case '/login':
-        // If already logged in, redirect to dashboard
-        if (user) {
-          navigate('/dashboard')
-          return <Dashboard />
-        }
+      case 'login':
         return <Login />
-      
-      case '/dashboard':
-        // Protected: require login
-        if (!user) {
-          navigate('/login')
-          return <Login />
-        }
+      case 'dashboard':
         return <Dashboard />
-      
-      case '/history':
-      case '/blueprints':
-        // Protected: require login
-        if (!user) {
-          navigate('/login')
-          return <Login />
-        }
+      case 'history':
+      case 'blueprintsIndex':
         return <History />
-      
-      case '/profile':
-        // Protected: require login
-        if (!user) {
-          navigate('/login')
-          return <Login />
-        }
+      case 'profile':
         return <Profile />
-      
+      case 'blueprintDetail':
+        return <BlueprintDetail />
       default:
         return <NotFound />
     }
   }
 
-  // Check if current page needs navigation (authenticated pages)
-  // Show navigation on all authenticated pages (not Landing or Login)
-  const showNavigation = user && !['/login', '/'].includes(currentPath)
+  const effectiveRouteName: RouteName = useMemo(() => {
+    if (!user && isProtectedRoute(currentRoute.name)) {
+      return 'login'
+    }
+    if (user && currentRoute.name === 'login') {
+      return 'dashboard'
+    }
+    return currentRoute.name
+  }, [currentRoute.name, user])
 
-  // Debug logging
-  console.log('[App] Current path:', currentPath)
+  const showNavigation = Boolean(user) && !['landing', 'login'].includes(effectiveRouteName)
+
+  console.log('[App] Current route:', currentRoute.name)
   console.log('[App] User:', user ? user.email : 'Not logged in')
   console.log('[App] Show navigation:', showNavigation)
 
   return (
-    <RouterProvider navigate={navigate}>
-      <div className="App">
-        {showNavigation && <Navigation />}
-        {renderPage()}
-      </div>
+    <RouterProvider currentRoute={currentRoute} navigate={navigate}>
+      {loading ? (
+        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+          <p className="text-center mt-4 text-gray-600">Loading application...</p>
+        </div>
+      ) : (
+        <div className="App min-h-screen bg-background text-foreground">
+          {showNavigation && <Navigation />}
+          {renderRoute()}
+        </div>
+      )}
     </RouterProvider>
   )
 }

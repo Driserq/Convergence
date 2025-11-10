@@ -1,17 +1,21 @@
 import React, { createContext, useContext } from 'react'
 
+import type { NavigateFn, RouteMatch, RouteName, RouteParams } from '../routes/map'
+
 interface RouterContextValue {
-  navigate: (path: string) => void
+  currentRoute: RouteMatch
+  navigate: NavigateFn
 }
 
 const RouterContext = createContext<RouterContextValue | undefined>(undefined)
 
 export const RouterProvider: React.FC<{
-  navigate: (path: string) => void
+  currentRoute: RouteMatch
+  navigate: NavigateFn
   children: React.ReactNode
-}> = ({ navigate, children }) => {
+}> = ({ currentRoute, navigate, children }) => {
   return (
-    <RouterContext.Provider value={{ navigate }}>
+    <RouterContext.Provider value={{ currentRoute, navigate }}>
       {children}
     </RouterContext.Provider>
   )
@@ -23,4 +27,14 @@ export const useRouter = () => {
     throw new Error('useRouter must be used within RouterProvider')
   }
   return context
+}
+
+export const useRouteMatch = () => {
+  const { currentRoute } = useRouter()
+  return currentRoute
+}
+
+export const useRouteParams = <Name extends RouteName>(): RouteParams<Name> => {
+  const { currentRoute } = useRouter()
+  return currentRoute.params as RouteParams<Name>
 }

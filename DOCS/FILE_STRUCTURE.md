@@ -55,7 +55,7 @@ Convergence/
 
 ### Entry Points
 - `main.tsx`: Hydrates the React app, injects `VITE_*` env vars into `window`, and mounts `<App />`.
-- `App.tsx`: SPA shell providing custom routing (`navigate()` via context), authentication gating, and global layout decisions.
+- `App.tsx`: SPA shell providing custom routing (`navigate()` via context), authentication gating, and global layout decisions. Shared routing helpers and the provider live alongside it in `src/contexts/RouterContext.tsx`.
 - `server.ts`: Fastify bootstrap that loads env vars, registers plugins (CORS, env schema, static serving), mounts API routes, and serves the SPA fallback.
 
 ### Key Directories

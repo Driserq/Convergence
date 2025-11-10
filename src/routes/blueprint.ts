@@ -141,8 +141,6 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           type: 'object',
           properties: {
             goal: { type: 'string' },
-            habitsToKill: { type: 'string' },
-            habitsToDevelop: { type: 'string' },
             contentType: { type: 'string', enum: ['youtube', 'text'] },
             youtubeUrl: { type: 'string' },
             textContent: { type: 'string' }
@@ -484,8 +482,6 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         const saveResult = await saveBlueprintToDatabase({
           userId: user.id,
           goal: formData.goal,
-          habitsToKill: formData.habitsToKill || '',
-          habitsToDevelop: formData.habitsToDevelop || '',
           contentSource: formData.contentType === 'youtube' 
             ? (metadata.url || formData.youtubeUrl) 
             : 'Text Input',

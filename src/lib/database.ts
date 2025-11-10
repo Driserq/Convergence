@@ -22,8 +22,6 @@ export const getServiceClient = () => {
 interface SaveBlueprintParams {
   userId: string
   goal: string
-  habitsToKill: string  // Comma-separated string
-  habitsToDevelop: string  // Comma-separated string
   contentSource: string
   contentType: ContentType
   aiOutput: AIBlueprint
@@ -52,15 +50,6 @@ export async function saveBlueprintToDatabase(
   try {
     console.log('[Database] Saving blueprint for user:', params.userId)
     
-    // Transform comma-separated strings to arrays
-    const habitsToKillArray = params.habitsToKill
-      ? params.habitsToKill.split(',').map(h => h.trim()).filter(Boolean)
-      : null
-    
-    const habitsToDevelopArray = params.habitsToDevelop
-      ? params.habitsToDevelop.split(',').map(h => h.trim()).filter(Boolean)
-      : null
-    
     // Use service role client to bypass RLS
     // This is necessary because we're calling from the server without user session context
     const serviceClient = getServiceClient()
@@ -71,8 +60,6 @@ export async function saveBlueprintToDatabase(
       .insert({
         user_id: params.userId,
         goal: params.goal,
-        habits_to_kill: habitsToKillArray,
-        habits_to_develop: habitsToDevelopArray,
         content_source: params.contentSource,
         content_type: params.contentType,
         ai_output: params.aiOutput as any  // JSONB field accepts any structure

@@ -1,13 +1,10 @@
 import React from 'react'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
-import { Header } from '../components/ui/Header'
 
 export const Profile: React.FC = () => {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-background">
-        <Header />
-        
         <main className="py-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center">
