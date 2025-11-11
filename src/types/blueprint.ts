@@ -84,6 +84,8 @@ export interface LegacyBlueprintOutput {
 // Union type for AI output (handles both old and new formats)
 export type AIBlueprint = AdaptiveBlueprintOutput | LegacyBlueprintOutput
 
+export type BlueprintStatus = 'pending' | 'completed' | 'failed'
+
 // Type guard helper functions for safe type narrowing
 export function isAdaptiveBlueprintOutput(blueprint: AIBlueprint): blueprint is AdaptiveBlueprintOutput {
   return 'sequential_steps' in blueprint || 'daily_habits' in blueprint || 'trigger_actions' in blueprint
@@ -100,8 +102,9 @@ export interface Blueprint {
   goal: string
   content_source: string // YouTube URL or "Text Input"
   content_type: ContentType
-  ai_output: AIBlueprint
+  ai_output: AIBlueprint | null
   created_at: string
+  status: BlueprintStatus
 }
 
 // Saved blueprint response from API (includes database fields)

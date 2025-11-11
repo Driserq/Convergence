@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { Loader2 } from 'lucide-react'
 import type { Blueprint } from '../types/blueprint'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
 import { Navigation } from '../components/ui/Navigation'
@@ -43,9 +44,12 @@ export const HistoryView: React.FC = () => {
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   // Fetch blueprints from Supabase
-  const fetchBlueprints = useCallback(async () => {
+  const fetchBlueprints = useCallback(async (options: { silent?: boolean } = {}) => {
+    const { silent = false } = options
     try {
-      setLoading(true)
+      if (!silent) {
+        setLoading(true)
+      }
       setError(null)
 
       // For search, fetch ALL matching data first (no pagination yet)
@@ -139,7 +143,9 @@ export const HistoryView: React.FC = () => {
       setBlueprints([])
       setTotalCount(0)
     } finally {
-      setLoading(false)
+      if (!silent) {
+        setLoading(false)
+      }
     }
   }, [searchQuery, filterType, sortOrder, currentPage])
 
@@ -173,6 +179,20 @@ export const HistoryView: React.FC = () => {
   }
 
   // Render pagination
+  const hasPendingBlueprints = blueprints.some((bp) => bp.status === 'pending')
+
+  useEffect(() => {
+    if (!hasPendingBlueprints) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      fetchBlueprints({ silent: true })
+    }, 15000)
+
+    return () => clearInterval(interval)
+  }, [hasPendingBlueprints, fetchBlueprints])
+
   const renderPagination = () => {
     if (totalPages <= 1) return null
 
@@ -258,6 +278,13 @@ export const HistoryView: React.FC = () => {
               sortOrder={sortOrder}
               onSortChange={setSortOrder}
             />
+
+            {hasPendingBlueprints && (
+              <div className="mt-4 flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+                Pending blueprints refresh automatically every 15 seconds. Leave this tab open and we&apos;ll update the status for you.
+              </div>
+            )}
 
             {/* Content Area */}
             <div className="mt-6">

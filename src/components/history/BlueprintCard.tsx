@@ -3,7 +3,7 @@ import type { Blueprint } from '../../types/blueprint'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import { Badge } from '../ui/badge'
 import { Button } from '../ui/button'
-import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react'
+import { AlertCircle, ChevronDown, ChevronUp, ExternalLink, Loader2 } from 'lucide-react'
 import { formatDate, parseOverview, getHabitsOrSteps, getOverviewPreview } from './utils'
 
 interface BlueprintCardProps {
@@ -13,27 +13,55 @@ interface BlueprintCardProps {
 
 export function BlueprintCard({ blueprint, onNavigateToDetail }: BlueprintCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const isReady = blueprint.status === 'completed' && !!blueprint.ai_output
+  const isFailed = blueprint.status === 'failed'
   
   const { summary, mistakes, guidance } = parseOverview(blueprint.ai_output)
   const habits = getHabitsOrSteps(blueprint.ai_output)
   const preview = getOverviewPreview(blueprint.ai_output)
 
   const toggleExpand = () => {
+    if (!isReady) return
     setIsExpanded(!isExpanded)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!isReady) return
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       toggleExpand()
     }
   }
 
+  const renderStatusBadge = () => {
+    if (isReady) {
+      return (
+        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+          Ready
+        </Badge>
+      )
+    }
+
+    if (isFailed) {
+      return (
+        <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">
+          Failed
+        </Badge>
+      )
+    }
+
+    return (
+      <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
+        Processing
+      </Badge>
+    )
+  }
+
   return (
     <Card className="mb-4 transition-all duration-200 hover:shadow-md">
       {/* Collapsed Header - Always Visible */}
       <CardHeader
-        className="cursor-pointer pb-4"
+        className={`pb-4 ${isReady ? 'cursor-pointer' : 'cursor-default'}`}
         onClick={toggleExpand}
         onKeyDown={handleKeyDown}
         role="button"
@@ -48,6 +76,7 @@ export function BlueprintCard({ blueprint, onNavigateToDetail }: BlueprintCardPr
               <Badge variant={blueprint.content_type === 'youtube' ? 'default' : 'secondary'}>
                 {blueprint.content_type === 'youtube' ? 'YouTube' : 'Text Input'}
               </Badge>
+              {renderStatusBadge()}
               <h2 className="text-xl font-semibold text-gray-900 line-clamp-1">
                 {blueprint.goal}
               </h2>
@@ -59,16 +88,28 @@ export function BlueprintCard({ blueprint, onNavigateToDetail }: BlueprintCardPr
             </p>
             
             {/* Preview Text (only when collapsed) */}
-            {!isExpanded && (
+            {!isExpanded && isReady && (
               <p className="text-sm text-gray-600 line-clamp-2">
                 {preview}
               </p>
+            )}
+            {!isReady && (
+              <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+                {isFailed ? (
+                  <AlertCircle className="h-4 w-4 text-red-500" aria-hidden />
+                ) : (
+                  <Loader2 className="h-4 w-4 animate-spin text-amber-500" aria-hidden />
+                )}
+                <span>
+                  {isFailed ? 'Processing failed. Please try again.' : 'Processing your blueprint...'}
+                </span>
+              </div>
             )}
           </div>
           
           {/* Toggle Button */}
           <button
-            className="ml-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+            className={`ml-4 p-2 rounded-full transition-colors ${isReady ? 'hover:bg-gray-100' : 'opacity-40 pointer-events-none'}`}
             aria-label={isExpanded ? 'Collapse blueprint' : 'Expand blueprint'}
           >
             {isExpanded ? (
@@ -81,7 +122,7 @@ export function BlueprintCard({ blueprint, onNavigateToDetail }: BlueprintCardPr
       </CardHeader>
 
       {/* Expanded Content */}
-      {isExpanded && (
+      {isExpanded && isReady && (
         <CardContent
           id={`blueprint-content-${blueprint.id}`}
           className="pt-0 space-y-4 animate-in fade-in duration-200"

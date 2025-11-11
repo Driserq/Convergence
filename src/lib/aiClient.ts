@@ -23,6 +23,39 @@ export async function generateBlueprintDraft({ prompt }: GenerateBlueprintOption
     throw new AiRequestError('AI service temporarily unavailable', 503);
   }
 
+  const forcedFailure = process.env.GEMINI_FORCE_FAILURE?.trim().toLowerCase();
+  if (forcedFailure && forcedFailure !== 'off') {
+    if (forcedFailure === 'timeout') {
+      throw new AiRequestError('Forced Gemini timeout for testing', 503, {
+        code: 'ETIMEDOUT',
+        message: 'Forced Gemini timeout for testing'
+      });
+    }
+
+    const maybeStatus = Number.parseInt(forcedFailure, 10);
+    if (!Number.isNaN(maybeStatus)) {
+      const statusCode = maybeStatus;
+      const defaultMessages: Record<number, string> = {
+        400: 'Forced Gemini bad request for testing',
+        401: 'Forced Gemini unauthorized for testing',
+        403: 'Forced Gemini forbidden for testing',
+        404: 'Forced Gemini not found for testing',
+        429: 'Forced Gemini rate limit for testing',
+        500: 'Forced Gemini internal error for testing',
+        502: 'Forced Gemini bad gateway for testing',
+        503: 'Forced Gemini service unavailable for testing'
+      };
+
+      throw new AiRequestError(
+        defaultMessages[statusCode] || 'Forced Gemini failure for testing',
+        statusCode,
+        { code: `FORCED_${statusCode}`, message: 'Forced Gemini failure for testing' }
+      );
+    }
+
+    console.warn('[AIClient] GEMINI_FORCE_FAILURE provided but not recognized:', forcedFailure);
+  }
+
   const requestBody = {
     contents: [{
       parts: [{

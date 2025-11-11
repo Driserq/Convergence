@@ -73,6 +73,9 @@ const registerRoutes = async (): Promise<void> => {
   const transcriptRoutes = await import('./routes/transcript.js')
   await server.register(transcriptRoutes.default)
 
+  const retryWorker = await import('./plugins/geminiRetryWorker.js')
+  await server.register(retryWorker.default)
+
   server.get('/favicon.ico', async (request, reply) => {
     return reply.sendFile('favicon.ico', path.join(__dirname, '..', 'dist', 'client'))
   })

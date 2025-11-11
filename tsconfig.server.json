@@ -15,6 +15,10 @@
     "src/lib/supabase.server.ts",
     "src/lib/gemini.ts",
     "src/lib/transcript.ts",
+    "src/lib/aiErrors.ts",
+    "src/lib/blueprintParser.ts",
+    "src/lib/geminiProcessor.ts",
+    "src/plugins/**/*",
     "src/types/**/*"
   ],
   "exclude": [

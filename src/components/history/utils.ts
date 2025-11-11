@@ -17,8 +17,10 @@ export function formatDate(dateString: string): string {
  * Extract preview text from blueprint overview
  * Returns first 100 characters with fade indication
  */
-export function getOverviewPreview(aiOutput: AIBlueprint): string {
-  if (!aiOutput) return 'No overview available'
+export function getOverviewPreview(aiOutput: AIBlueprint | null): string {
+  if (!aiOutput) {
+    return 'No overview available'
+  }
 
   // Handle structured overview
   if (typeof aiOutput.overview === 'object' && 'summary' in aiOutput.overview) {
@@ -41,11 +43,18 @@ export function getOverviewPreview(aiOutput: AIBlueprint): string {
  * Parse overview from AI output
  * Handles both structured and legacy formats
  */
-export function parseOverview(aiOutput: AIBlueprint): {
+export function parseOverview(aiOutput: AIBlueprint | null): {
   summary: string
   mistakes: string[]
   guidance: string[]
 } {
+  if (!aiOutput) {
+    return {
+      summary: 'No overview available',
+      mistakes: [],
+      guidance: []
+    }
+  }
   // Handle structured overview
   if (typeof aiOutput.overview === 'object' && 'summary' in aiOutput.overview) {
     const overview = aiOutput.overview as OverviewSection
@@ -91,12 +100,15 @@ export function parseOverview(aiOutput: AIBlueprint): {
  * Get habits/steps from AI output
  * Handles both new adaptive formats and legacy habits array
  */
-export function getHabitsOrSteps(aiOutput: AIBlueprint): Array<{
+export function getHabitsOrSteps(aiOutput: AIBlueprint | null): Array<{
   id: number
   title: string
   description: string
   timeframe?: string
 }> {
+  if (!aiOutput) {
+    return []
+  }
   // Check for legacy habits format
   if ('habits' in aiOutput && Array.isArray(aiOutput.habits)) {
     return aiOutput.habits.map(h => ({
@@ -155,9 +167,10 @@ export function getHabitsOrSteps(aiOutput: AIBlueprint): Array<{
  * Search within stringified blueprint data
  * Used for client-side filtering of ai_output JSONB
  */
-export function searchInBlueprint(aiOutput: AIBlueprint, query: string): boolean {
+export function searchInBlueprint(aiOutput: AIBlueprint | null, query: string): boolean {
   if (!query.trim()) return true
-  
+  if (!aiOutput) return false
+
   const searchText = JSON.stringify(aiOutput).toLowerCase()
   return searchText.includes(query.toLowerCase())
 }

@@ -1,6 +1,22 @@
 import { createClient } from '@supabase/supabase-js'
 import type { AIBlueprint, ContentType } from '../types/blueprint'
 
+export interface GeminiRequestData {
+  prompt: string
+  metadata?: Record<string, unknown>
+}
+
+export interface GeminiRetryJob {
+  id: string
+  blueprint_id: string
+  request_data: GeminiRequestData
+  retry_count: number
+  next_retry_at: string
+  error_type: string | null
+  last_error: string | null
+  created_at: string
+}
+
 // Create service role client for server-side operations (bypasses RLS)
 // TODO Phase 8: Remove this and use authenticated user context
 export const getServiceClient = () => {
@@ -24,76 +40,144 @@ interface SaveBlueprintParams {
   goal: string
   contentSource: string
   contentType: ContentType
-  aiOutput: AIBlueprint
 }
 
-interface SaveBlueprintResult {
-  success: boolean
-  data?: {
-    id: string
-    user_id: string
-    goal: string
-    content_source: string
-    content_type: ContentType
-    created_at: string
+export interface PendingBlueprintResult {
+  id: string
+  user_id: string
+  goal: string
+  content_source: string
+  content_type: ContentType
+  status: 'pending'
+  created_at: string
+}
+
+export async function createPendingBlueprint(params: SaveBlueprintParams): Promise<PendingBlueprintResult> {
+  const serviceClient = getServiceClient()
+
+  const { data, error } = await serviceClient
+    .from('habit_blueprints')
+    .insert({
+      user_id: params.userId,
+      goal: params.goal,
+      content_source: params.contentSource,
+      content_type: params.contentType,
+      status: 'pending',
+      ai_output: null
+    })
+    .select('id, user_id, goal, content_source, content_type, status, created_at')
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
   }
-  error?: string
+
+  return data as PendingBlueprintResult
 }
 
-/**
- * Save a blueprint to the database
- * Transforms comma-separated strings to arrays for database storage
- */
-export async function saveBlueprintToDatabase(
-  params: SaveBlueprintParams
-): Promise<SaveBlueprintResult> {
-  try {
-    console.log('[Database] Saving blueprint for user:', params.userId)
-    
-    // Use service role client to bypass RLS
-    // This is necessary because we're calling from the server without user session context
-    const serviceClient = getServiceClient()
-    
-    // Insert blueprint into database
-    const { data, error } = await serviceClient
-      .from('habit_blueprints')
-      .insert({
-        user_id: params.userId,
-        goal: params.goal,
-        content_source: params.contentSource,
-        content_type: params.contentType,
-        ai_output: params.aiOutput as any  // JSONB field accepts any structure
-      })
-      .select('id, user_id, goal, content_source, content_type, created_at')
-      .single()
-    
-    if (error) {
-      console.error('[Database] Supabase error:', error)
-      return {
-        success: false,
-        error: error.message
-      }
-    }
-    
-    console.log('[Database] ✅ Blueprint saved successfully with ID:', data.id)
-    
-    return {
-      success: true,
-      data: {
-        id: data.id,
-        user_id: data.user_id,
-        goal: data.goal,
-        content_source: data.content_source,
-        content_type: data.content_type,
-        created_at: data.created_at
-      }
-    }
-    
-  } catch (error: any) {
-    console.error('[Database] Unexpected error:', error)
-    return {
-      success: false,
-      error: error?.message || 'Failed to save blueprint to database'
-    }
+export async function storeBlueprintResult(blueprintId: string, aiOutput: AIBlueprint): Promise<void> {
+  const serviceClient = getServiceClient()
+
+  const { error } = await serviceClient
+    .from('habit_blueprints')
+    .update({
+      status: 'completed',
+      ai_output: aiOutput as any
+    })
+    .eq('id', blueprintId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export async function markBlueprintFailed(blueprintId: string): Promise<void> {
+  const serviceClient = getServiceClient()
+
+  const { error } = await serviceClient
+    .from('habit_blueprints')
+    .update({ status: 'failed' })
+    .eq('id', blueprintId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export async function enqueueRetryJob(blueprintId: string, requestData: GeminiRequestData): Promise<GeminiRetryJob> {
+  const serviceClient = getServiceClient()
+
+  const { data, error } = await serviceClient
+    .from('gemini_retries')
+    .insert({
+      blueprint_id: blueprintId,
+      request_data: requestData as any,
+      retry_count: 0,
+      next_retry_at: new Date().toISOString()
+    })
+    .select('*')
+    .single()
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return normalizeRetryJob(data)
+}
+
+export async function updateRetryJob(jobId: string, updates: Partial<Pick<GeminiRetryJob, 'retry_count' | 'next_retry_at' | 'last_error' | 'error_type'>>): Promise<void> {
+  const serviceClient = getServiceClient()
+
+  const { error } = await serviceClient
+    .from('gemini_retries')
+    .update(updates)
+    .eq('id', jobId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export async function removeRetryJob(jobId: string): Promise<void> {
+  const serviceClient = getServiceClient()
+
+  const { error } = await serviceClient
+    .from('gemini_retries')
+    .delete()
+    .eq('id', jobId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export async function fetchDueRetryJobs(limit: number): Promise<GeminiRetryJob[]> {
+  const serviceClient = getServiceClient()
+  const now = new Date().toISOString()
+
+  const { data, error } = await serviceClient
+    .from('gemini_retries')
+    .select('*')
+    .lte('next_retry_at', now)
+    .order('next_retry_at', { ascending: true })
+    .limit(limit)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return (data || []).map(normalizeRetryJob)
+}
+
+function normalizeRetryJob(row: any): GeminiRetryJob {
+  return {
+    id: row.id,
+    blueprint_id: row.blueprint_id,
+    request_data: row.request_data as GeminiRequestData,
+    retry_count: row.retry_count ?? 0,
+    next_retry_at: row.next_retry_at,
+    error_type: row.error_type ?? null,
+    last_error: row.last_error ?? null,
+    created_at: row.created_at
   }
 }

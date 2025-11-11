@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import type { BlueprintFormData, AIBlueprint } from '../types/blueprint'
+import type { BlueprintFormData, AIBlueprint, BlueprintStatus } from '../types/blueprint'
 import { supabase } from '../lib/supabase'
 
 interface BlueprintState {
@@ -13,6 +13,12 @@ interface BlueprintState {
     language?: string
   }
   error?: string
+  queuedBlueprint?: {
+    id: string
+    status: BlueprintStatus
+    goal: string
+    createdAt: string
+  }
 }
 
 interface UseBlueprintReturn extends BlueprintState {
@@ -26,7 +32,7 @@ export const useBlueprint = (): UseBlueprintReturn => {
   })
 
   const createBlueprint = useCallback(async (formData: BlueprintFormData): Promise<boolean> => {
-    setState(prev => ({ ...prev, isLoading: true, error: undefined }))
+    setState(prev => ({ ...prev, isLoading: true, error: undefined, queuedBlueprint: undefined }))
 
     try {
       console.log('[useBlueprint] Starting blueprint creation for:', formData.goal)
@@ -79,15 +85,40 @@ export const useBlueprint = (): UseBlueprintReturn => {
         return false
       }
 
-      // Success
+      if (response.status === 202 || data.status === 'pending') {
+        console.log('[useBlueprint] Blueprint queued for background processing')
+
+        const saved = data.savedBlueprint
+
+        setState(prev => ({
+          ...prev,
+          isLoading: false,
+          blueprint: undefined,
+          metadata: undefined,
+          error: undefined,
+          queuedBlueprint: saved
+            ? {
+                id: saved.id,
+                status: saved.status,
+                goal: saved.goal,
+                createdAt: saved.created_at
+              }
+            : undefined
+        }))
+
+        return true
+      }
+
+      // Success with immediate blueprint
       console.log('[useBlueprint] Successfully created blueprint')
-      
+
       setState(prev => ({
         ...prev,
         isLoading: false,
         blueprint: data.blueprint,
         metadata: data.metadata,
-        error: undefined
+        error: undefined,
+        queuedBlueprint: undefined
       }))
 
       return true
@@ -102,7 +133,8 @@ export const useBlueprint = (): UseBlueprintReturn => {
       setState(prev => ({
         ...prev,
         isLoading: false,
-        error: errorMessage
+      error: errorMessage,
+      queuedBlueprint: undefined
       }))
 
       return false
@@ -114,7 +146,8 @@ export const useBlueprint = (): UseBlueprintReturn => {
       isLoading: false,
       blueprint: undefined,
       metadata: undefined,
-      error: undefined
+      error: undefined,
+      queuedBlueprint: undefined
     })
   }, [])
 

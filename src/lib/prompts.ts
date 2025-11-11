@@ -20,25 +20,27 @@ export interface PromptConfig {
 export const BLUEPRINT_PROMPT_CONFIG: PromptConfig = {
   systemRole: "You are a habit formation expert. Analyze this content and create a personalized habit blueprint.",
   
-  instructions: `Generate a JSON response with exactly two sections:
+  instructions: `Return **only** a single JSON object with these fields:
 
-"overview": A single cohesive text block that includes:
-- A 2-3 sentence summary of the key insights from the content
-- Common mistakes to avoid when implementing these ideas  
-- Strategic guidance for success
+{ "overview": { "summary": string, "mistakes": string[], "guidance": string[] },
+  "sequential_steps"?: [{ "step_number": number, "title": string, "description": string, "deliverable": string, "estimated_time"?: string }],
+  "daily_habits"?: [{ "id": number, "title": string, "description": string, "timeframe": string }],
+  "trigger_actions"?: [{ "situation": string, "immediate_action": string, "timeframe": string }],
+  "decision_checklist"?: [{ "question": string, "weight"?: string }],
+  "resources"?: [{ "name": string, "type": string, "description": string }] }
 
-Use paragraph breaks (\\n\\n) to separate these elements naturally.
-
-"habits": An array of 3-5 actionable habit steps, each with:
-- step: number (1, 2, 3, etc.)
-- title: short descriptive title
-- description: specific, actionable instruction
-- timeframe: when to implement (e.g., "Week 1", "Week 1-2")`,
+Rules:
+1. Output MUST be valid JSON compliant with the schema above. Do not include Markdown code fences or additional text before/after the object.
+2. Every string must use double quotes and escape internal quotes. No trailing commas.
+3. If a section has no content, omit the field entirely (do NOT return null).
+4. If you cannot follow the schema, respond with the literal string "ERROR_JSON_SCHEMA".`,
 
   outputFormat: "Return only valid JSON.",
-  
-  constraints: "Make habits specific, sequential, and directly related to the user's goal."
+
+  constraints: "Make habits specific, sequential, and directly related to the user's goal. Never include commentary outside the JSON object."
 }
+
+
 
 /**
  * AI model generation configuration
@@ -46,7 +48,7 @@ Use paragraph breaks (\\n\\n) to separate these elements naturally.
 export const AI_MODEL_CONFIG = {
   model: "gemini-2.5-flash",
   generationConfig: {
-    temperature: 0.7,
+    temperature: 0.2,
     topK: 40,
     topP: 0.95,
     maxOutputTokens: 2048,

@@ -3,57 +3,32 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { blueprintFormSchema } from '../lib/validation';
 import { buildBlueprintPrompt } from '../lib/prompts';
-import { saveBlueprintToDatabase, getServiceClient } from '../lib/database';
+import {
+  createPendingBlueprint,
+  enqueueRetryJob,
+  getServiceClient,
+  markBlueprintFailed,
+  type GeminiRequestData
+} from '../lib/database';
 import { supabase } from '../lib/supabase.server';
 import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript';
-import { AiRequestError, generateBlueprintDraft } from '../lib/aiClient';
-import type { BlueprintFormData, ContentType } from '../types/blueprint';
+import { processBlueprintJob } from '../lib/geminiProcessor';
+import type { BlueprintFormData, ContentType, BlueprintStatus } from '../types/blueprint';
 
 // Request validation schema
 const createBlueprintSchema = blueprintFormSchema;
 
 interface BlueprintResponse {
   success: boolean;
-  blueprint?: {
-    overview: {
-      summary: string;
-      mistakes: string[];
-      guidance: string[];
-    };
-    sequential_steps?: Array<{
-      step_number: number;
-      title: string;
-      description: string;
-      deliverable: string;
-      estimated_time?: string;
-    }>;
-    daily_habits?: Array<{
-      id: number;
-      title: string;
-      description: string;
-      timeframe: string;
-    }>;
-    trigger_actions?: Array<{
-      situation: string;
-      immediate_action: string;
-      timeframe: string;
-    }>;
-    decision_checklist?: Array<{
-      question: string;
-      weight?: string;
-    }>;
-    resources?: Array<{
-      name: string;
-      type: string;
-      description: string;
-    }>;
-  };
+  blueprintId?: string;
+  status?: BlueprintStatus;
   savedBlueprint?: {
     id: string;
     user_id: string;
     goal: string;
     content_source: string;
     content_type: ContentType;
+    status: BlueprintStatus;
     created_at: string;
   };
   metadata?: {
@@ -105,7 +80,7 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
       // Fetch blueprints from database
       const { data: blueprints, error: dbError } = await serviceClient
         .from('habit_blueprints')
-        .select('id, goal, content_source, content_type, ai_output, created_at')
+        .select('id, goal, content_source, content_type, ai_output, status, created_at')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
       
@@ -257,119 +232,86 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           console.log(`[CreateBlueprint] Using text content: ${content.length} characters`);
         }
 
-        // 3. Generate blueprint with AI
-        console.log('[CreateBlueprint] Generating blueprint with AI...');
-
-        // Construct AI prompt using external configuration
-        console.log(`[CreateBlueprint] 📝 Preparing AI prompt with ${content.length} characters of content`);
+        // 3. Create prompt and queue Gemini request
+        console.log('[CreateBlueprint] Preparing Gemini request...');
+        console.log(`[CreateBlueprint] 📝 Prompt will use ${content.length} characters of source content`);
         console.log('[CreateBlueprint] Content preview:', content.substring(0, 300));
-        
+
         const prompt = buildBlueprintPrompt(formData, content);
 
-        let aiText: string;
-
-        try {
-          aiText = await generateBlueprintDraft({ prompt });
-        } catch (error) {
-          if (error instanceof AiRequestError) {
-            console.error('[CreateBlueprint] AI request failed:', error.details ?? error.message);
-            return reply.code(error.statusCode).send({
-              success: false,
-              error: error.message
-            } as BlueprintResponse);
+        const requestData: GeminiRequestData = {
+          prompt,
+          metadata: {
+            userId: user.id,
+            goal: formData.goal,
+            contentType: formData.contentType,
+            source: metadata?.contentType,
+            sourceUrl: metadata?.url
           }
+        };
 
-          console.error('[CreateBlueprint] Unexpected AI error:', error);
+        const contentSource = formData.contentType === 'youtube'
+          ? (metadata?.url || formData.youtubeUrl)
+          : 'Text Input';
+
+        console.log('[CreateBlueprint] Creating pending blueprint record...');
+
+        let pendingBlueprint;
+        try {
+          pendingBlueprint = await createPendingBlueprint({
+            userId: user.id,
+            goal: formData.goal,
+            contentSource,
+            contentType: formData.contentType
+          });
+        } catch (dbError: any) {
+          console.error('[CreateBlueprint] Failed to create pending blueprint:', dbError);
           return reply.code(500).send({
             success: false,
-            error: 'AI service temporarily unavailable'
+            error: 'Failed to queue blueprint generation'
           } as BlueprintResponse);
         }
 
-        console.log('[CreateBlueprint] ✅ AI response received, length:', aiText.length);
-        console.log('[CreateBlueprint] AI response preview:', aiText.substring(0, 300));
-
-        // Parse structured AI response (responseSchema guarantees valid JSON)
-        let blueprint;
+        let retryJob;
         try {
-          // With responseSchema, aiText is already valid JSON without markdown wrapping
-          const parsed = JSON.parse(aiText);
-          
-          // Validate required overview section
-          if (!parsed.overview || !parsed.overview.summary) {
-            throw new Error('AI response missing required overview section');
+          retryJob = await enqueueRetryJob(pendingBlueprint.id, requestData);
+        } catch (queueError: any) {
+          console.error('[CreateBlueprint] Failed to enqueue Gemini retry job:', queueError);
+          try {
+            await markBlueprintFailed(pendingBlueprint.id);
+          } catch (markError) {
+            console.error('[CreateBlueprint] Failed to mark blueprint as failed after queue error:', markError);
           }
-          
-          // Use adaptive blueprint structure directly
-          blueprint = {
-            overview: {
-              summary: parsed.overview.summary,
-              mistakes: parsed.overview.mistakes || [],
-              guidance: parsed.overview.guidance || []
-            },
-            // Include optional sections only if populated by AI
-            ...(parsed.sequential_steps && parsed.sequential_steps.length > 0 && {
-              sequential_steps: parsed.sequential_steps
-            }),
-            ...(parsed.daily_habits && parsed.daily_habits.length > 0 && {
-              daily_habits: parsed.daily_habits
-            }),
-            ...(parsed.trigger_actions && parsed.trigger_actions.length > 0 && {
-              trigger_actions: parsed.trigger_actions
-            }),
-            ...(parsed.decision_checklist && parsed.decision_checklist.length > 0 && {
-              decision_checklist: parsed.decision_checklist
-            }),
-            ...(parsed.resources && parsed.resources.length > 0 && {
-              resources: parsed.resources
-            })
-          };
-          
-          console.log('[CreateBlueprint] ✅ Adaptive blueprint parsed successfully');
-          console.log('[CreateBlueprint] Blueprint sections:', Object.keys(blueprint));
-          
-        } catch (parseError) {
-          console.error('[CreateBlueprint] Failed to parse structured AI response:', parseError);
-          console.error('[CreateBlueprint] AI response:', aiText);
           return reply.code(500).send({
             success: false,
-            error: 'Failed to process AI-generated blueprint'
+            error: 'Failed to start blueprint generation'
           } as BlueprintResponse);
         }
 
-        // 4. Save to database
-        console.log('[CreateBlueprint] Saving blueprint to database...');
-        
-        const saveResult = await saveBlueprintToDatabase({
-          userId: user.id,
-          goal: formData.goal,
-          contentSource: formData.contentType === 'youtube' 
-            ? (metadata.url || formData.youtubeUrl) 
-            : 'Text Input',
-          contentType: formData.contentType,
-          aiOutput: blueprint
+        setImmediate(() => {
+          processBlueprintJob(retryJob).catch((error) => {
+            console.error(`[CreateBlueprint] Background processing error for blueprint ${retryJob.blueprint_id}:`, error);
+          });
         });
-        
-        if (!saveResult.success) {
-          console.error('[CreateBlueprint] Failed to save to database:', saveResult.error);
-          // Don't fail the request - return the blueprint anyway
-          // This ensures users still get their generated blueprint even if database save fails
-        } else {
-          console.log('[CreateBlueprint] ✅ Blueprint saved to database with ID:', saveResult.data?.id);
-        }
 
-        // 5. Return complete blueprint with database info
-        return reply.send({
+        console.warn('[CreateBlueprint] Blueprint queued for background processing', {
+          blueprintId: pendingBlueprint.id,
+          retryJobId: retryJob.id
+        });
+
+        return reply.code(202).send({
           success: true,
-          blueprint,
-          savedBlueprint: saveResult.success && saveResult.data ? {
-            id: saveResult.data.id,
-            user_id: saveResult.data.user_id,
-            goal: saveResult.data.goal,
-            content_source: saveResult.data.content_source,
-            content_type: saveResult.data.content_type,
-            created_at: saveResult.data.created_at
-          } : undefined,
+          blueprintId: pendingBlueprint.id,
+          status: pendingBlueprint.status,
+          savedBlueprint: {
+            id: pendingBlueprint.id,
+            user_id: pendingBlueprint.user_id,
+            goal: pendingBlueprint.goal,
+            content_source: pendingBlueprint.content_source,
+            content_type: pendingBlueprint.content_type,
+            status: pendingBlueprint.status,
+            created_at: pendingBlueprint.created_at
+          },
           metadata
         } as BlueprintResponse);
 
