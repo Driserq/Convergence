@@ -359,6 +359,29 @@ function mapHttpStatusToErrorCode(status: number): TranscriptErrorCode {
   return SUPADATA_ERROR_MAPPINGS[status] || TranscriptErrorCode.API_ERROR;
 }
 
+export function transcriptErrorToStatus(errorCode: TranscriptErrorCode): number {
+  switch (errorCode) {
+    case TranscriptErrorCode.INVALID_URL:
+      return 400;
+    case TranscriptErrorCode.VIDEO_NOT_FOUND:
+    case TranscriptErrorCode.TRANSCRIPT_UNAVAILABLE:
+      return 404;
+    case TranscriptErrorCode.API_KEY_MISSING:
+    case TranscriptErrorCode.API_KEY_INVALID:
+      return 503;
+    case TranscriptErrorCode.QUOTA_EXCEEDED:
+    case TranscriptErrorCode.RATE_LIMITED:
+      return 429;
+    case TranscriptErrorCode.NETWORK_ERROR:
+      return 502;
+    case TranscriptErrorCode.API_ERROR:
+      return 502;
+    case TranscriptErrorCode.UNKNOWN_ERROR:
+    default:
+      return 500;
+  }
+}
+
 /**
  * Helper function for testing/debugging - validates service configuration
  */

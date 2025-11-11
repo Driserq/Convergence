@@ -41,10 +41,10 @@ Use paragraph breaks (\\n\\n) to separate these elements naturally.
 }
 
 /**
- * Gemini API generation configuration
+ * AI model generation configuration
  */
-export const GEMINI_CONFIG = {
-  model: "gemini-2.0-flash-exp",
+export const AI_MODEL_CONFIG = {
+  model: "gemini-2.5-flash",
   generationConfig: {
     temperature: 0.7,
     topK: 40,

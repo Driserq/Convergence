@@ -47,8 +47,8 @@ const registerPlugins = async (): Promise<void> => {
   // Serve static files from Vite build
   const clientDistPath = path.join(__dirname, '..', 'dist', 'client')
   await server.register(fastifyStatic, {
-    root: clientDistPath,
-    prefix: '/',
+    root: path.join(clientDistPath, 'assets'),
+    prefix: '/assets',
   })
 
   console.log('[Server] Serving static files from:', clientDistPath)
@@ -70,17 +70,28 @@ const registerRoutes = async (): Promise<void> => {
   const blueprintRoutes = await import('./routes/blueprint.js')
   await server.register(blueprintRoutes.default)
 
-  // Fallback route for SPA - serve index.html for all non-API routes
-  server.setNotFoundHandler(async (request, reply) => {
-    // Don't handle API routes here
+  const transcriptRoutes = await import('./routes/transcript.js')
+  await server.register(transcriptRoutes.default)
+
+  server.get('/favicon.ico', async (request, reply) => {
+    return reply.sendFile('favicon.ico', path.join(__dirname, '..', 'dist', 'client'))
+  })
+
+  server.get('/*', async (request, reply) => {
     if (request.url.startsWith('/api/') || request.url.startsWith('/health')) {
       reply.code(404).send({ error: 'Not found' })
       return
     }
 
-    // Serve index.html for all other routes (SPA routing)
-    const indexPath = path.join(__dirname, '..', 'dist', 'client', 'index.html')
-    reply.type('text/html').sendFile('index.html')
+    const urlPath = request.url.split('?')[0]
+    const hasFileExtension = Boolean(path.extname(urlPath))
+
+    if (hasFileExtension) {
+      reply.code(404).send({ error: 'Not found' })
+      return
+    }
+
+    return reply.code(200).type('text/html').sendFile('index.html', path.join(__dirname, '..', 'dist', 'client'))
   })
 
   console.log('[Server] Routes registered successfully')

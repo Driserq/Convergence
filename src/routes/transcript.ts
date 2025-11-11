@@ -2,7 +2,7 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { extractTranscript, validateTranscriptService } from '../lib/transcript';
+import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript';
 import { TranscriptServiceRequest } from '../types/transcript';
 import { validateYouTubeUrl } from '../lib/validation';
 
@@ -16,7 +16,7 @@ type TranscriptRequestBody = z.infer<typeof transcriptRequestSchema>;
 /**
  * Registers transcript-related API routes
  */
-export async function transcriptRoutes(fastify: FastifyInstance) {
+export default async function transcriptRoutes(fastify: FastifyInstance) {
   
   // POST /api/transcript - Extract transcript from YouTube URL
   fastify.post<{ Body: TranscriptRequestBody }>(
@@ -122,7 +122,7 @@ export async function transcriptRoutes(fastify: FastifyInstance) {
         if (!result.success) {
           console.log('[TranscriptAPI] Transcript extraction failed:', result.error);
           // Return appropriate HTTP status based on error type
-          const statusCode = getStatusCodeForError(result.error!.code);
+          const statusCode = transcriptErrorToStatus(result.error!.code);
           return reply.code(statusCode).send(result);
         }
 
@@ -172,32 +172,4 @@ export async function transcriptRoutes(fastify: FastifyInstance) {
       });
     }
   });
-}
-
-/**
- * Maps internal error codes to appropriate HTTP status codes
- */
-function getStatusCodeForError(errorCode: string): number {
-  switch (errorCode) {
-    case 'INVALID_URL':
-      return 400;
-    case 'VIDEO_NOT_FOUND':
-      return 404;
-    case 'TRANSCRIPT_UNAVAILABLE':
-      return 404;
-    case 'API_KEY_MISSING':
-    case 'API_KEY_INVALID':
-      return 503; // Service unavailable (configuration issue)
-    case 'QUOTA_EXCEEDED':
-      return 429; // Too many requests
-    case 'RATE_LIMITED':
-      return 429;
-    case 'NETWORK_ERROR':
-      return 502; // Bad gateway
-    case 'API_ERROR':
-      return 502;
-    case 'UNKNOWN_ERROR':
-    default:
-      return 500; // Internal server error
-  }
 }

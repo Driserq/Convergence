@@ -9,7 +9,6 @@ import {
   type RouteArgs,
   type NavigateFn,
   type RouteMatch,
-  type RouteName,
 } from './routes/map'
 
 // Import all pages
@@ -64,7 +63,15 @@ const getBrowserDocument = (): BrowserDocument | undefined => {
 }
 
 export const App: React.FC = () => {
-  const { user, loading, initialize } = useAuth()
+  const {
+    user,
+    loading,
+    initialize,
+    authMode,
+    setAuthMode,
+    redirectIntent,
+    setRedirectIntent,
+  } = useAuth()
   const [currentRoute, setCurrentRoute] = useState<RouteMatch>(() => {
     const win = getBrowserWindow()
     const initialPath = win?.location.pathname ?? '/'
@@ -164,12 +171,56 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     if (loading) return
-    if (!user && isProtectedRoute(currentRoute.name)) {
-      navigate('login')
-    } else if (user && currentRoute.name === 'login') {
+
+    const routeRequiresAuth = isProtectedRoute(currentRoute.name)
+
+    if (!user) {
+      if (routeRequiresAuth) {
+        if (!redirectIntent || redirectIntent.name !== currentRoute.name) {
+          setRedirectIntent({
+            name: currentRoute.name,
+            params: currentRoute.params as any,
+          })
+        }
+        if (authMode !== 'signup') {
+          setAuthMode('signup')
+        }
+        if (currentRoute.name !== 'login') {
+          navigate('login')
+        }
+      }
+      if (currentRoute.name === 'login' && !routeRequiresAuth && !redirectIntent && authMode !== 'login') {
+        setAuthMode('login')
+      }
+      return
+    }
+
+    if (redirectIntent) {
+      navigate(redirectIntent.name, redirectIntent.params as any)
+      setRedirectIntent(null)
+      if (authMode !== 'login') {
+        setAuthMode('login')
+      }
+      return
+    }
+
+    if (currentRoute.name === 'login') {
+      if (authMode !== 'login') {
+        setAuthMode('login')
+      }
       navigate('dashboard')
     }
-  }, [currentRoute.name, loading, navigate, user])
+  }, [
+    authMode,
+    currentRoute.name,
+    currentRoute.params,
+    loading,
+    navigate,
+    redirectIntent,
+    setAuthMode,
+    setRedirectIntent,
+    user,
+  ])
 
   const renderRoute = () => {
     if (!user && isProtectedRoute(currentRoute.name)) {

@@ -1,11 +1,22 @@
 import { create } from 'zustand'
 import { supabase } from '../lib/supabase'
-import type { AuthState, User, Session, AuthError } from '../types/auth'
+import type {
+  AuthState,
+  AuthMode,
+  RedirectIntent,
+  User,
+  Session,
+  AuthError,
+} from '../types/auth'
 
 export const useAuth = create<AuthState>((set, get) => ({
   user: null,
   session: null,
   loading: true,
+  authMode: 'login',
+  setAuthMode: (mode: AuthMode) => set({ authMode: mode }),
+  redirectIntent: null,
+  setRedirectIntent: (intent: RedirectIntent | null) => set({ redirectIntent: intent }),
 
   // Initialize auth state - called on app startup
   initialize: async (): Promise<void> => {
@@ -149,11 +160,23 @@ export const useAuth = create<AuthState>((set, get) => ({
       }
       
       // Clear state regardless of error
-      set({ user: null, session: null, loading: false })
+      set({
+        user: null,
+        session: null,
+        loading: false,
+        redirectIntent: null,
+        authMode: 'login',
+      })
       
     } catch (error: any) {
       console.error('[useAuth] Unexpected logout error:', error)
-      set({ user: null, session: null, loading: false })
+      set({
+        user: null,
+        session: null,
+        loading: false,
+        redirectIntent: null,
+        authMode: 'login',
+      })
     }
   },
 

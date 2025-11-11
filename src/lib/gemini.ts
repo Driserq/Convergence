@@ -1,1 +1,1 @@
-// Gemini AI client setup - will be implemented in Phase 3
+export * from './aiClient';

@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { LoginForm } from '../components/auth/LoginForm'
 import { SignupForm } from '../components/auth/SignupForm'
-type AuthMode = 'login' | 'signup'
+import { useAuth } from '../hooks/useAuth'
 
 export const Login: React.FC = () => {
-  const [mode, setMode] = useState<AuthMode>('login')
+  const { authMode, setAuthMode } = useAuth()
 
   // Auth is initialized globally in App.tsx
 
@@ -21,10 +21,10 @@ export const Login: React.FC = () => {
         </div>
 
         {/* Auth forms */}
-        {mode === 'login' ? (
-          <LoginForm onSwitchToSignup={() => setMode('signup')} />
+        {authMode === 'login' ? (
+          <LoginForm onSwitchToSignup={() => setAuthMode('signup')} />
         ) : (
-          <SignupForm onSwitchToLogin={() => setMode('login')} />
+          <SignupForm onSwitchToLogin={() => setAuthMode('login')} />
         )}
 
         {/* Footer */}

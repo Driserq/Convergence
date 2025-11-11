@@ -1,4 +1,5 @@
 import { User as SupabaseUser, Session as SupabaseSession } from '@supabase/supabase-js'
+import type { RouteName, RouteParams } from '../routes/map'
 
 // Extend Supabase types if needed
 export type User = SupabaseUser
@@ -16,6 +17,13 @@ export interface SignupFormData {
   confirmPassword: string
 }
 
+export type AuthMode = 'login' | 'signup'
+
+export interface RedirectIntent<Name extends RouteName = RouteName> {
+  name: Name
+  params: RouteParams<Name>
+}
+
 // Error structure matching Supabase format
 export interface AuthError {
   message: string
@@ -27,6 +35,10 @@ export interface AuthState {
   user: User | null
   session: Session | null
   loading: boolean
+  authMode: AuthMode
+  setAuthMode: (mode: AuthMode) => void
+  redirectIntent: RedirectIntent | null
+  setRedirectIntent: (intent: RedirectIntent | null) => void
   login: (email: string, password: string) => Promise<{ success: boolean; error?: AuthError }>
   signup: (email: string, password: string) => Promise<{ success: boolean; error?: AuthError }>
   logout: () => Promise<void>

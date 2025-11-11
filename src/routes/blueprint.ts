@@ -1,11 +1,12 @@
 // Single endpoint for complete blueprint creation pipeline
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { extractYouTubeVideoId } from '../lib/youtube';
 import { blueprintFormSchema } from '../lib/validation';
-import { buildBlueprintPrompt, GEMINI_CONFIG } from '../lib/prompts';
+import { buildBlueprintPrompt } from '../lib/prompts';
 import { saveBlueprintToDatabase, getServiceClient } from '../lib/database';
 import { supabase } from '../lib/supabase.server';
+import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript';
+import { AiRequestError, generateBlueprintDraft } from '../lib/aiClient';
 import type { BlueprintFormData, ContentType } from '../types/blueprint';
 
 // Request validation schema
@@ -196,152 +197,38 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         // 2. Extract content based on type
         if (formData.contentType === 'youtube') {
           console.log('[CreateBlueprint] Extracting YouTube transcript...');
-          
-          console.log('[CreateBlueprint] Processing YouTube URL:', formData.youtubeUrl);
-          
-          // Validate YouTube URL format
-          if (!formData.youtubeUrl || !formData.youtubeUrl.includes('youtube')) {
+
+          if (!formData.youtubeUrl) {
             return reply.code(400).send({
               success: false,
-              error: 'Invalid YouTube URL format'
+              error: 'YouTube URL is required for transcript extraction'
             } as BlueprintResponse);
           }
 
-          // Check Supadata API key
-          const supadata_api_key = process.env.SUPADATA_API_KEY;
-          if (!supadata_api_key) {
-            console.error('[CreateBlueprint] SUPADATA_API_KEY not configured');
+          const transcriptService = validateTranscriptService();
+          if (!transcriptService.configured) {
+            console.error('[CreateBlueprint] Transcript service not configured:', transcriptService.error);
             return reply.code(503).send({
               success: false,
               error: 'Transcript service temporarily unavailable'
             } as BlueprintResponse);
           }
-          
-          console.log('[CreateBlueprint] Calling Supadata API...');
-          console.log('[CreateBlueprint] API Key present:', !!supadata_api_key);
-          console.log('[CreateBlueprint] Full YouTube URL:', formData.youtubeUrl);
 
-          // Extract video ID and rebuild a clean YouTube URL
-          const videoId = extractYouTubeVideoId(formData.youtubeUrl);
-          const cleanUrl = `https://www.youtube.com/watch?v=${videoId}`;
-          
-          // Call Supadata API with correct GET request and query parameters
-          const apiUrl = `https://api.supadata.ai/v1/transcript?url=${encodeURIComponent(cleanUrl)}&lang=en&text=true&mode=auto`;
-          console.log('[CreateBlueprint] Supadata request URL:', apiUrl);
-          
-          const transcriptResponse = await fetch(apiUrl, {
-            method: 'GET',
-            headers: {
-              'x-api-key': supadata_api_key
-            }
-          });
+          const transcriptResult = await extractTranscript({ youtubeUrl: formData.youtubeUrl });
+          if (!transcriptResult.success || !transcriptResult.transcript) {
+            const errorInfo = transcriptResult.error;
+            const statusCode = errorInfo ? transcriptErrorToStatus(errorInfo.code) : 500;
 
-          // Handle both immediate (200) and async (202) responses
-          let transcriptData;
-          
-          if (transcriptResponse.status === 200) {
-            // Immediate response - transcript ready
-            console.log('[CreateBlueprint] ✅ Immediate transcript response');
-            transcriptData = await transcriptResponse.json();
-            
-          } else if (transcriptResponse.status === 202) {
-            // Async job - poll for results
-            console.log('[CreateBlueprint] 🔄 Async job created, polling for results...');
-            const jobResponse = await transcriptResponse.json() as any;
-            const jobId = jobResponse.jobId;
-            
-            if (!jobId) {
-              console.error('[CreateBlueprint] No jobId in 202 response');
-              return reply.code(500).send({
-                success: false,
-                error: 'Failed to create transcript job'
-              } as BlueprintResponse);
-            }
-            
-            console.log('[CreateBlueprint] Job ID:', jobId);
-            
-            // Poll job status (max 30 attempts = 30 seconds)
-            let attempts = 0;
-            const maxAttempts = 30;
-            
-            while (attempts < maxAttempts) {
-              attempts++;
-              console.log(`[CreateBlueprint] Polling attempt ${attempts}/${maxAttempts}...`);
-              
-              // Wait 1 second before polling
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              
-              const jobStatusResponse = await fetch(`https://api.supadata.ai/v1/transcript/${jobId}`, {
-                method: 'GET',
-                headers: {
-                  'x-api-key': supadata_api_key
-                }
-              });
-              
-              if (!jobStatusResponse.ok) {
-                console.error(`[CreateBlueprint] Job status check failed: ${jobStatusResponse.status}`);
-                continue;
-              }
-              
-              const jobStatus = await jobStatusResponse.json() as any;
-              console.log(`[CreateBlueprint] Job status: ${jobStatus.status}`);
-              
-              if (jobStatus.status === 'completed') {
-                console.log('[CreateBlueprint] ✅ Job completed successfully');
-                transcriptData = jobStatus.result;
-                break;
-              } else if (jobStatus.status === 'failed') {
-                console.error('[CreateBlueprint] ❌ Job failed:', jobStatus.error || 'Unknown error');
-                return reply.code(500).send({
-                  success: false,
-                  error: 'Transcript generation failed: ' + (jobStatus.error || 'Unknown error')
-                } as BlueprintResponse);
-              } else if (jobStatus.status === 'queued' || jobStatus.status === 'active') {
-                // Continue polling
-                continue;
-              } else {
-                console.error('[CreateBlueprint] Unknown job status:', jobStatus.status);
-              }
-            }
-            
-            if (!transcriptData) {
-              console.error('[CreateBlueprint] ❌ Job timed out after 30 seconds');
-              return reply.code(408).send({
-                success: false,
-                error: 'Transcript extraction timed out. Please try a shorter video or use text content.'
-              } as BlueprintResponse);
-            }
-            
-          } else {
-            // Error response
-            console.error(`[CreateBlueprint] ❌ Supadata API error: ${transcriptResponse.status}`);
-            
-            let errorDetails;
-            try {
-              errorDetails = await transcriptResponse.text();
-              console.error('[CreateBlueprint] Supadata error response:', errorDetails);
-            } catch (e) {
-              console.error('[CreateBlueprint] Could not read error response');
-            }
-            
-            const errorMessage = transcriptResponse.status === 404 
-              ? 'Video not found or transcript unavailable. Please check if the video exists and has captions enabled.'
-              : transcriptResponse.status === 401 
-              ? 'Transcript service configuration error - please contact support' 
-              : 'Failed to extract transcript from video';
-              
-            return reply.code(transcriptResponse.status === 401 ? 503 : transcriptResponse.status).send({
+            console.error('[CreateBlueprint] Transcript extraction failed:', errorInfo?.code, errorInfo?.message);
+
+            return reply.code(statusCode).send({
               success: false,
-              error: errorMessage
+              error: errorInfo?.message ?? 'Transcript extraction failed'
             } as BlueprintResponse);
           }
 
-          console.log('[CreateBlueprint] ✅ Transcript data received');
-          console.log('[CreateBlueprint] Response keys:', Object.keys(transcriptData));
-          
-          // Extract content from transcript data
-          content = transcriptData.content?.trim() || '';
-          
+          content = transcriptResult.transcript.trim();
+
           if (content.length < 10) {
             console.error('[CreateBlueprint] Transcript too short:', content.length, 'characters');
             return reply.code(404).send({
@@ -353,8 +240,9 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           metadata = {
             contentType: 'youtube',
             url: formData.youtubeUrl,
-            transcriptLength: content.length,
-            language: transcriptData.lang || 'en'
+            videoId: transcriptResult.metadata?.videoId,
+            transcriptLength: transcriptResult.metadata?.textLength ?? content.length,
+            language: transcriptResult.language || 'en'
           };
 
           console.log(`[CreateBlueprint] ✅ Transcript extracted: ${content.length} characters`);
@@ -369,17 +257,8 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           console.log(`[CreateBlueprint] Using text content: ${content.length} characters`);
         }
 
-        // 3. Generate blueprint with Gemini AI
+        // 3. Generate blueprint with AI
         console.log('[CreateBlueprint] Generating blueprint with AI...');
-        
-        const geminiApiKey = process.env.GOOGLE_AI_API_KEY;
-        if (!geminiApiKey) {
-          console.error('[CreateBlueprint] GOOGLE_AI_API_KEY not configured');
-          return reply.code(503).send({
-            success: false,
-            error: 'AI service temporarily unavailable'
-          } as BlueprintResponse);
-        }
 
         // Construct AI prompt using external configuration
         console.log(`[CreateBlueprint] 📝 Preparing AI prompt with ${content.length} characters of content`);
@@ -387,44 +266,26 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         
         const prompt = buildBlueprintPrompt(formData, content);
 
-        // Call Gemini API using external configuration
-        const aiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_CONFIG.model}:generateContent?key=${geminiApiKey}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{
-                text: prompt
-              }]
-            }],
-            generationConfig: GEMINI_CONFIG.generationConfig
-          })
-        });
+        let aiText: string;
 
-        if (!aiResponse.ok) {
-          console.error(`[CreateBlueprint] Gemini API error: ${aiResponse.status}`);
-          return reply.code(aiResponse.status === 429 ? 429 : 503).send({
-            success: false,
-            error: aiResponse.status === 429 
-              ? 'AI service rate limit exceeded. Please try again in a moment.' 
-              : 'AI service temporarily unavailable'
-          } as BlueprintResponse);
-        }
+        try {
+          aiText = await generateBlueprintDraft({ prompt });
+        } catch (error) {
+          if (error instanceof AiRequestError) {
+            console.error('[CreateBlueprint] AI request failed:', error.details ?? error.message);
+            return reply.code(error.statusCode).send({
+              success: false,
+              error: error.message
+            } as BlueprintResponse);
+          }
 
-        const aiData = await aiResponse.json() as any;
-        const aiText = aiData.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (!aiText) {
-          console.error('[CreateBlueprint] Empty AI response');
-          console.error('[CreateBlueprint] Full AI response:', JSON.stringify(aiData));
+          console.error('[CreateBlueprint] Unexpected AI error:', error);
           return reply.code(500).send({
             success: false,
-            error: 'AI failed to generate blueprint'
+            error: 'AI service temporarily unavailable'
           } as BlueprintResponse);
         }
-        
+
         console.log('[CreateBlueprint] ✅ AI response received, length:', aiText.length);
         console.log('[CreateBlueprint] AI response preview:', aiText.substring(0, 300));
 
