@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Loader2 } from 'lucide-react'
 import type { Blueprint } from '../types/blueprint'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
-import { Navigation } from '../components/ui/Navigation'
 import { Alert, AlertDescription } from '../components/ui/alert'
 import { supabase } from '../lib/supabase'
 import { useRouter } from '../contexts/RouterContext'
@@ -149,6 +148,33 @@ export const HistoryView: React.FC = () => {
     }
   }, [searchQuery, filterType, sortOrder, currentPage])
 
+  const handleDeleteBlueprint = useCallback(async (id: string) => {
+    try {
+      const { error: deleteError } = await supabase
+        .from('habit_blueprints')
+        .delete()
+        .eq('id', id)
+
+      if (deleteError) {
+        console.error('[History] Failed to delete blueprint:', deleteError)
+        throw deleteError
+      }
+
+      setBlueprints((prev) => prev.filter((bp) => bp.id !== id))
+      setTotalCount((prev) => Math.max((prev ?? 0) - 1, 0))
+
+      // If current page becomes empty after deletion, refetch to adjust pagination
+      if (blueprints.length === 1 && currentPage > 1) {
+        setCurrentPage((prev) => Math.max(prev - 1, 1))
+      } else {
+        await fetchBlueprints({ silent: true })
+      }
+    } catch (err) {
+      console.error('[History] Unexpected error while deleting blueprint:', err)
+      setError('Failed to delete blueprint. Please try again.')
+    }
+  }, [blueprints.length, currentPage, fetchBlueprints])
+
   // Fetch on mount and when dependencies change
   useEffect(() => {
     fetchBlueprints()
@@ -255,8 +281,6 @@ export const HistoryView: React.FC = () => {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-background">
-        <Navigation />
-        
         <main className="py-8 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {/* Page Header */}
@@ -323,6 +347,7 @@ export const HistoryView: React.FC = () => {
                       key={blueprint.id}
                       blueprint={blueprint}
                       onNavigateToDetail={handleNavigateToDetail}
+                      onDelete={handleDeleteBlueprint}
                     />
                   ))}
                 </div>
