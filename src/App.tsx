@@ -18,6 +18,7 @@ import { Dashboard } from './pages/Dashboard'
 import { History } from './pages/History'
 import { BlueprintDetail } from './pages/BlueprintDetail'
 import { Profile } from './pages/Profile'
+import { Plans } from './pages/Plans'
 import { NotFound } from './pages/NotFound'
 
 type BrowserWindow = {
@@ -243,6 +244,8 @@ export const App: React.FC = () => {
         return <History />
       case 'profile':
         return <Profile />
+      case 'plans':
+        return <Plans />
       case 'blueprintDetail':
         return <BlueprintDetail />
       default:

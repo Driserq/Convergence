@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { Loader2 } from 'lucide-react'
 import type { Blueprint } from '../types/blueprint'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
@@ -8,6 +8,11 @@ import { useRouter } from '../contexts/RouterContext'
 import { BlueprintCard } from '../components/history/BlueprintCard'
 import { ControlsBar } from '../components/history/ControlsBar'
 import { EmptyBlueprints, NoSearchResults, BlueprintCardSkeleton } from '../components/history/EmptyStates'
+import { DeleteBlueprintDialog } from '../components/blueprint/DeleteBlueprintDialog'
+import { Button } from '../components/ui/button'
+import { Badge } from '../components/ui/badge'
+import { useTrackedBlueprints } from '../hooks/useTrackedBlueprints'
+import { cn } from '../lib/utils'
 import {
   Pagination,
   PaginationContent,
@@ -26,6 +31,11 @@ type SortOrder = 'newest' | 'oldest' | 'alphabetical'
 
 export const HistoryView: React.FC = () => {
   const router = useRouter()
+  const {
+    tracked,
+    toggleTracking,
+    loadingTrackingFor
+  } = useTrackedBlueprints()
   
   // State
   const [blueprints, setBlueprints] = useState<Blueprint[]>([])
@@ -38,9 +48,21 @@ export const HistoryView: React.FC = () => {
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest')
   const [currentPage, setCurrentPage] = useState(1)
+  const [trackingError, setTrackingError] = useState<string | null>(null)
   
   // Computed
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+  const trackingMap = useMemo(() => {
+    const map = new Map<string, { trackHabits: boolean; trackActions: boolean }>()
+    tracked.forEach((record) => {
+      map.set(record.blueprintId, {
+        trackHabits: record.trackHabits,
+        trackActions: record.trackActions
+      })
+    })
+    return map
+  }, [tracked])
 
   // Fetch blueprints from Supabase
   const fetchBlueprints = useCallback(async (options: { silent?: boolean } = {}) => {
@@ -204,6 +226,116 @@ export const HistoryView: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const renderTrackButtons = (blueprint: Blueprint) => {
+    const trackedState = trackingMap.get(blueprint.id)
+    const isHabitsTracked = Boolean(trackedState?.trackHabits)
+    const isActionsTracked = Boolean(trackedState?.trackActions)
+    const isTrackingPending = Boolean(loadingTrackingFor[blueprint.id])
+    const canTrack = blueprint.status === 'completed'
+
+    const toggle = async (type: 'habits' | 'actions') => {
+      setTrackingError(null)
+      const payload =
+        type === 'habits'
+          ? { trackHabits: !isHabitsTracked }
+          : { trackActions: !isActionsTracked }
+
+      const result = await toggleTracking({
+        blueprintId: blueprint.id,
+        ...payload
+      })
+
+      if (!result.success) {
+        setTrackingError(result.error ?? 'Failed to update tracking. Please try again.')
+      }
+    }
+
+    const buildClasses = (active: boolean) =>
+      cn(
+        'rounded-md border-border/60 text-xs font-medium transition-colors',
+        active
+          ? 'bg-primary/10 text-primary border-primary/40 hover:bg-primary/20'
+          : 'text-muted-foreground hover:text-primary hover:border-primary/40'
+      )
+
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          className={buildClasses(isHabitsTracked)}
+          disabled={!canTrack || isTrackingPending}
+          onClick={() => toggle('habits')}
+        >
+          {isHabitsTracked ? 'Tracking Habits' : 'Track Habits'}
+        </Button>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          className={buildClasses(isActionsTracked)}
+          disabled={!canTrack || isTrackingPending}
+          onClick={() => toggle('actions')}
+        >
+          {isActionsTracked ? 'Tracking Actions' : 'Track Actions'}
+        </Button>
+        <DeleteBlueprintDialog
+          blueprintGoal={blueprint.goal}
+          onConfirm={() => handleDeleteBlueprint(blueprint.id)}
+          trigger={
+            <Button
+              type="button"
+              size="sm"
+              variant="outline"
+              className="rounded-md border-destructive/40 text-destructive hover:bg-destructive/10"
+            >
+              Delete
+            </Button>
+          }
+        />
+      </div>
+    )
+  }
+
+  const renderFooterLeft = (blueprintId: string) => {
+    const trackedState = trackingMap.get(blueprintId)
+    const badges: React.ReactNode[] = []
+
+    if (trackedState?.trackHabits) {
+      badges.push(
+        <Badge key="habits" variant="outline" className="border-emerald-200 bg-emerald-50/60 text-emerald-700">
+          Habits tracked
+        </Badge>
+      )
+    }
+
+    if (trackedState?.trackActions) {
+      badges.push(
+        <Badge key="actions" variant="outline" className="border-sky-200 bg-sky-50/60 text-sky-700">
+          Actions tracked
+        </Badge>
+      )
+    }
+
+    if (!badges.length) {
+      badges.push(
+        <Badge key="inactive" variant="outline" className="border-border/60 text-muted-foreground">
+          Tracking paused
+        </Badge>
+      )
+    }
+
+    return (
+      <div className="space-y-2">
+        <div className="flex flex-wrap items-center gap-2">{badges}</div>
+        <p className="text-xs text-muted-foreground">
+          Toggle tracking to sync this blueprint with the Today dashboard and Action Items list.
+        </p>
+      </div>
+    )
+  }
+
   // Render pagination
   const hasPendingBlueprints = blueprints.some((bp) => bp.status === 'pending')
 
@@ -294,14 +426,22 @@ export const HistoryView: React.FC = () => {
             </div>
 
             {/* Controls Bar */}
-            <ControlsBar
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              filterType={filterType}
-              onFilterChange={setFilterType}
-              sortOrder={sortOrder}
-              onSortChange={setSortOrder}
-            />
+          <ControlsBar
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            filterType={filterType}
+            onFilterChange={setFilterType}
+            sortOrder={sortOrder}
+            onSortChange={setSortOrder}
+          />
+
+          {trackingError && (
+            <div className="mt-4">
+              <Alert variant="destructive">
+                <AlertDescription>{trackingError}</AlertDescription>
+              </Alert>
+            </div>
+          )}
 
             {hasPendingBlueprints && (
               <div className="mt-4 flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
@@ -347,7 +487,8 @@ export const HistoryView: React.FC = () => {
                       key={blueprint.id}
                       blueprint={blueprint}
                       onNavigateToDetail={handleNavigateToDetail}
-                      onDelete={handleDeleteBlueprint}
+                      footerLeft={renderFooterLeft(blueprint.id)}
+                      footerActions={renderTrackButtons(blueprint)}
                     />
                   ))}
                 </div>

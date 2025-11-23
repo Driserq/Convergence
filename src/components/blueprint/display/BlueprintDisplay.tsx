@@ -37,6 +37,7 @@ interface BlueprintDisplayProps {
   onNavigateToDetail?: () => void
   actionLabel?: string
   sectionOrder?: Array<BlueprintSection['id']>
+  summaryFooterLeft?: React.ReactNode
   summaryFooterExtra?: React.ReactNode
 }
 
@@ -206,8 +207,10 @@ function SummaryVariant({
   onNavigateToDetail,
   actionLabel = 'View Full Blueprint',
   footerExtra,
+  footerLeft,
 }: Pick<BlueprintDisplayProps, 'blueprint' | 'metadata' | 'onNavigateToDetail' | 'actionLabel'> & {
   footerExtra?: React.ReactNode
+  footerLeft?: React.ReactNode
 }) {
   if (!metadata) return null
 
@@ -312,14 +315,15 @@ function SummaryVariant({
         )}
       </CardContent>
 
-      <CardFooter className="flex flex-wrap items-center justify-between gap-4">
-        <p className="text-xs text-muted-foreground">
-          Need deeper context? Open the full blueprint to explore all sections.
-        </p>
-        <div className="flex items-center gap-2">
+      <CardFooter className="flex flex-col items-start gap-4 border-t border-border/50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xs text-muted-foreground">
+          {footerLeft ?? 'Need deeper context? Open the full blueprint to explore all sections.'}
+        </div>
+        <div className="flex flex-wrap items-center justify-end gap-2">
           {footerExtra}
           <Button
             size="sm"
+            className="rounded-md"
             onClick={onNavigateToDetail}
             disabled={!onNavigateToDetail || metadata.status !== 'completed'}
           >
@@ -376,6 +380,7 @@ export const BlueprintDisplay: React.FC<BlueprintDisplayProps> = ({
   onNavigateToDetail,
   actionLabel,
   sectionOrder,
+  summaryFooterLeft,
   summaryFooterExtra,
 }) => {
   if (variant === 'summary') {
@@ -386,6 +391,7 @@ export const BlueprintDisplay: React.FC<BlueprintDisplayProps> = ({
         onNavigateToDetail={onNavigateToDetail}
         actionLabel={actionLabel}
         footerExtra={summaryFooterExtra}
+        footerLeft={summaryFooterLeft}
       />
     )
   }

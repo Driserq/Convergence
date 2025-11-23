@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import { useRouter } from '../../contexts/RouterContext'
 import { Button } from './button'
@@ -11,10 +11,16 @@ import {
   DropdownMenuTrigger,
 } from './dropdown-menu'
 import { Avatar, AvatarFallback } from './avatar'
+import { useSubscription } from '../../hooks/useSubscription'
 
 export const Navigation: React.FC = () => {
   const { user, logout } = useAuth()
   const { navigate } = useRouter()
+  const {
+    isLoading: isSubscriptionLoading,
+    remaining,
+    limit
+  } = useSubscription({ enabled: Boolean(user) })
   const headerClasses = 'sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60'
 
   const containerClasses = 'relative z-10 mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6 lg:px-8'
@@ -31,6 +37,13 @@ export const Navigation: React.FC = () => {
     if (!user?.email) return 'U'
     return user.email.charAt(0).toUpperCase()
   }
+
+  const quotaLabel = useMemo(() => {
+    if (!user) return 'View plans'
+    if (isSubscriptionLoading) return 'Checking quota…'
+    if (limit <= 0) return 'View plans'
+    return `${remaining}/${limit} left`
+  }, [isSubscriptionLoading, limit, remaining, user])
 
   return (
     <header className={headerClasses}>
@@ -58,6 +71,16 @@ export const Navigation: React.FC = () => {
         </nav>
 
         <div className="flex items-center gap-3">
+          {user && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden rounded-full border-primary/40 text-primary hover:bg-primary/10 md:inline-flex"
+              onClick={() => navigate('plans')}
+            >
+              {quotaLabel}
+            </Button>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -83,6 +106,12 @@ export const Navigation: React.FC = () => {
                 className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
               >
                 Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigate('plans')}
+                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
+              >
+                Plans
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => navigate('dashboard')}
