@@ -28,16 +28,13 @@ export const Login: React.FC = () => {
         )}
 
         {/* Footer */}
-        <div className="mt-8 text-center space-y-3">
+        <div className="mt-8 text-center">
           <a
             href="/"
             className="text-primary hover:text-primary/80 text-sm underline block"
           >
             ← Back to Home
           </a>
-          <p className="text-sm text-muted-foreground">
-            Phase 2: Authentication Flow - MVP Development
-          </p>
         </div>
       </div>
     </div>

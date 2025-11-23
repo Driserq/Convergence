@@ -1,24 +1,30 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import type { LoginFormData } from '../../types/auth'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import { Label } from '../ui/label'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
+import { AlertTriangle, Loader2 } from 'lucide-react'
 
 interface LoginFormProps {
   onSwitchToSignup: () => void
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignup }) => {
-  const { login, loading } = useAuth()
+  const { login, loading: authLoading } = useAuth()
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
   })
   const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
 
-    // Basic validation
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields')
       return
@@ -29,13 +35,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignup }) => {
       return
     }
 
-    console.log('[LoginForm] Attempting login with email:', formData.email)
-    
-    const result = await login(formData.email, formData.password)
-    
-    if (!result.success && result.error) {
-      console.error('[LoginForm] Login failed:', result.error)
-      setError(result.error.message)
+    try {
+      setIsLoading(true)
+      const result = await login(formData.email, formData.password)
+      if (!result.success && result.error) {
+        setError(result.error.message)
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Unable to sign in right now')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -45,81 +54,73 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignup }) => {
       ...prev,
       [name]: value
     }))
-    
-    // Clear error when user starts typing
     if (error) setError(null)
   }
 
-  return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="bg-white shadow-lg rounded-lg p-8">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 text-center">Welcome Back</h2>
-          <p className="text-gray-600 text-center mt-2">Sign in to your account</p>
-        </div>
+  const disabled = isLoading || authLoading
 
+  return (
+    <Card className="border-border/50 bg-card/70 shadow-xl">
+      <CardHeader className="space-y-2 text-center">
+        <CardTitle className="text-2xl">Welcome back</CardTitle>
+        <CardDescription>Sign in to continue building your habit blueprint.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {error && (
+          <Alert variant="destructive" className="mb-4 animate-in fade-in slide-in-from-top-2">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>Unable to sign in</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
               id="email"
               name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="your@email.com"
-              required
+              disabled={disabled}
             />
           </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
               id="password"
               name="password"
+              type="password"
+              autoComplete="current-password"
+              placeholder="••••••••"
               value={formData.password}
               onChange={handleChange}
-              disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="Enter your password"
-              required
+              disabled={disabled}
             />
           </div>
-
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
+          <Button type="submit" className="w-full" disabled={disabled}>
+            {disabled ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Signing in...</>
+            ) : (
+              'Sign In'
+            )}
+          </Button>
         </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">
-            Don't have an account?{' '}
-            <button
-              onClick={onSwitchToSignup}
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
-            >
-              Sign up
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
+      </CardContent>
+      <CardFooter className="flex flex-col gap-3 text-center text-sm text-muted-foreground">
+        <span>
+          Don't have an account?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToSignup}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Sign up
+          </button>
+        </span>
+      </CardFooter>
+    </Card>
   )
 }

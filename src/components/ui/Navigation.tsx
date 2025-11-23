@@ -90,12 +90,6 @@ export const Navigation: React.FC = () => {
               >
                 Dashboard
               </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => navigate('history')}
-                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
-              >
-                History
-              </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-border" />
               <DropdownMenuItem
                 onClick={handleLogout}

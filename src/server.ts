@@ -73,6 +73,18 @@ const registerRoutes = async (): Promise<void> => {
   const transcriptRoutes = await import('./routes/transcript.js')
   await server.register(transcriptRoutes.default)
 
+  const trackingRoutes = await import('./routes/tracking.js')
+  await server.register(trackingRoutes.default)
+
+  const subscriptionRoutes = await import('./routes/subscription.js')
+  await server.register(subscriptionRoutes.default)
+
+  const billingRoutes = await import('./routes/billing.js')
+  await server.register(billingRoutes.default)
+
+  const webhookRoutes = await import('./routes/webhook.js')
+  await server.register(webhookRoutes.default)
+
   const retryWorker = await import('./plugins/geminiRetryWorker.js')
   await server.register(retryWorker.default)
 

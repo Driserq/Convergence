@@ -64,7 +64,6 @@ export const useAuth = create<AuthState>((set, get) => ({
   login: async (email: string, password: string) => {
     try {
       console.log('[useAuth] Attempting login for:', email)
-      set({ loading: true })
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -73,7 +72,6 @@ export const useAuth = create<AuthState>((set, get) => ({
 
       if (error) {
         console.error('[useAuth] Login error:', error)
-        set({ loading: false })
         return {
           success: false,
           error: {
@@ -84,13 +82,12 @@ export const useAuth = create<AuthState>((set, get) => ({
       }
 
       console.log('[useAuth] Login successful for user:', data.user.email)
-      set({ user: data.user, session: data.session, loading: false })
+      set({ user: data.user, session: data.session })
       
       return { success: true }
       
     } catch (error: any) {
       console.error('[useAuth] Unexpected login error:', error)
-      set({ loading: false })
       return {
         success: false,
         error: {
@@ -104,7 +101,6 @@ export const useAuth = create<AuthState>((set, get) => ({
   signup: async (email: string, password: string) => {
     try {
       console.log('[useAuth] Attempting signup for:', email)
-      set({ loading: true })
 
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -113,7 +109,6 @@ export const useAuth = create<AuthState>((set, get) => ({
 
       if (error) {
         console.error('[useAuth] Signup error:', error)
-        set({ loading: false })
         return {
           success: false,
           error: {
@@ -127,7 +122,7 @@ export const useAuth = create<AuthState>((set, get) => ({
       
       // Note: For email confirmation flow, user might be null initially
       if (data.session && data.user) {
-        set({ user: data.user, session: data.session, loading: false })
+        set({ user: data.user, session: data.session })
       } else {
         set({ loading: false })
       }
@@ -136,7 +131,6 @@ export const useAuth = create<AuthState>((set, get) => ({
       
     } catch (error: any) {
       console.error('[useAuth] Unexpected signup error:', error)
-      set({ loading: false })
       return {
         success: false,
         error: {

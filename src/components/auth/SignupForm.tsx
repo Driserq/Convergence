@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../hooks/useAuth'
 import type { SignupFormData } from '../../types/auth'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import { Label } from '../ui/label'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
+import { AlertTriangle, CheckCircle, Loader2 } from 'lucide-react'
 
 interface SignupFormProps {
   onSwitchToLogin: () => void
 }
 
 export const SignupForm: React.FC<SignupFormProps> = ({ onSwitchToLogin }) => {
-  const { signup, loading } = useAuth()
+  const { signup, loading: authLoading } = useAuth()
   const [formData, setFormData] = useState<SignupFormData>({
     email: '',
     password: '',
@@ -15,13 +21,13 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSwitchToLogin }) => {
   })
   const [error, setError] = useState<string | null>(null)
   const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
     setSuccessMessage(null)
 
-    // Basic validation
     if (!formData.email || !formData.password || !formData.confirmPassword) {
       setError('Please fill in all fields')
       return
@@ -42,18 +48,19 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSwitchToLogin }) => {
       return
     }
 
-    console.log('[SignupForm] Attempting signup with email:', formData.email)
-    
-    const result = await signup(formData.email, formData.password)
-    
-    if (!result.success && result.error) {
-      console.error('[SignupForm] Signup failed:', result.error)
-      setError(result.error.message)
-    } else if (result.success) {
-      console.log('[SignupForm] Signup successful - email confirmation required')
-      setSuccessMessage('Account created! Please check your email to verify your address before signing in.')
-      // Clear form after successful signup
-      setFormData({ email: '', password: '', confirmPassword: '' })
+    try {
+      setIsLoading(true)
+      const result = await signup(formData.email, formData.password)
+      if (!result.success && result.error) {
+        setError(result.error.message)
+      } else {
+        setSuccessMessage('Account created! Check your email to verify before signing in.')
+        setFormData({ email: '', password: '', confirmPassword: '' })
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Unable to sign up right now')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -63,105 +70,91 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSwitchToLogin }) => {
       ...prev,
       [name]: value
     }))
-    
-    // Clear messages when user starts typing
     if (error) setError(null)
     if (successMessage) setSuccessMessage(null)
   }
 
-  return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="bg-white shadow-lg rounded-lg p-8">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 text-center">Create Account</h2>
-          <p className="text-gray-600 text-center mt-2">Start your habit transformation journey</p>
-        </div>
+  const disabled = isLoading || authLoading
 
+  return (
+    <Card className="border-border/50 bg-card/70 shadow-xl">
+      <CardHeader className="space-y-2 text-center">
+        <CardTitle className="text-2xl">Create your account</CardTitle>
+        <CardDescription>Start transforming content into actionable habits.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {successMessage && (
+          <Alert className="mb-4 animate-in fade-in slide-in-from-top-2">
+            <CheckCircle className="h-4 w-4 text-green-500" />
+            <AlertTitle>Almost there!</AlertTitle>
+            <AlertDescription>{successMessage}</AlertDescription>
+          </Alert>
+        )}
+        {error && (
+          <Alert variant="destructive" className="mb-4 animate-in fade-in slide-in-from-top-2">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>Unable to sign up</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
+          <div className="space-y-2">
+            <Label htmlFor="signup-email">Email</Label>
+            <Input
+              id="signup-email"
               name="email"
+              type="email"
+              placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="your@email.com"
-              required
+              disabled={disabled}
             />
           </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
+          <div className="space-y-2">
+            <Label htmlFor="signup-password">Password</Label>
+            <Input
+              id="signup-password"
               name="password"
+              type="password"
+              placeholder="At least 6 characters"
               value={formData.password}
               onChange={handleChange}
-              disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="At least 6 characters"
-              required
-              minLength={6}
+              disabled={disabled}
             />
           </div>
-
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
+          <div className="space-y-2">
+            <Label htmlFor="signup-confirm">Confirm Password</Label>
+            <Input
+              id="signup-confirm"
               name="confirmPassword"
+              type="password"
+              placeholder="Repeat password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              disabled={loading}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 disabled:text-gray-500"
-              placeholder="Confirm your password"
-              required
+              disabled={disabled}
             />
           </div>
-
-          {successMessage && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
-              {successMessage}
-            </div>
-          )}
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </button>
+          <Button type="submit" className="w-full" disabled={disabled}>
+            {disabled ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creating account...</>
+            ) : (
+              'Create Account'
+            )}
+          </Button>
         </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">
-            Already have an account?{' '}
-            <button
-              onClick={onSwitchToLogin}
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200"
-            >
-              Sign in
-            </button>
-          </p>
-        </div>
-      </div>
-    </div>
+      </CardContent>
+      <CardFooter className="flex flex-col gap-3 text-center text-sm text-muted-foreground">
+        <span>
+          Already a member?{' '}
+          <button
+            type="button"
+            onClick={onSwitchToLogin}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            Sign in
+          </button>
+        </span>
+      </CardFooter>
+    </Card>
   )
 }
