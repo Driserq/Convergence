@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { AlertCircle, CheckCircle2, FileText, Loader2, PlayCircle } from 'lucide-react'
 
 import { blueprintFormSchema, validateYouTubeUrl, validateTextContent } from '../../lib/validation'
 import type { BlueprintFormData, ContentType, FormErrors } from '../../types/blueprint'
-import { useBlueprint } from '../../hooks/useBlueprint'
+import { useBlueprint, type CreateBlueprintResult } from '../../hooks/useBlueprint'
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
 import { Button } from '../ui/button'
 import {
@@ -19,10 +19,19 @@ import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group'
 import { BlueprintDetail } from './BlueprintDetail'
 
 interface BlueprintFormProps {
-  // No props needed - component handles everything internally
+  isQuotaExceeded?: boolean
+  isSubscriptionLoading?: boolean
+  usageSummary?: {
+    planName: string
+    limit: number
+    used: number
+    remaining: number
+    periodEnd?: string
+  }
+  onBlueprintCreated?: (result: CreateBlueprintResult) => void
 }
 
-export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
+export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
   const [formData, setFormData] = useState<BlueprintFormData>({
     goal: '',
     contentType: 'youtube',
@@ -39,6 +48,8 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
     metadata: blueprintMetadata,
     error: blueprintError,
     queuedBlueprint,
+    quotaError,
+    subscription,
     createBlueprint,
     clearBlueprint
   } = useBlueprint()
@@ -139,14 +150,42 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
     }
     
     // Single call to backend - handles transcript extraction + AI processing
-    const success = await createBlueprint(formData)
-    
-    if (success) {
+    const result = await createBlueprint(formData)
+
+    if (result.success) {
       console.log('[BlueprintForm] Blueprint created successfully!', blueprint)
+      props.onBlueprintCreated?.(result)
     } else {
-      console.error('[BlueprintForm] Blueprint creation failed:', blueprintError)
+      console.error('[BlueprintForm] Blueprint creation failed:', result.errorMessage || blueprintError)
     }
   }
+
+  const quotaNotice = useMemo(() => {
+    const prioritySummary = quotaError?.subscription
+    const fallbackSummary = props.isQuotaExceeded ? (subscription ?? null) : null
+    const usage = prioritySummary ?? fallbackSummary
+
+    if (!usage && !props.usageSummary) {
+      return null
+    }
+
+    const source = usage ?? props.usageSummary
+    if (!source) return null
+
+    const planName = source.planName
+    const limit = 'usage' in source ? source.usage.limit : source.limit
+    const used = 'usage' in source ? source.usage.used : source.used
+    const remaining = 'usage' in source ? source.usage.remaining : source.remaining
+    const periodEnd = 'periodEnd' in source ? source.periodEnd : undefined
+    const resetLabel = periodEnd ? new Date(periodEnd).toLocaleString() : undefined
+
+    return {
+      message: `${used} / ${limit} blueprints used on the ${planName} plan${resetLabel ? ` · resets ${resetLabel}` : ''}.`,
+      remaining
+    }
+  }, [props.isQuotaExceeded, props.usageSummary, quotaError, subscription])
+
+  const isSubmitDisabled = props.isSubscriptionLoading || props.isQuotaExceeded || isCreatingBlueprint
 
   return (
     <div className="space-y-8">
@@ -265,6 +304,18 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
           </Alert>
         )}
 
+        {quotaNotice && (
+          <Alert className="border-amber-200 bg-amber-50">
+            <AlertTitle className="flex items-center gap-2 text-amber-900">
+              <AlertCircle className="size-4" aria-hidden />
+              Usage limit
+            </AlertTitle>
+            <AlertDescription className="mt-1 text-sm text-amber-900/90">
+              {quotaNotice.message}
+            </AlertDescription>
+          </Alert>
+        )}
+
         {queuedBlueprint && (
           <Alert className="border-amber-200 bg-amber-50">
             <AlertTitle className="flex items-center gap-2 text-amber-900">
@@ -292,11 +343,16 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = () => {
             <p className="font-medium text-foreground">Ready to build your blueprint?</p>
             <p>We&apos;ll analyze your content and return sequential steps, habits, and pitfalls within a minute.</p>
           </div>
-          <Button type="submit" size="lg" disabled={isCreatingBlueprint} className="gap-2 rounded-full px-6">
-            {isCreatingBlueprint ? (
+          <Button type="submit" size="lg" disabled={isSubmitDisabled} className="gap-2 rounded-full px-6">
+            {isCreatingBlueprint || props.isSubscriptionLoading ? (
               <>
                 <Loader2 className="size-4 animate-spin" aria-hidden />
-                Creating Blueprint...
+                {isCreatingBlueprint ? 'Creating Blueprint...' : 'Checking quota...'}
+              </>
+            ) : props.isQuotaExceeded ? (
+              <>
+                <AlertCircle className="size-4" aria-hidden />
+                Quota Reached
               </>
             ) : (
               'Create Habit Blueprint'

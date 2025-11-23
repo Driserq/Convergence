@@ -20,6 +20,8 @@ import { BlueprintDetail } from './pages/BlueprintDetail'
 import { Profile } from './pages/Profile'
 import { Plans } from './pages/Plans'
 import { NotFound } from './pages/NotFound'
+import { BillingSuccess } from './pages/BillingSuccess'
+import { BillingCancel } from './pages/BillingCancel'
 
 type BrowserWindow = {
   location: {
@@ -246,6 +248,10 @@ export const App: React.FC = () => {
         return <Profile />
       case 'plans':
         return <Plans />
+      case 'billingSuccess':
+        return <BillingSuccess />
+      case 'billingCancel':
+        return <BillingCancel />
       case 'blueprintDetail':
         return <BlueprintDetail />
       default:

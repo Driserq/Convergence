@@ -11,12 +11,34 @@ import {
   type GeminiRequestData
 } from '../lib/database';
 import { supabase } from '../lib/supabase.server';
-import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript';
+import { extractTranscript, fetchVideoMetadata, transcriptErrorToStatus, validateTranscriptService, type VideoMetadata } from '../lib/transcript';
 import { processBlueprintJob } from '../lib/geminiProcessor';
 import type { BlueprintFormData, ContentType, BlueprintStatus } from '../types/blueprint';
+import {
+  assertActive,
+  buildUsageAfterIncrement,
+  ensureCurrentPeriod,
+  getOrCreateSubscription,
+  requireQuota,
+  QuotaExceededError,
+  InactiveSubscriptionError,
+  computeUsage
+} from '../lib/subscriptions/service';
+import { getPlan } from '../lib/subscriptions/plans';
+import type { SubscriptionRecord, SubscriptionUsage } from '../types/subscription';
 
 // Request validation schema
 const createBlueprintSchema = blueprintFormSchema;
+
+const SUPADATA_DELAY_MS = 1100;
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const estimateReadingDurationSeconds = (text: string): number => {
+  if (!text) return 0;
+  const approxWords = Math.max(1, Math.round(text.length / 5));
+  const minutes = approxWords / 200; // 200 words per minute average reading speed
+  return Math.max(30, Math.round(minutes * 60));
+};
 
 interface BlueprintResponse {
   success: boolean;
@@ -30,6 +52,8 @@ interface BlueprintResponse {
     content_type: ContentType;
     status: BlueprintStatus;
     created_at: string;
+    title?: string | null;
+    duration?: number | null;
   };
   metadata?: {
     contentType: 'youtube' | 'text';
@@ -37,9 +61,37 @@ interface BlueprintResponse {
     videoId?: string;
     transcriptLength?: number;
     language?: string;
+    title?: string;
+    durationSeconds?: number | null;
   };
+  subscription?: {
+    planCode: string;
+    planName: string;
+    isActive: boolean;
+    periodStart: string;
+    periodEnd: string;
+    usage: {
+      limit: number;
+      used: number;
+      remaining: number;
+    };
+  };
+  code?: string;
   error?: string;
 }
+
+const buildSubscriptionPayload = (usage: SubscriptionUsage, isActive = true) => ({
+  planCode: usage.planCode,
+  planName: usage.planName,
+  isActive,
+  periodStart: usage.periodStart,
+  periodEnd: usage.periodEnd,
+  usage: {
+    limit: usage.limit,
+    used: usage.used,
+    remaining: usage.remaining
+  }
+});
 
 export default async function blueprintRoutes(fastify: FastifyInstance) {
   
@@ -168,6 +220,61 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         const formData = validation.data;
         let content: string;
         let metadata: BlueprintResponse['metadata'];
+        let videoMetadata: VideoMetadata | null = null;
+        let subscriptionRecord: SubscriptionRecord | null = null;
+        let quotaSnapshot: SubscriptionUsage | null = null;
+
+        try {
+          subscriptionRecord = await getOrCreateSubscription(user.id);
+          subscriptionRecord = await ensureCurrentPeriod(subscriptionRecord);
+          assertActive(subscriptionRecord);
+          quotaSnapshot = await requireQuota(subscriptionRecord);
+        } catch (error) {
+          if (error instanceof InactiveSubscriptionError) {
+            let usageDetails: SubscriptionUsage | null = null;
+            if (subscriptionRecord) {
+              try {
+                usageDetails = await computeUsage(subscriptionRecord);
+              } catch (usageError) {
+                console.error('[CreateBlueprint] Failed to compute usage for inactive subscription:', usageError);
+              }
+            }
+
+            const plan = subscriptionRecord ? getPlan(subscriptionRecord.plan_code) : getPlan('free');
+            const usagePayload = usageDetails ?? {
+              planCode: plan.code,
+              planName: plan.name,
+              limit: plan.limit,
+              used: 0,
+              remaining: plan.limit,
+              periodStart: subscriptionRecord?.period_start ?? new Date().toISOString(),
+              periodEnd: subscriptionRecord?.period_end ?? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+            };
+
+            return reply.code(403).send({
+              success: false,
+              code: 'subscription_inactive',
+              error: 'Your subscription is inactive. Please contact support to reactivate.',
+              subscription: buildSubscriptionPayload(usagePayload, false)
+            } as BlueprintResponse);
+          }
+
+          if (error instanceof QuotaExceededError) {
+            const details = error.details;
+            return reply.code(429).send({
+              success: false,
+              code: 'quota_exceeded',
+              error: 'Blueprint quota reached for the current period.',
+              subscription: buildSubscriptionPayload(details, true)
+            } as BlueprintResponse);
+          }
+
+          console.error('[CreateBlueprint] Subscription enforcement failed:', error);
+          return reply.code(500).send({
+            success: false,
+            error: 'Failed to verify subscription status. Please try again.'
+          } as BlueprintResponse);
+        }
 
         // 2. Extract content based on type
         if (formData.contentType === 'youtube') {
@@ -188,6 +295,15 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
               error: 'Transcript service temporarily unavailable'
             } as BlueprintResponse);
           }
+
+          try {
+            videoMetadata = await fetchVideoMetadata(formData.youtubeUrl);
+          } catch (metaError) {
+            console.warn('[CreateBlueprint] Video metadata fetch failed:', metaError);
+          }
+
+          // Wait before making another Supadata request to avoid rate limiting
+          await delay(SUPADATA_DELAY_MS);
 
           const transcriptResult = await extractTranscript({ youtubeUrl: formData.youtubeUrl });
           if (!transcriptResult.success || !transcriptResult.transcript) {
@@ -217,7 +333,9 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             url: formData.youtubeUrl,
             videoId: transcriptResult.metadata?.videoId,
             transcriptLength: transcriptResult.metadata?.textLength ?? content.length,
-            language: transcriptResult.language || 'en'
+            language: transcriptResult.language || 'en',
+            title: videoMetadata?.title,
+            durationSeconds: videoMetadata?.durationSeconds ?? transcriptResult.metadata?.estimatedDuration ?? null
           };
 
           console.log(`[CreateBlueprint] ✅ Transcript extracted: ${content.length} characters`);
@@ -226,8 +344,11 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         } else {
           // Use text content directly
           content = formData.textContent.trim();
+          const estimatedDuration = estimateReadingDurationSeconds(content);
           metadata = {
-            contentType: 'text'
+            contentType: 'text',
+            durationSeconds: estimatedDuration,
+            transcriptLength: content.length
           };
           console.log(`[CreateBlueprint] Using text content: ${content.length} characters`);
         }
@@ -253,6 +374,8 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         const contentSource = formData.contentType === 'youtube'
           ? (metadata?.url || formData.youtubeUrl)
           : 'Text Input';
+        const blueprintTitle = metadata?.title ?? null;
+        const blueprintDuration = metadata?.durationSeconds ?? null;
 
         console.log('[CreateBlueprint] Creating pending blueprint record...');
 
@@ -262,7 +385,9 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             userId: user.id,
             goal: formData.goal,
             contentSource,
-            contentType: formData.contentType
+            contentType: formData.contentType,
+            title: blueprintTitle,
+            duration: blueprintDuration
           });
         } catch (dbError: any) {
           console.error('[CreateBlueprint] Failed to create pending blueprint:', dbError);
@@ -299,6 +424,8 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           retryJobId: retryJob.id
         });
 
+        const usageAfter = quotaSnapshot ? buildUsageAfterIncrement(quotaSnapshot) : null;
+
         return reply.code(202).send({
           success: true,
           blueprintId: pendingBlueprint.id,
@@ -310,9 +437,12 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             content_source: pendingBlueprint.content_source,
             content_type: pendingBlueprint.content_type,
             status: pendingBlueprint.status,
-            created_at: pendingBlueprint.created_at
+            created_at: pendingBlueprint.created_at,
+            title: pendingBlueprint.title ?? null,
+            duration: pendingBlueprint.duration ?? null
           },
-          metadata
+          metadata,
+          subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
         } as BlueprintResponse);
 
       } catch (error) {

@@ -6,6 +6,8 @@ type RouteParamsMap = {
   blueprintsIndex: Record<string, never>
   profile: Record<string, never>
   plans: Record<string, never>
+  billingSuccess: { sessionId?: string }
+  billingCancel: Record<string, never>
   blueprintDetail: { id: string }
   notFound: Record<string, never>
 }
@@ -80,6 +82,28 @@ const ROUTES: RouteDictionary = {
     match: (path) => (path === '/plans' ? {} : null),
     buildPath: () => '/plans',
   },
+  billingSuccess: {
+    name: 'billingSuccess',
+    path: '/billing/success',
+    requiresAuth: true,
+    match: (path) => {
+      const [pathname, query] = path.split('?')
+      if (pathname !== '/billing/success') return null
+      if (!query) return {}
+      const params = new URLSearchParams(query)
+      const sessionId = params.get('session_id') || undefined
+      return { sessionId }
+    },
+    buildPath: ({ sessionId } = {}) =>
+      sessionId ? `/billing/success?session_id=${encodeURIComponent(sessionId)}` : '/billing/success',
+  },
+  billingCancel: {
+    name: 'billingCancel',
+    path: '/billing/cancel',
+    requiresAuth: true,
+    match: (path) => (path.split('?')[0] === '/billing/cancel' ? {} : null),
+    buildPath: () => '/billing/cancel',
+  },
   blueprintDetail: {
     name: 'blueprintDetail',
     path: '/blueprints/:id',
@@ -108,6 +132,8 @@ const MATCHABLE_ROUTES: RouteRecord<RouteName>[] = [
   ROUTES.blueprintsIndex,
   ROUTES.profile,
   ROUTES.plans,
+  ROUTES.billingSuccess,
+  ROUTES.billingCancel,
   ROUTES.blueprintDetail,
 ]
 

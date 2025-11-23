@@ -52,6 +52,7 @@
     "dotenv": "^17.2.3",
     "fastify": "^5.6.1",
     "fastify-plugin": "^5.1.0",
+    "fastify-raw-body": "^5.0.0",
     "jsonrepair": "^3.13.1",
     "lucide-react": "^0.545.0",
     "postcss": "^8.5.6",

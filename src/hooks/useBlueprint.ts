@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import type { BlueprintFormData, AIBlueprint, BlueprintStatus } from '../types/blueprint'
 import { supabase } from '../lib/supabase'
+import type { QuotaExceededPayload, SubscriptionSummary } from '../types/subscription'
 
 interface BlueprintState {
   isLoading: boolean
@@ -19,10 +20,20 @@ interface BlueprintState {
     goal: string
     createdAt: string
   }
+  subscription?: SubscriptionSummary
+  quotaError?: QuotaExceededPayload
+}
+
+export interface CreateBlueprintResult {
+  success: boolean
+  queued: boolean
+  subscription?: SubscriptionSummary
+  errorCode?: string
+  errorMessage?: string
 }
 
 interface UseBlueprintReturn extends BlueprintState {
-  createBlueprint: (formData: BlueprintFormData) => Promise<boolean>
+  createBlueprint: (formData: BlueprintFormData) => Promise<CreateBlueprintResult>
   clearBlueprint: () => void
 }
 
@@ -31,8 +42,14 @@ export const useBlueprint = (): UseBlueprintReturn => {
     isLoading: false
   })
 
-  const createBlueprint = useCallback(async (formData: BlueprintFormData): Promise<boolean> => {
-    setState(prev => ({ ...prev, isLoading: true, error: undefined, queuedBlueprint: undefined }))
+  const createBlueprint = useCallback(async (formData: BlueprintFormData): Promise<CreateBlueprintResult> => {
+    setState(prev => ({
+      ...prev,
+      isLoading: true,
+      error: undefined,
+      queuedBlueprint: undefined,
+      quotaError: undefined
+    }))
 
     try {
       console.log('[useBlueprint] Starting blueprint creation for:', formData.goal)
@@ -50,7 +67,12 @@ export const useBlueprint = (): UseBlueprintReturn => {
           isLoading: false,
           error: 'Authentication required. Please log in.'
         }))
-        return false
+        return {
+          success: false,
+          queued: false,
+          errorCode: 'auth_required',
+          errorMessage: 'Authentication required. Please log in.'
+        }
       }
 
       // Call single blueprint creation endpoint
@@ -67,12 +89,43 @@ export const useBlueprint = (): UseBlueprintReturn => {
 
       if (!response.ok) {
         console.error('[useBlueprint] API error:', data)
+
+        if (response.status === 429 && data?.code === 'quota_exceeded' && data?.subscription) {
+          const quotaPayload: QuotaExceededPayload = {
+            code: 'quota_exceeded',
+            message: data.error || 'Subscription quota reached',
+            subscription: data.subscription as SubscriptionSummary
+          }
+
+          setState(prev => ({
+            ...prev,
+            isLoading: false,
+            error: quotaPayload.message,
+            quotaError: quotaPayload,
+            subscription: quotaPayload.subscription
+          }))
+
+          return {
+            success: false,
+            queued: false,
+            subscription: quotaPayload.subscription,
+            errorCode: 'quota_exceeded',
+            errorMessage: quotaPayload.message
+          }
+        }
+
         setState(prev => ({
           ...prev,
           isLoading: false,
           error: data.error || `HTTP ${response.status}: Request failed`
         }))
-        return false
+
+        return {
+          success: false,
+          queued: false,
+          errorCode: data.code,
+          errorMessage: data.error || `HTTP ${response.status}: Request failed`
+        }
       }
 
       if (!data.success) {
@@ -82,13 +135,19 @@ export const useBlueprint = (): UseBlueprintReturn => {
           isLoading: false,
           error: data.error || 'Blueprint creation failed'
         }))
-        return false
+        return {
+          success: false,
+          queued: false,
+          errorCode: data.code,
+          errorMessage: data.error || 'Blueprint creation failed'
+        }
       }
 
       if (response.status === 202 || data.status === 'pending') {
         console.log('[useBlueprint] Blueprint queued for background processing')
 
         const saved = data.savedBlueprint
+        const subscriptionSummary = data.subscription as SubscriptionSummary | undefined
 
         setState(prev => ({
           ...prev,
@@ -96,6 +155,7 @@ export const useBlueprint = (): UseBlueprintReturn => {
           blueprint: undefined,
           metadata: undefined,
           error: undefined,
+           subscription: subscriptionSummary ?? prev.subscription,
           queuedBlueprint: saved
             ? {
                 id: saved.id,
@@ -106,11 +166,17 @@ export const useBlueprint = (): UseBlueprintReturn => {
             : undefined
         }))
 
-        return true
+        return {
+          success: true,
+          queued: true,
+          subscription: subscriptionSummary
+        }
       }
 
       // Success with immediate blueprint
       console.log('[useBlueprint] Successfully created blueprint')
+
+      const subscriptionSummary = data.subscription as SubscriptionSummary | undefined
 
       setState(prev => ({
         ...prev,
@@ -118,10 +184,15 @@ export const useBlueprint = (): UseBlueprintReturn => {
         blueprint: data.blueprint,
         metadata: data.metadata,
         error: undefined,
-        queuedBlueprint: undefined
+        queuedBlueprint: undefined,
+        subscription: subscriptionSummary ?? prev.subscription
       }))
 
-      return true
+      return {
+        success: true,
+        queued: false,
+        subscription: subscriptionSummary
+      }
 
     } catch (error) {
       console.error('[useBlueprint] Network error:', error)
@@ -133,22 +204,28 @@ export const useBlueprint = (): UseBlueprintReturn => {
       setState(prev => ({
         ...prev,
         isLoading: false,
-      error: errorMessage,
-      queuedBlueprint: undefined
+        error: errorMessage,
+        queuedBlueprint: undefined
       }))
 
-      return false
+      return {
+        success: false,
+        queued: false,
+        errorMessage
+      }
     }
   }, [])
 
   const clearBlueprint = useCallback(() => {
-    setState({
+    setState(prev => ({
       isLoading: false,
       blueprint: undefined,
       metadata: undefined,
       error: undefined,
-      queuedBlueprint: undefined
-    })
+      queuedBlueprint: undefined,
+      subscription: prev.subscription,
+      quotaError: undefined
+    }))
   }, [])
 
   return {

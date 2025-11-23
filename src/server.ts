@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url'
 import fastifyCors from '@fastify/cors'
 import fastifyEnv from '@fastify/env'
 import fastifyStatic from '@fastify/static'
+import fastifyRawBody from 'fastify-raw-body'
 
 // ES module compatibility
 const __filename = fileURLToPath(import.meta.url)
@@ -24,6 +25,13 @@ const registerPlugins = async (): Promise<void> => {
   // Enable CORS
   await server.register(fastifyCors, {
     origin: process.env.NODE_ENV === 'development' ? true : (process.env.FRONTEND_URL || 'http://localhost:3000')
+  })
+
+  await server.register(fastifyRawBody, {
+    field: 'rawBody',
+    global: false,
+    encoding: 'utf8',
+    runFirst: true
   })
 
   // Environment validation
