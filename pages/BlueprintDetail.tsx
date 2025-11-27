@@ -1,0 +1,1 @@
+export { BlueprintDetailView as BlueprintDetail } from '../src/views/BlueprintDetailView''

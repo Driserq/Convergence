@@ -54,6 +54,8 @@ interface BlueprintResponse {
     created_at: string;
     title?: string | null;
     duration?: number | null;
+    video_type?: string | null;
+    author_name?: string | null;
   };
   metadata?: {
     contentType: 'youtube' | 'text';
@@ -61,6 +63,7 @@ interface BlueprintResponse {
     videoId?: string;
     transcriptLength?: number;
     language?: string;
+    authorName?: string;
     title?: string;
     durationSeconds?: number | null;
   };
@@ -132,7 +135,7 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
       // Fetch blueprints from database
       const { data: blueprints, error: dbError } = await serviceClient
         .from('habit_blueprints')
-        .select('id, goal, content_source, content_type, ai_output, status, created_at')
+        .select('id, goal, content_source, content_type, ai_output, status, created_at, title, duration, author_name, video_type')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
       
@@ -335,7 +338,8 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             transcriptLength: transcriptResult.metadata?.textLength ?? content.length,
             language: transcriptResult.language || 'en',
             title: videoMetadata?.title,
-            durationSeconds: videoMetadata?.durationSeconds ?? transcriptResult.metadata?.estimatedDuration ?? null
+            durationSeconds: videoMetadata?.durationSeconds ?? transcriptResult.metadata?.estimatedDuration ?? null,
+            authorName: videoMetadata?.authorName
           };
 
           console.log(`[CreateBlueprint] ✅ Transcript extracted: ${content.length} characters`);
@@ -376,6 +380,7 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           : 'Text Input';
         const blueprintTitle = metadata?.title ?? null;
         const blueprintDuration = metadata?.durationSeconds ?? null;
+        const videoTypeLabel = metadata?.contentType === 'youtube' ? 'youtube' : formData.contentType;
 
         console.log('[CreateBlueprint] Creating pending blueprint record...');
 
@@ -387,7 +392,9 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             contentSource,
             contentType: formData.contentType,
             title: blueprintTitle,
-            duration: blueprintDuration
+            duration: blueprintDuration,
+            videoType: videoTypeLabel,
+            authorName: videoMetadata?.authorName ?? null
           });
         } catch (dbError: any) {
           console.error('[CreateBlueprint] Failed to create pending blueprint:', dbError);
@@ -439,7 +446,8 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             status: pendingBlueprint.status,
             created_at: pendingBlueprint.created_at,
             title: pendingBlueprint.title ?? null,
-            duration: pendingBlueprint.duration ?? null
+            duration: pendingBlueprint.duration ?? null,
+            video_type: pendingBlueprint.video_type ?? null
           },
           metadata,
           subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined

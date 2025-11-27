@@ -13,7 +13,57 @@ import { extractYouTubeVideoId, isValidYouTubeUrl, getContentLengthWarning } fro
 // Supadata.ai API configuration
 const SUPADATA_BASE_URL = 'https://api.supadata.ai';
 const TRANSCRIPT_ENDPOINT = '/v1/transcript'; // Changed from /v1/youtube/transcript
+const VIDEO_METADATA_ENDPOINT = '/v1/youtube/video';
 const REQUEST_TIMEOUT = 30000; // 30 seconds
+
+interface SupadataVideoMetadataResponse {
+  title?: string;
+  name?: string;
+  videoId?: string;
+  video_id?: string;
+  duration?: string;
+  description?: string;
+  author?: string;
+  channel?: string;
+  channelTitle?: string;
+  channel_name?: string;
+  uploader?: string;
+  owner?: string;
+  creator?: string;
+  user?: string;
+  [key: string]: any;
+}
+
+export interface VideoMetadata {
+  title?: string;
+  durationSeconds?: number | null;
+  videoId?: string;
+  authorName?: string;
+}
+
+function extractAuthorName(value: unknown): string | undefined {
+  if (!value) return undefined;
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    return trimmed.length > 0 ? trimmed : undefined;
+  }
+
+  if (typeof value === 'object') {
+    const possibleFields = ['title', 'name', 'displayName', 'owner', 'username'];
+    for (const field of possibleFields) {
+      const nestedValue = (value as Record<string, unknown>)[field];
+      if (typeof nestedValue === 'string') {
+        const trimmed = nestedValue.trim();
+        if (trimmed.length > 0) {
+          return trimmed;
+        }
+      }
+    }
+  }
+
+  return undefined;
+}
 
 /**
  * Clean YouTube URL to remove tracking parameters
@@ -41,6 +91,97 @@ function cleanYouTubeUrl(url: string): string {
   } catch (e) {
     console.warn('[TranscriptService] Failed to parse URL, using original:', e);
     return url; // Return original if URL parsing fails
+  }
+}
+
+function parseDurationToSeconds(duration?: string | number | null): number | null {
+  if (duration == null) return null;
+
+  if (typeof duration === 'number' && Number.isFinite(duration)) {
+    return Math.max(0, Math.round(duration));
+  }
+
+  if (typeof duration === 'string') {
+    const trimmed = duration.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    const numericValue = Number(trimmed);
+    if (!Number.isNaN(numericValue)) {
+      return Math.max(0, Math.round(numericValue));
+    }
+
+    const isoMatch = trimmed.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/i);
+    if (isoMatch) {
+      const hours = isoMatch[1] ? parseInt(isoMatch[1], 10) : 0;
+      const minutes = isoMatch[2] ? parseInt(isoMatch[2], 10) : 0;
+      const seconds = isoMatch[3] ? parseInt(isoMatch[3], 10) : 0;
+      return (hours * 3600) + (minutes * 60) + seconds;
+    }
+  }
+
+  return null;
+}
+
+export async function fetchVideoMetadata(youtubeUrl: string): Promise<VideoMetadata | null> {
+  try {
+    const apiKey = process.env.SUPADATA_API_KEY;
+    if (!apiKey) {
+      console.warn('[TranscriptService] Cannot fetch video metadata without SUPADATA_API_KEY');
+      return null;
+    }
+
+    const cleanUrl = cleanYouTubeUrl(youtubeUrl);
+    const preferredId = extractYouTubeVideoId(cleanUrl) ?? cleanUrl;
+    const encodedId = encodeURIComponent(preferredId);
+    const response = await fetch(`${SUPADATA_BASE_URL}${VIDEO_METADATA_ENDPOINT}?id=${encodedId}`, {
+      method: 'GET',
+      headers: {
+        'x-api-key': apiKey,
+        'User-Agent': 'Convergence-MVP/1.0'
+      }
+    });
+
+    if (!response.ok) {
+      console.error('[TranscriptService] Video metadata fetch failed:', response.status);
+      return null;
+    }
+
+    const payload = (await response.json()) as SupadataVideoMetadataResponse | { data?: SupadataVideoMetadataResponse };
+    const data = 'data' in payload && payload.data ? payload.data : payload;
+
+    if (!data) {
+      return null;
+    }
+
+    const videoData = data as SupadataVideoMetadataResponse;
+    const durationSeconds = parseDurationToSeconds(videoData.duration);
+    const rawTitle = typeof videoData.title === 'string' ? videoData.title : typeof videoData.name === 'string' ? videoData.name : undefined;
+    const normalizedTitle = rawTitle?.trim();
+    const authorCandidates: unknown[] = [
+      videoData.channelTitle,
+      videoData.channel,
+      videoData.channel_name,
+      videoData.author,
+      videoData.creator,
+      videoData.owner,
+      videoData.uploader,
+      videoData.user
+    ];
+    const normalizedAuthor = authorCandidates
+      .map((candidate) => extractAuthorName(candidate))
+      .find((value) => typeof value === 'string' && value.length > 0);
+
+    return {
+      title: normalizedTitle && normalizedTitle.length > 0 ? normalizedTitle : undefined,
+      durationSeconds,
+      videoId: videoData.videoId || videoData.video_id || extractYouTubeVideoId(cleanUrl) || extractYouTubeVideoId(preferredId) || undefined,
+      authorName: normalizedAuthor || undefined
+    };
+  } catch (error) {
+    console.error('[TranscriptService] Failed to fetch video metadata:', error);
+    return null;
   }
 }
 

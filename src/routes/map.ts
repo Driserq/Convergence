@@ -2,6 +2,7 @@ type RouteParamsMap = {
   landing: Record<string, never>
   login: Record<string, never>
   dashboard: Record<string, never>
+  createBlueprint: Record<string, never>
   history: Record<string, never>
   blueprintsIndex: Record<string, never>
   profile: Record<string, never>
@@ -53,6 +54,13 @@ const ROUTES: RouteDictionary = {
     requiresAuth: true,
     match: (path) => (path === '/dashboard' ? {} : null),
     buildPath: () => '/dashboard',
+  },
+  createBlueprint: {
+    name: 'createBlueprint',
+    path: '/create',
+    requiresAuth: true,
+    match: (path) => (path === '/create' ? {} : null),
+    buildPath: () => '/create',
   },
   history: {
     name: 'history',
@@ -128,6 +136,7 @@ const MATCHABLE_ROUTES: RouteRecord<RouteName>[] = [
   ROUTES.landing,
   ROUTES.login,
   ROUTES.dashboard,
+  ROUTES.createBlueprint,
   ROUTES.history,
   ROUTES.blueprintsIndex,
   ROUTES.profile,

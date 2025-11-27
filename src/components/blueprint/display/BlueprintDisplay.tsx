@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { Clock3, UserRound } from 'lucide-react'
 import { Alert, AlertDescription, AlertTitle } from '../../ui/alert'
 import { Badge } from '../../ui/badge'
 import { Button } from '../../ui/button'
@@ -33,6 +34,9 @@ interface BlueprintDisplayProps {
     status: BlueprintStatus
     contentType: ContentType
     contentSource?: string
+    title?: string
+    duration?: number | null
+    authorName?: string
   }
   onNavigateToDetail?: () => void
   actionLabel?: string
@@ -45,6 +49,16 @@ const STATUS_STYLES: Record<BlueprintStatus, string> = {
   completed: 'bg-emerald-50 text-emerald-700 border-emerald-200',
   failed: 'bg-red-50 text-red-700 border-red-200',
   pending: 'bg-amber-50 text-amber-700 border-amber-200',
+}
+
+const formatDuration = (seconds?: number | null): string | null => {
+  if (!seconds || seconds <= 0) return null
+  if (seconds < 60) return `${seconds}s`
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const remainingMinutes = minutes % 60
+  if (hours === 0) return `${minutes}m`
+  return `${hours}h ${remainingMinutes}m`
 }
 
 function reorderSections(sections: BlueprintSection[], order?: Array<BlueprintSection['id']>): BlueprintSection[] {
@@ -250,6 +264,9 @@ function SummaryVariant({
   }, [baseSections, overview])
   const overviewPreview = useMemo(() => getOverviewPreview(blueprint, 140), [blueprint])
   const canShowDetails = metadata.status === 'completed' && !!blueprint
+  const displayTitle = metadata.title && metadata.title.trim().length > 0 ? metadata.title : metadata.goal
+  const shouldShowGoalSubtitle = metadata.goal && metadata.goal !== displayTitle
+  const durationLabel = formatDuration(metadata.duration)
 
   return (
     <Card className="rounded-2xl border border-border bg-card/95 shadow-sm transition hover:shadow-md">
@@ -261,13 +278,24 @@ function SummaryVariant({
           <Badge variant="outline" className={cn('text-xs', STATUS_STYLES[metadata.status])}>
             {metadata.status === 'completed' ? 'Ready' : metadata.status === 'pending' ? 'Processing' : 'Failed'}
           </Badge>
+          {durationLabel && (
+            <Badge variant="outline" className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Clock3 className="size-3" aria-hidden />
+              {durationLabel}
+            </Badge>
+          )}
         </div>
         <div className="space-y-2">
-          <CardTitle className="text-xl font-semibold text-foreground line-clamp-2">{metadata.goal}</CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
-            Created {formatBlueprintDate(metadata.createdAt)}
-            {metadata.contentSource ? ` · Source: ${metadata.contentSource}` : ''}
-          </CardDescription>
+          <CardTitle className="text-xl font-semibold text-foreground line-clamp-2">{displayTitle}</CardTitle>
+          {metadata.authorName && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground/90">
+              <UserRound className="size-4 text-muted-foreground/70" aria-hidden />
+              <span className="truncate">{metadata.authorName}</span>
+            </div>
+          )}
+          {shouldShowGoalSubtitle && (
+            <p className="text-sm font-medium text-primary/80">Goal: {metadata.goal}</p>
+          )}
         </div>
       </CardHeader>
 
@@ -313,6 +341,10 @@ function SummaryVariant({
             ))}
           </Accordion>
         )}
+
+        <div className="text-xs text-muted-foreground">
+          Created {formatBlueprintDate(metadata.createdAt)}
+        </div>
       </CardContent>
 
       <CardFooter className="flex flex-col items-start gap-4 border-t border-border/50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">

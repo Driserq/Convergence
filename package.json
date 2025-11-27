@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run build:client && tsx watch src/server.ts",
+    "dev": "vite & tsx watch src/server.ts",
     "dev:client": "vite",
     "build": "npm run build:client && npm run build:server",
     "build:client": "vite build",
     "build:server": "tsc --project tsconfig.server.json",
+    "analyze": "ANALYZE=true vite build",
     "start": "cross-env NODE_ENV=production node dist/server.js",
     "supabase:start": "npx supabase start",
     "supabase:stop": "npx supabase stop",
@@ -73,9 +74,11 @@
     "@vitejs/plugin-react": "^5.0.4",
     "cross-env": "^10.1.0",
     "nodemon": "^3.1.10",
+    "rollup-plugin-visualizer": "^6.0.5",
     "supabase": "^2.48.3",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
-    "vite": "^7.1.11"
+    "vite": "^7.1.11",
+    "vite-plugin-pwa": "^1.1.0"
   }
 }

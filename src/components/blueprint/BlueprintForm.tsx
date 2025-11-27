@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { AlertCircle, CheckCircle2, FileText, Loader2, PlayCircle } from 'lucide-react'
 
 import { blueprintFormSchema, validateYouTubeUrl, validateTextContent } from '../../lib/validation'
@@ -21,13 +21,6 @@ import { BlueprintDetail } from './BlueprintDetail'
 interface BlueprintFormProps {
   isQuotaExceeded?: boolean
   isSubscriptionLoading?: boolean
-  usageSummary?: {
-    planName: string
-    limit: number
-    used: number
-    remaining: number
-    periodEnd?: string
-  }
   onBlueprintCreated?: (result: CreateBlueprintResult) => void
 }
 
@@ -160,31 +153,6 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
     }
   }
 
-  const quotaNotice = useMemo(() => {
-    const prioritySummary = quotaError?.subscription
-    const fallbackSummary = props.isQuotaExceeded ? (subscription ?? null) : null
-    const usage = prioritySummary ?? fallbackSummary
-
-    if (!usage && !props.usageSummary) {
-      return null
-    }
-
-    const source = usage ?? props.usageSummary
-    if (!source) return null
-
-    const planName = source.planName
-    const limit = 'usage' in source ? source.usage.limit : source.limit
-    const used = 'usage' in source ? source.usage.used : source.used
-    const remaining = 'usage' in source ? source.usage.remaining : source.remaining
-    const periodEnd = 'periodEnd' in source ? source.periodEnd : undefined
-    const resetLabel = periodEnd ? new Date(periodEnd).toLocaleString() : undefined
-
-    return {
-      message: `${used} / ${limit} blueprints used on the ${planName} plan${resetLabel ? ` · resets ${resetLabel}` : ''}.`,
-      remaining
-    }
-  }, [props.isQuotaExceeded, props.usageSummary, quotaError, subscription])
-
   const isSubmitDisabled = props.isSubscriptionLoading || props.isQuotaExceeded || isCreatingBlueprint
 
   return (
@@ -301,18 +269,6 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
           <Alert variant="destructive" className="border-destructive/30 bg-destructive/10">
             <AlertTitle>Blueprint request failed</AlertTitle>
             <AlertDescription>{blueprintError}</AlertDescription>
-          </Alert>
-        )}
-
-        {quotaNotice && (
-          <Alert className="border-amber-200 bg-amber-50">
-            <AlertTitle className="flex items-center gap-2 text-amber-900">
-              <AlertCircle className="size-4" aria-hidden />
-              Usage limit
-            </AlertTitle>
-            <AlertDescription className="mt-1 text-sm text-amber-900/90">
-              {quotaNotice.message}
-            </AlertDescription>
           </Alert>
         )}
 

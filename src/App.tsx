@@ -1,27 +1,28 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { Navigation } from './components/ui/Navigation'
+import { ServiceWorkerToast } from './components/system/ServiceWorkerToast'
 import { RouterProvider } from './contexts/RouterContext'
 import {
   isProtectedRoute,
   resolveRoute,
   routeDictionary,
+  type RouteName,
   type RouteArgs,
   type NavigateFn,
   type RouteMatch,
 } from './routes/map'
-
-// Import all pages
-import { Landing } from './pages/Landing'
-import { Login } from './pages/Login'
-import { Dashboard } from './pages/Dashboard'
-import { History } from './pages/History'
-import { BlueprintDetail } from './pages/BlueprintDetail'
-import { Profile } from './pages/Profile'
-import { Plans } from './pages/Plans'
-import { NotFound } from './pages/NotFound'
-import { BillingSuccess } from './pages/BillingSuccess'
-import { BillingCancel } from './pages/BillingCancel'
+const LandingPage = lazy(async () => ({ default: (await import('./pages/Landing')).Landing }))
+const LoginPage = lazy(async () => ({ default: (await import('./pages/Login')).Login }))
+const DashboardPage = lazy(async () => ({ default: (await import('./pages/Dashboard')).Dashboard }))
+const HistoryPage = lazy(async () => ({ default: (await import('./pages/History')).History }))
+const CreateBlueprintPage = lazy(async () => ({ default: (await import('./pages/CreateBlueprint')).CreateBlueprint }))
+const BlueprintDetailPage = lazy(async () => ({ default: (await import('./pages/BlueprintDetail')).BlueprintDetail }))
+const ProfilePage = lazy(async () => ({ default: (await import('./pages/Profile')).Profile }))
+const PlansPage = lazy(async () => ({ default: (await import('./pages/Plans')).Plans }))
+const BillingSuccessPage = lazy(async () => ({ default: (await import('./pages/BillingSuccess')).BillingSuccess }))
+const BillingCancelPage = lazy(async () => ({ default: (await import('./pages/BillingCancel')).BillingCancel }))
+const NotFoundPage = lazy(async () => ({ default: (await import('./pages/NotFound')).NotFound }))
 
 type BrowserWindow = {
   location: {
@@ -64,6 +65,12 @@ const getBrowserDocument = (): BrowserDocument | undefined => {
   }
   return undefined
 }
+
+const SuspenseFallback: React.FC = () => (
+  <div className="flex min-h-[60vh] items-center justify-center">
+    <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-primary" />
+  </div>
+)
 
 export const App: React.FC = () => {
   const {
@@ -227,35 +234,37 @@ export const App: React.FC = () => {
 
   const renderRoute = () => {
     if (!user && isProtectedRoute(currentRoute.name)) {
-      return <Login />
+      return <LoginPage />
     }
 
     if (user && currentRoute.name === 'login') {
-      return <Dashboard />
+      return <DashboardPage />
     }
 
     switch (currentRoute.name) {
       case 'landing':
-        return <Landing />
+        return <LandingPage />
       case 'login':
-        return <Login />
+        return <LoginPage />
       case 'dashboard':
-        return <Dashboard />
+        return <DashboardPage />
+      case 'createBlueprint':
+        return <CreateBlueprintPage />
       case 'history':
       case 'blueprintsIndex':
-        return <History />
+        return <HistoryPage />
       case 'profile':
-        return <Profile />
+        return <ProfilePage />
       case 'plans':
-        return <Plans />
+        return <PlansPage />
       case 'billingSuccess':
-        return <BillingSuccess />
+        return <BillingSuccessPage />
       case 'billingCancel':
-        return <BillingCancel />
+        return <BillingCancelPage />
       case 'blueprintDetail':
-        return <BlueprintDetail />
+        return <BlueprintDetailPage />
       default:
-        return <NotFound />
+        return <NotFoundPage />
     }
   }
 
@@ -270,6 +279,7 @@ export const App: React.FC = () => {
   }, [currentRoute.name, user])
 
   const showNavigation = Boolean(user) && !['landing', 'login'].includes(effectiveRouteName)
+  const contentPaddingClass = showNavigation ? 'pb-24 pt-2 md:pb-0' : ''
 
   console.log('[App] Current route:', currentRoute.name)
   console.log('[App] User:', user ? user.email : 'Not logged in')
@@ -287,7 +297,10 @@ export const App: React.FC = () => {
       ) : (
         <div className="App min-h-screen bg-background text-foreground">
           {showNavigation && <Navigation />}
-          {renderRoute()}
+          <ServiceWorkerToast />
+          <Suspense fallback={<SuspenseFallback />}>
+            <div className={contentPaddingClass}>{renderRoute()}</div>
+          </Suspense>
         </div>
       )}
     </RouterProvider>

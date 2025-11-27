@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Loader2 } from 'lucide-react'
 import type { Blueprint } from '../types/blueprint'
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
@@ -23,6 +23,7 @@ import {
   PaginationPrevious,
 } from '../components/ui/pagination'
 import { searchInBlueprint } from '../components/history/utils'
+import { AppShell } from '../components/layout/AppShell'
 
 const PAGE_SIZE = 10
 
@@ -213,7 +214,7 @@ export const HistoryView: React.FC = () => {
   }
 
   const handleCreateBlueprint = () => {
-    router.navigate('dashboard')
+    router.navigate('createBlueprint')
   }
 
   const handleClearSearch = () => {
@@ -300,28 +301,33 @@ export const HistoryView: React.FC = () => {
 
   const renderFooterLeft = (blueprintId: string) => {
     const trackedState = trackingMap.get(blueprintId)
-    const badges: React.ReactNode[] = []
+    const badgeConfigs = [
+      {
+        key: 'habits',
+        label: 'Habits tracked',
+        isActive: Boolean(trackedState?.trackHabits),
+        className: 'border-emerald-200 bg-emerald-50 text-emerald-700'
+      },
+      {
+        key: 'actions',
+        label: 'Actions tracked',
+        isActive: Boolean(trackedState?.trackActions),
+        className: 'border-sky-200 bg-sky-50 text-sky-700'
+      }
+    ]
 
-    if (trackedState?.trackHabits) {
-      badges.push(
-        <Badge key="habits" variant="outline" className="border-emerald-200 bg-emerald-50/60 text-emerald-700">
-          Habits tracked
+    const badges = badgeConfigs
+      .filter((config) => config.isActive)
+      .map((config) => (
+        <Badge key={config.key} variant="outline" className={config.className}>
+          {config.label}
         </Badge>
-      )
-    }
-
-    if (trackedState?.trackActions) {
-      badges.push(
-        <Badge key="actions" variant="outline" className="border-sky-200 bg-sky-50/60 text-sky-700">
-          Actions tracked
-        </Badge>
-      )
-    }
+      ))
 
     if (!badges.length) {
       badges.push(
-        <Badge key="inactive" variant="outline" className="border-border/60 text-muted-foreground">
-          Tracking paused
+        <Badge key="inactive" variant="outline" className="border-border/70 bg-muted/40 text-muted-foreground">
+          No tracking
         </Badge>
       )
     }
@@ -329,9 +335,6 @@ export const HistoryView: React.FC = () => {
     return (
       <div className="space-y-2">
         <div className="flex flex-wrap items-center gap-2">{badges}</div>
-        <p className="text-xs text-muted-foreground">
-          Toggle tracking to sync this blueprint with the Today dashboard and Action Items list.
-        </p>
       </div>
     )
   }
@@ -413,8 +416,7 @@ export const HistoryView: React.FC = () => {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-background">
-        <main className="py-8 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto">
+        <AppShell className="max-w-6xl gap-8 pb-24 pt-8">
             {/* Page Header */}
             <div className="mb-8">
               <h1 className="text-4xl font-bold text-foreground mb-2">
@@ -483,13 +485,14 @@ export const HistoryView: React.FC = () => {
               {!loading && !error && blueprints.length > 0 && (
                 <div>
                   {blueprints.map((blueprint) => (
-                    <BlueprintCard
-                      key={blueprint.id}
-                      blueprint={blueprint}
-                      onNavigateToDetail={handleNavigateToDetail}
-                      footerLeft={renderFooterLeft(blueprint.id)}
-                      footerActions={renderTrackButtons(blueprint)}
-                    />
+                    <LazyBlueprintCard key={blueprint.id}>
+                      <BlueprintCard
+                        blueprint={blueprint}
+                        onNavigateToDetail={handleNavigateToDetail}
+                        footerLeft={renderFooterLeft(blueprint.id)}
+                        footerActions={renderTrackButtons(blueprint)}
+                      />
+                    </LazyBlueprintCard>
                   ))}
                 </div>
               )}
@@ -497,9 +500,39 @@ export const HistoryView: React.FC = () => {
 
             {/* Pagination */}
             {!loading && !error && blueprints.length > 0 && renderPagination()}
-          </div>
-        </main>
+        </AppShell>
       </div>
     </ProtectedRoute>
   )
+}
+
+const LazyBlueprintCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [isVisible, setIsVisible] = useState(false)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (isVisible) return
+    const node = containerRef.current
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        })
+      },
+      { rootMargin: '200px 0px', threshold: 0.1 }
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [isVisible])
+
+  return <div ref={containerRef}>{isVisible ? children : <BlueprintCardSkeleton />}</div>
 }

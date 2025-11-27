@@ -28,7 +28,8 @@ export function BlueprintCard({ blueprint, onNavigateToDetail, footerLeft, foote
           contentType: blueprint.content_type,
           contentSource: blueprint.content_source,
           title: blueprint.title ?? undefined,
-          duration: blueprint.duration ?? undefined
+          duration: blueprint.duration ?? undefined,
+          authorName: blueprint.author_name ?? undefined
         }}
         onNavigateToDetail={blueprint.status === 'completed' ? handleOpen : undefined}
         actionLabel="Open Blueprint"

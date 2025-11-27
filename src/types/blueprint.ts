@@ -105,6 +105,10 @@ export interface Blueprint {
   ai_output: AIBlueprint | null
   created_at: string
   status: BlueprintStatus
+  title?: string | null
+  duration?: number | null
+  video_type?: string | null
+  author_name?: string | null
 }
 
 // Saved blueprint response from API (includes database fields)
@@ -117,6 +121,7 @@ export interface SavedBlueprintResponse {
     videoId?: string
     transcriptLength?: number
     language?: string
+    authorName?: string
   }
   error?: string
 }

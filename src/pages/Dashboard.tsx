@@ -1,1 +1,1 @@
-export { DashboardView as Dashboard } from '../views/DashboardView'
+export { TodayView as Dashboard } from '../views/DashboardView'

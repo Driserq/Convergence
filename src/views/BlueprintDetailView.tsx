@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Clock3, ExternalLink, UserRound } from 'lucide-react'
 
 import { ProtectedRoute } from '../components/auth/ProtectedRoute'
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert'
@@ -44,6 +44,16 @@ const ACTION_FIRST_SECTION_ORDER: Array<BlueprintSection['id']> = [
   'habits',
 ]
 
+const formatDuration = (seconds?: number | null): string | null => {
+  if (!seconds || seconds <= 0) return null
+  if (seconds < 60) return `${seconds}s`
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const remainingMinutes = minutes % 60
+  if (hours === 0) return `${minutes}m`
+  return `${hours}h ${remainingMinutes}m`
+}
+
 export const BlueprintDetailView: React.FC = () => {
   const { id } = useRouteParams<'blueprintDetail'>()
   const { navigate } = useRouter()
@@ -63,7 +73,7 @@ export const BlueprintDetailView: React.FC = () => {
 
       const { data, error } = await supabase
         .from('habit_blueprints')
-        .select('id, goal, content_source, content_type, status, created_at, ai_output')
+        .select('id, goal, content_source, content_type, status, created_at, ai_output, title, duration, author_name')
         .eq('id', id)
         .single()
 
@@ -133,6 +143,8 @@ export const BlueprintDetailView: React.FC = () => {
     const statusLabel = STATUS_LABELS[blueprint.status]
     const statusClass = STATUS_BADGES[blueprint.status]
     const isYouTube = blueprint.content_type === 'youtube'
+    const displayTitle = blueprint.title || blueprint.goal
+    const durationLabel = formatDuration(blueprint.duration)
 
     return (
       <Card className="rounded-3xl border border-border bg-card shadow-sm">
@@ -140,8 +152,17 @@ export const BlueprintDetailView: React.FC = () => {
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div className="space-y-2">
               <CardTitle className="text-3xl font-semibold text-foreground">
-                {blueprint.goal}
+                {displayTitle}
               </CardTitle>
+              {blueprint.author_name && (
+                <p className="flex items-center gap-2 text-sm text-muted-foreground/90">
+                  <UserRound className="size-4 text-muted-foreground/70" aria-hidden />
+                  <span>{blueprint.author_name}</span>
+                </p>
+              )}
+              {blueprint.title && blueprint.title !== blueprint.goal && (
+                <p className="text-sm font-medium text-primary/80">Goal: {blueprint.goal}</p>
+              )}
               <CardDescription className="text-sm text-muted-foreground">
                 Created {formatBlueprintDate(blueprint.created_at)}
               </CardDescription>
@@ -153,6 +174,12 @@ export const BlueprintDetailView: React.FC = () => {
               <Badge variant={isYouTube ? 'default' : 'secondary'} className="text-xs">
                 {isYouTube ? 'YouTube Source' : 'Text Input'}
               </Badge>
+              {durationLabel && (
+                <Badge variant="outline" className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <Clock3 className="size-3" aria-hidden />
+                  {durationLabel}
+                </Badge>
+              )}
               <DeleteBlueprintDialog
                 blueprintGoal={blueprint.goal}
                 onConfirm={async () => {

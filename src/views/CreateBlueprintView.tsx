@@ -85,7 +85,6 @@ export const CreateBlueprintView: React.FC = () => {
                   <BlueprintForm
                     isQuotaExceeded={isAtLimit}
                     isSubscriptionLoading={isSubscriptionLoading}
-                    usageSummary={usageSummary}
                     onBlueprintCreated={(result) => {
                       if (result.success || result.subscription) {
                         void refreshSubscription()

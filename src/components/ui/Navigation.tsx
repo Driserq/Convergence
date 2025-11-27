@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { LayoutDashboard, Menu, PlusCircle, History as HistoryIcon } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
 import { useRouter } from '../../contexts/RouterContext'
 import { Button } from './button'
@@ -12,30 +13,45 @@ import {
 } from './dropdown-menu'
 import { Avatar, AvatarFallback } from './avatar'
 import { useSubscription } from '../../hooks/useSubscription'
+import { cn } from '../../lib/utils'
+import type { RouteName } from '../../routes/map'
+
+const bottomNavItems: Array<{
+  key: RouteName
+  label: string
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  targets?: RouteName[]
+}> = [
+  {
+    key: 'dashboard',
+    label: 'Today',
+    icon: LayoutDashboard,
+  },
+  {
+    key: 'createBlueprint',
+    label: 'Create',
+    icon: PlusCircle,
+  },
+  {
+    key: 'history',
+    label: 'History',
+    icon: HistoryIcon,
+    targets: ['history', 'blueprintsIndex'],
+  },
+]
 
 export const Navigation: React.FC = () => {
   const { user, logout } = useAuth()
-  const { navigate } = useRouter()
+  const { navigate, currentRoute } = useRouter()
   const {
     isLoading: isSubscriptionLoading,
     remaining,
-    limit
+    limit,
   } = useSubscription({ enabled: Boolean(user) })
-  const headerClasses = 'sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60'
-
-  const containerClasses = 'relative z-10 mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6 lg:px-8'
-
-  const mobileNavClasses = 'relative z-10 flex w-full items-center justify-center gap-4 px-4 pb-4 text-sm font-semibold md:hidden'
 
   const handleLogout = async () => {
     await logout()
     navigate('landing')
-  }
-
-  // Get user initials for avatar
-  const getUserInitials = () => {
-    if (!user?.email) return 'U'
-    return user.email.charAt(0).toUpperCase()
   }
 
   const quotaLabel = useMemo(() => {
@@ -45,106 +61,133 @@ export const Navigation: React.FC = () => {
     return `${remaining}/${limit} left`
   }, [isSubscriptionLoading, limit, remaining, user])
 
+  const getUserInitials = () => {
+    if (!user?.email) return 'U'
+    return user.email.charAt(0).toUpperCase()
+  }
+
+  const isActive = (targets: RouteName[]) => targets.includes(currentRoute.name)
+
   return (
-    <header className={headerClasses}>
-      <div className={containerClasses}>
-        <button
-          onClick={() => navigate('landing')}
-          className="text-xl font-bold text-foreground transition-colors hover:text-primary"
-        >
-          Convergence
-        </button>
-
-        <nav className="hidden flex-1 items-center justify-center gap-6 text-sm font-semibold md:flex">
+    <>
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <button
-            onClick={() => navigate('dashboard')}
-            className="text-muted-foreground transition-colors hover:text-foreground"
+            onClick={() => navigate('landing')}
+            className="text-lg font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
           >
-            Dashboard
+            Convergence
           </button>
-          <button
-            onClick={() => navigate('history')}
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            History
-          </button>
-        </nav>
 
-        <div className="flex items-center gap-3">
-          {user && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden rounded-full border-primary/40 text-primary hover:bg-primary/10 md:inline-flex"
-              onClick={() => navigate('plans')}
-            >
-              {quotaLabel}
-            </Button>
-          )}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-                <Avatar className="h-10 w-10">
-                  <AvatarFallback className="bg-primary/10 text-primary">
-                    {getUserInitials()}
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 border border-border/60 bg-card text-foreground" align="end">
-              <DropdownMenuLabel className="font-normal">
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Account</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    {user?.email || 'user@example.com'}
-                  </p>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-border" />
-              <DropdownMenuItem
-                onClick={() => navigate('profile')}
-                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
-              >
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem
+          <nav className="hidden flex-1 items-center justify-center gap-6 text-sm font-semibold md:flex">
+            <NavLink label="Today" active={isActive(['dashboard'])} onClick={() => navigate('dashboard')} />
+            <NavLink label="Create" active={isActive(['createBlueprint'])} onClick={() => navigate('createBlueprint')} />
+            <NavLink label="History" active={isActive(['history', 'blueprintsIndex'])} onClick={() => navigate('history')} />
+          </nav>
+
+          <div className="flex items-center gap-2">
+            {user && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="hidden rounded-full border-primary/40 text-primary hover:bg-primary/10 md:inline-flex"
                 onClick={() => navigate('plans')}
-                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
               >
-                Plans
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => navigate('dashboard')}
-                className="cursor-pointer text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground focus:bg-muted/40 focus:text-foreground"
-              >
-                Dashboard
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-border" />
-              <DropdownMenuItem
-                onClick={handleLogout}
-                className="cursor-pointer text-destructive transition-colors hover:bg-muted/40 focus:bg-muted/40"
-              >
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                {quotaLabel}
+              </Button>
+            )}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" className="h-10 w-10 rounded-full border-border/70">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Open navigation menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-64 border border-border/60 bg-card text-foreground" align="end">
+                <DropdownMenuLabel className="flex items-center gap-3">
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback className="bg-primary/10 text-primary">
+                      {getUserInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="text-sm font-medium leading-none">{user?.email ?? 'Account'}</p>
+                    <p className="text-xs text-muted-foreground">{quotaLabel}</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-border" />
+                <DropdownMenuItem onClick={() => navigate('dashboard')} className="cursor-pointer">
+                  Today
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('createBlueprint')} className="cursor-pointer">
+                  Create blueprint
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('history')} className="cursor-pointer">
+                  History
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-border" />
+                <DropdownMenuItem onClick={() => navigate('profile')} className="cursor-pointer">
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('plans')} className="cursor-pointer">
+                  Plans
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('landing')} className="cursor-pointer">
+                  Learn more
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-border" />
+                <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive">
+                  Log out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
-      </div>
+      </header>
 
-      <nav className={mobileNavClasses}>
-        <button
-          onClick={() => navigate('dashboard')}
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Dashboard
-        </button>
-        <button
-          onClick={() => navigate('history')}
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          History
-        </button>
-      </nav>
-    </header>
+      <MobileNavigationBar />
+    </>
+  )
+}
+
+const NavLink: React.FC<{ label: string; active: boolean; onClick: () => void }> = ({ label, active, onClick }) => (
+  <button
+    onClick={onClick}
+    className={cn(
+      'transition-colors hover:text-foreground',
+      active ? 'text-foreground' : 'text-muted-foreground'
+    )}
+  >
+    {label}
+  </button>
+)
+
+const MobileNavigationBar: React.FC = () => {
+  const { navigate, currentRoute } = useRouter()
+
+  return (
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-background/95 pb-[env(safe-area-inset-bottom)] shadow-lg backdrop-blur supports-[backdrop-filter]:bg-background/80 md:hidden">
+      <div className="mx-auto flex max-w-3xl items-center justify-around px-2 py-2">
+        {bottomNavItems.map(({ key, label, icon: Icon, targets }) => {
+          const active = targets
+            ? targets.includes(currentRoute.name)
+            : currentRoute.name === key
+
+          return (
+            <button
+              key={key}
+              onClick={() => navigate(key)}
+              className={cn(
+                'flex flex-1 flex-col items-center gap-1 rounded-full px-2 py-1 text-xs font-medium',
+                active ? 'text-foreground' : 'text-muted-foreground'
+              )}
+            >
+              <Icon className={cn('h-5 w-5', active && 'text-primary')} aria-hidden />
+              <span>{label}</span>
+            </button>
+          )
+        })}
+      </div>
+    </nav>
   )
 }
