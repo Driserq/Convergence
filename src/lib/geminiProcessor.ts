@@ -54,16 +54,18 @@ async function handleProcessingError(job: GeminiRetryJob, error: any): Promise<P
   const statusCode = getStatusCode(error)
   const errorCode = getErrorCode(error)
   const rawSnippet = extractRawSnippet(error)
+  const geminiMeta = extractGeminiMeta(error)
+  const metaLog = formatGeminiMeta(geminiMeta)
 
   console.error(
-    `[GeminiProcessor] ⚠️ Error processing blueprint ${job.blueprint_id}: ${message} (status=${statusCode ?? 'n/a'}, retry=${job.retry_count})${rawSnippet ? ` | snippet=${rawSnippet}` : ''}`
+    `[GeminiProcessor] ⚠️ Error processing blueprint ${job.blueprint_id}: ${message} (status=${statusCode ?? 'n/a'}, retry=${job.retry_count})${rawSnippet ? ` | snippet=${rawSnippet}` : ''}${metaLog}`
   )
 
   if (classification === 'RETRIABLE') {
     const newRetryCount = job.retry_count + 1
 
     if (newRetryCount > RETRY_DELAYS_SECONDS.length) {
-      await markBlueprintAsFailed(job, message)
+      await markBlueprintAsFailed(job, message, rawSnippet, geminiMeta)
       return { status: 'failed', reason: 'max_retries', errorMessage: message }
     }
 
@@ -84,7 +86,7 @@ async function handleProcessingError(job: GeminiRetryJob, error: any): Promise<P
     return { status: 'retry_scheduled', retryCount: newRetryCount, nextRetryAt }
   }
 
-  await markBlueprintAsFailed(job, message, rawSnippet)
+  await markBlueprintAsFailed(job, message, rawSnippet, geminiMeta)
 
   return {
     status: 'failed',
@@ -93,11 +95,16 @@ async function handleProcessingError(job: GeminiRetryJob, error: any): Promise<P
   }
 }
 
-async function markBlueprintAsFailed(job: GeminiRetryJob, message: string, rawSnippet?: string | null) {
+async function markBlueprintAsFailed(
+  job: GeminiRetryJob,
+  message: string,
+  rawSnippet?: string | null,
+  geminiMeta?: GeminiMeta | null
+) {
   await markBlueprintFailed(job.blueprint_id)
   await removeRetryJob(job.id)
   console.error(
-    `[GeminiProcessor] ❌ Blueprint ${job.blueprint_id} failed permanently after ${job.retry_count} retries: ${message}${rawSnippet ? ` | snippet=${rawSnippet}` : ''}`
+    `[GeminiProcessor] ❌ Blueprint ${job.blueprint_id} failed permanently after ${job.retry_count} retries: ${message}${rawSnippet ? ` | snippet=${rawSnippet}` : ''}${formatGeminiMeta(geminiMeta)}`
   )
 }
 
@@ -123,4 +130,34 @@ function extractRawSnippet(error: any): string | null {
   }
 
   return null
+}
+
+interface GeminiMeta {
+  result?: string
+  reason?: string
+  message?: string
+}
+
+const extractGeminiMeta = (error: any): GeminiMeta | null => {
+  if (error instanceof AiRequestError && error.details && typeof error.details === 'object') {
+    const details = error.details as Record<string, unknown>
+    const result = typeof details.geminiResult === 'string' ? details.geminiResult : undefined
+    const reason = typeof details.geminiReason === 'string' ? details.geminiReason : undefined
+    const message = typeof details.geminiMessage === 'string' ? details.geminiMessage : undefined
+
+    if (result || reason || message) {
+      return { result, reason, message }
+    }
+  }
+
+  return null
+}
+
+const formatGeminiMeta = (meta?: GeminiMeta | null): string => {
+  if (!meta) return ''
+  const parts: string[] = []
+  if (meta.result) parts.push(`result=${meta.result}`)
+  if (meta.reason) parts.push(`reason=${meta.reason}`)
+  if (meta.message) parts.push(`message=${meta.message}`)
+  return parts.length ? ` | ${parts.join(' ')}` : ''
 }

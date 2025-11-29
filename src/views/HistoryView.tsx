@@ -49,7 +49,8 @@ export const HistoryView: React.FC = () => {
   const [filterType, setFilterType] = useState<FilterType>('all')
   const [sortOrder, setSortOrder] = useState<SortOrder>('newest')
   const [currentPage, setCurrentPage] = useState(1)
-  const [trackingError, setTrackingError] = useState<string | null>(null)
+  const [actionError, setActionError] = useState<string | null>(null)
+  const [retryingBlueprintId, setRetryingBlueprintId] = useState<string | null>(null)
   
   // Computed
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
@@ -79,7 +80,9 @@ export const HistoryView: React.FC = () => {
       const shouldSearchAll = searchQuery.trim().length > 0
 
       // Build query with filters and sort
-      let query = supabase.from('habit_blueprints').select('*', { count: 'exact' })
+      let query = supabase
+        .from('habit_blueprints')
+        .select('id, goal, content_source, content_type, status, created_at, ai_output, title, duration, author_name, video_type', { count: 'exact' })
 
       // Apply content type filter
       if (filterType !== 'all') {
@@ -87,8 +90,13 @@ export const HistoryView: React.FC = () => {
       }
 
       // Apply server-side search on goal and content_source
-      if (searchQuery.trim()) {
-        query = query.or(`goal.ilike.%${searchQuery}%,content_source.ilike.%${searchQuery}%`)
+      const trimmedSearch = searchQuery.trim()
+      if (trimmedSearch) {
+        const searchCondition = isUuid(trimmedSearch)
+          ? `goal.ilike.%${trimmedSearch}%,content_source.ilike.%${trimmedSearch}%,id.eq.${trimmedSearch}`
+          : `goal.ilike.%${trimmedSearch}%,content_source.ilike.%${trimmedSearch}%,id.ilike.%${trimmedSearch}%`
+
+        query = query.or(searchCondition)
       }
 
       // Apply sort order
@@ -126,16 +134,17 @@ export const HistoryView: React.FC = () => {
       let allData = data || []
 
       // Apply client-side search on ai_output JSONB for complete coverage
-      if (searchQuery.trim()) {
+      if (trimmedSearch) {
         allData = allData.filter((bp) => {
           // Check if search query appears in goal or content_source (already done server-side)
           // But also check within ai_output JSONB for complete search
           const goal = bp.goal?.toLowerCase() || ''
           const source = bp.content_source?.toLowerCase() || ''
-          const query = searchQuery.toLowerCase()
+          const idValue = bp.id?.toLowerCase() || ''
+          const query = trimmedSearch.toLowerCase()
           
           // If already matched by server search, include it
-          if (goal.includes(query) || source.includes(query)) {
+          if (goal.includes(query) || source.includes(query) || idValue.includes(query)) {
             return true
           }
           
@@ -194,9 +203,46 @@ export const HistoryView: React.FC = () => {
       }
     } catch (err) {
       console.error('[History] Unexpected error while deleting blueprint:', err)
-      setError('Failed to delete blueprint. Please try again.')
+      setActionError('Failed to delete blueprint. Please try again.')
     }
   }, [blueprints.length, currentPage, fetchBlueprints])
+
+  const handleRetryBlueprint = useCallback(async (id: string) => {
+    try {
+      setActionError(null)
+      setRetryingBlueprintId(id)
+
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
+      if (sessionError || !sessionData.session?.access_token) {
+        throw new Error('Please log in again to retry this blueprint.')
+      }
+
+      const response = await fetch(`/api/blueprints/${id}/retry`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${sessionData.session.access_token}`
+        }
+      })
+
+      if (!response.ok) {
+        let payload: any = null
+        try {
+          payload = await response.json()
+        } catch (_) {
+          // ignore parse errors
+        }
+        const message = payload?.error || `Retry request failed (HTTP ${response.status}).`
+        throw new Error(message)
+      }
+
+      await fetchBlueprints({ silent: true })
+    } catch (err: any) {
+      console.error('[History] Failed to retry blueprint:', err)
+      setActionError(err instanceof Error ? err.message : 'Failed to retry blueprint. Please try again.')
+    } finally {
+      setRetryingBlueprintId(null)
+    }
+  }, [fetchBlueprints])
 
   // Fetch on mount and when dependencies change
   useEffect(() => {
@@ -235,7 +281,7 @@ export const HistoryView: React.FC = () => {
     const canTrack = blueprint.status === 'completed'
 
     const toggle = async (type: 'habits' | 'actions') => {
-      setTrackingError(null)
+      setActionError(null)
       const payload =
         type === 'habits'
           ? { trackHabits: !isHabitsTracked }
@@ -247,7 +293,7 @@ export const HistoryView: React.FC = () => {
       })
 
       if (!result.success) {
-        setTrackingError(result.error ?? 'Failed to update tracking. Please try again.')
+        setActionError(result.error ?? 'Failed to update tracking. Please try again.')
       }
     }
 
@@ -297,6 +343,48 @@ export const HistoryView: React.FC = () => {
         />
       </div>
     )
+  }
+
+  const renderCardActions = (blueprint: Blueprint) => {
+    if (blueprint.status === 'failed') {
+      const isRetrying = retryingBlueprintId === blueprint.id
+      return (
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            type="button"
+            size="sm"
+            className="gap-2 rounded-md"
+            onClick={() => handleRetryBlueprint(blueprint.id)}
+            disabled={isRetrying}
+          >
+            {isRetrying ? (
+              <>
+                <Loader2 className="size-4 animate-spin" aria-hidden />
+                Retrying...
+              </>
+            ) : (
+              'Retry'
+            )}
+          </Button>
+          <DeleteBlueprintDialog
+            blueprintGoal={blueprint.goal}
+            onConfirm={() => handleDeleteBlueprint(blueprint.id)}
+            trigger={
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                className="rounded-md border-destructive/40 text-destructive hover:bg-destructive/10"
+              >
+                Delete
+              </Button>
+            }
+          />
+        </div>
+      )
+    }
+
+    return renderTrackButtons(blueprint)
   }
 
   const renderFooterLeft = (blueprintId: string) => {
@@ -437,10 +525,10 @@ export const HistoryView: React.FC = () => {
             onSortChange={setSortOrder}
           />
 
-          {trackingError && (
+          {actionError && (
             <div className="mt-4">
               <Alert variant="destructive">
-                <AlertDescription>{trackingError}</AlertDescription>
+                <AlertDescription>{actionError}</AlertDescription>
               </Alert>
             </div>
           )}
@@ -490,7 +578,7 @@ export const HistoryView: React.FC = () => {
                         blueprint={blueprint}
                         onNavigateToDetail={handleNavigateToDetail}
                         footerLeft={renderFooterLeft(blueprint.id)}
-                        footerActions={renderTrackButtons(blueprint)}
+                            footerActions={renderCardActions(blueprint)}
                       />
                     </LazyBlueprintCard>
                   ))}
@@ -504,6 +592,10 @@ export const HistoryView: React.FC = () => {
       </div>
     </ProtectedRoute>
   )
+}
+
+const isUuid = (value: string): boolean => {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
 }
 
 const LazyBlueprintCard: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -51,7 +51,7 @@ export const AI_MODEL_CONFIG = {
     temperature: 0.2,
     topK: 40,
     topP: 0.95,
-    maxOutputTokens: 2048,
+    maxOutputTokens: 6000,
     responseMimeType: "application/json",
     responseSchema: {
       type: "object",

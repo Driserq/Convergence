@@ -86,6 +86,28 @@ export type AIBlueprint = AdaptiveBlueprintOutput | LegacyBlueprintOutput
 
 export type BlueprintStatus = 'pending' | 'completed' | 'failed'
 
+export interface YouTubeSourcePayload {
+  contentType: 'youtube'
+  youtubeUrl: string
+  videoId?: string
+  transcript?: string
+  transcriptLanguage?: string
+  transcriptLength?: number
+  metadata?: {
+    title?: string
+    durationSeconds?: number | null
+    authorName?: string
+  }
+}
+
+export interface TextSourcePayload {
+  contentType: 'text'
+  textContent: string
+  textLength: number
+}
+
+export type BlueprintSourcePayload = YouTubeSourcePayload | TextSourcePayload
+
 // Type guard helper functions for safe type narrowing
 export function isAdaptiveBlueprintOutput(blueprint: AIBlueprint): blueprint is AdaptiveBlueprintOutput {
   return 'sequential_steps' in blueprint || 'daily_habits' in blueprint || 'trigger_actions' in blueprint
@@ -109,6 +131,7 @@ export interface Blueprint {
   duration?: number | null
   video_type?: string | null
   author_name?: string | null
+  source_payload?: BlueprintSourcePayload | null
 }
 
 // Saved blueprint response from API (includes database fields)

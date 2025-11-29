@@ -16,6 +16,152 @@ interface GenerateBlueprintOptions {
   prompt: string;
 }
 
+const MAX_ERROR_LOG_LENGTH = 300;
+
+interface GeminiErrorMeta {
+  result?: string
+  reason?: string
+  message?: string
+}
+
+const truncateForLog = (value: string | null | undefined): string | undefined => {
+  if (!value) return undefined;
+  if (value.length <= MAX_ERROR_LOG_LENGTH) {
+    return value;
+  }
+  return `${value.slice(0, MAX_ERROR_LOG_LENGTH)}…`;
+};
+
+const extractGeminiErrorMessage = (details: unknown): string | null => {
+  if (!details) return null;
+  if (typeof details === 'string') {
+    return details.trim() || null;
+  }
+
+  if (typeof details === 'object') {
+    const payload = details as Record<string, unknown>;
+    const errorSection = payload.error as Record<string, unknown> | undefined;
+
+    if (errorSection && typeof errorSection.message === 'string') {
+      return errorSection.message;
+    }
+
+    if (typeof payload.message === 'string') {
+      return payload.message;
+    }
+
+    if (Array.isArray(errorSection?.details)) {
+      for (const entry of errorSection!.details as unknown[]) {
+        if (entry && typeof entry === 'object' && 'message' in entry && typeof (entry as any).message === 'string') {
+          return (entry as any).message;
+        }
+      }
+    }
+
+    try {
+      return JSON.stringify(payload);
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
+};
+
+const extractGeminiErrorCode = (details: unknown): string | undefined => {
+  if (!details || typeof details !== 'object') {
+    return undefined;
+  }
+
+  const payload = details as Record<string, unknown>;
+  const errorSection = payload.error as Record<string, unknown> | undefined;
+
+  if (errorSection && typeof errorSection.code === 'string') {
+    return errorSection.code;
+  }
+
+  if (typeof payload.code === 'string') {
+    return payload.code;
+  }
+
+  return undefined;
+};
+
+const extractGeminiErrorMeta = (details: unknown): GeminiErrorMeta => {
+  if (!details || typeof details !== 'object') {
+    return {};
+  }
+
+  const payload = details as Record<string, unknown>;
+  const errorSection = payload.error as Record<string, unknown> | undefined;
+
+  const result = typeof payload.result === 'string'
+    ? payload.result
+    : typeof errorSection?.status === 'string'
+      ? errorSection.status
+      : typeof errorSection?.code === 'string'
+        ? errorSection.code
+        : undefined;
+
+  const reason = typeof payload.reason === 'string'
+    ? payload.reason
+    : typeof errorSection?.reason === 'string'
+      ? errorSection.reason
+      : typeof errorSection?.status === 'string'
+        ? errorSection.status
+        : undefined;
+
+  const message = typeof payload.message === 'string'
+    ? payload.message
+    : typeof errorSection?.message === 'string'
+      ? errorSection.message
+      : undefined;
+
+  return { result, reason, message };
+};
+
+const readGeminiErrorBody = async (response: Response) => {
+  let parsedDetails: unknown = null;
+  let preview: string | undefined;
+
+  try {
+    const rawBody = await response.text();
+    if (rawBody) {
+      try {
+        parsedDetails = JSON.parse(rawBody);
+        preview = truncateForLog(safeStringify(parsedDetails));
+      } catch {
+        parsedDetails = rawBody;
+        preview = truncateForLog(rawBody);
+      }
+    }
+  } catch (bodyError) {
+    console.warn('[AIClient] Failed to read Gemini error body:', bodyError);
+  }
+
+  return { parsedDetails, preview };
+};
+
+const safeStringify = (value: unknown): string => {
+  if (typeof value === 'string') return value;
+  try {
+    return JSON.stringify(value);
+  } catch {
+    return '[unserializable]';
+  }
+};
+
+const decorateGeminiDetails = (details: unknown, preview?: string) => {
+  const meta = extractGeminiErrorMeta(details)
+  return {
+    rawSnippet: preview,
+    payload: details,
+    geminiResult: meta.result,
+    geminiReason: meta.reason,
+    geminiMessage: meta.message
+  }
+}
+
 export async function generateBlueprintDraft({ prompt }: GenerateBlueprintOptions): Promise<string> {
   const apiKey = process.env.GOOGLE_AI_API_KEY;
 
@@ -78,32 +224,39 @@ export async function generateBlueprintDraft({ prompt }: GenerateBlueprintOption
   });
 
   if (!response.ok) {
-    let details: unknown;
+    const { parsedDetails, preview } = await readGeminiErrorBody(response);
 
-    try {
-      details = await response.json();
-    } catch {
-      try {
-        details = await response.text();
-      } catch {
-        details = null;
-      }
-    }
+    const extractedMessage = extractGeminiErrorMessage(parsedDetails) ?? 'Unknown AI error';
+    const extractedCode = extractGeminiErrorCode(parsedDetails);
+    const geminiMeta = extractGeminiErrorMeta(parsedDetails);
+
+    console.error('[AIClient] Gemini error response:', {
+      status: response.status,
+      code: extractedCode,
+      message: truncateForLog(extractedMessage),
+      preview,
+      result: geminiMeta.result,
+      reason: geminiMeta.reason,
+      geminiMessage: truncateForLog(geminiMeta.message)
+    });
 
     const statusCode = response.status === 429 ? 429 : 503;
     const message = statusCode === 429
       ? 'AI service rate limit exceeded. Please try again in a moment.'
       : 'AI service temporarily unavailable';
 
-    throw new AiRequestError(message, statusCode, details);
+    throw new AiRequestError(message, statusCode, decorateGeminiDetails(parsedDetails, preview));
   }
 
   const data = await response.json() as any;
   const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
   if (!aiText) {
-    throw new AiRequestError('AI failed to generate blueprint', 500, data);
+    const preview = truncateForLog(safeStringify(data));
+    console.error('[AIClient] Gemini response missing text content:', { preview });
+    throw new AiRequestError('AI failed to generate blueprint', 500, decorateGeminiDetails(data, preview));
   }
 
   return aiText;
 }
+

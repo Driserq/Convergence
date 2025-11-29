@@ -38,9 +38,7 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
   const {
     isLoading: isCreatingBlueprint,
     blueprint,
-    metadata: blueprintMetadata,
     error: blueprintError,
-    queuedBlueprint,
     quotaError,
     subscription,
     createBlueprint,
@@ -269,19 +267,6 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
           <Alert variant="destructive" className="border-destructive/30 bg-destructive/10">
             <AlertTitle>Blueprint request failed</AlertTitle>
             <AlertDescription>{blueprintError}</AlertDescription>
-          </Alert>
-        )}
-
-        {queuedBlueprint && (
-          <Alert className="border-amber-200 bg-amber-50">
-            <AlertTitle className="flex items-center gap-2 text-amber-900">
-              <AlertCircle className="size-4" aria-hidden />
-              We&apos;re still generating your blueprint
-            </AlertTitle>
-            <AlertDescription className="mt-1 text-sm text-amber-900/90">
-              Your request has been queued due to temporary AI service issues. We&apos;re retrying automatically.
-              Check the history page to monitor the status. You can keep working while we finish this in the background.
-            </AlertDescription>
           </Alert>
         )}
 

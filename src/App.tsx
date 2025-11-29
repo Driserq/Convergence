@@ -234,6 +234,9 @@ export const App: React.FC = () => {
 
   const renderRoute = () => {
     if (!user && isProtectedRoute(currentRoute.name)) {
+      if (loading) {
+        return <GlobalShellSkeleton />
+      }
       return <LoginPage />
     }
 
@@ -247,22 +250,22 @@ export const App: React.FC = () => {
       case 'login':
         return <LoginPage />
       case 'dashboard':
-        return <DashboardPage />
+        return loading ? <GlobalShellSkeleton /> : <DashboardPage />
       case 'createBlueprint':
-        return <CreateBlueprintPage />
+        return loading ? <GlobalShellSkeleton /> : <CreateBlueprintPage />
       case 'history':
       case 'blueprintsIndex':
-        return <HistoryPage />
+        return loading ? <GlobalShellSkeleton /> : <HistoryPage />
       case 'profile':
-        return <ProfilePage />
+        return loading ? <GlobalShellSkeleton /> : <ProfilePage />
       case 'plans':
-        return <PlansPage />
+        return loading ? <GlobalShellSkeleton /> : <PlansPage />
       case 'billingSuccess':
-        return <BillingSuccessPage />
+        return loading ? <GlobalShellSkeleton /> : <BillingSuccessPage />
       case 'billingCancel':
-        return <BillingCancelPage />
+        return loading ? <GlobalShellSkeleton /> : <BillingCancelPage />
       case 'blueprintDetail':
-        return <BlueprintDetailPage />
+        return loading ? <GlobalShellSkeleton /> : <BlueprintDetailPage />
       default:
         return <NotFoundPage />
     }
@@ -287,22 +290,27 @@ export const App: React.FC = () => {
 
   return (
     <RouterProvider currentRoute={currentRoute} navigate={navigate}>
-      {loading ? (
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          </div>
-          <p className="text-center mt-4 text-gray-600">Loading application...</p>
-        </div>
-      ) : (
-        <div className="App min-h-screen bg-background text-foreground">
-          {showNavigation && <Navigation />}
-          <ServiceWorkerToast />
-          <Suspense fallback={<SuspenseFallback />}>
-            <div className={contentPaddingClass}>{renderRoute()}</div>
-          </Suspense>
-        </div>
-      )}
+      <div className="App min-h-screen bg-background text-foreground">
+        {showNavigation && <Navigation />}
+        <ServiceWorkerToast />
+        <Suspense fallback={<SuspenseFallback />}>
+          <div className={contentPaddingClass}>{renderRoute()}</div>
+        </Suspense>
+      </div>
     </RouterProvider>
   )
 }
+
+const GlobalShellSkeleton: React.FC = () => (
+  <div className="min-h-screen bg-background px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto flex max-w-5xl flex-col gap-6">
+      <div className="h-10 w-40 animate-pulse rounded-lg bg-muted" />
+      <div className="h-72 animate-pulse rounded-3xl bg-muted" />
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="h-48 animate-pulse rounded-2xl bg-muted" />
+        <div className="h-48 animate-pulse rounded-2xl bg-muted" />
+      </div>
+      <div className="h-64 animate-pulse rounded-2xl bg-muted" />
+    </div>
+  </div>
+)

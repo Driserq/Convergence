@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js'
-import type { AIBlueprint, Blueprint, ContentType } from '../types/blueprint'
+import type { AIBlueprint, Blueprint, ContentType, BlueprintSourcePayload } from '../types/blueprint'
 import type {
   BlueprintCompletionRecord,
   TrackedBlueprintRecord,
@@ -74,6 +74,7 @@ interface SaveBlueprintParams {
   duration?: number | null
   videoType?: string | null
   authorName?: string | null
+  sourcePayload?: BlueprintSourcePayload | null
 }
 
 export interface PendingBlueprintResult {
@@ -88,6 +89,7 @@ export interface PendingBlueprintResult {
   duration?: number | null
   video_type?: string | null
   author_name?: string | null
+  source_payload?: BlueprintSourcePayload | null
 }
 
 export async function createPendingBlueprint(params: SaveBlueprintParams): Promise<PendingBlueprintResult> {
@@ -105,9 +107,10 @@ export async function createPendingBlueprint(params: SaveBlueprintParams): Promi
       title: params.title ?? null,
       duration: params.duration ?? null,
       video_type: params.videoType ?? null,
-      author_name: params.authorName ?? null
+      author_name: params.authorName ?? null,
+      source_payload: params.sourcePayload ?? null
     })
-    .select('id, user_id, goal, content_source, content_type, status, created_at, title, duration, video_type, author_name')
+    .select('id, user_id, goal, content_source, content_type, status, created_at, title, duration, video_type, author_name, source_payload')
     .single()
 
   if (error) {
@@ -187,6 +190,19 @@ export async function removeRetryJob(jobId: string): Promise<void> {
     .from('gemini_retries')
     .delete()
     .eq('id', jobId)
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+export async function deleteRetryJobsForBlueprint(blueprintId: string): Promise<void> {
+  const serviceClient = getServiceClient()
+
+  const { error } = await serviceClient
+    .from('gemini_retries')
+    .delete()
+    .eq('blueprint_id', blueprintId)
 
   if (error) {
     throw new Error(error.message)
@@ -452,7 +468,8 @@ function mapBlueprintRow(row: any): Blueprint {
     status: row.status,
     title: row.title ?? null,
     duration: row.duration ?? null,
-    video_type: row.video_type ?? null
+    video_type: row.video_type ?? null,
+    source_payload: row.source_payload ?? null
   }
 }
 

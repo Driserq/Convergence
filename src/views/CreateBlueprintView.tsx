@@ -89,6 +89,9 @@ export const CreateBlueprintView: React.FC = () => {
                       if (result.success || result.subscription) {
                         void refreshSubscription()
                       }
+                      if (result.queued) {
+                        navigate('history')
+                      }
                     }}
                   />
                 </div>

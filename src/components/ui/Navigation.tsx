@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback } from './avatar'
 import { useSubscription } from '../../hooks/useSubscription'
 import { cn } from '../../lib/utils'
 import type { RouteName } from '../../routes/map'
+import { LogoMark } from './LogoMark'
 
 const bottomNavItems: Array<{
   key: RouteName
@@ -74,9 +75,10 @@ export const Navigation: React.FC = () => {
         <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <button
             onClick={() => navigate('landing')}
-            className="text-lg font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
+            className="flex h-full items-center gap-2 text-lg font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
           >
-            Convergence
+            <LogoMark className="h-full w-auto" />
+            <span>Consum</span>
           </button>
 
           <nav className="hidden flex-1 items-center justify-center gap-6 text-sm font-semibold md:flex">
