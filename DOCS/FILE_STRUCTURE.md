@@ -103,7 +103,7 @@ Convergence/
 
 ### TypeScript
 - `tsconfig.json`: `strict: true` for client code, includes `@/*` path alias (policy still prefers relative imports; see Import Guidelines).
-- `tsconfig.server.json`: Extends client config but relaxes strictness and excludes React-specific directories. Includes worker-related files (`lib/aiErrors.ts`, `lib/blueprintParser.ts`, `lib/geminiProcessor.ts`, `plugins/`). Used by `npm run build:server`.
+- `tsconfig.server.json`: Extends client config but relaxes strictness and excludes React-specific directories. Includes worker-related files (`lib/aiErrors.ts`, `lib/blueprintParser.ts`, `lib/geminiProcessor.ts`, `plugins/`). Used by `npm run build:server`. **2025-11-29 update**: the server build now targets Node’s native ESM loader with `module`/`moduleResolution` set to `"NodeNext"`; every server-side relative import must include a `.js` suffix (e.g., `import { foo } from '../lib/bar.js'`) so the emitted files resolve correctly at runtime. When adding new server code, follow this convention or the DigitalOcean deploy will fail with `ERR_MODULE_NOT_FOUND`.
 
 ### Vite (`vite.config.ts`)
 - React plugin enabled.

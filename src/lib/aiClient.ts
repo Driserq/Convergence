@@ -1,4 +1,4 @@
-import { AI_MODEL_CONFIG } from './prompts';
+import { AI_MODEL_CONFIG } from './prompts.js';
 
 export class AiRequestError extends Error {
   statusCode: number;

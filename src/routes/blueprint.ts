@@ -1,8 +1,8 @@
 // Single endpoint for complete blueprint creation pipeline
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { blueprintFormSchema } from '../lib/validation';
-import { buildBlueprintPrompt } from '../lib/prompts';
+import { blueprintFormSchema } from '../lib/validation.js';
+import { buildBlueprintPrompt } from '../lib/prompts.js';
 import {
   createPendingBlueprint,
   deleteRetryJobsForBlueprint,
@@ -10,11 +10,11 @@ import {
   getServiceClient,
   markBlueprintFailed,
   type GeminiRequestData
-} from '../lib/database';
-import { supabase } from '../lib/supabase.server';
-import { extractTranscript, fetchVideoMetadata, transcriptErrorToStatus, validateTranscriptService, type VideoMetadata } from '../lib/transcript';
-import { processBlueprintJob } from '../lib/geminiProcessor';
-import type { BlueprintFormData, ContentType, BlueprintSourcePayload, BlueprintStatus } from '../types/blueprint';
+} from '../lib/database.js';
+import { supabase } from '../lib/supabase.server.js';
+import { extractTranscript, fetchVideoMetadata, transcriptErrorToStatus, validateTranscriptService, type VideoMetadata } from '../lib/transcript.js';
+import { processBlueprintJob } from '../lib/geminiProcessor.js';
+import type { BlueprintFormData, ContentType, BlueprintSourcePayload, BlueprintStatus } from '../types/blueprint.js';
 import {
   assertActive,
   buildUsageAfterIncrement,
@@ -24,9 +24,9 @@ import {
   QuotaExceededError,
   InactiveSubscriptionError,
   computeUsage
-} from '../lib/subscriptions/service';
-import { getPlan } from '../lib/subscriptions/plans';
-import type { SubscriptionRecord, SubscriptionUsage } from '../types/subscription';
+} from '../lib/subscriptions/service.js';
+import { getPlan } from '../lib/subscriptions/plans.js';
+import type { SubscriptionRecord, SubscriptionUsage } from '../types/subscription.js';
 
 // Request validation schema
 const createBlueprintSchema = blueprintFormSchema;

@@ -1,4 +1,4 @@
-import type { Blueprint } from './blueprint'
+import type { Blueprint } from './blueprint.js'
 
 export type TrackedSectionType = 'daily_habit' | 'sequential_step' | 'decision_checklist'
 

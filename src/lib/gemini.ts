@@ -1,1 +1,1 @@
-export * from './aiClient';
+export * from './aiClient.js';

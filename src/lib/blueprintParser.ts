@@ -1,5 +1,5 @@
 import { jsonrepair } from 'jsonrepair'
-import type { AIBlueprint, AdaptiveBlueprintOutput } from '../types/blueprint'
+import type { AIBlueprint, AdaptiveBlueprintOutput } from '../types/blueprint.js'
 
 interface RawBlueprintResponse {
   overview?: {

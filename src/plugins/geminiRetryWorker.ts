@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin'
 import type { FastifyInstance } from 'fastify'
-import { fetchDueRetryJobs } from '../lib/database'
-import { processBlueprintJob } from '../lib/geminiProcessor'
+import { fetchDueRetryJobs } from '../lib/database.js'
+import { processBlueprintJob } from '../lib/geminiProcessor.js'
 
 const POLL_INTERVAL_MS = 30_000
 const BATCH_SIZE = 10

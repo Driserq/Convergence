@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { ContentType } from '../types/blueprint'
+import type { ContentType } from '../types/blueprint.js'
 
 // YouTube URL validation regex patterns
 const YOUTUBE_URL_PATTERNS = [

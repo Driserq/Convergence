@@ -1,6 +1,6 @@
-import { AiRequestError, generateBlueprintDraft } from './aiClient'
-import { BlueprintParseError, parseBlueprintResponse } from './blueprintParser'
-import { classifyError, getErrorCode, getStatusCode } from './aiErrors'
+import { AiRequestError, generateBlueprintDraft } from './aiClient.js'
+import { BlueprintParseError, parseBlueprintResponse } from './blueprintParser.js'
+import { classifyError, getErrorCode, getStatusCode } from './aiErrors.js'
 import {
   GeminiRetryJob,
   GeminiRequestData,
@@ -8,7 +8,7 @@ import {
   removeRetryJob,
   storeBlueprintResult,
   updateRetryJob
-} from './database'
+} from './database.js'
 
 const RETRY_DELAYS_SECONDS = [10, 30, 90, 270]
 

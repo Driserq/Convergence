@@ -1,5 +1,5 @@
 import { User as SupabaseUser, Session as SupabaseSession } from '@supabase/supabase-js'
-import type { RouteName, RouteParams } from '../routes/map'
+import type { RouteName, RouteParams } from '../routes/map.js'
 
 // Extend Supabase types if needed
 export type User = SupabaseUser

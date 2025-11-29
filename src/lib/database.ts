@@ -1,11 +1,11 @@
 import { createClient } from '@supabase/supabase-js'
-import type { AIBlueprint, Blueprint, ContentType, BlueprintSourcePayload } from '../types/blueprint'
+import type { AIBlueprint, Blueprint, ContentType, BlueprintSourcePayload } from '../types/blueprint.js'
 import type {
   BlueprintCompletionRecord,
   TrackedBlueprintRecord,
   TrackedBlueprintWithBlueprint,
   TrackedSectionType
-} from '../types/tracking'
+} from '../types/tracking.js'
 
 export interface GeminiRequestData {
   prompt: string

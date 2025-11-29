@@ -7,8 +7,8 @@ import {
   SupadataTranscriptResponse,
   SUPADATA_ERROR_MAPPINGS,
   ERROR_MESSAGES 
-} from '../types/transcript';
-import { extractYouTubeVideoId, isValidYouTubeUrl, getContentLengthWarning } from './youtube';
+} from '../types/transcript.js';
+import { extractYouTubeVideoId, isValidYouTubeUrl, getContentLengthWarning } from './youtube.js';
 
 // Supadata.ai API configuration
 const SUPADATA_BASE_URL = 'https://api.supadata.ai';

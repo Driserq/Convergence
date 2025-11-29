@@ -2,9 +2,9 @@
 
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
-import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript';
-import { TranscriptServiceRequest } from '../types/transcript';
-import { validateYouTubeUrl } from '../lib/validation';
+import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript.js';
+import { TranscriptServiceRequest } from '../types/transcript.js';
+import { validateYouTubeUrl } from '../lib/validation.js';
 
 // Request body validation schema
 const transcriptRequestSchema = z.object({

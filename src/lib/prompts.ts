@@ -5,7 +5,7 @@
  * Edit these prompts to adjust how the AI analyzes content and generates blueprints.
  */
 
-import type { BlueprintFormData } from '../types/blueprint'
+import type { BlueprintFormData } from '../types/blueprint.js'
 
 export interface PromptConfig {
   systemRole: string

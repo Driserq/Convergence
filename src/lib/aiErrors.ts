@@ -1,4 +1,4 @@
-import { AiRequestError } from './aiClient'
+import { AiRequestError } from './aiClient.js'
 
 export type ErrorClassification = 'RETRIABLE' | 'NON_RETRIABLE'
 
