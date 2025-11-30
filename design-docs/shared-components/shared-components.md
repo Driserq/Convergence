@@ -42,6 +42,29 @@ Components that appear across multiple pages in this project.
 - Dropdown Menu component (Shadcn)
 - Button component (Shadcn)
 
+## Authentication
+
+### `src/components/auth/GoogleAuthButton.tsx` (Created 2025-11-30)
+**Purpose**: Shared OAuth trigger used on Login and Sign Up pages for "Continue with Google" actions.
+
+**Features**:
+- Wraps the `button → secondary` Kibo styling with Google branding (icon/text).
+- Handles Supabase `auth.signInWithOAuth({ provider: 'google' })` call with redirect `https://consum.app/login`.
+- Exposes `onError` callback so parent forms can surface failures inside existing alert components.
+- Disables itself while Supabase initializes to prevent duplicate submissions.
+
+**Styling**:
+- `variant="outline"` button with subtle border + Google logomark circle.
+- Full-width layout for parity with credential CTA.
+
+**Used On**:
+- Login form (beneath credential inputs)
+- Sign Up form (beneath credential inputs)
+
+**Dependencies**:
+- `useAuth()` – Access to shared `signInWithGoogle` method
+- `lucide-react` Loader2 icon for pending state
+
 ## UI Primitives (Shadcn Components)
 
 All located in `/src/components/ui/` - reusable across all 6 pages

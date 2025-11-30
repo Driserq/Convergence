@@ -1,6 +1,8 @@
 type RouteParamsMap = {
   landing: Record<string, never>
   login: Record<string, never>
+  signup: Record<string, never>
+  verifyEmail: { email?: string }
   dashboard: Record<string, never>
   createBlueprint: Record<string, never>
   history: Record<string, never>
@@ -47,6 +49,28 @@ const ROUTES: RouteDictionary = {
     requiresAuth: false,
     match: (path) => (path === '/login' ? {} : null),
     buildPath: () => '/login',
+  },
+  signup: {
+    name: 'signup',
+    path: '/signup',
+    requiresAuth: false,
+    match: (path) => (path === '/signup' ? {} : null),
+    buildPath: () => '/signup',
+  },
+  verifyEmail: {
+    name: 'verifyEmail',
+    path: '/verify-email',
+    requiresAuth: false,
+    match: (path) => {
+      const [pathname, query] = path.split('?')
+      if (pathname !== '/verify-email') return null
+      if (!query) return { email: undefined }
+      const params = new URLSearchParams(query)
+      const email = params.get('email') || undefined
+      return { email }
+    },
+    buildPath: ({ email }: { email?: string } = {}) =>
+      email ? `/verify-email?email=${encodeURIComponent(email)}` : '/verify-email',
   },
   dashboard: {
     name: 'dashboard',
@@ -135,6 +159,8 @@ const ROUTES: RouteDictionary = {
 const MATCHABLE_ROUTES: RouteRecord<RouteName>[] = [
   ROUTES.landing,
   ROUTES.login,
+  ROUTES.signup,
+  ROUTES.verifyEmail,
   ROUTES.dashboard,
   ROUTES.createBlueprint,
   ROUTES.history,

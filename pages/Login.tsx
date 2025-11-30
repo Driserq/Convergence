@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { LoginForm } from '../src/components/auth/LoginForm'
 import { SignupForm } from '../src/components/auth/SignupForm'
 import { useAuth } from '../src/hooks/useAuth'
@@ -22,9 +23,19 @@ export const Login: React.FC = () => {
 
         {/* Auth forms */}
         {authMode === 'login' ? (
-          <LoginForm onSwitchToSignup={() => setAuthMode('signup')} />
+          <LoginForm
+            onSwitchToSignup={() => {
+              setAuthMode('signup')
+              window.location.href = '/signup'
+            }}
+          />
         ) : (
-          <SignupForm onSwitchToLogin={() => setAuthMode('login')} />
+          <SignupForm
+            onSwitchToLogin={() => setAuthMode('login')}
+            onSignupSuccess={(email) => {
+              window.location.href = `/verify-email?email=${encodeURIComponent(email)}`
+            }}
+          />
         )}
 
         {/* Footer */}

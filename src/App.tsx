@@ -14,6 +14,7 @@ import {
 } from './routes/map'
 const LandingPage = lazy(async () => ({ default: (await import('./pages/Landing')).Landing }))
 const LoginPage = lazy(async () => ({ default: (await import('./pages/Login')).Login }))
+const SignUpPage = lazy(async () => ({ default: (await import('./pages/SignUp')).SignUp }))
 const DashboardPage = lazy(async () => ({ default: (await import('./pages/Dashboard')).Dashboard }))
 const HistoryPage = lazy(async () => ({ default: (await import('./pages/History')).History }))
 const CreateBlueprintPage = lazy(async () => ({ default: (await import('./pages/CreateBlueprint')).CreateBlueprint }))
@@ -23,6 +24,7 @@ const PlansPage = lazy(async () => ({ default: (await import('./pages/Plans')).P
 const BillingSuccessPage = lazy(async () => ({ default: (await import('./pages/BillingSuccess')).BillingSuccess }))
 const BillingCancelPage = lazy(async () => ({ default: (await import('./pages/BillingCancel')).BillingCancel }))
 const NotFoundPage = lazy(async () => ({ default: (await import('./pages/NotFound')).NotFound }))
+const VerifyEmailPage = lazy(async () => ({ default: (await import('./pages/VerifyEmail')).VerifyEmail }))
 
 type BrowserWindow = {
   location: {
@@ -214,7 +216,7 @@ export const App: React.FC = () => {
       return
     }
 
-    if (currentRoute.name === 'login') {
+    if (currentRoute.name === 'login' || currentRoute.name === 'signup') {
       if (authMode !== 'login') {
         setAuthMode('login')
       }
@@ -249,6 +251,8 @@ export const App: React.FC = () => {
         return <LandingPage />
       case 'login':
         return <LoginPage />
+      case 'signup':
+        return <SignUpPage />
       case 'dashboard':
         return loading ? <GlobalShellSkeleton /> : <DashboardPage />
       case 'createBlueprint':
@@ -266,6 +270,8 @@ export const App: React.FC = () => {
         return loading ? <GlobalShellSkeleton /> : <BillingCancelPage />
       case 'blueprintDetail':
         return loading ? <GlobalShellSkeleton /> : <BlueprintDetailPage />
+      case 'verifyEmail':
+        return <VerifyEmailPage />
       default:
         return <NotFoundPage />
     }
@@ -275,13 +281,13 @@ export const App: React.FC = () => {
     if (!user && isProtectedRoute(currentRoute.name)) {
       return 'login'
     }
-    if (user && currentRoute.name === 'login') {
+    if (user && (currentRoute.name === 'login' || currentRoute.name === 'signup')) {
       return 'dashboard'
     }
     return currentRoute.name
   }, [currentRoute.name, user])
 
-  const showNavigation = Boolean(user) && !['landing', 'login'].includes(effectiveRouteName)
+  const showNavigation = Boolean(user) && !['landing', 'login', 'signup', 'verifyEmail'].includes(effectiveRouteName)
   const contentPaddingClass = showNavigation ? 'pb-24 pt-2 md:pb-0' : ''
 
   console.log('[App] Current route:', currentRoute.name)

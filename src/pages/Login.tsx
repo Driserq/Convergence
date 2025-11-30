@@ -1,10 +1,13 @@
 import React from 'react'
+
 import { LoginForm } from '../components/auth/LoginForm'
 import { SignupForm } from '../components/auth/SignupForm'
 import { useAuth } from '../hooks/useAuth'
+import { useRouter } from '../contexts/RouterContext'
 
 export const Login: React.FC = () => {
   const { authMode, setAuthMode } = useAuth()
+  const { navigate } = useRouter()
 
   // Auth is initialized globally in App.tsx
 
@@ -22,9 +25,17 @@ export const Login: React.FC = () => {
 
         {/* Auth forms */}
         {authMode === 'login' ? (
-          <LoginForm onSwitchToSignup={() => setAuthMode('signup')} />
+          <LoginForm
+            onSwitchToSignup={() => {
+              setAuthMode('signup')
+              navigate('signup')
+            }}
+          />
         ) : (
-          <SignupForm onSwitchToLogin={() => setAuthMode('login')} />
+          <SignupForm
+            onSwitchToLogin={() => setAuthMode('login')}
+            onSignupSuccess={(email) => navigate('verifyEmail', { email })}
+          />
         )}
 
         {/* Footer */}

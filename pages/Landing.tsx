@@ -16,10 +16,19 @@ export default function Landing() {
     navigate('/login')
   }, [navigate, user])
 
+  const handleSignupCta = useCallback(() => {
+    if (user) {
+      navigate('/dashboard')
+      return
+    }
+    navigate('/signup')
+  }, [navigate, user])
+
   return (
     <LandingPageContent
       isAuthenticated={Boolean(user)}
       onPrimaryCta={handlePrimaryCta}
+      onSignupCta={handleSignupCta}
     />
   )
 }

@@ -40,7 +40,14 @@ export interface AuthState {
   redirectIntent: RedirectIntent | null
   setRedirectIntent: (intent: RedirectIntent | null) => void
   login: (email: string, password: string) => Promise<{ success: boolean; error?: AuthError }>
-  signup: (email: string, password: string) => Promise<{ success: boolean; error?: AuthError }>
+  signup: (
+    email: string,
+    password: string,
+    options?: { emailRedirectTo?: string }
+  ) => Promise<{ success: boolean; error?: AuthError }>
+  signInWithGoogle: (
+    options?: { redirectTo?: string }
+  ) => Promise<{ success: boolean; error?: AuthError }>
   logout: () => Promise<void>
   refreshSession: () => Promise<void>
   initialize: () => Promise<void>

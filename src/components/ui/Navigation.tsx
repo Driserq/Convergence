@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react'
-import { LayoutDashboard, Menu, PlusCircle, History as HistoryIcon } from 'lucide-react'
+import React, { useMemo, useState } from 'react'
+import { LayoutDashboard, Menu, PlusCircle, History as HistoryIcon, X } from 'lucide-react'
+import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { useAuth } from '../../hooks/useAuth'
 import { useRouter } from '../../contexts/RouterContext'
 import { Button } from './button'
@@ -49,10 +50,21 @@ export const Navigation: React.FC = () => {
     remaining,
     limit,
   } = useSubscription({ enabled: Boolean(user) })
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleLogout = async () => {
     await logout()
     navigate('landing')
+  }
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false)
+  const handleRoute = (route: RouteName) => {
+    navigate(route)
+    closeMobileMenu()
+  }
+  const handleMobileLogout = async () => {
+    await handleLogout()
+    closeMobileMenu()
   }
 
   const quotaLabel = useMemo(() => {
@@ -68,6 +80,24 @@ export const Navigation: React.FC = () => {
   }
 
   const isActive = (targets: RouteName[]) => targets.includes(currentRoute.name)
+
+  const mainNavigationItems: Array<{ label: string; route: RouteName }> = useMemo(
+    () => [
+      { label: 'Today', route: 'dashboard' },
+      { label: 'Create blueprint', route: 'createBlueprint' },
+      { label: 'History', route: 'history' },
+    ],
+    []
+  )
+
+  const secondaryNavigationItems: Array<{ label: string; route: RouteName }> = useMemo(
+    () => [
+      { label: 'Profile', route: 'profile' },
+      { label: 'Plans', route: 'plans' },
+      { label: 'Learn more', route: 'landing' },
+    ],
+    []
+  )
 
   return (
     <>
@@ -100,7 +130,7 @@ export const Navigation: React.FC = () => {
             )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="h-10 w-10 rounded-full border-border/70">
+                <Button variant="outline" size="icon" className="hidden h-10 w-10 rounded-full border-border/70 md:inline-flex">
                   <Menu className="h-5 w-5" />
                   <span className="sr-only">Open navigation menu</span>
                 </Button>
@@ -118,35 +148,53 @@ export const Navigation: React.FC = () => {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-border" />
-                <DropdownMenuItem onClick={() => navigate('dashboard')} className="cursor-pointer">
-                  Today
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('createBlueprint')} className="cursor-pointer">
-                  Create blueprint
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('history')} className="cursor-pointer">
-                  History
-                </DropdownMenuItem>
+                {mainNavigationItems.map(item => (
+                  <DropdownMenuItem
+                    key={item.route}
+                    onClick={() => navigate(item.route)}
+                    className="cursor-pointer"
+                  >
+                    {item.label}
+                  </DropdownMenuItem>
+                ))}
                 <DropdownMenuSeparator className="bg-border" />
-                <DropdownMenuItem onClick={() => navigate('profile')} className="cursor-pointer">
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('plans')} className="cursor-pointer">
-                  Plans
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate('landing')} className="cursor-pointer">
-                  Learn more
-                </DropdownMenuItem>
+                {secondaryNavigationItems.map(item => (
+                  <DropdownMenuItem
+                    key={item.route}
+                    onClick={() => navigate(item.route)}
+                    className="cursor-pointer"
+                  >
+                    {item.label}
+                  </DropdownMenuItem>
+                ))}
                 <DropdownMenuSeparator className="bg-border" />
                 <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive">
                   Log out
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-10 w-10 rounded-full border-border/70 md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Open navigation menu</span>
+            </Button>
           </div>
         </div>
       </header>
-
+      <MobileMenuDrawer
+        open={isMobileMenuOpen}
+        onClose={closeMobileMenu}
+        mainItems={mainNavigationItems}
+        secondaryItems={secondaryNavigationItems}
+        onRoute={handleRoute}
+        onLogout={handleMobileLogout}
+        quotaLabel={quotaLabel}
+        email={user?.email ?? 'Account'}
+      />
       <MobileNavigationBar />
     </>
   )
@@ -193,3 +241,81 @@ const MobileNavigationBar: React.FC = () => {
     </nav>
   )
 }
+
+interface MobileMenuDrawerProps {
+  open: boolean
+  onClose: () => void
+  onRoute: (route: RouteName) => void
+  onLogout: () => void | Promise<void>
+  mainItems: Array<{ label: string; route: RouteName }>
+  secondaryItems: Array<{ label: string; route: RouteName }>
+  quotaLabel: string
+  email: string
+}
+
+const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
+  open,
+  onClose,
+  onRoute,
+  onLogout,
+  mainItems,
+  secondaryItems,
+  quotaLabel,
+  email,
+}) => (
+  <DialogPrimitive.Root open={open} onOpenChange={(val) => { if (!val) onClose() }}>
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-background/60 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 md:hidden" />
+      <DialogPrimitive.Content className="fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm translate-x-0 border-l border-border/60 bg-background p-6 shadow-2xl transition-transform duration-200 data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right md:hidden">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm text-muted-foreground">Signed in as</p>
+            <p className="text-base font-semibold text-foreground">{email}</p>
+            <p className="text-xs text-muted-foreground">{quotaLabel}</p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground"
+            aria-label="Close menu"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+        <div className="mt-6 flex flex-col gap-5">
+          <div className="flex flex-col gap-2">
+            {mainItems.map(item => (
+              <button
+                key={item.route}
+                type="button"
+                onClick={() => onRoute(item.route)}
+                className="w-full rounded-2xl border border-border/60 px-4 py-3 text-left text-base font-semibold text-foreground transition-colors hover:bg-primary/10"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-col gap-2">
+            {secondaryItems.map(item => (
+              <button
+                key={item.route}
+                type="button"
+                onClick={() => onRoute(item.route)}
+                className="w-full rounded-2xl border border-border/60 px-4 py-3 text-left text-base font-medium text-foreground transition-colors hover:bg-primary/10"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+          <Button
+            variant="destructive"
+            className="w-full rounded-2xl py-3"
+            onClick={onLogout}
+          >
+            Log out
+          </Button>
+        </div>
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
+  </DialogPrimitive.Root>
+)

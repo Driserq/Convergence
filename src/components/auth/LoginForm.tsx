@@ -7,9 +7,11 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert'
 import { AlertTriangle, Loader2 } from 'lucide-react'
+import { Separator } from '../ui/separator'
+import { GoogleAuthButton } from './GoogleAuthButton'
 
 interface LoginFormProps {
-  onSwitchToSignup: () => void
+  onSwitchToSignup?: () => void
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignup }) => {
@@ -58,6 +60,17 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignup }) => {
   }
 
   const disabled = isLoading || authLoading
+  const handleOAuthError = (message: string) => {
+    setError(message)
+  }
+
+  const handleSwitchToSignup = () => {
+    if (onSwitchToSignup) {
+      onSwitchToSignup()
+      return
+    }
+    window.location.href = '/signup'
+  }
 
   return (
     <Card className="border-border/50 bg-card/70 shadow-xl">
@@ -108,13 +121,22 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSwitchToSignup }) => {
             )}
           </Button>
         </form>
+        <div className="py-5">
+          <div className="relative py-4">
+            <Separator />
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card/70 px-2 text-xs uppercase tracking-wide text-muted-foreground">
+              or
+            </span>
+          </div>
+          <GoogleAuthButton label="Log in with Google" onError={handleOAuthError} />
+        </div>
       </CardContent>
       <CardFooter className="flex flex-col gap-3 text-center text-sm text-muted-foreground">
         <span>
           Don't have an account?{' '}
           <button
             type="button"
-            onClick={onSwitchToSignup}
+            onClick={handleSwitchToSignup}
             className="font-medium text-primary underline-offset-4 hover:underline"
           >
             Sign up

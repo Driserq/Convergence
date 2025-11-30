@@ -1,5 +1,6 @@
-import React from 'react'
-import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react'
+import React, { useState } from 'react'
+import { ArrowRight, CheckCircle2, Sparkles, Menu, X } from 'lucide-react'
+import * as DialogPrimitive from '@radix-ui/react-dialog'
 
 import {
   SECTION_LINKS,
@@ -33,24 +34,44 @@ import { LogoMark } from '../ui/LogoMark'
 type LandingPageContentProps = {
   isAuthenticated: boolean
   onPrimaryCta: () => void
+  onSignupCta?: () => void
 }
 
 export const LandingPageContent: React.FC<LandingPageContentProps> = ({
   isAuthenticated,
   onPrimaryCta,
+  onSignupCta,
 }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   const handleSectionScroll = (target: string) => {
     if (typeof window === 'undefined') return
     const element = document.getElementById(target)
     element?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  const closeMobileMenu = () => setIsMobileMenuOpen(false)
+  const handleSectionNavMobile = (target: string) => {
+    handleSectionScroll(target)
+    closeMobileMenu()
+  }
+  const handleMobilePrimaryCta = () => {
+    onPrimaryCta()
+    closeMobileMenu()
+  }
+  const handleMobileSignupCta = () => {
+    onSignupCta?.()
+    closeMobileMenu()
+  }
+  const openMobileMenu = () => setIsMobileMenuOpen(true)
+
   const authButtonLabel = isAuthenticated ? 'Go to Dashboard' : 'Log In'
+  const showSignupButton = !isAuthenticated && Boolean(onSignupCta)
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-6 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 w-full max-w-6xl items-center gap-4 px-4 sm:px-6 lg:px-8">
           <button
             onClick={() => handleSectionScroll('hero')}
             className="flex h-full items-center gap-2 text-xl font-bold text-foreground transition-colors hover:text-primary"
@@ -63,13 +84,13 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
               <button
                 key={link.target}
                 onClick={() => handleSectionScroll(link.target)}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
               </button>
             ))}
           </nav>
-          <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-3 md:flex">
             <Button
               size="sm"
               variant="secondary"
@@ -78,19 +99,87 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
             >
               {authButtonLabel}
             </Button>
+            {showSignupButton && (
+              <Button
+                size="sm"
+                className="rounded-full px-4"
+                onClick={onSignupCta}
+              >
+                Sign Up
+              </Button>
+            )}
+          </div>
+          <div className="flex items-center gap-2 md:hidden">
+            {showSignupButton && (
+              <Button
+                size="sm"
+                className="rounded-full px-4"
+                onClick={onSignupCta}
+              >
+                Sign Up
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="icon"
+              className="h-10 w-10 rounded-full border-border/70"
+              onClick={openMobileMenu}
+              aria-label="Open navigation menu"
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
           </div>
         </div>
-        <nav className="flex w-full items-center justify-center gap-4 px-4 pb-4 text-sm font-semibold md:hidden">
-          {SECTION_LINKS.map(link => (
-            <button
-              key={link.target}
-              onClick={() => handleSectionScroll(link.target)}
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </button>
-          ))}
-        </nav>
+        <DialogPrimitive.Root open={isMobileMenuOpen} onOpenChange={(val) => { if (!val) closeMobileMenu() }}>
+          <DialogPrimitive.Portal>
+            <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-background/60 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 md:hidden" />
+            <DialogPrimitive.Content className="fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm border-l border-border/60 bg-background p-6 shadow-2xl transition-transform duration-200 data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right md:hidden">
+              <div className="flex items-center justify-between">
+                <p className="text-lg font-semibold">Menu</p>
+                <button
+                  type="button"
+                  onClick={closeMobileMenu}
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground"
+                  aria-label="Close menu"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="mt-6 flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  {SECTION_LINKS.map(link => (
+                    <button
+                      key={link.target}
+                      type="button"
+                      onClick={() => handleSectionNavMobile(link.target)}
+                      className="w-full rounded-2xl border border-border/60 px-4 py-3 text-left text-base font-semibold text-foreground transition-colors hover:bg-primary/10"
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-3">
+                  <Button
+                    variant="secondary"
+                    className="w-full rounded-2xl py-3"
+                    onClick={handleMobilePrimaryCta}
+                  >
+                    {authButtonLabel}
+                  </Button>
+                  {showSignupButton && (
+                    <Button
+                      className="w-full rounded-2xl py-3"
+                      onClick={handleMobileSignupCta}
+                    >
+                      Sign Up
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </DialogPrimitive.Content>
+          </DialogPrimitive.Portal>
+        </DialogPrimitive.Root>
       </header>
 
       <main>

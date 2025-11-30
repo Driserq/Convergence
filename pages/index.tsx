@@ -121,6 +121,16 @@ export default function IndexPage() {
     }
   }
 
+  const handleSignupNavigation = () => {
+    if (user) {
+      navigate('/dashboard')
+      return
+    }
+    navigate('/signup')
+  }
+
+  const authButtonLabel = user ? 'Go to Dashboard' : 'Log In'
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur">
@@ -149,8 +159,17 @@ export default function IndexPage() {
               onClick={handleAuthNavigation}
               className="rounded-full px-4"
             >
-              {user ? 'Go to Dashboard' : 'Log In'}
+              {authButtonLabel}
             </Button>
+            {!user && (
+              <Button
+                size="sm"
+                className="rounded-full px-4"
+                onClick={handleSignupNavigation}
+              >
+                Sign Up
+              </Button>
+            )}
           </div>
         </div>
         <nav className="flex w-full items-center justify-center gap-4 px-4 pb-4 text-sm font-semibold md:hidden">
@@ -164,6 +183,25 @@ export default function IndexPage() {
             </button>
           ))}
         </nav>
+        {!user && (
+          <div className="flex w-full items-center justify-center gap-3 px-4 pb-4 md:hidden">
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={handleAuthNavigation}
+              className="rounded-full px-4"
+            >
+              {authButtonLabel}
+            </Button>
+            <Button
+              size="sm"
+              className="rounded-full px-4"
+              onClick={handleSignupNavigation}
+            >
+              Sign Up
+            </Button>
+          </div>
+        )}
       </header>
 
       <section

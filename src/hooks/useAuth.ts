@@ -9,6 +9,22 @@ import type {
   AuthError,
 } from '../types/auth'
 
+const PRODUCTION_BASE_URL = 'https://consum.app'
+
+const prependDomain = (path: string): string => {
+  if (!path) {
+    return PRODUCTION_BASE_URL
+  }
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path
+  }
+  const normalized = path.startsWith('/') ? path : `/${path}`
+  return `${PRODUCTION_BASE_URL}${normalized}`
+}
+
+const DEFAULT_EMAIL_REDIRECT = prependDomain('/verify-email')
+const DEFAULT_GOOGLE_REDIRECT = prependDomain('/login')
+
 export const useAuth = create<AuthState>((set, get) => ({
   user: null,
   session: null,
@@ -98,13 +114,17 @@ export const useAuth = create<AuthState>((set, get) => ({
   },
 
   // Signup with email and password
-  signup: async (email: string, password: string) => {
+  signup: async (email: string, password: string, options?: { emailRedirectTo?: string }) => {
     try {
       console.log('[useAuth] Attempting signup for:', email)
+      const emailRedirectTo = options?.emailRedirectTo ?? DEFAULT_EMAIL_REDIRECT
 
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo,
+        }
       })
 
       if (error) {
@@ -136,6 +156,42 @@ export const useAuth = create<AuthState>((set, get) => ({
         error: {
           message: error?.message || 'An unexpected error occurred during signup'
         }
+      }
+    }
+  },
+
+  signInWithGoogle: async (options?: { redirectTo?: string }) => {
+    try {
+      const redirectTo = options?.redirectTo ?? DEFAULT_GOOGLE_REDIRECT
+      console.log('[useAuth] Starting Google OAuth flow with redirect:', redirectTo)
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo,
+        }
+      })
+
+      if (error) {
+        console.error('[useAuth] Google OAuth error:', error)
+        return {
+          success: false,
+          error: {
+            message: error.message,
+            status: error.status || 400,
+          },
+        }
+      }
+
+      console.log('[useAuth] Google OAuth redirect URL:', data?.url || 'N/A')
+      return { success: true }
+    } catch (error: any) {
+      console.error('[useAuth] Unexpected Google OAuth error:', error)
+      return {
+        success: false,
+        error: {
+          message: error?.message || 'Unable to start Google sign-in',
+        },
       }
     }
   },
