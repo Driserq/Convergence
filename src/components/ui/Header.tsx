@@ -28,7 +28,7 @@ export const Header: React.FC = () => {
           {/* Logo/Brand */}
           <div className="flex items-center">
             <h1 className="text-xl font-bold text-gray-900">
-              Convergence
+              Consum
             </h1>
             <span className="ml-2 px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
               MVP

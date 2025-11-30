@@ -1,8 +1,8 @@
 # MOBILE-OPTIMIZATION.md
-Refactoring Guide for Convergence App
+Refactoring Guide for Consum App
 
 ## Purpose
-Instructions for refactoring existing Convergence UI to be mobile-optimized for iPhone-sized screens (375px-430px width).
+Instructions for refactoring existing Consum UI to be mobile-optimized for iPhone-sized screens (375px-430px width).
 
 ## Tech Stack Context
 - **@fastify/react** (SSR) - Server-side rendering with hydration
@@ -124,7 +124,7 @@ Ensure index.html or root template has:
 
 ---
 
-## Convergence-Specific Refactoring
+## Consum-Specific Refactoring
 
 ### Goal Input Form (Home.tsx or similar)
 

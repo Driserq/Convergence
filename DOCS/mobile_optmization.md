@@ -1,4 +1,4 @@
-# Mobile Optimization Guide for Convergence SPA
+# Mobile Optimization Guide for Consum SPA
 **Target: Mobile-first web app (SPA) · React · 1-2 week timeline · <$500 budget**
 
 ---
@@ -261,7 +261,7 @@ SPAs have unique mobile performance issues:
 
 ---
 
-## 🔧 Convergence-Specific Optimizations
+## 🔧 Consum-Specific Optimizations
 
 ### Blueprint Creation Form
 

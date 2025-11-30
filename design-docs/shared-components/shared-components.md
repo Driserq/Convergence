@@ -8,7 +8,7 @@ Components that appear across multiple pages in this project.
 **Purpose**: Top navigation bar for authenticated pages
 
 **Features**:
-- Logo/brand ("Convergence") - links to Dashboard
+- Logo/brand ("Consum") - links to Dashboard
 - Main navigation links: Dashboard, History
 - User dropdown menu with:
   - User email display

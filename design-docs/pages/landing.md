@@ -3,7 +3,7 @@
 ## 1. Goals & Audience
 - Convert first‑time visitors into authenticated users by routing the hero CTA to `/login` (or `/dashboard` when already signed in).
 - Tell a cohesive story that moves visitors from pain awareness → product explanation → proof → action.
-- Follow Convergence design-weight guidance: lightweight hero, medium-weight storytelling sections, heavy-weight CTA + FAQ.
+- Follow Consum design-weight guidance: lightweight hero, medium-weight storytelling sections, heavy-weight CTA + FAQ.
 
 ## 2. Section Blueprint
 | Section | Purpose | Context Weight | Components (Level 1 → Level 2) | Notes |

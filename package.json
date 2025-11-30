@@ -1,5 +1,5 @@
 {
-  "name": "convergence",
+  "name": "consum",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,16 +18,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Driserq/Convergence.git"
+    "url": "git+https://github.com/Driserq/Consum.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/Driserq/Convergence/issues"
+    "url": "https://github.com/Driserq/Consum/issues"
   },
-  "homepage": "https://github.com/Driserq/Convergence#readme",
+  "homepage": "https://github.com/Driserq/Consum#readme",
   "dependencies": {
     "@fastify/cors": "^11.1.0",
     "@fastify/env": "^5.0.3",

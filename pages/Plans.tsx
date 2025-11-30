@@ -31,7 +31,7 @@ export const Plans: React.FC = () => {
           Upgrade Your Plan
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Unlock higher limits and get more out of Convergence.
+          Unlock higher limits and get more out of Consum.
           <br />
           Choose the plan that fits your workflow.
         </p>

@@ -1,4 +1,4 @@
-# File Structure - Convergence Habit Blueprint MVP
+# File Structure - Consum Habit Blueprint MVP
 
 ## Overview
 This document reflects the repository structure and runtime flow as of **2025-11-24**. The project runs a Fastify server that serves a Vite-built React SPA alongside API routes for AI blueprint generation, subscription management, tracking, and analytics.
@@ -16,7 +16,7 @@ This document reflects the repository structure and runtime flow as of **2025-11
 ## Root Directory
 
 ```
-Convergence/
+Consum/
 ├── .env*                 # Local environment files (never committed)
 ├── .gitignore
 ├── components.json       # shadcn/ui registry config

@@ -13,7 +13,7 @@ export const SequentialSteps: React.FC<SequentialStepsProps> = ({ steps }) => {
         Step-by-Step Implementation
       </h2>
       <p className="text-gray-600 mb-6">
-        Follow these sequential steps to implement the content effectively
+        Follow these Step By Step instructions to implement the content effectively
       </p>
 
       <div className="space-y-6">

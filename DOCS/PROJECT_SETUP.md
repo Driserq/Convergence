@@ -1,4 +1,4 @@
-# Project Setup - Convergence App
+# Project Setup - Consum App
 
 ## Prerequisites
 - **Node.js**: v22.x LTS (recommended for production stability)
@@ -13,8 +13,8 @@ node --version # Should show v22.x.x
 npm --version # Should show v10.x.x
 
 ### 2. Create Project Directory
-mkdir convergence-app
-cd convergence-app
+mkdir consum-app
+cd consum-app
 
 ### 3. Initialize Git Repository
 git init
@@ -206,7 +206,7 @@ npx supabase start
 
 Create this folder structure manually or let Warp create it:
 
-convergence-app/
+consum-app/
 ├── .git/ # Git repository
 ├── .env.local # Local environment (NOT in git)
 ├── .env.production # Production environment (NOT in git)
@@ -304,7 +304,7 @@ git push origin main
 Create one Supabase cloud project for production:
 
 1. Go to https://supabase.com/dashboard
-2. Create new project: convergence-prod
+2. Create new project: consum-prod
 3. Copy URL + anon key to .env.production
 4. Run SQL schema from SCHEMA.md in Supabase Studio
 5. Add these credentials to Digital Ocean environment variables

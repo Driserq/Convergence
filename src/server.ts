@@ -123,7 +123,7 @@ const registerRoutes = async (): Promise<void> => {
 // Start server
 const start = async (): Promise<void> => {
   try {
-    console.log('[Server] Starting Convergence application...')
+    console.log('[Server] Starting Consum application...')
     
     await registerPlugins()
     await registerRoutes()

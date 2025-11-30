@@ -282,7 +282,7 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
         <div className="flex flex-col gap-4 border border-border/70 bg-background/90 p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1 text-sm text-muted-foreground">
             <p className="font-medium text-foreground">Ready to build your blueprint?</p>
-            <p>We&apos;ll analyze your content and return sequential steps, habits, and pitfalls within a minute.</p>
+            <p>We&apos;ll analyze your content and return Step By Step actions, habits, and pitfalls within a minute.</p>
           </div>
           <Button type="submit" size="lg" disabled={isSubmitDisabled} className="gap-2 rounded-full px-6">
             {isCreatingBlueprint || props.isSubscriptionLoading ? (

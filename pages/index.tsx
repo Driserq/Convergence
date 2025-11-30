@@ -30,7 +30,7 @@ const SECTION_LINKS = [
 
 const HERO_BULLETS = [
   'Extract actionable steps from any YouTube video or text—no more "just be aware" advice',
-  'Get personalized habit blueprints with sequential steps, daily habits, and emergency action plans',
+  'Get personalized habit blueprints with Step By Step actions, daily habits, and emergency action plans',
   'Actually remember what you learned with summaries, common mistakes, and strategic guidance',
   'Build habits that stick with adaptive plans that match your content type',
   'Stop hoarding content you never use—your Watch Later list becomes a tool, not a graveyard'
@@ -74,12 +74,12 @@ const OUTCOMES = [
     icon: '🌱',
     title: 'Create Habits That Actually Stick',
     description:
-      "When you're trying to make lasting change, Convergence breaks down habits into the simplest forms and adapts them to your situation."
+      "When you're trying to make lasting change, Consum breaks down habits into the simplest forms and adapts them to your situation."
   }
 ]
 
 const BLUEPRINT_TYPES = [
-  { icon: '📊', type: 'Sequential Steps', description: '(for tutorials, skill-building)' },
+  { icon: '📊', type: 'Step By Step', description: '(for tutorials, skill-building)' },
   { icon: '🔄', type: 'Daily Habits', description: '(for sustained behavior change)' },
   { icon: '🚨', type: 'Trigger Actions', description: '(for crisis management)' },
   { icon: '❓', type: 'Decision Checklists', description: '(for strategic choices)' },
@@ -89,7 +89,7 @@ const BLUEPRINT_TYPES = [
 const FAQS = [
   {
     question: 'Does it work with private YouTube videos?',
-    answer: 'Yes, as long as you can access the video, Convergence can process it for you.'
+    answer: 'Yes, as long as you can access the video, Consum can process it for you.'
   },
   {
     question: 'What languages are supported?',
@@ -129,7 +129,7 @@ export default function IndexPage() {
             onClick={() => handleSectionScroll('hero')}
             className="text-xl font-bold text-foreground transition-colors hover:text-primary"
           >
-            Convergence
+            Consum
           </button>
           <nav className="hidden flex-1 items-center justify-center gap-6 text-sm font-semibold md:flex">
             {SECTION_LINKS.map((link) => (
@@ -176,7 +176,7 @@ export default function IndexPage() {
               Stop Drowning in Your Watch Later List—Turn Content Into Action
             </h1>
             <p className="mx-auto max-w-3xl text-lg text-muted-foreground md:text-2xl">
-              For anyone overwhelmed by self-improvement content, Convergence transforms YouTube videos and articles into personalized habit blueprints with concrete steps you can actually follow.
+              For anyone overwhelmed by self-improvement content, Consum transforms YouTube videos and articles into personalized habit blueprints with concrete steps you can actually follow.
             </p>
           </div>
           <div className="mx-auto w-full max-w-3xl space-y-3 text-left">
@@ -274,7 +274,7 @@ export default function IndexPage() {
               Outcomes
             </Badge>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Convergence is designed to do 3 things...
+              Consum is designed to do 3 things...
             </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
@@ -308,10 +308,10 @@ export default function IndexPage() {
               Product
             </Badge>
             <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
-              Convergence — Your Content-to-Action Engine
+              Consum — Your Content-to-Action Engine
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground md:text-xl">
-              Convergence transforms self-improvement content into personalized habit blueprints you can actually follow.
+              Consum transforms self-improvement content into personalized habit blueprints you can actually follow.
             </p>
           </div>
 
@@ -365,7 +365,7 @@ export default function IndexPage() {
                   <div className="space-y-3 text-left">
                     <p className="text-sm uppercase tracking-wide text-muted-foreground">Message From the Founder</p>
                     <p className="text-base text-muted-foreground">
-                      “I built Convergence because I was drowning in my own YouTube Watch Later list. After saving hundreds of
+                      “I built Consum because I was drowning in my own YouTube Watch Later list. After saving hundreds of
                       self-improvement videos but never implementing anything, I realized the problem wasn't motivation—it was
                       the gap between inspiration and action.”
                     </p>
@@ -438,7 +438,7 @@ export default function IndexPage() {
               </a>
             ))}
           </nav>
-          <p className="text-center text-xs text-muted-foreground/80">© 2025 Convergence. All rights reserved.</p>
+          <p className="text-center text-xs text-muted-foreground/80">© 2025 Consum. All rights reserved.</p>
         </div>
       </footer>
     </div>

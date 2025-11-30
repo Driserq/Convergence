@@ -151,4 +151,4 @@ https://www.kibo-ui.com/patterns/switch/cards/switch-cards-1
 ---
 
 **Last Updated**: 2025-10-22  
-**Project**: Convergence (Fastify/React + KiboUI)
+**Project**: Consum (Fastify/React + KiboUI)

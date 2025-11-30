@@ -1,4 +1,4 @@
-# CONVERGENCE DESIGN SYSTEM
+# CONSUM DESIGN SYSTEM
 AI-Optimized Design Guidelines
 
 Last Updated: 2025-11-06

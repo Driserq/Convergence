@@ -10,12 +10,12 @@ export default function Layout() {
   const location = useLocation()
 
   useHead({
-    title: 'Convergence - Habit Blueprint MVP',
+    title: 'Consum - Habit Blueprint MVP',
     meta: [
       {
         name: 'description',
         content:
-          'Convergence turns your self-improvement content into personalized habit blueprints with actionable steps.',
+          'Consum turns your self-improvement content into personalized habit blueprints with actionable steps.',
       },
     ],
   })

@@ -87,7 +87,7 @@ export function parseOverview(aiOutput: AIBlueprint | null): {
 }
 
 /**
- * Collect sequential steps and lifestyle habits from adaptive outputs.
+ * Collect Step By Step actions and lifestyle habits from adaptive outputs.
  */
 const isNonEmpty = (value?: string | null): boolean => {
   if (typeof value !== 'string') return false
@@ -242,8 +242,8 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
     if (steps.length) {
       sections.push({
         id: 'sequential_steps',
-        title: 'Sequential Steps',
-        description: 'Follow this order to turn insights into action.',
+        title: 'Step By Step',
+        description: 'Follow this Step By Step plan to turn insights into action.',
         items: steps.map((step) => ({
           type: 'step',
           stepNumber: step.stepNumber,

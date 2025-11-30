@@ -1,4 +1,4 @@
-# Convergence (Habit Blueprint MVP) - Warp Project Rules
+# Consum (Habit Blueprint MVP) - Warp Project Rules
 
 ## Project Overview
 MVP that transforms self-improvement content into actionable habit blueprints. Users input goals plus optional content (YouTube/text) → AI generates overview (summary, mistakes, guidance) and 3-5 sequential action steps.

@@ -11,8 +11,8 @@ const plugins = [
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico'],
     manifest: {
-      name: 'Convergence Habit Blueprints',
-      short_name: 'Convergence',
+      name: 'Consum Habit Blueprints',
+      short_name: 'Consum',
       description: 'Create, track, and optimize habit blueprints on mobile.',
       theme_color: '#020617',
       background_color: '#000000',

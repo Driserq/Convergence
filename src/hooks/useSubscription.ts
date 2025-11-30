@@ -7,7 +7,7 @@ import type {
   SubscriptionSummary
 } from '../types/subscription'
 
-const SUBSCRIPTION_CACHE_KEY = 'convergence.subscription.cache'
+const SUBSCRIPTION_CACHE_KEY = 'consum.subscription.cache'
 const SUBSCRIPTION_CACHE_TTL_MS = 5 * 60 * 1000
 
 const readCache = (): SubscriptionSummary | null => {

@@ -37,7 +37,7 @@ export const ServiceWorkerToast: React.FC = () => {
             </p>
             <p className="text-xs text-muted-foreground">
               {offlineReady
-                ? 'You can now use Convergence offline with previously cached blueprints.'
+                ? 'You can now use Consum offline with previously cached blueprints.'
                 : 'Reload to apply the latest performance improvements.'}
             </p>
           </div>

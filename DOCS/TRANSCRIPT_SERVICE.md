@@ -1,7 +1,7 @@
 # YouTube Transcript Service - Supadata.ai
 
 ## Overview
-We use Supadata.ai REST API for YouTube transcript extraction in the Convergence MVP.
+We use Supadata.ai REST API for YouTube transcript extraction in the Consum MVP.
 
 ## Why Supadata.ai?
 - **Free Tier**: 100 requests/month (no credit card required)

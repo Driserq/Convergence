@@ -31,6 +31,15 @@ You are building pages using the page builder workflow system.
   - Variation types within each category (Level 2)
   - Approximate counts of patterns per variation
 
+## Design Reference Stack
+
+Before planning pages, also read these Consum design references to ensure components look visually correct:
+- `Patterns-Registry/design-system.md` – Canonical Consum design principles, visual-weight rules, spacing, and component usage guidelines
+- `Patterns-Registry/design-guide.md` – AI-optimized presentation of the same Consum guidance; use alongside the design system as a quick reference
+- `Patterns-Registry/design-integration.md` – Maps Kibo patterns to the Consum design system and explains when to use base shadcn components vs. Kibo patterns
+
+Always keep these three documents open while building so every component choice respects the Consum weight, spacing, and context requirements.
+
 ## Understanding the Component Levels
 
 ```
@@ -56,6 +65,7 @@ When the user describes a project or pages they want to build:
    - What Level 1 categories are needed (e.g., button, form, card)
    - Which Level 2 variation type makes sense (e.g., "standard", "outline", "destructive")
    - Whether any components should be shared across pages
+   - Cross-check component choices against the Consum design docs to ensure weight and spacing match the target context
 4. **Create design docs**:
    - Create `/design-docs/pages/[page-name].md` for each page with:
      - Page purpose and description

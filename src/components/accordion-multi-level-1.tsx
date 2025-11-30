@@ -15,7 +15,7 @@ const items = [
       {
         id: "multi-1-a",
         title: "Blueprint Generation",
-        description: "Map how Convergence turns long-form content into actionable steps."
+        description: "Map how Consum turns long-form content into actionable steps."
       },
       {
         id: "multi-1-b",

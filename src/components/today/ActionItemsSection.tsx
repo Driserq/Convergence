@@ -112,7 +112,7 @@ const BlueprintActionGroup: React.FC<{
         <div className="border-t border-border/40 px-5 py-5 space-y-6">
           {group.sequentialSteps.length > 0 && (
             <div className="space-y-3">
-              <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">Sequential Steps</h4>
+              <h4 className="text-sm font-medium uppercase tracking-wide text-muted-foreground">Step By Step</h4>
               <div className="space-y-3">
                 {group.sequentialSteps.map((step) => {
                   const key = `${step.blueprintId}:sequential_step:${step.itemId}`
@@ -123,7 +123,7 @@ const BlueprintActionGroup: React.FC<{
                       <CheckboxButton
                         checked={step.completed}
                         disabled={pending}
-                        label={step.completed ? 'Undo sequential step' : 'Mark sequential step complete'}
+                        label={step.completed ? 'Undo Step By Step item' : 'Mark Step By Step item complete'}
                         onClick={() => onToggle(step.blueprintId, 'sequential_step', step.itemId, step.completed, step.completedOn)}
                       />
                       <div className="flex flex-1 flex-col gap-1">
@@ -226,7 +226,7 @@ export const ActionItemsSection: React.FC<ActionItemsSectionProps> = ({ groups, 
       <div className="flex items-center justify-between">
         <div className="space-y-2">
           <h2 className="text-2xl font-semibold text-foreground">Action Items</h2>
-          <p className="text-sm text-muted-foreground">Sequential steps, decision checks, and trigger playbooks from tracked blueprints.</p>
+          <p className="text-sm text-muted-foreground">Step By Step items, decision checks, and trigger playbooks from tracked blueprints.</p>
         </div>
       </div>
 

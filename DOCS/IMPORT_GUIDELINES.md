@@ -1,4 +1,4 @@
-# Import Path Guidelines - Convergence Project
+# Import Path Guidelines - Consum Project
 
 ## ⚠️ CRITICAL: Always Use Relative Paths
 
@@ -184,4 +184,4 @@ Before committing new components:
 
 **Last Updated**: 2025-11-09  
 **Build System**: Vite 7.x + Rollup  
-**Project**: Convergence (Fastify/React)
+**Project**: Consum (Fastify/React)

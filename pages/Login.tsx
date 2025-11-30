@@ -16,7 +16,7 @@ export const Login: React.FC = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* App header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">Convergence</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-2">Consum</h1>
           <p className="text-lg text-muted-foreground">Transform content into actionable habit blueprints</p>
         </div>
 

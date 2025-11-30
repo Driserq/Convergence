@@ -139,7 +139,7 @@ export async function fetchVideoMetadata(youtubeUrl: string): Promise<VideoMetad
       method: 'GET',
       headers: {
         'x-api-key': apiKey,
-        'User-Agent': 'Convergence-MVP/1.0'
+        'User-Agent': 'Consum-MVP/1.0'
       }
     });
 
@@ -307,7 +307,7 @@ async function fetchSupadataTranscript(
       method: 'GET',
       headers: {
         'x-api-key': apiKey,
-        'User-Agent': 'Convergence-MVP/1.0'
+        'User-Agent': 'Consum-MVP/1.0'
       },
       signal: controller.signal
     });

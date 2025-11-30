@@ -1,5 +1,5 @@
 # DESIGN INTEGRATION GUIDE
-Connecting Kibo UI Patterns with Convergence Design System
+Connecting Kibo UI Patterns with Consum Design System
 
 Purpose: Help AI agents choose and style Kibo UI patterns according to visual design principles
 

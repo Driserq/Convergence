@@ -1,6 +1,6 @@
 # Production Readiness & Migration Guide
 
-This document tracks configuration changes, optimizations, and architectural shifts required when moving Convergence from the current MVP/Development environment to a Production environment.
+This document tracks configuration changes, optimizations, and architectural shifts required when moving Consum from the current MVP/Development environment to a Production environment.
 
 ## External Services & API Limits
 
