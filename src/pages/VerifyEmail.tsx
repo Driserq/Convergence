@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import { Loader2 } from 'lucide-react'
 
 import {
   AlertDialog,
@@ -8,15 +9,53 @@ import {
   AlertDialogTitle,
 } from '../components/ui/alert-dialog'
 import { useRouteParams } from '../contexts/RouterContext'
+import { Button } from '../components/ui/button'
+import { useAuth } from '../hooks/useAuth'
 
 export const VerifyEmail: React.FC = () => {
   const params = useRouteParams<'verifyEmail'>()
+  const { resendVerificationEmail, user } = useAuth()
+  const [isResending, setIsResending] = useState(false)
+  const [cooldown, setCooldown] = useState(0)
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
   const displayEmail = useMemo(() => {
-    const cleaned = params?.email?.trim()
+    const cleaned = params?.email?.trim() || user?.email?.trim()
     if (!cleaned) return 'your inbox'
     return cleaned
-  }, [params])
+  }, [params, user])
+
+  const resendEmail = useMemo(() => {
+    const cleaned = params?.email?.trim() || user?.email?.trim()
+    return cleaned || ''
+  }, [params, user])
+
+  useEffect(() => {
+    if (!cooldown) return
+    const interval = setInterval(() => {
+      setCooldown((prev) => (prev <= 1 ? 0 : prev - 1))
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [cooldown])
+
+  const handleResend = async () => {
+    if (!resendEmail || isResending || cooldown > 0) {
+      return
+    }
+
+    setIsResending(true)
+    setFeedback(null)
+    const result = await resendVerificationEmail(resendEmail)
+    setIsResending(false)
+
+    if (!result.success && result.error) {
+      setFeedback({ type: 'error', message: result.error.message })
+      return
+    }
+
+    setFeedback({ type: 'success', message: 'Verification email sent again. Check your inbox shortly.' })
+    setCooldown(30)
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -30,9 +69,43 @@ export const VerifyEmail: React.FC = () => {
               finish setting up your Consum account.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <p className="text-sm text-muted-foreground">
-            Didn’t receive anything? Check spam or send again after a few minutes.
-          </p>
+          <div className="space-y-3 text-sm text-muted-foreground">
+            <p>Didn’t receive anything? Check spam or request another email.</p>
+            <div className="flex flex-col items-center gap-2">
+              <Button
+                type="button"
+                variant="link"
+                size="sm"
+                className="h-11 text-base"
+                disabled={!resendEmail || isResending || cooldown > 0}
+                onClick={handleResend}
+              >
+                {isResending ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                  </>
+                ) : cooldown > 0 ? (
+                  `Try again in ${cooldown}s`
+                ) : (
+                  'Resend verification email'
+                )}
+              </Button>
+              {!resendEmail && (
+                <p className="text-xs text-destructive">
+                  We need the email you signed up with to resend the verification link.
+                </p>
+              )}
+            </div>
+            {feedback && (
+              <p
+                className={`text-sm ${
+                  feedback.type === 'success' ? 'text-emerald-600' : 'text-destructive'
+                }`}
+              >
+                {feedback.message}
+              </p>
+            )}
+          </div>
         </AlertDialogContent>
       </AlertDialog>
     </div>

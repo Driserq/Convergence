@@ -160,6 +160,53 @@ export const useAuth = create<AuthState>((set, get) => ({
     }
   },
 
+  resendVerificationEmail: async (email: string, options?: { emailRedirectTo?: string }) => {
+    if (!email) {
+      console.error('[useAuth] Resend verification error: missing email')
+      return {
+        success: false,
+        error: {
+          message: 'A valid email is required to resend verification',
+          status: 400,
+        },
+      }
+    }
+
+    try {
+      const emailRedirectTo = options?.emailRedirectTo ?? DEFAULT_EMAIL_REDIRECT
+      console.log('[useAuth] Resending verification email for:', email)
+
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email,
+        options: {
+          emailRedirectTo,
+        },
+      })
+
+      if (error) {
+        console.error('[useAuth] Resend verification error:', error)
+        return {
+          success: false,
+          error: {
+            message: error.message,
+            status: error.status || 400,
+          },
+        }
+      }
+
+      return { success: true }
+    } catch (error: any) {
+      console.error('[useAuth] Unexpected resend verification error:', error)
+      return {
+        success: false,
+        error: {
+          message: error?.message || 'Unable to resend verification email right now',
+        },
+      }
+    }
+  },
+
   signInWithGoogle: async (options?: { redirectTo?: string }) => {
     try {
       const redirectTo = options?.redirectTo ?? DEFAULT_GOOGLE_REDIRECT

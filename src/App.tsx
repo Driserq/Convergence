@@ -84,6 +84,10 @@ export const App: React.FC = () => {
     redirectIntent,
     setRedirectIntent,
   } = useAuth()
+  const isEmailVerified = useMemo(
+    () => Boolean(user?.email_confirmed_at ?? user?.confirmed_at),
+    [user]
+  )
   const [currentRoute, setCurrentRoute] = useState<RouteMatch>(() => {
     const win = getBrowserWindow()
     const initialPath = win?.location.pathname ?? '/'
@@ -207,6 +211,21 @@ export const App: React.FC = () => {
       return
     }
 
+    if (!isEmailVerified) {
+      if (currentRoute.name !== 'verifyEmail') {
+        if (!redirectIntent || redirectIntent.name !== currentRoute.name) {
+          setRedirectIntent({
+            name: currentRoute.name,
+            params: currentRoute.params as any,
+          })
+        }
+        navigate('verifyEmail', {
+          email: user.email ?? (currentRoute.params as any)?.email,
+        })
+      }
+      return
+    }
+
     if (redirectIntent) {
       navigate(redirectIntent.name, redirectIntent.params as any)
       setRedirectIntent(null)
@@ -226,6 +245,7 @@ export const App: React.FC = () => {
     authMode,
     currentRoute.name,
     currentRoute.params,
+    isEmailVerified,
     loading,
     navigate,
     redirectIntent,

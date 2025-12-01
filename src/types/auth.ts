@@ -45,6 +45,10 @@ export interface AuthState {
     password: string,
     options?: { emailRedirectTo?: string }
   ) => Promise<{ success: boolean; error?: AuthError }>
+  resendVerificationEmail: (
+    email: string,
+    options?: { emailRedirectTo?: string }
+  ) => Promise<{ success: boolean; error?: AuthError }>
   signInWithGoogle: (
     options?: { redirectTo?: string }
   ) => Promise<{ success: boolean; error?: AuthError }>
