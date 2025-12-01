@@ -1,7 +1,7 @@
 # File Structure - Consum Habit Blueprint MVP
 
 ## Overview
-This document reflects the repository structure and runtime flow as of **2025-11-30**. The project runs a Fastify server that serves a Vite-built React SPA alongside API routes for AI blueprint generation, subscription management, tracking, and analytics.
+This document reflects the repository structure and runtime flow as of **2025-12-01**. The project runs a Fastify server that serves a Vite-built React SPA alongside API routes for AI blueprint generation, subscription management, tracking, and analytics.
 
 ## Architecture Summary
 - **Frontend**: React 19 SPA bundled by Vite 7 → output in `dist/client`; unified blueprint display primitives live in `src/components/blueprint/display`. Routes are code-split via `React.lazy`, and a mobile-first app shell + bottom navigation live in shared layout components.
@@ -62,8 +62,8 @@ Consum/
 
 ### Key Directories
 - `components/`: UI building blocks. Includes shadcn primitives under `ui/`, a reusable Radix-powered alert dialog wrapper (`components/ui/alert-dialog.tsx`), consolidated blueprint display variants (`components/blueprint/display/BlueprintDisplay.tsx`), shared flows like the delete confirmation dialog (`components/blueprint/DeleteBlueprintDialog.tsx`), the subscription upgrade dialog (`components/subscription/UpgradeDialog.tsx`), Today view modules in `components/today/`, a shared `layout/AppShell.tsx`, system-level helpers like `components/system/ServiceWorkerToast.tsx`, and the shared Supabase-powered Google OAuth trigger (`components/auth/GoogleAuthButton.tsx`) consumed by both Login and Sign Up forms.
-- `pages/`: Page-level components rendered by the custom router (Landing, Login, SignUp, VerifyEmail, Dashboard, History, Profile, CreateBlueprint, BlueprintDetail, NotFound, BillingSuccess, BillingCancel). Landing and Profile currently exceed the 200-line target and are earmarked for future decomposition. Each page re-exports the corresponding view implementation when applicable (`pages/Dashboard.tsx` → `TodayView`, etc.). `SignUp` now owns the dedicated email/password + Google OAuth experience, and `VerifyEmail` renders the alert-dialog confirmation shell for post-signup messaging.
-- `hooks/`: Custom hooks such as `useAuth.ts` (Supabase auth via Zustand, now also exposing `signInWithGoogle` plus default production redirect helpers for email verification), `useTrackedBlueprints.ts` (tracked blueprint metadata/completions with optimistic updates), `useSubscription.ts` (subscription state with localStorage cache + Stripe helpers), and `useDashboardStats.ts` (user analytics fetcher).
+- `pages/`: Page-level components rendered by the custom router (Landing, Login, SignUp, VerifyEmail, Dashboard, History, Profile, CreateBlueprint, BlueprintDetail, NotFound, BillingSuccess, BillingCancel). Landing and Profile currently exceed the 200-line target and are earmarked for future decomposition. Each page re-exports the corresponding view implementation when applicable (`pages/Dashboard.tsx` → `TodayView`, etc.). `SignUp` now owns the dedicated email/password + Google OAuth experience, and `VerifyEmail` renders the alert-dialog confirmation shell plus the Supabase-backed resend link for post-signup messaging.
+- `hooks/`: Custom hooks such as `useAuth.ts` (Supabase auth via Zustand, exposing `signInWithGoogle`, `resendVerificationEmail`, redirect intent handling, and verified-email gating), `useTrackedBlueprints.ts` (tracked blueprint metadata/completions with optimistic updates), `useSubscription.ts` (subscription state with localStorage cache + Stripe helpers), and `useDashboardStats.ts` (user analytics fetcher).
 - `contexts/`: React context providers (e.g., `RouterContext.tsx`).
 - `views/`: High-level route experiences (e.g., `TodayView.tsx`, `HistoryView.tsx`, `CreateBlueprintView.tsx`, `BlueprintDetailView.tsx`) that orchestrate Supabase data fetching and compose feature modules.
 - `lib/`: Shared utilities split between client and server concerns:
@@ -87,6 +87,7 @@ Consum/
 - The SPA navigation intercepts anchor clicks to keep client-side routing without React Router.
 - API routes assume Supabase JWT auth headers and delegate to Supabase for data access (RLS-aware).
 - `BlueprintForm.tsx` already wires up React Hook Form controls but still requires validation + submission integration in upcoming phases.
+- Authenticated sessions remain locked on `VerifyEmail` until Supabase reports `email_confirmed_at`, ensuring unverified accounts cannot access protected screens.
 
 ---
 
@@ -206,4 +207,4 @@ FRONTEND_URL=http://localhost:3001
 
 ---
 
-**Last Updated**: 2025-11-30
+**Last Updated**: 2025-12-01

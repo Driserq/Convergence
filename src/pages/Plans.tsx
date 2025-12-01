@@ -33,31 +33,33 @@ type PlanOption = {
 const PLAN_OPTIONS: PlanOption[] = [
   {
     code: 'weekly',
-    name: 'Growth Sprint',
-    price: '$18',
+    name: 'Weekly Sprint',
+    price: '$5',
     cadence: 'per week',
-    limit: 'Up to 5 blueprints weekly',
-    description: 'Experiment quickly with focused weekly batches.',
-    highlight: 'Perfect for short projects or trials',
+    limit: '20 blueprints weekly · Track up to 3 habits/actions',
+    description: 'Stay in motion with capped tracking built for short bursts of focus.',
+    highlight: 'Perfect when you only need 3 habits active',
     features: [
-      'Blueprint Studio with AI prioritization',
-      'Today dashboard + habit tracking',
-      'Trigger playbooks for critical moments'
+      '20 fresh blueprints delivered each week',
+      'Track up to 3 habits + action items',
+      'Priority weekly refresh cadence',
+      'Export-ready summaries for sharing'
     ]
   },
   {
     code: 'monthly',
-    name: 'Systems Builder',
-    price: '$49',
+    name: 'Monthly Builder',
+    price: '$10',
     cadence: 'per month',
-    limit: 'Up to 20 blueprints monthly',
-    description: 'Everything you need to operationalize new habits.',
-    highlight: 'Most popular for consistent teams',
+    limit: '150 blueprints monthly · Track up to 8 habits/actions',
+    description: 'Full accountability workspace — more than 8 habits is just ineffective.',
+    highlight: 'Most popular for committed operators',
     featured: true,
     features: [
-      'Extended action-item capacity',
-      'Priority processing & refreshes',
-      'Concierge support + roadmap access'
+      '150 blueprints every month',
+      'Track up to 8 habits + action items',
+      'Full accountability workspace access',
+      'Priority processing + export packs'
     ]
   }
 ]
@@ -68,6 +70,8 @@ export const Plans: React.FC = () => {
     data,
     isLoading,
     createCheckoutSession,
+    changePlan,
+    isChangingPlan,
     error: subscriptionError,
     remaining,
     limit,
@@ -99,6 +103,15 @@ export const Plans: React.FC = () => {
     if (!result.success) {
       setPendingPlan(null)
       setSelectionError(result.error || 'Failed to start checkout. Please try again.')
+    }
+  }
+
+  const handleCancelSubscription = async () => {
+    if (currentPlanCode === 'free') return
+    setSelectionError(null)
+    const result = await changePlan('free')
+    if (!result.success) {
+      setSelectionError(result.error || 'Failed to cancel subscription. Please try again.')
     }
   }
 
@@ -214,15 +227,21 @@ export const Plans: React.FC = () => {
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">Prefer to stay on Free?</h2>
                   <p className="text-sm text-muted-foreground">
-                    Free plan includes 2 monthly blueprints and limited action tracking. Upgrade when you need more headroom.
+                    Free plan includes 3 monthly blueprints and no habit tracking. Upgrade whenever you need more throughput or accountability.
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <Button variant="outline" className="rounded-md" onClick={() => navigate('dashboard')}>
-                    Back to Dashboard
-                  </Button>
-                  <Button className="rounded-md" onClick={() => navigate('history')}>
-                    Review History
+                  <Button
+                    variant="outline"
+                    className="rounded-md"
+                    disabled={currentPlanCode === 'free' || isChangingPlan}
+                    onClick={handleCancelSubscription}
+                  >
+                    {currentPlanCode === 'free'
+                      ? 'Already on Free'
+                      : isChangingPlan
+                        ? 'Cancelling…'
+                        : 'Cancel subscription'}
                   </Button>
                 </div>
               </div>

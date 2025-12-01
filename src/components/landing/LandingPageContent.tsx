@@ -22,14 +22,9 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '../ui/accordion'
 import { Separator } from '../ui/separator'
 import { LogoMark } from '../ui/LogoMark'
+import { FaqSection } from './FaqSection'
 
 type LandingPageContentProps = {
   isAuthenticated: boolean
@@ -326,7 +321,7 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
                 Pricing
               </Badge>
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Choose the pace you want to grow at.</h2>
-              <p className="text-lg text-muted-foreground">Start free, scale with Pro, or own the stack forever.</p>
+              <p className="text-lg text-muted-foreground">Free forever, $5 weekly sprints, or $10 for full accountability.</p>
             </div>
             <div className="mt-12 grid gap-6 md:grid-cols-3">
               {PRICING_TIERS.map(tier => (
@@ -409,33 +404,7 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
           </div>
         </section>
 
-        <section id="faq" className="scroll-mt-24 border-t border-border bg-card py-20">
-          <div className="mx-auto max-w-3xl space-y-10 px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <Badge variant="secondary" className="mx-auto mb-4 w-fit gap-2 px-4 py-1 text-sm">
-                <Sparkles aria-hidden className="size-4" />
-                FAQ
-              </Badge>
-              <h2 className="text-3xl font-bold tracking-tight">Frequently asked questions</h2>
-            </div>
-            <Accordion
-              className="w-full overflow-hidden rounded-2xl border border-border/80"
-              collapsible
-              type="single"
-            >
-              {FAQS.map((faq, index) => (
-                <AccordionItem key={faq.question} value={`faq-${index}`} className="bg-background/80">
-                  <AccordionTrigger className="px-6 py-4 text-left text-base font-semibold">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4 text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
+        <FaqSection />
       </main>
 
       <footer className="bg-background py-12">
