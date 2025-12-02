@@ -87,6 +87,7 @@ export default async function billingRoutes(fastify: FastifyInstance) {
           },
         ],
         mode: 'subscription',
+        allow_promotion_codes: true,
         success_url: `${frontendUrl}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${frontendUrl}/billing/cancel`,
         metadata: {
