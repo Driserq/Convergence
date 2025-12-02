@@ -14,6 +14,8 @@ const __dirname = path.dirname(__filename)
 // Load environment variables
 config({ path: '.env' })
 
+const clientDistPath = path.join(__dirname, '..', 'dist', 'client')
+
 const server = Fastify({
   logger: {
     level: process.env.NODE_ENV === 'development' ? 'info' : 'warn'
@@ -52,11 +54,27 @@ const registerPlugins = async (): Promise<void> => {
     }
   })
 
-  // Serve static files from Vite build
-  const clientDistPath = path.join(__dirname, '..', 'dist', 'client')
+  // Serve Vite build output (assets + PWA artifacts)
   await server.register(fastifyStatic, {
-    root: path.join(clientDistPath, 'assets'),
-    prefix: '/assets',
+    root: clientDistPath,
+    prefix: '/',
+    setHeaders: (res, filePath) => {
+      const relativePath = path.relative(clientDistPath, filePath)
+      const isAssetFile = relativePath.startsWith(`assets${path.sep}`)
+      const fileName = path.basename(filePath)
+
+      if (isAssetFile) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+        return
+      }
+
+      if (['index.html', 'sw.js', 'manifest.webmanifest'].includes(fileName)) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+        return
+      }
+
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate')
+    },
   })
 
   console.log('[Server] Serving static files from:', clientDistPath)
@@ -96,25 +114,17 @@ const registerRoutes = async (): Promise<void> => {
   const retryWorker = await import('./plugins/geminiRetryWorker.js')
   await server.register(retryWorker.default)
 
-  server.get('/favicon.ico', async (request, reply) => {
-    return reply.sendFile('favicon.ico', path.join(__dirname, '..', 'dist', 'client'))
-  })
-
   server.get('/*', async (request, reply) => {
-    if (request.url.startsWith('/api/') || request.url.startsWith('/health')) {
+    if (request.url.startsWith('/api') || request.url.startsWith('/health')) {
       reply.code(404).send({ error: 'Not found' })
       return
     }
 
-    const urlPath = request.url.split('?')[0]
-    const hasFileExtension = Boolean(path.extname(urlPath))
-
-    if (hasFileExtension) {
-      reply.code(404).send({ error: 'Not found' })
-      return
-    }
-
-    return reply.code(200).type('text/html').sendFile('index.html', path.join(__dirname, '..', 'dist', 'client'))
+    return reply
+      .code(200)
+      .header('Cache-Control', 'no-cache, no-store, must-revalidate')
+      .type('text/html')
+      .sendFile('index.html', clientDistPath)
   })
 
   console.log('[Server] Routes registered successfully')
