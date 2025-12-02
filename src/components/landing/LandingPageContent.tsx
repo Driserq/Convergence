@@ -411,12 +411,18 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
         <div className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
           <Separator />
           <nav className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
-            {FOOTER_LINKS.map(label => (
-              <a key={label} className="transition-colors hover:text-foreground" href="#">
-                {label}
+            {FOOTER_LINKS.map(link => (
+              <a key={link.label} className="transition-colors hover:text-foreground" href={link.href}>
+                {link.label}
               </a>
             ))}
           </nav>
+          <p className="text-center text-xs text-muted-foreground">
+            Feel free to reach out to me at <a href="mailto:support@consum.app" className="underline-offset-2 hover:underline">support@consum.app</a>
+          </p>
+          <p className="text-center text-xs text-muted-foreground/80">
+            Built with ☕ and a dream on <a href="https://x.com/kuba_shev" className="underline-offset-2 hover:underline">X</a>
+          </p>
           <p className="text-center text-xs text-muted-foreground/80">© {new Date().getFullYear()} Consum. All rights reserved.</p>
         </div>
       </footer>

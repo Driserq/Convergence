@@ -25,6 +25,8 @@ const BillingSuccessPage = lazy(async () => ({ default: (await import('./pages/B
 const BillingCancelPage = lazy(async () => ({ default: (await import('./pages/BillingCancel')).BillingCancel }))
 const NotFoundPage = lazy(async () => ({ default: (await import('./pages/NotFound')).NotFound }))
 const VerifyEmailPage = lazy(async () => ({ default: (await import('./pages/VerifyEmail')).VerifyEmail }))
+const PrivacyPolicyPage = lazy(async () => ({ default: (await import('./pages/PrivacyPolicy')).PrivacyPolicy }))
+const TermsOfServicePage = lazy(async () => ({ default: (await import('./pages/TermsOfService')).TermsOfService }))
 
 type BrowserWindow = {
   location: {
@@ -273,6 +275,10 @@ export const App: React.FC = () => {
         return <LoginPage />
       case 'signup':
         return <SignUpPage />
+      case 'privacy':
+        return <PrivacyPolicyPage />
+      case 'terms':
+        return <TermsOfServicePage />
       case 'dashboard':
         return loading ? <GlobalShellSkeleton /> : <DashboardPage />
       case 'createBlueprint':

@@ -159,4 +159,7 @@ export const FAQS = [
   },
 ]
 
-export const FOOTER_LINKS = ['About', 'Privacy', 'Terms', 'Contact']
+export const FOOTER_LINKS = [
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/tos' },
+]

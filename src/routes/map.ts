@@ -3,6 +3,8 @@ type RouteParamsMap = {
   login: Record<string, never>
   signup: Record<string, never>
   verifyEmail: { email?: string }
+  privacy: Record<string, never>
+  terms: Record<string, never>
   dashboard: Record<string, never>
   createBlueprint: Record<string, never>
   history: Record<string, never>
@@ -71,6 +73,20 @@ const ROUTES: RouteDictionary = {
     },
     buildPath: ({ email }: { email?: string } = {}) =>
       email ? `/verify-email?email=${encodeURIComponent(email)}` : '/verify-email',
+  },
+  privacy: {
+    name: 'privacy',
+    path: '/privacy',
+    requiresAuth: false,
+    match: (path) => (path === '/privacy' ? {} : null),
+    buildPath: () => '/privacy',
+  },
+  terms: {
+    name: 'terms',
+    path: '/tos',
+    requiresAuth: false,
+    match: (path) => (path === '/tos' ? {} : null),
+    buildPath: () => '/tos',
   },
   dashboard: {
     name: 'dashboard',
@@ -161,6 +177,8 @@ const MATCHABLE_ROUTES: RouteRecord<RouteName>[] = [
   ROUTES.login,
   ROUTES.signup,
   ROUTES.verifyEmail,
+  ROUTES.privacy,
+  ROUTES.terms,
   ROUTES.dashboard,
   ROUTES.createBlueprint,
   ROUTES.history,
