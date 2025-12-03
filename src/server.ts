@@ -58,6 +58,7 @@ const registerPlugins = async (): Promise<void> => {
   await server.register(fastifyStatic, {
     root: clientDistPath,
     prefix: '/',
+    serve: false,
     setHeaders: (res, filePath) => {
       const relativePath = path.relative(clientDistPath, filePath)
       const isAssetFile = relativePath.startsWith(`assets${path.sep}`)
