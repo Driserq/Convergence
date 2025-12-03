@@ -8,7 +8,7 @@ import {
   SUPADATA_ERROR_MAPPINGS,
   ERROR_MESSAGES 
 } from '../types/transcript.js';
-import { extractYouTubeVideoId, isValidYouTubeUrl, getContentLengthWarning } from './youtube.js';
+import { extractYouTubeVideoId, isValidYouTubeUrl, getContentLengthWarning, isTrustedYouTubeHost } from './youtube.js';
 
 // Supadata.ai API configuration
 const SUPADATA_BASE_URL = 'https://api.supadata.ai';
@@ -72,22 +72,16 @@ function extractAuthorName(value: unknown): string | undefined {
 function cleanYouTubeUrl(url: string): string {
   try {
     const urlObj = new URL(url);
-    
-    // Standard YouTube URL
-    if (urlObj.hostname.includes('youtube.com')) {
-      const videoId = urlObj.searchParams.get('v');
-      if (videoId) {
-        return `https://www.youtube.com/watch?v=${videoId}`;
-      }
+    if (!isTrustedYouTubeHost(urlObj.hostname)) {
+      return url;
     }
-    
-    // Short URL (youtu.be)
-    if (urlObj.hostname === 'youtu.be') {
-      const videoId = urlObj.pathname.slice(1); // Remove leading /
+
+    const videoId = extractYouTubeVideoId(url);
+    if (videoId) {
       return `https://www.youtube.com/watch?v=${videoId}`;
     }
-    
-    return url; // Return original if can't parse
+
+    return url;
   } catch (e) {
     console.warn('[TranscriptService] Failed to parse URL, using original:', e);
     return url; // Return original if URL parsing fails

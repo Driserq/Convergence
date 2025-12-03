@@ -1,36 +1,14 @@
 import { z } from 'zod'
 import type { ContentType } from '../types/blueprint.js'
+import { extractYouTubeVideoId, isValidYouTubeUrl } from './youtube.js'
 
-// YouTube URL validation regex patterns
-const YOUTUBE_URL_PATTERNS = [
-  /^https?:\/\/(www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
-  /^https?:\/\/(www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/,
-  /^https?:\/\/(www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/,
-  /^https?:\/\/(www\.)?m\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
-]
-
-// YouTube video ID extraction
-export const extractYouTubeVideoId = (url: string): string | null => {
-  try {
-    for (const pattern of YOUTUBE_URL_PATTERNS) {
-      const match = url.match(pattern)
-      if (match && match[2]) {
-        return match[2]
-      }
-    }
-    return null
-  } catch (error) {
-    console.error('[Validation] Error extracting YouTube video ID:', error)
-    return null
-  }
-}
+export { extractYouTubeVideoId }
 
 // Custom YouTube URL validator
 const youtubeUrlValidator = z.string().refine(
   (url) => {
     if (!url) return true // Optional field when not selected
-    const videoId = extractYouTubeVideoId(url)
-    return videoId !== null
+    return isValidYouTubeUrl(url)
   },
   {
     message: 'Please enter a valid YouTube URL (e.g., https://www.youtube.com/watch?v=VIDEO_ID or https://youtu.be/VIDEO_ID)'

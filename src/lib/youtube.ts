@@ -1,5 +1,78 @@
 // YouTube URL parsing and video ID extraction utilities
 
+const YOUTUBE_VIDEO_ID_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
+const YOUTUBE_BASE_HOST = 'youtube.com';
+const YOUTUBE_SHORT_HOST = 'youtu.be';
+
+function normalizeHostname(hostname: string): string {
+  return hostname.trim().toLowerCase();
+}
+
+function isShortYouTubeHost(hostname: string): boolean {
+  return normalizeHostname(hostname) === YOUTUBE_SHORT_HOST;
+}
+
+function normalizeVideoId(candidate?: string | null): string | null {
+  if (!candidate) {
+    return null;
+  }
+
+  const trimmed = candidate.trim();
+  return YOUTUBE_VIDEO_ID_PATTERN.test(trimmed) ? trimmed : null;
+}
+
+function getUrlCandidates(raw: string): URL[] {
+  const candidates: URL[] = [];
+
+  try {
+    candidates.push(new URL(raw));
+  } catch (_) {
+    // ignore
+  }
+
+  const hasProtocol = /^[a-zA-Z][a-zA-Z\d+-.]*:/.test(raw);
+  if (!hasProtocol) {
+    try {
+      candidates.push(new URL(`https://${raw}`));
+    } catch (_) {
+      // ignore
+    }
+  }
+
+  return candidates;
+}
+
+function extractVideoIdFromPath(pathname: string): string | null {
+  const segments = pathname.split('/').filter(Boolean);
+  if (segments.length === 0) {
+    return null;
+  }
+
+  if (segments.length === 1) {
+    return normalizeVideoId(segments[0]);
+  }
+
+  const [first, second] = segments;
+  if (['embed', 'shorts', 'watch', 'v'].includes(first)) {
+    return normalizeVideoId(second ?? null);
+  }
+
+  return null;
+}
+
+export function isTrustedYouTubeHost(hostname: string): boolean {
+  if (!hostname) {
+    return false;
+  }
+
+  const normalized = normalizeHostname(hostname);
+  if (normalized === YOUTUBE_BASE_HOST || normalized.endsWith(`.${YOUTUBE_BASE_HOST}`)) {
+    return true;
+  }
+
+  return normalized === YOUTUBE_SHORT_HOST;
+}
+
 /**
  * Extracts YouTube video ID from various URL formats
  * Supports:
@@ -14,25 +87,32 @@ export function extractYouTubeVideoId(url: string): string | null {
     return null;
   }
 
-  // Clean the URL and remove any trailing whitespace
-  const cleanUrl = url.trim();
-  
-  // Various YouTube URL patterns
-  const patterns = [
-    // Standard youtube.com/watch?v=
-    /(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
-    // Short youtu.be/
-    /(?:youtu\.be\/)([a-zA-Z0-9_-]{11})/,
-    // Embed format
-    /(?:youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/,
-    // Mobile format
-    /(?:m\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/,
-  ];
+  const trimmed = url.trim();
 
-  for (const pattern of patterns) {
-    const match = cleanUrl.match(pattern);
-    if (match && match[1]) {
-      return match[1];
+  const urlCandidates = getUrlCandidates(trimmed);
+
+  for (const candidate of urlCandidates) {
+    const hostname = normalizeHostname(candidate.hostname);
+    if (!isTrustedYouTubeHost(hostname)) {
+      continue;
+    }
+
+    if (isShortYouTubeHost(hostname)) {
+      const shortId = normalizeVideoId(candidate.pathname.replace(/^\/+/, '').split(/[/?#]/)[0]);
+      if (shortId) {
+        return shortId;
+      }
+      continue;
+    }
+
+    const queryId = normalizeVideoId(candidate.searchParams.get('v'));
+    if (queryId) {
+      return queryId;
+    }
+
+    const pathId = extractVideoIdFromPath(candidate.pathname);
+    if (pathId) {
+      return pathId;
     }
   }
 
@@ -49,7 +129,7 @@ export function isValidYouTubeVideoId(videoId: string): boolean {
     return false;
   }
   
-  return /^[a-zA-Z0-9_-]{11}$/.test(videoId);
+  return YOUTUBE_VIDEO_ID_PATTERN.test(videoId);
 }
 
 /**
