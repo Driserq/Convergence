@@ -58,7 +58,6 @@ const registerPlugins = async (): Promise<void> => {
   await server.register(fastifyStatic, {
     root: clientDistPath,
     prefix: '/',
-    serve: false,
     setHeaders: (res, filePath) => {
       const relativePath = path.relative(clientDistPath, filePath)
       const isAssetFile = relativePath.startsWith(`assets${path.sep}`)
@@ -115,13 +114,14 @@ const registerRoutes = async (): Promise<void> => {
   const retryWorker = await import('./plugins/geminiRetryWorker.js')
   await server.register(retryWorker.default)
 
-  server.get('/*', async (request, reply) => {
-    if (request.url.startsWith('/api') || request.url.startsWith('/health')) {
+  server.setNotFoundHandler((request, reply) => {
+    const url = request.raw.url ?? ''
+    if (url.startsWith('/api') || url.startsWith('/health')) {
       reply.code(404).send({ error: 'Not found' })
       return
     }
 
-    return reply
+    reply
       .code(200)
       .header('Cache-Control', 'no-cache, no-store, must-revalidate')
       .type('text/html')
