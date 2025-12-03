@@ -85,12 +85,24 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session, client:
   const subscription = await stripe.subscriptions.retrieve(subscriptionId) as any
   const priceId = subscription.items.data[0].price.id
   const planCode = getPlanCodeForPriceId(priceId)
+  const envWeeklyPrice = process.env.STRIPE_PRICE_WEEKLY
+  const envMonthlyPrice = process.env.STRIPE_PRICE_MONTHLY
 
-  console.log(`[Webhook] Checkout completed. Subscription: ${subscriptionId}, PriceID: ${priceId}, Mapped Plan: ${planCode}`)
+  console.log('[Webhook] Checkout completed.', {
+    subscriptionId,
+    priceId,
+    mappedPlan: planCode,
+    envWeeklyPrice,
+    envMonthlyPrice
+  })
   console.log(`[Webhook] Period: ${subscription.current_period_start} - ${subscription.current_period_end}`)
 
   if (!planCode) {
-    console.error('[Webhook] Unknown price ID:', priceId)
+    console.error('[Webhook] Unknown price ID - cannot map to plan.', {
+      priceId,
+      envWeeklyPrice,
+      envMonthlyPrice
+    })
     return
   }
 
@@ -102,7 +114,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session, client:
     ? new Date(subscription.current_period_end * 1000).toISOString()
     : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
 
-  await client.from('user_subscriptions').upsert({
+  const { data, error } = await client.from('user_subscriptions').upsert({
     user_id: userId,
     stripe_customer_id: customerId,
     stripe_subscription_id: subscriptionId,
@@ -112,7 +124,22 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session, client:
     period_end: periodEnd
   }, { onConflict: 'user_id' })
 
-  console.log(`[Webhook] Subscription created for user ${userId} (Plan: ${planCode})`)
+  if (error) {
+    console.error('[Webhook] Failed to upsert subscription after checkout:', {
+      userId,
+      subscriptionId,
+      planCode,
+      supabaseError: error
+    })
+    return
+  }
+
+  console.log('[Webhook] Subscription record upserted after checkout.', {
+    userId,
+    planCode,
+    subscriptionId,
+    supabaseResponse: data
+  })
 }
 
 async function handleSubscriptionUpdated(subscription: Stripe.Subscription, client: any) {
