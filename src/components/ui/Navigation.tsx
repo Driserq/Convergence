@@ -17,6 +17,7 @@ import { useSubscription } from '../../hooks/useSubscription'
 import { cn } from '../../lib/utils'
 import type { RouteName } from '../../routes/map'
 import { LogoMark } from './LogoMark'
+import { Separator } from './separator'
 
 const bottomNavItems: Array<{
   key: RouteName
@@ -295,6 +296,7 @@ const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
               </button>
             ))}
           </div>
+          <Separator className="border-border/60" />
           <div className="flex flex-col gap-2">
             {secondaryItems.map(item => (
               <button
@@ -307,6 +309,7 @@ const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
               </button>
             ))}
           </div>
+          <Separator className="border-border/60" />
           <Button
             variant="destructive"
             className="w-full rounded-2xl py-3"

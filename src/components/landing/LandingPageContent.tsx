@@ -104,7 +104,7 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
               </Button>
             )}
           </div>
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="ml-auto flex items-center gap-2 md:hidden">
             {showSignupButton && (
               <Button
                 size="sm"

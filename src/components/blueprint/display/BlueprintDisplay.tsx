@@ -302,9 +302,9 @@ function SummaryVariant({
       <CardContent className="space-y-4">
         {metadata.status === 'pending' && (
           <Alert className="border-amber-200 bg-amber-50">
-            <AlertTitle>Blueprint is still generating</AlertTitle>
-            <AlertDescription className="text-sm text-amber-900/90">
-              Leave this tab open; we refresh the status automatically.
+            <AlertTitle className="text-amber-950">Blueprint is still generating</AlertTitle>
+            <AlertDescription className="text-sm text-amber-950">
+              Leave this tab open—no need to refresh; we&apos;ll keep the status updated automatically.
             </AlertDescription>
           </Alert>
         )}
