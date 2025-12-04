@@ -267,7 +267,7 @@ const MobileMenuDrawer: React.FC<MobileMenuDrawerProps> = ({
   <DialogPrimitive.Root open={open} onOpenChange={(val) => { if (!val) onClose() }}>
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className="fixed inset-0 z-40 bg-background/60 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 md:hidden" />
-      <DialogPrimitive.Content className="fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm translate-x-0 border-l border-border/60 bg-background p-6 shadow-2xl transition-transform duration-200 data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right md:hidden">
+      <DialogPrimitive.Content className="fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm border-l border-border/60 bg-background p-6 shadow-2xl md:hidden">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-muted-foreground">Signed in as</p>
