@@ -18,6 +18,9 @@
     "src/lib/aiErrors.ts",
     "src/lib/blueprintParser.ts",
     "src/lib/geminiProcessor.ts",
+    "src/lib/rateLimiter.ts",
+    "src/lib/auth/**/*.ts",
+    "src/lib/email/**/*.ts",
     "src/plugins/**/*",
     "src/types/**/*"
   ],

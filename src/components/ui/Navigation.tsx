@@ -87,6 +87,7 @@ export const Navigation: React.FC = () => {
       { label: 'Today', route: 'dashboard' },
       { label: 'Create blueprint', route: 'createBlueprint' },
       { label: 'History', route: 'history' },
+      { label: 'Feedback', route: 'feedback' },
     ],
     []
   )
@@ -116,6 +117,7 @@ export const Navigation: React.FC = () => {
             <NavLink label="Today" active={isActive(['dashboard'])} onClick={() => navigate('dashboard')} />
             <NavLink label="Create" active={isActive(['createBlueprint'])} onClick={() => navigate('createBlueprint')} />
             <NavLink label="History" active={isActive(['history', 'blueprintsIndex'])} onClick={() => navigate('history')} />
+            <NavLink label="Feedback" active={isActive(['feedback'])} onClick={() => navigate('feedback')} />
           </nav>
 
           <div className="flex items-center gap-2">

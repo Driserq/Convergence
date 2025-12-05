@@ -33,6 +33,7 @@ Components that appear across multiple pages in this project.
 - History ✅
 - Profile ✅
 - Blueprint Detail ✅
+- Feedback ✅ (new nav entry pointing to `/feedback`)
 - **NOT** on Landing or Login (public pages)
 
 **Dependencies**:

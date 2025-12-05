@@ -1,11 +1,11 @@
 # File Structure - Consum Habit Blueprint MVP
 
 ## Overview
-This document reflects the repository structure and runtime flow as of **2025-12-01**. The project runs a Fastify server that serves a Vite-built React SPA alongside API routes for AI blueprint generation, subscription management, tracking, and analytics.
+This document reflects the repository structure and runtime flow as of **2025-12-05**. The project runs a Fastify server that serves a Vite-built React SPA alongside API routes for AI blueprint generation, subscription management, tracking, analytics, and the new authenticated feedback pipeline (form + email relay).
 
 ## Architecture Summary
 - **Frontend**: React 19 SPA bundled by Vite 7 → output in `dist/client`; unified blueprint display primitives live in `src/components/blueprint/display`. Routes are code-split via `React.lazy`, and a mobile-first app shell + bottom navigation live in shared layout components.
-- **Backend**: Fastify 5 TypeScript server (`src/server.ts`) serving static assets, registering API routes (blueprints, subscriptions, tracking, transcripts), and running a Gemini retry worker plugin
+- **Backend**: Fastify 5 TypeScript server (`src/server.ts`) serving static assets, registering API routes (blueprints, subscriptions, tracking, transcripts, billing, webhook, **feedback**), and running a Gemini retry worker plugin plus in-memory rate limiting.
 - **Runtime**: Client-side routing managed manually in `App.tsx` (no React Router); navigation state comes from `RouterContext`, which now drives both desktop nav and the mobile bottom tab bar (Today/Create/History).
 - **State**: Zustand for auth/session state, React Hook Form + Zod for forms (in progress)
 - **Styling**: TailwindCSS v4 utilities + shadcn/ui primitives
@@ -62,7 +62,7 @@ Consum/
 
 ### Key Directories
 - `components/`: UI building blocks. Includes shadcn primitives under `ui/`, a reusable Radix-powered alert dialog wrapper (`components/ui/alert-dialog.tsx`), consolidated blueprint display variants (`components/blueprint/display/BlueprintDisplay.tsx`), shared flows like the delete confirmation dialog (`components/blueprint/DeleteBlueprintDialog.tsx`), the subscription upgrade dialog (`components/subscription/UpgradeDialog.tsx`), Today view modules in `components/today/`, a shared `layout/AppShell.tsx`, system-level helpers like `components/system/ServiceWorkerToast.tsx`, and the shared Supabase-powered Google OAuth trigger (`components/auth/GoogleAuthButton.tsx`) consumed by both Login and Sign Up forms.
-- `pages/`: Page-level components rendered by the custom router (Landing, Login, SignUp, VerifyEmail, Dashboard, History, Profile, CreateBlueprint, BlueprintDetail, NotFound, BillingSuccess, BillingCancel). Landing and Profile currently exceed the 200-line target and are earmarked for future decomposition. Each page re-exports the corresponding view implementation when applicable (`pages/Dashboard.tsx` → `TodayView`, etc.). `SignUp` now owns the dedicated email/password + Google OAuth experience, and `VerifyEmail` renders the alert-dialog confirmation shell plus the Supabase-backed resend link for post-signup messaging.
+- `pages/`: Page-level components rendered by the custom router (Landing, Login, SignUp, VerifyEmail, Dashboard, History, Profile, CreateBlueprint, BlueprintDetail, **Feedback**, NotFound, BillingSuccess, BillingCancel). Landing and Profile currently exceed the 200-line target and are earmarked for future decomposition. Each page re-exports the corresponding view implementation when applicable (`pages/Dashboard.tsx` → `TodayView`, etc.). `SignUp` now owns the dedicated email/password + Google OAuth experience, `VerifyEmail` renders the alert-dialog confirmation shell plus the Supabase-backed resend link for post-signup messaging, and `Feedback.tsx` provides the authenticated form with character counter + RHF/Zod validation that POSTs to `/api/feedback`.
 - `hooks/`: Custom hooks such as `useAuth.ts` (Supabase auth via Zustand, exposing `signInWithGoogle`, `resendVerificationEmail`, redirect intent handling, and verified-email gating), `useTrackedBlueprints.ts` (tracked blueprint metadata/completions with optimistic updates), `useSubscription.ts` (subscription state with localStorage cache + Stripe helpers), and `useDashboardStats.ts` (user analytics fetcher).
 - `contexts/`: React context providers (e.g., `RouterContext.tsx`).
 - `views/`: High-level route experiences (e.g., `TodayView.tsx`, `HistoryView.tsx`, `CreateBlueprintView.tsx`, `BlueprintDetailView.tsx`) that orchestrate Supabase data fetching and compose feature modules.
@@ -78,8 +78,11 @@ Consum/
   - `tracking.ts`: Identifier helpers, streak computations, and section extractors shared by the Today/History tracking UIs
   - `supabase.ts` / `supabase.server.ts`: Client/server Supabase clients
   - `transcript.ts`: YouTube transcript extraction utilities plus Supadata metadata helpers
+  - `email/`: New helpers for transactional email delivery. `email/sendFeedbackEmail.ts` wraps Nodemailer + AWS SES SMTP credentials to relay feedback submissions to `ADMIN_EMAIL`.
+  - `auth/requireUser.ts`: Shared Fastify helper that validates Supabase bearer tokens for any protected API route.
+  - `rateLimiter.ts`: Simple in-memory sliding window (10 requests / 24h) used by the feedback route.
   - `utils.ts`, etc.: Miscellaneous helpers
-- `routes/`: Fastify route registrations (`blueprint.ts`, `subscription.ts`, `tracking.ts`, `transcript.ts`, `billing.ts`, `webhook.ts`). Blueprint POST creates a pending record, queues Gemini work, fetches video metadata, and returns `202 Accepted` while the worker finishes processing. Subscription routes expose current usage and plan change endpoints; tracking routes handle toggle/completion mutations for the Today/History UIs with quota enforcement. Billing routes handle Stripe Checkout sessions, and the webhook route processes Stripe events to sync subscription state.
+- `routes/`: Fastify route registrations (`blueprint.ts`, `subscription.ts`, `tracking.ts`, `transcript.ts`, `billing.ts`, `webhook.ts`, **`feedback.ts`**). Blueprint POST creates a pending record, queues Gemini work, fetches video metadata, and returns `202 Accepted` while the worker finishes processing. Subscription routes expose current usage and plan change endpoints; tracking routes handle toggle/completion mutations for the Today/History UIs with quota enforcement. Billing routes handle Stripe Checkout sessions, and the webhook route processes Stripe events to sync subscription state. The feedback route accepts authenticated POSTs, enforces the in-memory rate limit, and sends AWS SES emails when submissions succeed.
 - `styles/`: Tailwind v4 global stylesheet (`globals.css`).
 - `types/`: Centralized TypeScript types (`blueprint.ts`, `tracking.ts`, `user.ts` placeholder, etc.).
 
@@ -104,7 +107,7 @@ Consum/
 
 ### TypeScript
 - `tsconfig.json`: `strict: true` for client code, includes `@/*` path alias (policy still prefers relative imports; see Import Guidelines).
-- `tsconfig.server.json`: Extends client config but relaxes strictness and excludes React-specific directories. Includes worker-related files (`lib/aiErrors.ts`, `lib/blueprintParser.ts`, `lib/geminiProcessor.ts`, `plugins/`). Used by `npm run build:server`. **2025-11-29 update**: the server build now targets Node’s native ESM loader with `module`/`moduleResolution` set to `"NodeNext"`; every server-side relative import must include a `.js` suffix (e.g., `import { foo } from '../lib/bar.js'`) so the emitted files resolve correctly at runtime. When adding new server code, follow this convention or the DigitalOcean deploy will fail with `ERR_MODULE_NOT_FOUND`.
+- `tsconfig.server.json`: Extends client config but relaxes strictness and excludes React-specific directories. Includes worker-related files (`lib/aiErrors.ts`, `lib/blueprintParser.ts`, `lib/geminiProcessor.ts`, `lib/email/**`, `lib/auth/**`, `lib/rateLimiter.ts`, `plugins/`). Used by `npm run build:server`. **2025-11-29 update**: the server build now targets Node’s native ESM loader with `module`/`moduleResolution` set to `"NodeNext"`; every server-side relative import must include a `.js` suffix (e.g., `import { foo } from '../lib/bar.js'`) so the emitted files resolve correctly at runtime. When adding new server code, follow this convention or the DigitalOcean deploy will fail with `ERR_MODULE_NOT_FOUND`.
 
 ### Vite (`vite.config.ts`)
 - React plugin enabled.
@@ -161,7 +164,7 @@ Consum/
 
 ### Server
 - Loaded via `dotenv` in `src/server.ts`, validated by `@fastify/env`.
-- Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `GOOGLE_AI_API_KEY`, `SUPADATA_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_*`.
+- Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `GOOGLE_AI_API_KEY`, `SUPADATA_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_*`, **`ADMIN_EMAIL`, `AWS_SES_SMTP_HOST`, `AWS_SES_SMTP_PORT`, `AWS_SES_SMTP_USER`, `AWS_SES_SMTP_PASS`** (feedback emails), and optional `FEEDBACK_FROM_EMAIL` override.
 - `.env`, `.env.local`, `.env.production` remain local secrets.
 
 ### Sample Development Entries
@@ -181,9 +184,9 @@ FRONTEND_URL=http://localhost:3001
 
 ---
 
-## Current Implementation Status (Nov 2025)
+## Current Implementation Status (Dec 2025)
 - **Authentication flow**: Login, logout, and protected routes operational; dedicated Sign Up + Verify Email pages are wired with Supabase email verification and Google OAuth (password reset still pending).
-- **Navigation shell**: Custom router powers a sticky desktop header plus a mobile-only bottom tab bar (Today/Dashboard, Create Blueprint, History) backed by a hamburger menu for secondary links.
+- **Navigation shell**: Custom router powers a sticky desktop header plus a mobile-only bottom tab bar (Today/Dashboard, Create Blueprint, History) backed by a hamburger menu for secondary links; desktop nav now includes a direct Feedback entry that routes to `/feedback`.
 - **Blueprint generation**: `BlueprintForm.tsx` submits goals/content, enforces per-plan quotas via `useBlueprint` + `useSubscription`, immediately enqueues Gemini work, and surfaces queued/complete states to the user. New blueprints now automatically fetch and store video metadata (title/duration) from Supadata.
 - **Subscription enforcement**: `/api/subscription` exposes plan/usage metadata, `useSubscription` hydrates UI status, `subscriptions/service.ts` renews periods and counts usage, and `subscriptions/plans.ts` centralizes limits.
 - **Billing integration**: Stripe test-mode integration via `src/lib/stripe.ts`, `src/routes/billing.ts` (session creation), and `src/routes/webhook.ts` (subscription syncing). The frontend initiates upgrades via `UpgradeDialog.tsx` and handles success/cancel states in `src/pages/BillingSuccess.tsx` and `src/pages/BillingCancel.tsx`.
@@ -192,6 +195,7 @@ FRONTEND_URL=http://localhost:3001
 - **Today view**: `TodayView.tsx` prioritizes tracked daily habits and action items using `useTrackedBlueprints`, while `StatsSection.tsx` displays real-time analytics (time saved, count, ratios) fetched via `useDashboardStats`.
 - **History view**: Renders blueprint summaries with inline tracking toggles (habits/actions), enforces quotas via `useTrackedBlueprints`, auto-refreshes pending statuses, lazily renders cards via Intersection Observer, and offers inline deletion. Cards now display video titles and duration.
 - **PWA/offline**: Auto-updating service worker caches app shell/assets, surfaces update/offline notifications, and lays groundwork for offline Blueprint viewing (caching logic is being layered into hooks incrementally).
+- **Feedback flow**: `/feedback` page provides a protected RHF/Zod form with live character counter, rate-limit helper text, and success/error alerts. `/api/feedback` enforces a 10 submissions / 24h limit per user (in-memory) and relays messages to `ADMIN_EMAIL` via AWS SES SMTP.
 - **Blueprint detail view**: Dedicated view powered by `BlueprintDetailView.tsx` that fetches a single record, orders sections action-first, shows metadata/overview previews, and offers a delete action that routes back to history on success.
 - **Blueprint display**: Unified summary/detail renderer backed by `lib/blueprint-display.ts` for normalization, sanitizing empty entries, and consistent section mapping.
 - **Deletion flow**: Radix alert dialog with synchronized overlay/content animations confirms Supabase deletions from both history cards and the detail page.
@@ -207,4 +211,4 @@ FRONTEND_URL=http://localhost:3001
 
 ---
 
-**Last Updated**: 2025-12-01
+**Last Updated**: 2025-12-05

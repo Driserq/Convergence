@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { AlertCircle, CheckCircle2, FileText, Loader2, PlayCircle } from 'lucide-react'
 
 import { blueprintFormSchema, validateYouTubeUrl, validateTextContent } from '../../lib/validation'
@@ -33,6 +33,18 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
+  const goalTextareaRef = useRef<HTMLTextAreaElement | null>(null)
+
+  const resizeGoalField = useCallback(() => {
+    const textarea = goalTextareaRef.current
+    if (!textarea) return
+    textarea.style.height = 'auto'
+    textarea.style.height = `${textarea.scrollHeight}px`
+  }, [])
+
+  useEffect(() => {
+    resizeGoalField()
+  }, [formData.goal, resizeGoalField])
 
   // Blueprint creation hook - handles everything backend-side
   const {
@@ -169,13 +181,16 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
             <FieldDescription>
               Be specific about what you want to achieve ({formData.goal.length}/500 characters)
             </FieldDescription>
-            <Input
+            <Textarea
               id="goal"
+              ref={goalTextareaRef}
               value={formData.goal}
               onChange={(e) => handleInputChange('goal', e.target.value)}
               disabled={isCreatingBlueprint}
               placeholder="e.g., I want to wake up at 5 AM every day and feel energized"
               maxLength={500}
+              rows={3}
+              className="min-h-[88px] resize-none overflow-hidden"
             />
             {errors.goal && <p className="text-sm text-destructive">{errors.goal}</p>}
           </Field>

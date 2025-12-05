@@ -41,12 +41,21 @@ const registerPlugins = async (): Promise<void> => {
     confKey: 'config',
     schema: {
       type: 'object',
-      required: ['SUPABASE_URL', 'SUPABASE_ANON_KEY', 'GOOGLE_AI_API_KEY'],
+      required: [
+        'SUPABASE_URL',
+        'SUPABASE_ANON_KEY',
+        'GOOGLE_AI_API_KEY',
+        'ADMIN_EMAIL',
+        'RESEND_API_KEY'
+      ],
       properties: {
         SUPABASE_URL: { type: 'string' },
         SUPABASE_ANON_KEY: { type: 'string' },
         GOOGLE_AI_API_KEY: { type: 'string' },
         SUPADATA_API_KEY: { type: 'string' },
+        ADMIN_EMAIL: { type: 'string' },
+        FEEDBACK_FROM_EMAIL: { type: 'string' },
+        RESEND_API_KEY: { type: 'string' },
         NODE_ENV: { type: 'string', default: 'development' },
         PORT: { type: 'string', default: '3001' },
         HOST: { type: 'string', default: 'localhost' }
@@ -110,6 +119,9 @@ const registerRoutes = async (): Promise<void> => {
 
   const webhookRoutes = await import('./routes/webhook.js')
   await server.register(webhookRoutes.default)
+
+  const feedbackRoutes = await import('./routes/feedback.js')
+  await server.register(feedbackRoutes.default)
 
   const retryWorker = await import('./plugins/geminiRetryWorker.js')
   await server.register(retryWorker.default)

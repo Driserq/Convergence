@@ -10,6 +10,7 @@ type RouteParamsMap = {
   history: Record<string, never>
   blueprintsIndex: Record<string, never>
   profile: Record<string, never>
+  feedback: Record<string, never>
   plans: Record<string, never>
   billingSuccess: { sessionId?: string }
   billingCancel: Record<string, never>
@@ -123,6 +124,13 @@ const ROUTES: RouteDictionary = {
     match: (path) => (path === '/profile' ? {} : null),
     buildPath: () => '/profile',
   },
+  feedback: {
+    name: 'feedback',
+    path: '/feedback',
+    requiresAuth: true,
+    match: (path) => (path === '/feedback' ? {} : null),
+    buildPath: () => '/feedback',
+  },
   plans: {
     name: 'plans',
     path: '/plans',
@@ -184,6 +192,7 @@ const MATCHABLE_ROUTES: RouteRecord<RouteName>[] = [
   ROUTES.history,
   ROUTES.blueprintsIndex,
   ROUTES.profile,
+  ROUTES.feedback,
   ROUTES.plans,
   ROUTES.billingSuccess,
   ROUTES.billingCancel,
