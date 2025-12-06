@@ -8,28 +8,28 @@ export const SECTION_LINKS = [
 ]
 
 export const HERO_CONTENT = {
-  eyebrow: 'Consum Action Engine',
-  headline: 'Consume actionables, not content',
+  eyebrow: 'Content-Action Engine',
+  headline: 'From Content to Action in Record Time',
   subheadline:
     'Consum takes your YouTube videos, articles, and posts and spits out ready-to-implement habits, plans, and checklists so you can outgrow everyone.',
-  primaryCta: 'Start consuming actionables',
+  primaryCta: 'Actionize Your Content',
   secondaryCta: 'See how Consum works',
 }
 
 export const RELEVANCE_POINTS = [
   'You’re serious about self improvement.',
-  'You’re too busy to spend time digesting content and making notes.',
-  'Your Watch Later playlist keeps piling up.',
+  'You struggle finding the time to consume your content and turn it into notes',
+  'You ‘Watch Lates’ playlist has grown beyond saving.',
 ]
 
 export const VALUE_CLAIMS = [
   {
-    title: 'Tailored actionables to drop straight into your routine',
-    description: 'No time wasted on figuring out what’s relevant to you.',
-  },
-  {
     title: 'Become the smartest person in the room in the least possible time',
     description: 'Condense hours of podcasts and video into a 5 minute read that is 100% tailored to you.',
+  },
+  {
+    title: 'Tailored actionables to drop straight into your routine',
+    description: 'No time wasted on figuring out what’s relevant to you.',
   },
   {
     title: 'Level up with every piece of content you consume',
@@ -44,44 +44,25 @@ export const VALUE_CLAIMS = [
 export const HOW_IT_WORKS_STEPS = [
   {
     step: '01',
-    title: 'You set the intention',
+    title: 'Set the intention',
     description:
-      'Log in and spell out your goal so the system knows exactly what “success” means for you.',
+      'Let Consum know what you do or what you want to learn so it can pick only the things that’ll move the needle.',
   },
   {
     step: '02',
-    title: 'You hand us the source material',
-    description: 'Paste a YouTube link or raw notes; we quietly verify it’s usable and prep it for analysis.',
+    title: 'Share your content',
+    description: 'Whether it’s a YouTube link or a piece of text.',
   },
   {
     step: '03',
-    title: 'We digest the content for you',
-    description:
-      'Consum pulls the full transcript (if it’s a video) and cleans up the text so only the meaningful insights remain.',
+    title: 'Review',
+    description: 'Consume content worth your time and focus.',
   },
   {
     step: '04',
-    title: 'We spin up an expert coach',
+    title: 'Track and stay consistent',
     description:
-      'Your goals plus the distilled content feed our habit blueprint engine, which thinks like a coach and maps realistic action sequences.',
-  },
-  {
-    step: '05',
-    title: 'Your blueprint lands in your workspace',
-    description:
-      'The finished plan drops into your dashboard and History automatically with steps, checklists, triggers, and habit prompts.',
-  },
-  {
-    step: '06',
-    title: 'You decide what to stay accountable to',
-    description:
-      'From History you tag the blueprints you want to track, instantly piping their habits into the Today tab.',
-  },
-  {
-    step: '07',
-    title: 'Daily follow-through stays effortless',
-    description:
-      'Today view keeps those items front and center with streak tracking, completion toggles, and live stats.',
+      'Choose what matters most and keep it on your dashboard to make it as easy as possible to stay consistent and create actual change.',
   },
 ]
 
@@ -93,9 +74,7 @@ export const PRICING_TIERS = [
     description: 'Test-drive Consum with capped output and no tracking overhead.',
     features: [
       '3 blueprints / month',
-      'Baseline transcript cleanup',
-      'History access only',
-      'Habit tracking disabled',
+      'Track 1 habit/actionable',
     ],
     cta: 'Stay free',
     buttonVariant: 'secondary',
@@ -107,9 +86,8 @@ export const PRICING_TIERS = [
     description: 'Ship a steady cadence of blueprints with light accountability baked in.',
     features: [
       '20 blueprints / week',
-      'Track up to 3 habits + actions',
-      'Priority weekly refresh cadence',
-      'Export-ready summaries',
+    
+      'Track up to 3 habits/actionables',
     ],
     cta: 'Go weekly',
     buttonVariant: 'outline',
@@ -121,9 +99,7 @@ export const PRICING_TIERS = [
     description: 'High-capacity plan with full accountability (8 tracked habits — more is just ineffective).',
     features: [
       '150 blueprints / month',
-      'Track up to 8 habits + actions',
-      'Full accountability workspace',
-      'Priority processing + export packs',
+      'Track up to 8 habits/actionables',
     ],
     highlight: true,
     badgeText: 'Most popular',

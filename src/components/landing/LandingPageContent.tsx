@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ArrowRight, CheckCircle2, Sparkles, Menu, X } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Sparkles, Menu, X, Zap, Brain, TrendingUp, Database, Target, Hourglass, Layers } from 'lucide-react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 
 import {
@@ -25,6 +25,21 @@ import {
 import { Separator } from '../ui/separator'
 import { LogoMark } from '../ui/LogoMark'
 import { FaqSection } from './FaqSection'
+
+type RawTimelineStep = (typeof HOW_IT_WORKS_STEPS)[number]
+type TimelineStep = RawTimelineStep & { image: string }
+
+const STEP_IMAGES = [
+  new URL('../../../step_by_step/Consum1.webp', import.meta.url).href,
+  new URL('../../../step_by_step/Consum2.webp', import.meta.url).href,
+  new URL('../../../step_by_step/Consum3.webp', import.meta.url).href,
+  new URL('../../../step_by_step/Consum4.webp', import.meta.url).href,
+]
+
+const TIMELINE_STEPS: TimelineStep[] = HOW_IT_WORKS_STEPS.map((step, index) => ({
+  ...step,
+  image: STEP_IMAGES[index % STEP_IMAGES.length],
+}))
 
 type LandingPageContentProps = {
   isAuthenticated: boolean
@@ -228,22 +243,49 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
                 High-agency operators who refuse to drown in “Watch Later” piles and want action-ready insights instead.
               </p>
             </div>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {RELEVANCE_POINTS.map(point => (
-                <Card
+            <div className="mt-16 grid gap-6 md:grid-cols-3">
+              {RELEVANCE_POINTS.map((point, i) => (
+                <div
                   key={point}
-                  className="border border-border/60 bg-card/70 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg"
+                  className="group relative overflow-hidden rounded-xl border border-border/40 bg-card/30 p-8 transition-all duration-300 hover:border-primary/50 hover:bg-card/50 hover:shadow-lg"
                 >
-                  <CardContent className="flex h-full flex-col gap-4 p-6">
-                    <div className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary" aria-hidden>
-                      <CheckCircle2 className="size-5" />
+                  {/* Scan Line Animation */}
+                  <div 
+                    className="absolute inset-x-0 -top-4 z-20 h-[2px] bg-primary opacity-0 shadow-[0_0_15px_rgba(var(--primary),0.6)] blur-[1px] transition-all duration-1000 group-hover:top-full group-hover:opacity-100" 
+                    aria-hidden 
+                  />
+
+                  {/* HUD Corner Brackets */}
+                  <div className="absolute left-0 top-0 h-6 w-6 border-l-2 border-t-2 border-primary/20 transition-colors group-hover:border-primary/60" />
+                  <div className="absolute right-0 top-0 h-6 w-6 border-r-2 border-t-2 border-primary/20 transition-colors group-hover:border-primary/60" />
+                  <div className="absolute bottom-0 left-0 h-6 w-6 border-b-2 border-l-2 border-primary/20 transition-colors group-hover:border-primary/60" />
+                  <div className="absolute bottom-0 right-0 h-6 w-6 border-b-2 border-r-2 border-primary/20 transition-colors group-hover:border-primary/60" />
+
+                  {/* HUD Header */}
+                  <div className="mb-6 flex items-center justify-between font-mono text-xs tracking-wider text-muted-foreground">
+                    <span className="opacity-70">TRT_0{i + 1}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="hidden uppercase text-primary/80 group-hover:inline-block">MATCH CONFIRMED</span>
+                      <span className="uppercase opacity-50 group-hover:hidden">Scanning...</span>
+                      <div className="size-2 rounded-full bg-muted-foreground/30 transition-all duration-300 group-hover:animate-pulse group-hover:bg-primary group-hover:shadow-[0_0_8px_currentColor]" />
                     </div>
-                    <p className="text-lg font-semibold text-foreground/90">{point}</p>
-                  </CardContent>
-                </Card>
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10 space-y-4">
+                    <div className="flex items-start gap-4">
+                      <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-muted-foreground/50 ring-1 ring-border/50 transition-all duration-500 group-hover:bg-primary/10 group-hover:text-primary group-hover:ring-primary/30">
+                        <CheckCircle2 className="size-5" />
+                      </div>
+                      <p className="text-lg font-medium leading-relaxed text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                        {point}
+                      </p>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
-            <div className="mt-10 flex justify-center">
+            <div className="mt-16 flex justify-center">
               <Button
                 size="lg"
                 className="gap-2 rounded-full px-8 py-6 text-base font-semibold md:text-lg"
@@ -256,8 +298,8 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
           </div>
         </section>
 
-        <section id="value" className="scroll-mt-24 bg-card/30 py-20">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <section id="value" className="scroll-mt-24 bg-card/30 py-24">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <div className="space-y-4 text-center">
               <Badge variant="secondary" className="mx-auto w-fit gap-2 px-4 py-1 text-sm">
                 <Sparkles aria-hidden className="size-4" />
@@ -266,17 +308,46 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Tailored actionables without the busywork.</h2>
               <p className="text-lg text-muted-foreground">Every claim is built for speed, precision, and zero fluff.</p>
             </div>
-            <div className="mt-12 space-y-6">
-              {VALUE_CLAIMS.map(claim => (
-                <div
-                  key={claim.title}
-                  className="rounded-3xl border border-border/40 bg-card/70 p-6 shadow-lg"
-                >
-                  <div className="h-1 w-16 rounded-full bg-primary" aria-hidden />
-                  <h3 className="mt-4 text-2xl font-semibold text-foreground md:text-3xl">{claim.title}</h3>
-                  <p className="mt-3 text-lg text-muted-foreground">{claim.description}</p>
-                </div>
-              ))}
+            
+            <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3 md:auto-rows-[22rem]">
+              {VALUE_CLAIMS.map((claim, i) => {
+                // Row 1: Wide (2col) + Square (1col)
+                // Row 2: Square (1col) + Wide (2col)
+                const isWide = i === 0 || i === 3
+                const icons = [Brain, Zap, TrendingUp, Database]
+                const Icon = icons[i % icons.length]
+
+                return (
+                  <div
+                    key={claim.title}
+                    className={`
+                      group relative overflow-hidden rounded-3xl border border-border/50 bg-card/50 p-8 shadow-sm transition-all duration-500 hover:bg-card/80 hover:shadow-xl hover:-translate-y-1
+                      ${isWide ? "md:col-span-2" : "md:col-span-1"}
+                    `}
+                  >
+                    {/* Gradient Blob Background */}
+                    <div 
+                      className={`absolute -right-20 -top-20 h-64 w-64 rounded-full opacity-20 blur-3xl transition-opacity duration-700 group-hover:opacity-40 ${isWide ? 'bg-primary' : 'bg-blue-500'}`} 
+                      aria-hidden
+                    />
+                    
+                    <div className="relative flex h-full flex-col justify-between">
+                      <div className="flex size-14 items-center justify-center rounded-2xl bg-background/50 shadow-sm backdrop-blur-sm ring-1 ring-border/50 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                        <Icon className="size-7 text-primary" />
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <h3 className="text-2xl font-bold leading-tight text-foreground md:text-3xl">
+                          {claim.title}
+                        </h3>
+                        <p className="text-lg text-muted-foreground/90 leading-relaxed">
+                          {claim.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -286,29 +357,83 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
             <div className="space-y-4 text-center">
               <Badge variant="secondary" className="mx-auto w-fit gap-2 px-4 py-1 text-sm">
                 <Sparkles aria-hidden className="size-4" />
-                How it works
+                Step by step
               </Badge>
-              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Seven quiet steps from feed to follow-through.</h2>
-              <p className="text-lg text-muted-foreground">Consum stays invisible while you stay in flow.</p>
+              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Exactly how Consum works, step by step.</h2>
+              <p className="text-lg text-muted-foreground">Four moves from intention to actual change.</p>
             </div>
-            <div className="mt-12 space-y-10">
-              {HOW_IT_WORKS_STEPS.map((step, index) => (
-                <div key={step.title} className="relative pl-16">
-                  {index !== HOW_IT_WORKS_STEPS.length - 1 && (
+            <div className="mt-16 space-y-12 lg:space-y-0 lg:mt-0">
+              {/* Mobile View */}
+              <div className="space-y-12 lg:hidden">
+                {TIMELINE_STEPS.map((step) => (
+                  <div key={step.title} className="relative flex pl-6">
                     <span
-                      className="absolute left-[22px] top-12 z-0 block h-[calc(100%+24px)] w-px bg-primary/20"
+                      className="absolute inset-y-6 left-0 w-px bg-border/40"
                       aria-hidden
                     />
-                  )}
-                  <span className="absolute left-0 top-0 z-10 flex size-12 items-center justify-center rounded-full border border-primary/60 bg-background text-sm font-semibold text-primary shadow-sm">
-                    {step.step}
-                  </span>
-                  <div className="rounded-2xl border border-border/40 bg-card/60 p-6 shadow-sm">
-                    <h3 className="text-2xl font-semibold">{step.title}</h3>
-                    <p className="mt-3 text-base text-muted-foreground">{step.description}</p>
+                    <MobileStepCard step={step} />
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              {/* Desktop View */}
+              <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-x-16 lg:gap-y-0">
+                {TIMELINE_STEPS.map((step, index) => {
+                  const isEven = index % 2 === 0
+                  const isLast = index === TIMELINE_STEPS.length - 1
+                  
+                  return (
+                    <React.Fragment key={step.title}>
+                      {/* Left Column */}
+                      <div className={`py-24 flex flex-col justify-center ${isEven ? 'items-end text-right' : 'items-start text-left'}`}>
+                        {isEven ? (
+                          <div className="space-y-4 max-w-md">
+                            <h3 className="text-3xl font-bold text-foreground">{step.title}</h3>
+                            <p className="text-lg text-muted-foreground leading-relaxed">{step.description}</p>
+                          </div>
+                        ) : (
+                          <div className="relative rounded-2xl border border-border/40 bg-card/50 p-2 shadow-2xl transition-transform duration-500 hover:-translate-y-2">
+                            <img
+                              src={step.image}
+                              alt={`${step.title} screenshot`}
+                              className="h-64 w-full max-w-md object-cover rounded-xl"
+                              loading="lazy"
+                            />
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Center Spine */}
+                      <div className="flex flex-col items-center h-full">
+                        <div className={`w-px flex-1 ${index === 0 ? 'bg-transparent' : 'bg-border/30'}`} />
+                        <div className="relative z-10 flex size-16 shrink-0 items-center justify-center rounded-full border border-primary/40 bg-background shadow-lg shadow-primary/10">
+                          <span className="text-lg font-bold text-primary">{step.step}</span>
+                        </div>
+                        <div className={`w-px flex-1 ${isLast ? 'bg-transparent' : 'bg-border/30'}`} />
+                      </div>
+
+                      {/* Right Column */}
+                      <div className={`py-24 flex flex-col justify-center ${!isEven ? 'items-start text-left' : 'items-end text-right'}`}>
+                        {isEven ? (
+                          <div className="relative rounded-2xl border border-border/40 bg-card/50 p-2 shadow-2xl transition-transform duration-500 hover:-translate-y-2">
+                            <img
+                              src={step.image}
+                              alt={`${step.title} screenshot`}
+                              className="h-64 w-full max-w-md object-cover rounded-xl"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="space-y-4 max-w-md">
+                            <h3 className="text-3xl font-bold text-foreground">{step.title}</h3>
+                            <p className="text-lg text-muted-foreground leading-relaxed">{step.description}</p>
+                          </div>
+                        )}
+                      </div>
+                    </React.Fragment>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -431,3 +556,27 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({
 }
 
 export default LandingPageContent
+
+type MobileStepCardProps = {
+  step: TimelineStep
+}
+
+const MobileStepCard: React.FC<MobileStepCardProps> = ({ step }) => (
+  <article className="w-full max-w-md rounded-2xl border border-border/50 bg-card/70 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div className="overflow-hidden rounded-xl border border-border/40 bg-card/60">
+      <img
+        src={step.image}
+        alt={`${step.title} screenshot`}
+        className="h-56 w-full object-cover"
+        loading="lazy"
+      />
+    </div>
+    <div className="mt-4 space-y-3">
+      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+        Step {step.step}
+      </p>
+      <h3 className="text-2xl font-semibold text-foreground">{step.title}</h3>
+      <p className="text-base text-muted-foreground">{step.description}</p>
+    </div>
+  </article>
+)

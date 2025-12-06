@@ -78,7 +78,7 @@ Consum/
   - `tracking.ts`: Identifier helpers, streak computations, and section extractors shared by the Today/History tracking UIs
   - `supabase.ts` / `supabase.server.ts`: Client/server Supabase clients
   - `transcript.ts`: YouTube transcript extraction utilities plus Supadata metadata helpers
-  - `email/`: New helpers for transactional email delivery. `email/sendFeedbackEmail.ts` wraps Nodemailer + AWS SES SMTP credentials to relay feedback submissions to `ADMIN_EMAIL`.
+  - `email/`: New helpers for transactional email delivery. `email/sendFeedbackEmail.ts` now calls Resend (via a shared client helper) to relay feedback submissions to `ADMIN_EMAIL` without maintaining SMTP credentials.
   - `auth/requireUser.ts`: Shared Fastify helper that validates Supabase bearer tokens for any protected API route.
   - `rateLimiter.ts`: Simple in-memory sliding window (10 requests / 24h) used by the feedback route.
   - `utils.ts`, etc.: Miscellaneous helpers
@@ -164,7 +164,7 @@ Consum/
 
 ### Server
 - Loaded via `dotenv` in `src/server.ts`, validated by `@fastify/env`.
-- Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `GOOGLE_AI_API_KEY`, `SUPADATA_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_*`, **`ADMIN_EMAIL`, `AWS_SES_SMTP_HOST`, `AWS_SES_SMTP_PORT`, `AWS_SES_SMTP_USER`, `AWS_SES_SMTP_PASS`** (feedback emails), and optional `FEEDBACK_FROM_EMAIL` override.
+- Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `GOOGLE_AI_API_KEY`, `SUPADATA_API_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, `STRIPE_PRICE_*`, **`ADMIN_EMAIL`, `RESEND_API_KEY`** (feedback emails), and optional `FEEDBACK_FROM_EMAIL` override.
 - `.env`, `.env.local`, `.env.production` remain local secrets.
 
 ### Sample Development Entries
@@ -195,7 +195,7 @@ FRONTEND_URL=http://localhost:3001
 - **Today view**: `TodayView.tsx` prioritizes tracked daily habits and action items using `useTrackedBlueprints`, while `StatsSection.tsx` displays real-time analytics (time saved, count, ratios) fetched via `useDashboardStats`.
 - **History view**: Renders blueprint summaries with inline tracking toggles (habits/actions), enforces quotas via `useTrackedBlueprints`, auto-refreshes pending statuses, lazily renders cards via Intersection Observer, and offers inline deletion. Cards now display video titles and duration.
 - **PWA/offline**: Auto-updating service worker caches app shell/assets, surfaces update/offline notifications, and lays groundwork for offline Blueprint viewing (caching logic is being layered into hooks incrementally).
-- **Feedback flow**: `/feedback` page provides a protected RHF/Zod form with live character counter, rate-limit helper text, and success/error alerts. `/api/feedback` enforces a 10 submissions / 24h limit per user (in-memory) and relays messages to `ADMIN_EMAIL` via AWS SES SMTP.
+- **Feedback flow**: `/feedback` page provides a protected RHF/Zod form with live character counter, rate-limit helper text, and success/error alerts. `/api/feedback` enforces a 10 submissions / 24h limit per user (in-memory) and relays messages to `ADMIN_EMAIL` via Resend.
 - **Blueprint detail view**: Dedicated view powered by `BlueprintDetailView.tsx` that fetches a single record, orders sections action-first, shows metadata/overview previews, and offers a delete action that routes back to history on success.
 - **Blueprint display**: Unified summary/detail renderer backed by `lib/blueprint-display.ts` for normalization, sanitizing empty entries, and consistent section mapping.
 - **Deletion flow**: Radix alert dialog with synchronized overlay/content animations confirms Supabase deletions from both history cards and the detail page.

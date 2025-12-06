@@ -94,10 +94,10 @@ export const Feedback: React.FC = () => {
       <div className="min-h-screen bg-background px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-2xl space-y-6">
           <header className="space-y-2">
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary/80">We read everything</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-primary/80">I read everything</p>
             <h1 className="text-3xl font-bold text-foreground">Feedback</h1>
             <p className="text-base text-muted-foreground">
-              Share what’s working, what’s confusing, or what you absolutely need next. Messages go straight to Kuba.
+              Share what’s working, what’s confusing, or what you want to see most. Messages go straight to yours truly.
             </p>
           </header>
 
@@ -141,9 +141,7 @@ export const Feedback: React.FC = () => {
                             maxLength={500}
                           />
                         </FormControl>
-                        <FormDescription>
-                          Be specific so we can act quickly. Examples: “The dashboard loads slowly on iOS” or “Bulk habit edit would save me an hour a week.”
-                        </FormDescription>
+                    
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-muted-foreground">Max 500 characters • 10 submissions / 24h</span>
                           <span className={remainingCharacters <= 50 ? 'font-semibold text-amber-400' : 'text-muted-foreground'}>
