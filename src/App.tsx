@@ -239,6 +239,11 @@ export const App: React.FC = () => {
       return
     }
 
+    if (currentRoute.name === 'verifyEmail') {
+      navigate('dashboard')
+      return
+    }
+
     if (currentRoute.name === 'login' || currentRoute.name === 'signup') {
       if (authMode !== 'login') {
         setAuthMode('login')

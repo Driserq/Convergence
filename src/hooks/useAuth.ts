@@ -22,10 +22,70 @@ const prependDomain = (path: string): string => {
   return `${PRODUCTION_BASE_URL}${normalized}`
 }
 
-const DEFAULT_EMAIL_REDIRECT = prependDomain('/verify-email')
+const DEFAULT_EMAIL_REDIRECT = prependDomain('/dashboard')
 const DEFAULT_GOOGLE_REDIRECT = prependDomain('/login')
+const isBrowser = typeof window !== 'undefined'
+const SUPABASE_URL_PARAM_KEYS = ['access_token', 'refresh_token', 'expires_in', 'token_type', 'provider_token', 'type']
 
-export const useAuth = create<AuthState>((set, get) => ({
+export const useAuth = create<AuthState>((set, get) => {
+  const hasSupabaseAuthParams = (): boolean => {
+    if (!isBrowser) return false
+    const hash = window.location.hash?.replace(/^#/, '') ?? ''
+    const hashParams = new URLSearchParams(hash)
+    const searchParams = new URLSearchParams(window.location.search)
+
+    return SUPABASE_URL_PARAM_KEYS.some(key => hashParams.has(key) || searchParams.has(key))
+  }
+
+  const stripSupabaseAuthParams = () => {
+    if (!isBrowser) return
+    const url = new URL(window.location.href)
+
+    let hashRemoved = false
+    if (url.hash) {
+      url.hash = ''
+      hashRemoved = true
+    }
+
+    let searchMutated = false
+    SUPABASE_URL_PARAM_KEYS.forEach(key => {
+      if (url.searchParams.has(key)) {
+        url.searchParams.delete(key)
+        searchMutated = true
+      }
+    })
+
+    if (hashRemoved || searchMutated) {
+      window.history.replaceState({}, '', `${url.origin}${url.pathname}${url.search}`)
+    }
+  }
+
+  const processSupabaseRedirect = async () => {
+    if (!hasSupabaseAuthParams()) {
+      return
+    }
+
+    try {
+      console.log('[useAuth] Processing Supabase redirect params...')
+      const { data, error } = await supabase.auth.getSessionFromUrl({ storeSession: true })
+
+      if (error) {
+        console.error('[useAuth] Error completing Supabase redirect:', error)
+        return
+      }
+
+      if (data.session) {
+        console.log('[useAuth] Supabase redirect session ready for:', data.session.user.email)
+        set({ user: data.session.user, session: data.session })
+      }
+    } catch (error) {
+      console.error('[useAuth] Unexpected error during Supabase redirect handling:', error)
+    } finally {
+      stripSupabaseAuthParams()
+    }
+  }
+
+  return {
   user: null,
   session: null,
   loading: true,
@@ -38,6 +98,8 @@ export const useAuth = create<AuthState>((set, get) => ({
   initialize: async (): Promise<void> => {
     try {
       console.log('[useAuth] Initializing auth state...')
+
+      await processSupabaseRedirect()
       
       // Get current session
       const { data: { session }, error } = await supabase.auth.getSession()
@@ -298,5 +360,6 @@ export const useAuth = create<AuthState>((set, get) => ({
     } catch (error: any) {
       console.error('[useAuth] Unexpected session refresh error:', error)
     }
-  }
-}))
+  },
+}
+});

@@ -8,16 +8,24 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '../components/ui/alert-dialog'
-import { useRouteParams } from '../contexts/RouterContext'
+import { useRouteParams, useRouter } from '../contexts/RouterContext'
 import { Button } from '../components/ui/button'
 import { useAuth } from '../hooks/useAuth'
 
 export const VerifyEmail: React.FC = () => {
   const params = useRouteParams<'verifyEmail'>()
   const { resendVerificationEmail, user } = useAuth()
+  const { navigate } = useRouter()
   const [isResending, setIsResending] = useState(false)
   const [cooldown, setCooldown] = useState(0)
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+
+  useEffect(() => {
+    const isVerified = Boolean(user?.email_confirmed_at ?? user?.confirmed_at)
+    if (isVerified) {
+      navigate('dashboard')
+    }
+  }, [navigate, user])
 
   const displayEmail = useMemo(() => {
     const cleaned = params?.email?.trim() || user?.email?.trim()
