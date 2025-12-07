@@ -22,7 +22,19 @@ const prependDomain = (path: string): string => {
   return `${PRODUCTION_BASE_URL}${normalized}`
 }
 
-const DEFAULT_EMAIL_REDIRECT = prependDomain('/dashboard')
+const buildEmailRedirectUrl = (): string => {
+  if (isBrowser) {
+    try {
+      const origin = window.location.origin || PRODUCTION_BASE_URL
+      return `${origin.replace(/\/$/, '')}/dashboard`
+    } catch (error) {
+      console.warn('[useAuth] Unable to derive email redirect from window, falling back to production URL', error)
+    }
+  }
+  return `${PRODUCTION_BASE_URL}/dashboard`
+}
+
+const DEFAULT_EMAIL_REDIRECT = buildEmailRedirectUrl()
 const DEFAULT_GOOGLE_REDIRECT = prependDomain('/login')
 const isBrowser = typeof window !== 'undefined'
 const SUPABASE_URL_PARAM_KEYS = ['access_token', 'refresh_token', 'expires_in', 'token_type', 'provider_token', 'type']
@@ -180,6 +192,7 @@ export const useAuth = create<AuthState>((set, get) => {
     try {
       console.log('[useAuth] Attempting signup for:', email)
       const emailRedirectTo = options?.emailRedirectTo ?? DEFAULT_EMAIL_REDIRECT
+      console.log('[useAuth] Using email redirect for signup:', emailRedirectTo)
 
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -237,6 +250,7 @@ export const useAuth = create<AuthState>((set, get) => {
     try {
       const emailRedirectTo = options?.emailRedirectTo ?? DEFAULT_EMAIL_REDIRECT
       console.log('[useAuth] Resending verification email for:', email)
+      console.log('[useAuth] Using email redirect for resend:', emailRedirectTo)
 
       const { error } = await supabase.auth.resend({
         type: 'signup',
