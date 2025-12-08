@@ -10,7 +10,7 @@ import type {
 } from '../types/auth'
 
 const PRODUCTION_BASE_URL = 'https://consum.app'
-
+const isBrowser = typeof window !== 'undefined'
 const prependDomain = (path: string): string => {
   if (!path) {
     return PRODUCTION_BASE_URL
@@ -36,7 +36,6 @@ const buildEmailRedirectUrl = (): string => {
 
 const DEFAULT_EMAIL_REDIRECT = buildEmailRedirectUrl()
 const DEFAULT_GOOGLE_REDIRECT = prependDomain('/login')
-const isBrowser = typeof window !== 'undefined'
 const SUPABASE_URL_PARAM_KEYS = ['access_token', 'refresh_token', 'expires_in', 'token_type', 'provider_token', 'type']
 
 export const useAuth = create<AuthState>((set, get) => {
