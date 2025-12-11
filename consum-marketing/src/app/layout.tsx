@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: "Consum – Content-to-Action Engine",
   description: "Transform YouTube videos and long-form content into actionable habit blueprints in minutes.",
   metadataBase: new URL("https://consum.app"),
+  icons: {
+    icon: "/logo_fav.svg",
+    apple: "/logo_fav.svg",
+  },
   openGraph: {
     title: "Consum – Content-to-Action Engine",
     description: "Transform YouTube videos and long-form content into actionable habit blueprints in minutes.",
