@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Driserq/Consum#readme",
   "dependencies": {
+    "cross-env": "^10.1.0",
     "@fastify/cors": "^11.1.0",
     "@fastify/env": "^5.0.3",
     "@fastify/middie": "^9.0.3",
@@ -73,7 +74,6 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "@vitejs/plugin-react": "^5.0.4",
-    "cross-env": "^10.1.0",
     "nodemon": "^3.1.10",
     "rollup-plugin-visualizer": "^6.0.5",
     "supabase": "^2.48.3",
