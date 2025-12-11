@@ -183,13 +183,6 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({ appUrl }
                   >
                     Sign up
                   </Button>
-                  <Button
-                    variant="ghost"
-                    className="w-full rounded-2xl py-3"
-                    onClick={goToLogin}
-                  >
-                    Log in
-                  </Button>
                 </div>
               </div>
             </DialogPrimitive.Content>
