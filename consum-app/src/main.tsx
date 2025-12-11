@@ -16,9 +16,11 @@ if (typeof globalThis.crypto !== 'undefined' && typeof globalThis.crypto.randomU
     )
 }
 
-console.log('[Main] Initializing app...')
-console.log('[Main] Supabase URL:', window.SUPABASE_URL)
-console.log('[Main] Vite env vars:', import.meta.env)
+if (import.meta.env.DEV) {
+  console.log('[Main] Initializing app...')
+  console.log('[Main] Supabase URL:', window.SUPABASE_URL)
+  console.log('[Main] Vite env vars:', import.meta.env)
+}
 
 const root = document.getElementById('root')
 

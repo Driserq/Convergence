@@ -37,6 +37,6 @@ export const supabase = createClient(
   }
 )
 
-if (supabaseUrl && supabaseAnonKey) {
+if (import.meta.env.DEV && supabaseUrl && supabaseAnonKey) {
   console.log('[Supabase] Client initialized with URL:', supabaseUrl)
 }
