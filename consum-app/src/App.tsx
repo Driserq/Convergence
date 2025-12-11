@@ -1,7 +1,6 @@
 import React, { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './hooks/useAuth'
 import { Navigation } from './components/ui/Navigation'
-import { ServiceWorkerToast } from './components/system/ServiceWorkerToast'
 import { RouteErrorBoundary } from './components/system/RouteErrorBoundary'
 import { RouterProvider } from './contexts/RouterContext'
 import {
@@ -324,7 +323,6 @@ export const App: React.FC = () => {
     <RouterProvider currentRoute={currentRoute} navigate={navigate}>
       <div className="App min-h-screen bg-background text-foreground">
         {showNavigation && <Navigation />}
-        <ServiceWorkerToast />
         <RouteErrorBoundary>
           <Suspense fallback={<SuspenseFallback />}>
             <div className={contentPaddingClass}>{renderRoute()}</div>

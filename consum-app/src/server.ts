@@ -77,7 +77,7 @@ const registerPlugins = async (): Promise<void> => {
         return
       }
 
-      if (['index.html', 'sw.js', 'manifest.webmanifest'].includes(fileName)) {
+      if (fileName === 'index.html') {
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
         return
       }
