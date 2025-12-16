@@ -3,6 +3,7 @@ export const SECTION_LINKS = [
   { label: 'Who it’s for', target: 'relevance' },
   { label: 'Value', target: 'value' },
   { label: 'How it works', target: 'how-it-works' },
+  { label: 'Roadmap', target: 'roadmap' },
   { label: 'Pricing', target: 'pricing' },
   { label: 'FAQ', target: 'faq' },
 ] as const
@@ -90,7 +91,7 @@ export const PRICING_TIERS = [
       '20 blueprints / week',
       'Track up to 3 habits/actionables',
     ],
-    cta: 'Go weekly',
+    cta: 'Start Free',
     buttonVariant: 'outline',
     highlight: false,
     badgeText: undefined,
@@ -106,10 +107,44 @@ export const PRICING_TIERS = [
     ],
     highlight: true,
     badgeText: 'Most popular',
-    cta: 'Commit monthly',
+    cta: 'Start Free',
     buttonVariant: 'default',
   },
 ] as const
+
+export const ROADMAP_CONTENT = {
+  eyebrow: 'Future Vision',
+  headline: 'The path to the ultimate behavior platform.',
+  subheadline: 'We are building the operating system for your personality.',
+  phases: [
+    {
+      title: 'Make it easier to use',
+      items: [
+        'Create a browser extension',
+        'Mobile app to send content straight from the platform',
+        'Create profiles so that AI knows your goals right away',
+      ],
+      status: 'in-progress' as const,
+    },
+    {
+      title: 'Put your whole persona and routine in there',
+      items: [
+        'Be able to share your current habits and routine',
+        'Enable Consum to consider your routines, habits and personality when creating blueprints',
+      ],
+      status: 'planned' as const,
+    },
+    {
+      title: 'Create a chatbot that will create blueprints',
+      items: [
+        'Based on a library of content',
+        'Enable back-and-forth around blueprints',
+      ],
+      status: 'planned' as const,
+    },
+  ],
+  endProduct: 'A seamless habit, behavior, personality management platform',
+} as const
 
 export const FINAL_CTA = {
   eyebrow: 'Ready to lap your feed?',

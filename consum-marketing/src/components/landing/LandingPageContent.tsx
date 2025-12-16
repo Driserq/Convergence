@@ -11,23 +11,18 @@ import {
   RELEVANCE_POINTS,
   VALUE_CLAIMS,
   HOW_IT_WORKS_STEPS,
-  PRICING_TIERS,
   FINAL_CTA,
   FAQS,
   FOOTER_LINKS,
 } from '@/data/landingContent'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { LogoMark } from '@/components/ui/LogoMark'
 import { FaqSection } from './FaqSection'
+import { RoadmapSection } from './RoadmapSection'
+import { PricingSection } from './PricingSection'
+import { AuthorNoteSection } from './AuthorNoteSection'
 
 type RawTimelineStep = (typeof HOW_IT_WORKS_STEPS)[number]
 type TimelineStep = RawTimelineStep & { image: string }
@@ -347,132 +342,59 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({ appUrl }
               <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Exactly how Consum works, step by step.</h2>
               <p className="text-lg text-muted-foreground">Four moves from intention to actual change.</p>
             </div>
-            <div className="mt-16 space-y-12 lg:space-y-0 lg:mt-0">
-              <div className="space-y-12 lg:hidden">
-                {TIMELINE_STEPS.map((step) => (
-                  <div key={step.title} className="relative flex pl-6">
-                    <span
-                      className="absolute inset-y-6 left-0 w-px bg-border/40"
-                      aria-hidden
-                    />
-                    <MobileStepCard step={step} />
-                  </div>
-                ))}
-              </div>
-              <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] lg:gap-x-16 lg:gap-y-0">
-                {TIMELINE_STEPS.map((step, index) => {
-                  const isEven = index % 2 === 0
-                  const isLast = index === TIMELINE_STEPS.length - 1
-
-                  return (
-                    <React.Fragment key={step.title}>
-                      <div className={`py-24 flex flex-col justify-center ${isEven ? 'items-end text-right' : 'items-start text-left'}`}>
-                        {isEven ? (
-                          <div className="space-y-4 max-w-md">
-                            <h3 className="text-3xl font-bold text-foreground">{step.title}</h3>
-                            <p className="text-lg text-muted-foreground leading-relaxed">{step.description}</p>
-                          </div>
-                        ) : (
-                          <div className="relative rounded-2xl border border-border/40 bg-card/50 p-2 shadow-2xl transition-transform duration-500 hover:-translate-y-2">
-                            <Image
-                              src={step.image}
-                              alt={`${step.title} screenshot`}
-                              width={640}
-                              height={384}
-                              className="h-64 w-full max-w-md rounded-xl object-cover"
-                              loading="lazy"
-                            />
-                          </div>
-                        )}
-                      </div>
-                      <div className="relative flex flex-col items-center">
-                        <span className="flex size-10 items-center justify-center rounded-full border border-border bg-background font-mono text-sm font-semibold">
+            <div className="mt-16 space-y-24">
+              {TIMELINE_STEPS.map((step, index) => {
+                const isEven = index % 2 === 0
+                
+                return (
+                  <div 
+                    key={step.title} 
+                    className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-20 ${isEven ? '' : 'lg:flex-row-reverse'}`}
+                  >
+                    {/* Text Side */}
+                    <div className="flex-1 space-y-6 text-left">
+                      <div className="flex items-center gap-4">
+                        <span className="flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-lg font-bold text-primary font-mono ring-1 ring-primary/20">
                           {step.step}
                         </span>
-                        {!isLast && <span className="my-4 w-px flex-1 bg-border" aria-hidden />}
+                        <div className="h-px flex-1 bg-border/60" />
                       </div>
-                      <div className={`py-24 flex flex-col justify-center ${isEven ? 'items-start text-left' : 'items-end text-right'}`}>
-                        {isEven ? (
-                          <div className="relative rounded-2xl border border-border/40 bg-card/50 p-2 shadow-2xl transition-transform duration-500 hover:-translate-y-2">
-                            <Image
-                              src={step.image}
-                              alt={`${step.title} screenshot`}
-                              width={640}
-                              height={384}
-                              className="h-64 w-full max-w-md rounded-xl object-cover"
-                              loading="lazy"
-                            />
-                          </div>
-                        ) : (
-                          <div className="space-y-4 max-w-md">
-                            <h3 className="text-3xl font-bold text-foreground">{step.title}</h3>
-                            <p className="text-lg text-muted-foreground leading-relaxed">{step.description}</p>
-                          </div>
-                        )}
+                      
+                      <div className="space-y-4">
+                        <h3 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl text-balance">
+                          {step.title}
+                        </h3>
+                        <p className="text-lg text-muted-foreground leading-relaxed">
+                          {step.description}
+                        </p>
                       </div>
-                    </React.Fragment>
-                  )
-                })}
-              </div>
+                    </div>
+
+                    {/* Image Side */}
+                    <div className="flex-1 w-full">
+                       <div className="group relative aspect-video w-full max-w-md mx-auto overflow-hidden rounded-3xl border border-border/40 bg-card shadow-2xl shadow-primary/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-primary/20">
+                          <Image
+                            src={step.image}
+                            alt={`${step.title} interface`}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                          />
+                          
+                          {/* Inner Glow Effect */}
+                          <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
+                       </div>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
 
-        <section id="pricing" className="scroll-mt-24 bg-background py-24">
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="space-y-4 text-center">
-              <Badge variant="secondary" className="mx-auto w-fit gap-2 px-4 py-1 text-sm">
-                <Sparkles aria-hidden className="size-4" />
-                Pricing
-              </Badge>
-              <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Pick your momentum.</h2>
-              <p className="text-lg text-muted-foreground">Start free, then upgrade when you need scale.</p>
-            </div>
-            <div className="mt-16 grid gap-8 md:grid-cols-3">
-              {PRICING_TIERS.map(tier => (
-                <Card
-                  key={tier.name}
-                  className={`flex flex-col justify-between border-border/70 bg-card/70 ${tier.highlight ? 'ring-2 ring-primary/50' : ''}`}
-                >
-                  <CardHeader>
-                    {tier.badgeText && (
-                      <Badge className="w-fit rounded-full px-3 py-1 text-xs">
-                        {tier.badgeText}
-                      </Badge>
-                    )}
-                    <CardTitle className="text-3xl">{tier.name}</CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
-                      {tier.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div>
-                      <p className="text-4xl font-bold text-foreground">{tier.price}</p>
-                      <p className="text-muted-foreground">{tier.period}</p>
-                    </div>
-                    <ul className="space-y-3 text-muted-foreground">
-                      {tier.features.map(feature => (
-                        <li key={feature} className="flex items-center gap-3">
-                          <CheckCircle2 className="size-4 text-primary" aria-hidden />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                  <div className="p-6 pt-0">
-                    <Button
-                      variant={tier.buttonVariant as 'default' | 'secondary' | 'outline'}
-                      className="w-full rounded-full py-3"
-                      onClick={tier.name === 'Free' ? () => navigateTo(loginUrl) : handlePrimaryCta}
-                    >
-                      {tier.cta}
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PricingSection id="pricing" appUrl={normalizedAppUrl} />
+
+        <RoadmapSection />
 
         <section id="cta" className="scroll-mt-24 border-t border-border bg-card py-20">
           <div className="mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 text-center sm:px-6 lg:px-8">
@@ -503,7 +425,34 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({ appUrl }
           </div>
         </section>
 
+        <PricingSection 
+          id="pricing-bottom" 
+          appUrl={normalizedAppUrl} 
+          title="In case you've read this far..."
+          subtitle="It's free, seriously."
+        />
+
         <FaqSection faqs={FAQS} />
+
+        <AuthorNoteSection />
+
+        <section className="bg-background py-20">
+          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              <p className="text-xl text-muted-foreground leading-relaxed">
+                Seriously, why are you all the way down here? There&apos;s nothing else to add about this app. 
+                Just give it a shot, see if it suits your needs and routine, and let me know how you like it!
+              </p>
+              <Button
+                size="lg"
+                className="rounded-full px-8 py-6 text-base font-semibold md:text-lg"
+                onClick={handleSignupCta}
+              >
+                Sign up for literally free
+              </Button>
+            </div>
+          </div>
+        </section>
 
         <footer className="border-t border-border/60 bg-background py-10">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-4 text-sm text-muted-foreground md:flex-row">
@@ -524,31 +473,5 @@ export const LandingPageContent: React.FC<LandingPageContentProps> = ({ appUrl }
     </div>
   )
 }
-
-type MobileStepCardProps = {
-  step: TimelineStep
-}
-
-const MobileStepCard: React.FC<MobileStepCardProps> = ({ step }) => (
-    <div className="space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-semibold text-primary">
-        {step.step}
-      </span>
-      <h3 className="text-xl font-semibold">{step.title}</h3>
-    </div>
-    <p className="text-muted-foreground">{step.description}</p>
-    <div className="overflow-hidden rounded-2xl border border-border/60">
-        <Image
-          src={step.image}
-          alt={`${step.title} preview`}
-          width={640}
-          height={360}
-          className="h-56 w-full object-cover"
-          loading="lazy"
-        />
-    </div>
-  </div>
-)
 
 export default LandingPageContent
