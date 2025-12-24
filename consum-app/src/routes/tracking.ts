@@ -1,13 +1,12 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import {
-  ACTION_TRACKING_QUOTA,
-  HABIT_TRACKING_QUOTA,
   BlueprintOwnershipError,
   TrackingLimitError,
   deleteBlueprintCompletion,
   getBlueprintCompletions,
   getTrackedBlueprintsForUser,
+  getTrackingLimitsForUser,
   MissingServiceRoleCredentialsError,
   toggleTrackedBlueprint,
   upsertBlueprintCompletion
@@ -32,9 +31,6 @@ const completionSchema = z.object({
 })
 
 type AuthenticatedRequest = FastifyRequest & { user?: { id: string; email?: string | null } }
-
-const HABIT_LIMIT_MESSAGE = 'Maximum 5 blueprints with habits tracked. Untrack habits from another blueprint first.'
-const ACTION_LIMIT_MESSAGE = 'Maximum 7 blueprints with action items tracked. Untrack action items from another blueprint first.'
 
 async function requireUser(request: FastifyRequest, reply: FastifyReply) {
   const authHeader = request.headers.authorization
@@ -75,14 +71,16 @@ export default async function trackingRoutes(fastify: FastifyInstance) {
         { habitsTracked: 0, actionsTracked: 0 }
       )
 
+      const limits = await getTrackingLimitsForUser(user.id)
+
       return reply.send({
         success: true,
         tracked: trackedBlueprints,
         completions,
         counts,
         limits: {
-          habits: HABIT_TRACKING_QUOTA,
-          actions: ACTION_TRACKING_QUOTA
+          habits: limits.habits,
+          actions: limits.actions
         }
       })
     } catch (error) {
@@ -117,10 +115,7 @@ export default async function trackingRoutes(fastify: FastifyInstance) {
         success: true,
         tracked: result.tracked,
         counts: result.counts,
-        limits: {
-          habits: HABIT_TRACKING_QUOTA,
-          actions: ACTION_TRACKING_QUOTA
-        }
+        limits: result.limits
       })
     } catch (error) {
       if (error instanceof TrackingLimitError) {

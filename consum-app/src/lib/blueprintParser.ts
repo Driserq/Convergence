@@ -130,6 +130,12 @@ export function parseBlueprintResponse(aiText: string): AIBlueprint {
 
   const blueprint: AdaptiveBlueprintOutput = { overview }
 
+  // Support for new Dynamic Sections
+  if (Array.isArray((parsed as any).sections)) {
+    blueprint.sections = (parsed as any).sections
+  }
+
+  // Fallback / Legacy field mapping
   if (Array.isArray(parsed.sequential_steps) && parsed.sequential_steps.length > 0) {
     blueprint.sequential_steps = parsed.sequential_steps
   }

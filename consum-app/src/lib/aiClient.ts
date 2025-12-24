@@ -1,4 +1,5 @@
-import { AI_MODEL_CONFIG } from './prompts.js';
+import { createBlueprintProvider } from './aiProviders/index.js';
+import type { BlueprintProviderName, PromptSegments } from './aiProviders/types.js';
 
 export class AiRequestError extends Error {
   statusCode: number;
@@ -13,7 +14,9 @@ export class AiRequestError extends Error {
 }
 
 interface GenerateBlueprintOptions {
-  prompt: string;
+  prompt: string
+  promptSegments?: PromptSegments
+  providerOverride?: BlueprintProviderName
 }
 
 const MAX_ERROR_LOG_LENGTH = 300;
@@ -162,13 +165,7 @@ const decorateGeminiDetails = (details: unknown, preview?: string) => {
   }
 }
 
-export async function generateBlueprintDraft({ prompt }: GenerateBlueprintOptions): Promise<string> {
-  const apiKey = process.env.GOOGLE_AI_API_KEY;
-
-  if (!apiKey) {
-    throw new AiRequestError('AI service temporarily unavailable', 503);
-  }
-
+export async function generateBlueprintDraft({ prompt, promptSegments, providerOverride }: GenerateBlueprintOptions): Promise<string> {
   const forcedFailure = process.env.GEMINI_FORCE_FAILURE?.trim().toLowerCase();
   if (forcedFailure && forcedFailure !== 'off') {
     if (forcedFailure === 'timeout') {
@@ -202,61 +199,18 @@ export async function generateBlueprintDraft({ prompt }: GenerateBlueprintOption
     console.warn('[AIClient] GEMINI_FORCE_FAILURE provided but not recognized:', forcedFailure);
   }
 
-  const requestBody = {
-    contents: [{
-      parts: [{
-        text: prompt
-      }]
-    }],
-    generationConfig: AI_MODEL_CONFIG.generationConfig
-  };
+  const provider = createBlueprintProvider(providerOverride);
+  console.log('[AIClient] Using provider', provider.name, 'model', provider.model);
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL_CONFIG.model}:generateContent?key=${apiKey}`;
-
-  console.log('[AIClient] Requesting blueprint generation with model:', AI_MODEL_CONFIG.model);
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestBody)
-  });
-
-  if (!response.ok) {
-    const { parsedDetails, preview } = await readGeminiErrorBody(response);
-
-    const extractedMessage = extractGeminiErrorMessage(parsedDetails) ?? 'Unknown AI error';
-    const extractedCode = extractGeminiErrorCode(parsedDetails);
-    const geminiMeta = extractGeminiErrorMeta(parsedDetails);
-
-    console.error('[AIClient] Gemini error response:', {
-      status: response.status,
-      code: extractedCode,
-      message: truncateForLog(extractedMessage),
-      preview,
-      result: geminiMeta.result,
-      reason: geminiMeta.reason,
-      geminiMessage: truncateForLog(geminiMeta.message)
-    });
-
-    const statusCode = response.status === 429 ? 429 : 503;
-    const message = statusCode === 429
-      ? 'AI service rate limit exceeded. Please try again in a moment.'
-      : 'AI service temporarily unavailable';
-
-    throw new AiRequestError(message, statusCode, decorateGeminiDetails(parsedDetails, preview));
+  try {
+    const result = await provider.generateBlueprint({ prompt, promptSegments });
+    return result.rawText;
+  } catch (error: any) {
+    if (error instanceof AiRequestError) {
+      throw error;
+    }
+    console.error('[AIClient] Provider error', error);
+    throw new AiRequestError('AI service temporarily unavailable', 503, { rawSnippet: String(error) });
   }
-
-  const data = await response.json() as any;
-  const aiText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!aiText) {
-    const preview = truncateForLog(safeStringify(data));
-    console.error('[AIClient] Gemini response missing text content:', { preview });
-    throw new AiRequestError('AI failed to generate blueprint', 500, decorateGeminiDetails(data, preview));
-  }
-
-  return aiText;
 }
 

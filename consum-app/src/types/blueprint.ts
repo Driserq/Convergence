@@ -41,21 +41,32 @@ export interface DailyHabit {
   timeframe: string
 }
 
-export interface TriggerAction {
-  situation: string
-  immediate_action: string
-  timeframe: string
+export interface TroubleshootingItem {
+  problem: string
+  solution: string
+  description: string // Detailed context/examples
 }
 
 export interface DecisionQuestion {
   question: string
   weight?: string // "Critical", "Important", "Consider"
+  description?: string // Context/quote
 }
 
 export interface Resource {
   name: string
   type: string // "tool", "book", "article", "course"
   description: string
+}
+
+// New dynamic section types
+export type SectionType = 'daily_habits' | 'sequential_steps' | 'troubleshooting' | 'decision_checklist' | 'resources' | 'review'
+
+export interface AISection {
+  title: string
+  description?: string
+  type: SectionType
+  items: (SequentialStep | DailyHabit | TroubleshootingItem | DecisionQuestion | Resource)[]
 }
 
 // Overview structure (already used in current implementation)
@@ -68,9 +79,11 @@ export interface OverviewSection {
 // New adaptive AI blueprint output
 export interface AdaptiveBlueprintOutput {
   overview: OverviewSection
+  sections?: AISection[]
+  // Legacy fields for backward compatibility
   sequential_steps?: SequentialStep[]
   daily_habits?: DailyHabit[]
-  trigger_actions?: TriggerAction[]
+  trigger_actions?: TroubleshootingItem[] // Kept for type compatibility but deprecated
   decision_checklist?: DecisionQuestion[]
   resources?: Resource[]
 }

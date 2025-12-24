@@ -1,6 +1,7 @@
 import { AiRequestError, generateBlueprintDraft } from './aiClient.js'
 import { BlueprintParseError, parseBlueprintResponse } from './blueprintParser.js'
 import { classifyError, getErrorCode, getStatusCode } from './aiErrors.js'
+import type { ErrorClassification } from './aiErrors.js'
 import {
   GeminiRetryJob,
   GeminiRequestData,
@@ -12,27 +13,101 @@ import {
 
 const RETRY_DELAYS_SECONDS = [10, 30, 90, 270]
 
+export interface AttemptBlueprintError {
+  status: 'error'
+  classification: ErrorClassification
+  message: string
+  statusCode: number | null
+  errorCode?: string
+  rawSnippet?: string | null
+  geminiMeta?: GeminiMeta | null
+  error: unknown
+}
+
+export type AttemptBlueprintResult = { status: 'success' } | AttemptBlueprintError
+
+interface AttemptBlueprintParams {
+  blueprintId: string
+  requestData: GeminiRequestData
+}
+
+export function computeNextRetrySchedule(currentRetryCount: number): {
+  nextRetryCount: number
+  delaySeconds: number
+  nextRetryAt: string
+} | null {
+  const nextRetryCount = currentRetryCount + 1
+  const delaySeconds = RETRY_DELAYS_SECONDS[nextRetryCount - 1]
+
+  if (!delaySeconds) {
+    return null
+  }
+
+  return {
+    nextRetryCount,
+    delaySeconds,
+    nextRetryAt: new Date(Date.now() + delaySeconds * 1000).toISOString()
+  }
+}
+
+export async function attemptBlueprintGeneration({ blueprintId, requestData }: AttemptBlueprintParams): Promise<AttemptBlueprintResult> {
+  try {
+    const providerName = (requestData.provider || process.env.LLM_PROVIDER || 'gemini').toLowerCase()
+    console.log('[LLMProcessor] ▶️ Attempting generation', {
+      blueprintId,
+      metadata: requestData.metadata,
+      provider: providerName
+    })
+    const result = await callGemini(requestData)
+    await storeBlueprintResult(blueprintId, result)
+    console.log('[LLMProcessor] ✅ Generation success', { blueprintId, provider: providerName })
+    return { status: 'success' }
+  } catch (error) {
+    const providerName = (requestData.provider || process.env.LLM_PROVIDER || 'gemini').toLowerCase()
+    const message = typeof (error as any)?.message === 'string' ? (error as any).message : 'Unknown error'
+    console.error('[LLMProcessor] ❌ Generation failed', {
+      blueprintId,
+      message,
+      provider: providerName
+    })
+    return {
+      status: 'error',
+      classification: classifyError(error),
+      message,
+      statusCode: getStatusCode(error),
+      errorCode: getErrorCode(error),
+      rawSnippet: extractRawSnippet(error),
+      geminiMeta: extractGeminiMeta(error),
+      error
+    }
+  }
+}
+
 export type ProcessResult =
   | { status: 'success' }
   | { status: 'retry_scheduled'; retryCount: number; nextRetryAt: string }
   | { status: 'failed'; reason: 'max_retries' | 'non_retriable'; errorMessage: string }
 
 export async function processBlueprintJob(job: GeminiRetryJob): Promise<ProcessResult> {
-  console.log(`[GeminiProcessor] Processing job ${job.id} for blueprint ${job.blueprint_id} (retry #${job.retry_count})`)
+  console.log(`[LLMProcessor] Processing job ${job.id} for blueprint ${job.blueprint_id} (retry #${job.retry_count})`)
 
-  try {
-    const result = await callGemini(job.request_data)
-    await storeBlueprintResult(job.blueprint_id, result)
+  const attempt = await attemptBlueprintGeneration({ blueprintId: job.blueprint_id, requestData: job.request_data })
+
+  if (attempt.status === 'success') {
     await removeRetryJob(job.id)
-    console.log(`[GeminiProcessor] ✅ Blueprint ${job.blueprint_id} completed successfully`)
+    console.log(`[LLMProcessor] ✅ Blueprint ${job.blueprint_id} completed successfully`)
     return { status: 'success' }
-  } catch (error: any) {
-    return handleProcessingError(job, error)
   }
+
+  return handleProcessingError(job, attempt)
 }
 
 export async function callGemini(requestData: GeminiRequestData) {
-  const aiText = await generateBlueprintDraft({ prompt: requestData.prompt })
+  const aiText = await generateBlueprintDraft({
+    prompt: requestData.prompt,
+    promptSegments: requestData.promptSegments,
+    providerOverride: requestData.provider
+  })
   try {
     return parseBlueprintResponse(aiText)
   } catch (error) {
@@ -48,13 +123,8 @@ export async function callGemini(requestData: GeminiRequestData) {
   }
 }
 
-async function handleProcessingError(job: GeminiRetryJob, error: any): Promise<ProcessResult> {
-  const classification = classifyError(error)
-  const message = typeof error?.message === 'string' ? error.message : 'Unknown error'
-  const statusCode = getStatusCode(error)
-  const errorCode = getErrorCode(error)
-  const rawSnippet = extractRawSnippet(error)
-  const geminiMeta = extractGeminiMeta(error)
+async function handleProcessingError(job: GeminiRetryJob, attempt: AttemptBlueprintError): Promise<ProcessResult> {
+  const { classification, message, statusCode, errorCode, rawSnippet, geminiMeta } = attempt
   const metaLog = formatGeminiMeta(geminiMeta)
 
   console.error(
@@ -62,28 +132,25 @@ async function handleProcessingError(job: GeminiRetryJob, error: any): Promise<P
   )
 
   if (classification === 'RETRIABLE') {
-    const newRetryCount = job.retry_count + 1
+    const schedule = computeNextRetrySchedule(job.retry_count)
 
-    if (newRetryCount > RETRY_DELAYS_SECONDS.length) {
+    if (!schedule) {
       await markBlueprintAsFailed(job, message, rawSnippet, geminiMeta)
       return { status: 'failed', reason: 'max_retries', errorMessage: message }
     }
 
-    const delaySeconds = RETRY_DELAYS_SECONDS[newRetryCount - 1]
-    const nextRetryAt = new Date(Date.now() + delaySeconds * 1000).toISOString()
-
     await updateRetryJob(job.id, {
-      retry_count: newRetryCount,
-      next_retry_at: nextRetryAt,
+      retry_count: schedule.nextRetryCount,
+      next_retry_at: schedule.nextRetryAt,
       last_error: rawSnippet ? `${message} | snippet=${rawSnippet}` : message,
       error_type: errorCode || String(statusCode ?? 'unknown')
     })
 
     console.log(
-      `[GeminiProcessor] 🔄 Scheduled retry ${newRetryCount} for blueprint ${job.blueprint_id} in ${delaySeconds}s`
+      `[GeminiProcessor] 🔄 Scheduled retry ${schedule.nextRetryCount} for blueprint ${job.blueprint_id} in ${schedule.delaySeconds}s`
     )
 
-    return { status: 'retry_scheduled', retryCount: newRetryCount, nextRetryAt }
+    return { status: 'retry_scheduled', retryCount: schedule.nextRetryCount, nextRetryAt: schedule.nextRetryAt }
   }
 
   await markBlueprintAsFailed(job, message, rawSnippet, geminiMeta)

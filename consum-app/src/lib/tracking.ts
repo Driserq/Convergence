@@ -1,11 +1,10 @@
 import type {
   AdaptiveBlueprintOutput,
   DailyHabit,
+  TroubleshootingItem,
   DecisionQuestion,
-  SequentialStep,
-  TriggerAction,
-  AIBlueprint
-} from '../types/blueprint.js'
+  Resource
+} from '../types/blueprint'
 
 const sanitizeIdentifier = (value: string): string =>
   value
@@ -74,17 +73,78 @@ export const calculateHabitStreak = (dates: string[], today: string): number => 
   return streak
 }
 
+export interface SectionContext {
+  sectionId: string
+  sectionTitle: string
+}
+
+export const extractDailyHabitsWithContext = (blueprint: AIBlueprint | null): Array<DailyHabit & SectionContext> => {
+  if (!blueprint) return []
+  const items: Array<DailyHabit & SectionContext> = []
+
+  // Dynamic Sections
+  if ('sections' in blueprint && Array.isArray(blueprint.sections)) {
+    blueprint.sections.forEach((section, sIdx) => {
+      if (section.type === 'daily_habits') {
+        (section.items as DailyHabit[]).forEach((item, iIdx) => {
+          items.push({
+            ...item,
+            id: item.id || (sIdx * 1000 + iIdx), // Ensure ID uniqueness
+            sectionId: `section_${sIdx}_daily_habits`,
+            sectionTitle: section.title
+          })
+        })
+      }
+    })
+    if (items.length > 0) return items
+  }
+
+  // Legacy Fallback
+  const legacyItems = extractDailyHabits(blueprint)
+  return legacyItems.map(item => ({
+    ...item,
+    sectionId: 'legacy_daily_habits',
+    sectionTitle: 'Daily Habits'
+  }))
+}
+
+export const extractSequentialStepsWithContext = (blueprint: AIBlueprint | null): Array<SequentialStep & SectionContext> => {
+  if (!blueprint) return []
+  const items: Array<SequentialStep & SectionContext> = []
+
+  if ('sections' in blueprint && Array.isArray(blueprint.sections)) {
+    blueprint.sections.forEach((section, sIdx) => {
+      if (section.type === 'sequential_steps') {
+        (section.items as SequentialStep[]).forEach((item, iIdx) => {
+          items.push({
+            ...item,
+            step_number: item.step_number || (iIdx + 1),
+            sectionId: `section_${sIdx}_sequential_steps`,
+            sectionTitle: section.title
+          })
+        })
+      }
+    })
+    if (items.length > 0) return items
+  }
+
+  return extractSequentialSteps(blueprint).map(item => ({
+    ...item,
+    sectionId: 'legacy_sequential_steps',
+    sectionTitle: 'Step By Step'
+  }))
+}
+
 export const extractDailyHabits = (blueprint: AIBlueprint | null): DailyHabit[] => {
   if (!blueprint) return []
 
+  // Fallback for when context is not needed or legacy calls
   if ('daily_habits' in blueprint && Array.isArray(blueprint.daily_habits)) {
     return blueprint.daily_habits
   }
-
   if ('habits' in blueprint && Array.isArray(blueprint.habits)) {
     return blueprint.habits as DailyHabit[]
   }
-
   return []
 }
 
@@ -98,16 +158,25 @@ export const extractSequentialSteps = (blueprint: AIBlueprint | null): Sequentia
 
 export const extractDecisionChecklist = (blueprint: AIBlueprint | null): DecisionQuestion[] => {
   if (!blueprint) return []
+  
+  if ('sections' in blueprint && Array.isArray(blueprint.sections)) {
+     const items: DecisionQuestion[] = []
+     blueprint.sections.forEach(section => {
+       if (section.type === 'decision_checklist') {
+         items.push(...(section.items as DecisionQuestion[]))
+       }
+     })
+     if (items.length > 0) return items
+  }
+
   if ('decision_checklist' in (blueprint as AdaptiveBlueprintOutput) && Array.isArray((blueprint as AdaptiveBlueprintOutput).decision_checklist)) {
     return (blueprint as AdaptiveBlueprintOutput).decision_checklist ?? []
   }
   return []
 }
 
-export const extractTriggerActions = (blueprint: AIBlueprint | null): TriggerAction[] => {
-  if (!blueprint) return []
-  if ('trigger_actions' in (blueprint as AdaptiveBlueprintOutput) && Array.isArray((blueprint as AdaptiveBlueprintOutput).trigger_actions)) {
-    return (blueprint as AdaptiveBlueprintOutput).trigger_actions ?? []
-  }
+export const extractTriggerActions = (blueprint: AIBlueprint | null): TroubleshootingItem[] => {
+  // Deprecated: No longer tracking triggers in the same way, but kept for type compatibility
+  // or potential future use with troubleshooting items.
   return []
 }

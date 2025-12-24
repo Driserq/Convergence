@@ -6,9 +6,14 @@ import type {
   TrackedBlueprintWithBlueprint,
   TrackedSectionType
 } from '../types/tracking.js'
+import type { PlanCode } from '../types/subscription.js'
+import { getPlan, getDefaultPlan } from './subscriptions/plans.js'
+import type { PromptSegments, BlueprintProviderName } from './aiProviders/types.js'
 
 export interface GeminiRequestData {
   prompt: string
+  promptSegments?: PromptSegments
+  provider?: BlueprintProviderName
   metadata?: Record<string, unknown>
 }
 
@@ -23,8 +28,8 @@ export interface GeminiRetryJob {
   created_at: string
 }
 
-export const HABIT_TRACKING_QUOTA = 5
-export const ACTION_TRACKING_QUOTA = 7
+const DEFAULT_HABIT_TRACKING_QUOTA = 5
+const DEFAULT_ACTION_TRACKING_QUOTA = 7
 
 export class TrackingLimitError extends Error {
   constructor(message: string) {
@@ -63,6 +68,45 @@ export const getServiceClient = () => {
       persistSession: false
     }
   })
+}
+
+type ServiceClient = ReturnType<typeof getServiceClient>
+
+const resolveUserPlanDefinition = async (serviceClient: ServiceClient, userId: string) => {
+  const { data, error } = await serviceClient
+    .from('user_subscriptions')
+    .select('plan_code')
+    .eq('user_id', userId)
+    .maybeSingle()
+
+  if (error && error.code !== 'PGRST116') {
+    throw new Error(error.message)
+  }
+
+  const planCode = data?.plan_code as PlanCode | undefined
+  if (planCode) {
+    try {
+      return getPlan(planCode)
+    } catch (planError) {
+      console.warn('[Database] Unknown plan code, falling back to default', { planCode, planError })
+    }
+  }
+
+  return getDefaultPlan()
+}
+
+export const getTrackingLimitsForUser = async (
+  userId: string,
+  client?: ServiceClient
+): Promise<{ planCode: PlanCode; habits: number; actions: number }> => {
+  const serviceClient = client ?? getServiceClient()
+  const plan = await resolveUserPlanDefinition(serviceClient, userId)
+
+  return {
+    planCode: plan.code,
+    habits: plan.habitTrackingQuota ?? DEFAULT_HABIT_TRACKING_QUOTA,
+    actions: plan.actionTrackingQuota ?? DEFAULT_ACTION_TRACKING_QUOTA
+  }
 }
 
 interface SaveBlueprintParams {
@@ -149,16 +193,28 @@ export async function markBlueprintFailed(blueprintId: string): Promise<void> {
   }
 }
 
-export async function enqueueRetryJob(blueprintId: string, requestData: GeminiRequestData): Promise<GeminiRetryJob> {
+interface EnqueueRetryOptions {
+  initialRetryCount?: number
+  nextRetryAt?: string
+  reason?: string
+}
+
+export async function enqueueRetryJob(
+  blueprintId: string,
+  requestData: GeminiRequestData,
+  options: EnqueueRetryOptions = {}
+): Promise<GeminiRetryJob> {
   const serviceClient = getServiceClient()
+  const retryCount = options.initialRetryCount ?? 0
+  const nextRetryAt = options.nextRetryAt ?? new Date().toISOString()
 
   const { data, error } = await serviceClient
     .from('gemini_retries')
     .insert({
       blueprint_id: blueprintId,
       request_data: requestData as any,
-      retry_count: 0,
-      next_retry_at: new Date().toISOString()
+      retry_count: retryCount,
+      next_retry_at: nextRetryAt
     })
     .select('*')
     .single()
@@ -166,6 +222,13 @@ export async function enqueueRetryJob(blueprintId: string, requestData: GeminiRe
   if (error) {
     throw new Error(error.message)
   }
+
+  console.warn('[Database] Enqueued retry job', {
+    blueprintId,
+    retryCount,
+    nextRetryAt,
+    reason: options.reason || 'unspecified'
+  })
 
   return normalizeRetryJob(data)
 }
@@ -196,17 +259,25 @@ export async function removeRetryJob(jobId: string): Promise<void> {
   }
 }
 
-export async function deleteRetryJobsForBlueprint(blueprintId: string): Promise<void> {
+export async function deleteRetryJobsForBlueprint(blueprintId: string): Promise<number> {
   const serviceClient = getServiceClient()
 
-  const { error } = await serviceClient
+  const { data, error } = await serviceClient
     .from('gemini_retries')
     .delete()
     .eq('blueprint_id', blueprintId)
+    .select('id')
 
   if (error) {
     throw new Error(error.message)
   }
+
+  const removed = Array.isArray(data) ? data.length : 0
+  if (removed > 0) {
+    console.warn('[Database] Removed stale retry jobs', { blueprintId, removed })
+  }
+
+  return removed
 }
 
 export async function fetchDueRetryJobs(limit: number): Promise<GeminiRetryJob[]> {
@@ -297,13 +368,16 @@ export interface ToggleTrackedBlueprintResult {
     habitsTracked: number
     actionsTracked: number
   }
+  limits: {
+    habits: number
+    actions: number
+  }
 }
-
-const HABIT_LIMIT_ERROR_MESSAGE = 'Maximum 5 blueprints with habits tracked. Untrack habits from another blueprint first.'
-const ACTION_LIMIT_ERROR_MESSAGE = 'Maximum 7 blueprints with action items tracked. Untrack action items from another blueprint first.'
 
 export async function toggleTrackedBlueprint(params: ToggleTrackedBlueprintParams): Promise<ToggleTrackedBlueprintResult> {
   const serviceClient = getServiceClient()
+
+  const limits = await getTrackingLimitsForUser(params.userId, serviceClient)
 
   await ensureBlueprintOwnership(serviceClient, params.userId, params.blueprintId)
 
@@ -325,12 +399,12 @@ export async function toggleTrackedBlueprint(params: ToggleTrackedBlueprintParam
   const projectedHabits = countsExcluding.habitsTracked + (nextTrackHabits ? 1 : 0)
   const projectedActions = countsExcluding.actionsTracked + (nextTrackActions ? 1 : 0)
 
-  if (nextTrackHabits && projectedHabits > HABIT_TRACKING_QUOTA) {
-    throw new TrackingLimitError(HABIT_LIMIT_ERROR_MESSAGE)
+  if (nextTrackHabits && projectedHabits > limits.habits) {
+    throw new TrackingLimitError(`Maximum ${limits.habits} blueprints with habits tracked. Untrack habits from another blueprint first.`)
   }
 
-  if (nextTrackActions && projectedActions > ACTION_TRACKING_QUOTA) {
-    throw new TrackingLimitError(ACTION_LIMIT_ERROR_MESSAGE)
+  if (nextTrackActions && projectedActions > limits.actions) {
+    throw new TrackingLimitError(`Maximum ${limits.actions} blueprints with action items tracked. Untrack action items from another blueprint first.`)
   }
 
   let record
@@ -375,7 +449,8 @@ export async function toggleTrackedBlueprint(params: ToggleTrackedBlueprintParam
     counts: {
       habitsTracked: projectedHabits,
       actionsTracked: projectedActions
-    }
+    },
+    limits
   }
 }
 

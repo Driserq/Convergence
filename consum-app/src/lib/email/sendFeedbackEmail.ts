@@ -6,10 +6,11 @@ interface FeedbackEmailPayload {
   userId: string
   userEmail?: string | null
   message: string
+  blueprintId?: string
   timestamp: string
 }
 
-export const sendFeedbackEmail = async ({ userId, userEmail, message, timestamp }: FeedbackEmailPayload): Promise<void> => {
+export const sendFeedbackEmail = async ({ userId, userEmail, message, blueprintId, timestamp }: FeedbackEmailPayload): Promise<void> => {
   const to = process.env.ADMIN_EMAIL
   const from = process.env.FEEDBACK_FROM_EMAIL || to
 
@@ -24,13 +25,15 @@ export const sendFeedbackEmail = async ({ userId, userEmail, message, timestamp 
     to,
     subject: `New Feedback from ${userEmail ?? 'unknown user'}`,
     text: [
-      `New feedback submission received at ${timestamp}.`,
+      'User Feedback',
       '',
-      `User ID: ${userId}`,
-      `User Email: ${userEmail ?? 'N/A'}`,
+      `Email: ${userEmail ?? 'N/A'}`,
+      `Blueprint ID: ${blueprintId ?? 'N/A'}`,
       '',
-      'Message:',
+      'Note:',
       message,
+      '',
+      `Submitted by user ${userId} at ${timestamp}`
     ].join('\n'),
   })
 }

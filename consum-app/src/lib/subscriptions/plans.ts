@@ -5,19 +5,33 @@ export const PLAN_CONFIG: Record<PlanCode, PlanDefinition> = {
     code: 'free',
     name: 'Free',
     limit: 5,
-    periodType: 'month'
+    periodType: 'month',
+    habitTrackingQuota: 5,
+    actionTrackingQuota: 7
   },
   weekly: {
     code: 'weekly',
     name: 'Weekly',
     limit: 15,
-    periodType: 'week'
+    periodType: 'week',
+    habitTrackingQuota: 5,
+    actionTrackingQuota: 7
   },
   monthly: {
     code: 'monthly',
     name: 'Monthly',
     limit: 60,
-    periodType: 'month'
+    periodType: 'month',
+    habitTrackingQuota: 5,
+    actionTrackingQuota: 7
+  },
+  test: {
+    code: 'test',
+    name: 'Test',
+    limit: 111,
+    periodType: 'month',
+    habitTrackingQuota: 30,
+    actionTrackingQuota: 30
   }
 }
 

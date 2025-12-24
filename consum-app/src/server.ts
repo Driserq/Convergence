@@ -15,6 +15,7 @@ const __dirname = path.dirname(__filename)
 config({ path: '.env' })
 
 const clientDistPath = path.join(__dirname, '..', 'dist', 'client')
+const BUILD_SHA = process.env.GIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || process.env.HEROKU_SLUG_COMMIT || 'local-dev'
 
 const server = Fastify({
   logger: {
@@ -44,7 +45,6 @@ const registerPlugins = async (): Promise<void> => {
       required: [
         'SUPABASE_URL',
         'SUPABASE_ANON_KEY',
-        'GOOGLE_AI_API_KEY',
         'ADMIN_EMAIL',
         'RESEND_API_KEY'
       ],
@@ -52,16 +52,29 @@ const registerPlugins = async (): Promise<void> => {
         SUPABASE_URL: { type: 'string' },
         SUPABASE_ANON_KEY: { type: 'string' },
         GOOGLE_AI_API_KEY: { type: 'string' },
+        OPENAI_API_KEY: { type: 'string' },
         SUPADATA_API_KEY: { type: 'string' },
         ADMIN_EMAIL: { type: 'string' },
         FEEDBACK_FROM_EMAIL: { type: 'string' },
         RESEND_API_KEY: { type: 'string' },
+        LLM_PROVIDER: { type: 'string', default: 'gemini' },
         NODE_ENV: { type: 'string', default: 'development' },
         PORT: { type: 'string', default: '3001' },
         HOST: { type: 'string', default: 'localhost' }
       }
     }
   })
+
+  const envConfig: Record<string, string | undefined> = (server as any).config
+
+  const provider = (envConfig.LLM_PROVIDER || 'gemini').toLowerCase()
+  console.log('[Server] Selected LLM provider:', provider)
+  if (provider === 'gemini' && !envConfig.GOOGLE_AI_API_KEY) {
+    throw new Error('GOOGLE_AI_API_KEY is required when LLM_PROVIDER=gemini')
+  }
+  if (provider === 'openai' && !envConfig.OPENAI_API_KEY) {
+    throw new Error('OPENAI_API_KEY is required when LLM_PROVIDER=openai')
+  }
 
   // Serve Vite build output (assets + PWA artifacts)
   await server.register(fastifyStatic, {
@@ -87,6 +100,7 @@ const registerPlugins = async (): Promise<void> => {
   })
 
   console.log('[Server] Serving static files from:', clientDistPath)
+  console.log('[Server] Build SHA:', BUILD_SHA)
   console.log('[Server] All plugins registered successfully')
 }
 
@@ -159,6 +173,7 @@ const start = async (): Promise<void> => {
     console.log(`[Server] ✅ Server running at http://${host}:${port}`)
     console.log('[Server] Environment:', process.env.NODE_ENV)
     console.log('[Server] Supabase URL:', process.env.SUPABASE_URL)
+    console.log('[Server] Build SHA:', BUILD_SHA)
     
   } catch (error) {
     console.error('[Server] Error starting server:', error)

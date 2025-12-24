@@ -61,11 +61,12 @@ Paths in this section are relative to `consum-app/`.
 - `contexts/`: React context providers (e.g., `RouterContext.tsx`).
 - `views/`: High-level route experiences (e.g., `TodayView.tsx`, `HistoryView.tsx`, `CreateBlueprintView.tsx`, `BlueprintDetailView.tsx`) that orchestrate Supabase data fetching and compose feature modules.
 - `lib/`: Shared utilities split between client and server concerns:
-  - `aiClient.ts`: Gemini API caller (honors `GEMINI_FORCE_FAILURE` for testing)
+- `aiClient.ts`: Provider-agnostic LLM client that routes blueprint generation through the active provider (Gemini or OpenAI) and logs provider/model info for every attempt.
   - `aiErrors.ts`: Error classification helpers shared by the route and worker
   - `blueprintParser.ts`: Sanitizes/repairs Gemini JSON before storing it
   - `database.ts`: Supabase helpers, including the retry queue CRUD helpers plus tracked blueprint/completion mutations and metadata-aware inserts
-  - `geminiProcessor.ts`: Background retry loop logic invoked by the worker
+- `geminiProcessor.ts`: Background retry loop logic invoked by the worker; logs now include the active provider so retries stay aligned with Gemini/OpenAI selection.
+- `lib/aiProviders/`: Blueprint provider abstraction. `providers/geminiProvider.ts` and `providers/openAIProvider.ts` implement the shared interface; `index.ts` selects the provider based on `LLM_PROVIDER`. The OpenAI provider supports the Responses API (JSON schema output, reasoning controls, verbose logging, and robust error reporting when responses are incomplete).
   - `blueprint-display.ts`: Normalizes blueprint payloads, extracts overview previews, sanitizes blank entries, and feeds both summary/detail UI variants
   - `stripe.ts`: Stripe client initialization and plan/price helper mapping
   - `subscriptions/`: Plan configuration and subscription services (window renewal, quota enforcement)
@@ -76,7 +77,7 @@ Paths in this section are relative to `consum-app/`.
   - `auth/requireUser.ts`: Shared Fastify helper that validates Supabase bearer tokens for any protected API route.
   - `rateLimiter.ts`: Simple in-memory sliding window (10 requests / 24h) used by the feedback route.
   - `utils.ts`, etc.: Miscellaneous helpers
-- `routes/`: Fastify route registrations (`blueprint.ts`, `subscription.ts`, `tracking.ts`, `transcript.ts`, `billing.ts`, `webhook.ts`, **`feedback.ts`**). Blueprint POST creates a pending record, queues Gemini work, fetches video metadata, and returns `202 Accepted` while the worker finishes processing. Subscription routes expose current usage and plan change endpoints; tracking routes handle toggle/completion mutations for the Today/History UIs with quota enforcement. Billing routes handle Stripe Checkout sessions, and the webhook route processes Stripe events to sync subscription state. The feedback route accepts authenticated POSTs, enforces the in-memory rate limit, and sends AWS SES emails when submissions succeed.
+- `routes/`: Fastify route registrations (`blueprint.ts`, `subscription.ts`, `tracking.ts`, `transcript.ts`, `billing.ts`, `webhook.ts`, **`feedback.ts`**). Blueprint POST now builds prompts via `LLM_PROVIDER`-aware helpers, attempts an immediate run with the selected provider (Gemini by default, OpenAI when `LLM_PROVIDER=openai`), logs provider-specific success/failure messages, and only enqueues retries when the initial attempt fails. Subscription routes expose current usage and plan change endpoints; tracking routes handle toggle/completion mutations for the Today/History UIs with plan-based quotas (free/pro/test plans). Billing routes handle Stripe Checkout sessions, and the webhook route processes Stripe events to sync subscription state. The feedback route accepts authenticated POSTs, enforces the in-memory rate limit, and sends AWS SES emails when submissions succeed.
 - `styles/`: Tailwind v4 global stylesheet (`globals.css`).
 - `types/`: Centralized TypeScript types (`blueprint.ts`, `tracking.ts`, `user.ts` placeholder, etc.).
 
@@ -186,7 +187,7 @@ FRONTEND_URL=http://localhost:3001
 - **Blueprint generation**: `BlueprintForm.tsx` submits goals/content, enforces per-plan quotas via `useBlueprint` + `useSubscription`, immediately enqueues Gemini work, and surfaces queued/complete states to the user. New blueprints now automatically fetch and store video metadata (title/duration) from Supadata.
 - **Subscription enforcement**: `/api/subscription` exposes plan/usage metadata, `useSubscription` hydrates UI status, `subscriptions/service.ts` renews periods and counts usage, and `subscriptions/plans.ts` centralizes limits.
 - **Billing integration**: Stripe test-mode integration via `src/lib/stripe.ts`, `src/routes/billing.ts` (session creation), and `src/routes/webhook.ts` (subscription syncing). The frontend initiates upgrades via `UpgradeDialog.tsx` and handles success/cancel states in `src/pages/BillingSuccess.tsx` and `src/pages/BillingCancel.tsx`.
-- **Retry queue**: Fastify worker polls `gemini_retries`, retries Gemini calls with exponential backoff, and marks `habit_blueprints.status` as `pending`, `completed`, or `failed`.
+- **Retry queue**: Fastify worker polls `gemini_retries`, retries using the currently selected LLM provider with exponential backoff, and marks `habit_blueprints.status` as `pending`, `completed`, or `failed`. Enhanced logs capture provider/model, elapsed time, and OpenAI incomplete reasons.
 - **Gemini parsing**: `blueprintParser.ts` sanitizes and repairs Gemini JSON; parse errors are logged with snippets and retried automatically.
 - **Today view**: `TodayView.tsx` prioritizes tracked daily habits and action items using `useTrackedBlueprints`, while `StatsSection.tsx` displays real-time analytics (time saved, count, ratios) fetched via `useDashboardStats`.
 - **History view**: Renders blueprint summaries with inline tracking toggles (habits/actions), enforces quotas via `useTrackedBlueprints`, auto-refreshes pending statuses, lazily renders cards via Intersection Observer, and offers inline deletion. Cards now display video titles and duration.
@@ -194,6 +195,7 @@ FRONTEND_URL=http://localhost:3001
 - **Feedback flow**: `/feedback` page provides a protected RHF/Zod form with live character counter, rate-limit helper text, and success/error alerts. `/api/feedback` enforces a 10 submissions / 24h limit per user (in-memory) and relays messages to `ADMIN_EMAIL` via Resend.
 - **Blueprint detail view**: Dedicated view powered by `BlueprintDetailView.tsx` that fetches a single record, orders sections action-first, shows metadata/overview previews, and offers a delete action that routes back to history on success.
 - **Blueprint display**: Unified summary/detail renderer backed by `lib/blueprint-display.ts` for normalization, sanitizing empty entries, and consistent section mapping.
+- **LLM provider configuration**: `.env` can set `LLM_PROVIDER=openai` (default `gemini`). Provider-specific prompt files live under `src/lib/prompts/`, and OpenAI instructions now include schema examples plus “no placeholders” guardrails to keep JSON output clean.
 - **Deletion flow**: Radix alert dialog with synchronized overlay/content animations confirms Supabase deletions from both history cards and the detail page.
 - **Supabase schema**: `habit_blueprints` includes `status`, `title`, and `duration`; `tracked_blueprints` and `blueprint_completions` persist tracking preferences and completions; `user_subscriptions` now includes `stripe_customer_id` and `stripe_subscription_id`; `gemini_retries` stores queued requests processed by the worker. A new RPC `get_user_dashboard_stats` calculates analytics.
 
@@ -218,7 +220,7 @@ Paths in this section are relative to `consum-marketing/`.
 
 ### Key Directories
 - `src/app/`: App Router entrypoints (`layout.tsx`, `page.tsx`, `/privacy/page.tsx`, `/tos/page.tsx`) plus global metadata.
-- `src/components/landing/`: `LandingPageContent` and `FaqSection` components (client-side) that compose the marketing experience.
+- `src/components/landing/`: `LandingPageContent`, `FaqSection`, `RoadmapSection`, `PricingSection`, and `AuthorNoteSection` components (client-side) that compose the marketing experience.
 - `src/components/ui/`: Local copies of Button, Badge, Card, Separator, Accordion, and LogoMark to avoid cross-package imports.
 - `src/data/landingContent.ts`: All marketing copy, FAQ entries, pricing tiers, and feature highlights (typed with `as const`).
 - `src/lib/utils.ts`: `cn()` helper mirroring the app’s Tailwind utility.
@@ -239,4 +241,4 @@ Paths in this section are relative to `consum-marketing/`.
 - `NEXT_PUBLIC_APP_URL` (defaults to `https://app.consum.app`) drives CTA buttons pointing back to the SPA domain.
 - Keep marketing-specific secrets (if any) in `.env.local`; `next-env.d.ts` is auto-generated and must remain untouched.
 
-**Last Updated**: 2025-12-11
+**Last Updated**: 2025-12-16

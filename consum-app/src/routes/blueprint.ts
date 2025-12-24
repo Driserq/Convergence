@@ -2,7 +2,9 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import { blueprintFormSchema } from '../lib/validation.js';
-import { buildBlueprintPrompt } from '../lib/prompts.js';
+import { getGeminiPrompt } from '../lib/prompts/geminiPrompt.js';
+import { getOpenAIPrompt } from '../lib/prompts/openaiPrompt.js';
+import type { OpenAIPromptSegments } from '../lib/prompts/openaiPrompt.js';
 import {
   createPendingBlueprint,
   deleteRetryJobsForBlueprint,
@@ -13,7 +15,7 @@ import {
 } from '../lib/database.js';
 import { supabase } from '../lib/supabase.server.js';
 import { extractTranscript, fetchVideoMetadata, transcriptErrorToStatus, validateTranscriptService, type VideoMetadata } from '../lib/transcript.js';
-import { processBlueprintJob } from '../lib/geminiProcessor.js';
+import { attemptBlueprintGeneration, computeNextRetrySchedule } from '../lib/geminiProcessor.js';
 import type { BlueprintFormData, ContentType, BlueprintSourcePayload, BlueprintStatus } from '../types/blueprint.js';
 import {
   assertActive,
@@ -28,11 +30,35 @@ import {
 import { getPlan } from '../lib/subscriptions/plans.js';
 import type { SubscriptionRecord, SubscriptionUsage } from '../types/subscription.js';
 
+const BUILD_SHA = process.env.GIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || process.env.HEROKU_SLUG_COMMIT || 'local-dev';
+
 // Request validation schema
 const createBlueprintSchema = blueprintFormSchema;
 
 const SUPADATA_DELAY_MS = 1100;
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+interface ProviderPromptPayload {
+  prompt: string
+  promptSegments?: OpenAIPromptSegments
+}
+
+const resolveProvider = (): 'gemini' | 'openai' => ((process.env.LLM_PROVIDER || 'gemini').toLowerCase() === 'openai' ? 'openai' : 'gemini')
+
+const buildProviderPrompt = (formData: BlueprintFormData, content: string): ProviderPromptPayload => {
+  const provider = resolveProvider()
+  if (provider === 'openai') {
+    const segments = getOpenAIPrompt(formData, content)
+    return {
+      prompt: segments.user,
+      promptSegments: segments
+    }
+  }
+
+  return {
+    prompt: getGeminiPrompt(formData, content)
+  }
+}
 
 const estimateReadingDurationSeconds = (text: string): number => {
   if (!text) return 0;
@@ -82,6 +108,7 @@ interface BlueprintResponse {
   };
   code?: string;
   error?: string;
+  buildId?: string;
 }
 
 const buildSubscriptionPayload = (usage: SubscriptionUsage, isActive = true) => ({
@@ -384,10 +411,13 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         console.log(`[CreateBlueprint] 📝 Prompt will use ${content.length} characters of source content`);
         console.log('[CreateBlueprint] Content preview:', content.substring(0, 300));
 
-        const prompt = buildBlueprintPrompt(formData, content);
+        const providerName = resolveProvider();
+        const promptPayload = buildProviderPrompt(formData, content);
 
         const requestData: GeminiRequestData = {
-          prompt,
+          prompt: promptPayload.prompt,
+          promptSegments: promptPayload.promptSegments,
+          provider: providerName,
           metadata: {
             userId: user.id,
             goal: formData.goal,
@@ -427,53 +457,108 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           } as BlueprintResponse);
         }
 
-        let retryJob;
+        // Defensive cleanup: remove stale retry jobs that might still exist for this blueprint ID
         try {
-          retryJob = await enqueueRetryJob(pendingBlueprint.id, requestData);
-        } catch (queueError: any) {
-          console.error('[CreateBlueprint] Failed to enqueue Gemini retry job:', queueError);
-          try {
-            await markBlueprintFailed(pendingBlueprint.id);
-          } catch (markError) {
-            console.error('[CreateBlueprint] Failed to mark blueprint as failed after queue error:', markError);
-          }
-          return reply.code(500).send({
-            success: false,
-            error: 'Failed to start blueprint generation'
-          } as BlueprintResponse);
+          const removed = await deleteRetryJobsForBlueprint(pendingBlueprint.id)
+          console.log('[CreateBlueprint] Purged stale retry jobs', {
+            blueprintId: pendingBlueprint.id,
+            removed
+          })
+        } catch (cleanupError) {
+          console.warn('[CreateBlueprint] Failed to purge old retry jobs', {
+            blueprintId: pendingBlueprint.id,
+            error: cleanupError
+          })
         }
 
-        setImmediate(() => {
-          processBlueprintJob(retryJob).catch((error) => {
-            console.error(`[CreateBlueprint] Background processing error for blueprint ${retryJob.blueprint_id}:`, error);
-          });
-        });
-
-        console.warn('[CreateBlueprint] Blueprint queued for background processing', {
+        const activeProvider = (process.env.LLM_PROVIDER || 'gemini').toLowerCase();
+        console.log(`[CreateBlueprint] Running initial ${activeProvider === 'openai' ? 'OpenAI' : 'Gemini'} attempt...`);
+        const attemptResult = await attemptBlueprintGeneration({
           blueprintId: pendingBlueprint.id,
-          retryJobId: retryJob.id
+          requestData
         });
 
         const usageAfter = quotaSnapshot ? buildUsageAfterIncrement(quotaSnapshot) : null;
 
-        return reply.code(202).send({
-          success: true,
-          blueprintId: pendingBlueprint.id,
-          status: pendingBlueprint.status,
-          savedBlueprint: {
-            id: pendingBlueprint.id,
-            user_id: pendingBlueprint.user_id,
-            goal: pendingBlueprint.goal,
-            content_source: pendingBlueprint.content_source,
-            content_type: pendingBlueprint.content_type,
+        if (attemptResult.status === 'success') {
+        console.log(`[CreateBlueprint] ✅ Initial ${activeProvider === 'openai' ? 'OpenAI' : 'Gemini'} attempt completed successfully`);
+          return reply.code(200).send({
+            success: true,
+            buildId: BUILD_SHA,
+            blueprintId: pendingBlueprint.id,
+            status: 'completed' as BlueprintStatus,
+            savedBlueprint: {
+              id: pendingBlueprint.id,
+              user_id: pendingBlueprint.user_id,
+              goal: pendingBlueprint.goal,
+              content_source: pendingBlueprint.content_source,
+              content_type: pendingBlueprint.content_type,
+              status: 'completed' as BlueprintStatus,
+              created_at: pendingBlueprint.created_at,
+              title: pendingBlueprint.title ?? null,
+              duration: pendingBlueprint.duration ?? null,
+              video_type: pendingBlueprint.video_type ?? null
+            },
+            metadata,
+            subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
+          } as BlueprintResponse);
+        }
+
+        if (attemptResult.classification === 'RETRIABLE') {
+          const schedule = computeNextRetrySchedule(0);
+
+          if (!schedule) {
+            await markBlueprintFailed(pendingBlueprint.id);
+            return reply.code(500).send({
+              success: false,
+              error: 'AI service temporarily unavailable. Please try again.'
+            } as BlueprintResponse);
+          }
+
+          console.warn('[CreateBlueprint] Initial attempt failed, scheduling retry', {
+            blueprintId: pendingBlueprint.id,
+            delaySeconds: schedule.delaySeconds,
+            reason: attemptResult.message
+          });
+
+          await enqueueRetryJob(pendingBlueprint.id, requestData, {
+            initialRetryCount: schedule.nextRetryCount,
+            nextRetryAt: schedule.nextRetryAt,
+            reason: 'initial_attempt_failed'
+          });
+
+          return reply.code(202).send({
+            success: true,
+            buildId: BUILD_SHA,
+            blueprintId: pendingBlueprint.id,
             status: pendingBlueprint.status,
-            created_at: pendingBlueprint.created_at,
-            title: pendingBlueprint.title ?? null,
-            duration: pendingBlueprint.duration ?? null,
-            video_type: pendingBlueprint.video_type ?? null
-          },
-          metadata,
-          subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
+            savedBlueprint: {
+              id: pendingBlueprint.id,
+              user_id: pendingBlueprint.user_id,
+              goal: pendingBlueprint.goal,
+              content_source: pendingBlueprint.content_source,
+              content_type: pendingBlueprint.content_type,
+              status: pendingBlueprint.status,
+              created_at: pendingBlueprint.created_at,
+              title: pendingBlueprint.title ?? null,
+              duration: pendingBlueprint.duration ?? null,
+              video_type: pendingBlueprint.video_type ?? null
+            },
+            metadata,
+            subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
+          } as BlueprintResponse);
+        }
+
+        console.error('[CreateBlueprint] Initial Gemini attempt failed (non-retriable)', {
+          blueprintId: pendingBlueprint.id,
+          message: attemptResult.message
+        });
+
+        await markBlueprintFailed(pendingBlueprint.id);
+        return reply.code(500).send({
+          success: false,
+          buildId: BUILD_SHA,
+          error: 'AI service temporarily unavailable. Please try again later.'
         } as BlueprintResponse);
 
       } catch (error) {
@@ -543,7 +628,11 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
 
         const preparation = await prepareRetryInputs(blueprintRecord);
 
-        await deleteRetryJobsForBlueprint(blueprintId);
+        const removedRetryJobs = await deleteRetryJobsForBlueprint(blueprintId);
+        console.log('[RetryBlueprint] Purged stale retry jobs', {
+          blueprintId,
+          removed: removedRetryJobs
+        });
 
         const updatedTitle = preparation.title ?? blueprintRecord.title ?? null;
         const updatedDuration = preparation.duration ?? blueprintRecord.duration ?? null;
@@ -570,10 +659,13 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         }
 
         console.log('[RetryBlueprint] Rebuilding prompt for retry...');
-        const prompt = buildBlueprintPrompt(preparation.formData, preparation.content);
+        const providerName = resolveProvider();
+        const retryPromptPayload = buildProviderPrompt(preparation.formData, preparation.content);
 
         const requestData: GeminiRequestData = {
-          prompt,
+          prompt: retryPromptPayload.prompt,
+          promptSegments: retryPromptPayload.promptSegments,
+          provider: providerName,
           metadata: {
             userId: user.id,
             goal: blueprintRecord.goal,
@@ -584,32 +676,91 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           }
         };
 
-        const retryJob = await enqueueRetryJob(blueprintId, requestData);
-
-        setImmediate(() => {
-          processBlueprintJob(retryJob).catch((error) => {
-            console.error(`[RetryBlueprint] Background processing error for blueprint ${retryJob.blueprint_id}:`, error);
-          });
+        console.log('[RetryBlueprint] Running immediate Gemini attempt...');
+        const attemptResult = await attemptBlueprintGeneration({
+          blueprintId,
+          requestData
         });
 
-        return reply.code(202).send({
-          success: true,
-          blueprintId,
-          status: 'pending',
-          savedBlueprint: {
-            id: blueprintRecord.id,
-            user_id: blueprintRecord.user_id,
-            goal: blueprintRecord.goal,
-            content_source: blueprintRecord.content_source,
-            content_type: blueprintRecord.content_type,
+        if (attemptResult.status === 'success') {
+          console.log('[RetryBlueprint] ✅ Blueprint regenerated successfully');
+          return reply.code(200).send({
+            success: true,
+            buildId: BUILD_SHA,
+            blueprintId,
+            status: 'completed',
+            savedBlueprint: {
+              id: blueprintRecord.id,
+              user_id: blueprintRecord.user_id,
+              goal: blueprintRecord.goal,
+              content_source: blueprintRecord.content_source,
+              content_type: blueprintRecord.content_type,
+              status: 'completed',
+              created_at: blueprintRecord.created_at,
+              title: updatedTitle,
+              duration: updatedDuration,
+              video_type: blueprintRecord.video_type ?? (blueprintRecord.content_type === 'youtube' ? 'youtube' : blueprintRecord.content_type),
+              author_name: updatedAuthor
+            },
+            metadata: preparation.metadata
+          } as BlueprintResponse);
+        }
+
+        if (attemptResult.classification === 'RETRIABLE') {
+          const schedule = computeNextRetrySchedule(0);
+
+          if (!schedule) {
+            await markBlueprintFailed(blueprintId);
+            return reply.code(500).send({
+              success: false,
+              error: 'AI service temporarily unavailable. Please try again later.'
+            } as BlueprintResponse);
+          }
+
+          console.warn('[RetryBlueprint] Immediate attempt failed, scheduling retry', {
+            blueprintId,
+            delaySeconds: schedule.delaySeconds,
+            reason: attemptResult.message
+          });
+
+          await enqueueRetryJob(blueprintId, requestData, {
+            initialRetryCount: schedule.nextRetryCount,
+            nextRetryAt: schedule.nextRetryAt,
+            reason: 'retry_endpoint_initial_attempt_failed'
+          });
+
+          return reply.code(202).send({
+            success: true,
+            buildId: BUILD_SHA,
+            blueprintId,
             status: 'pending',
-            created_at: blueprintRecord.created_at,
-            title: updatedTitle,
-            duration: updatedDuration,
-            video_type: blueprintRecord.video_type ?? (blueprintRecord.content_type === 'youtube' ? 'youtube' : blueprintRecord.content_type),
-            author_name: updatedAuthor
-          },
-          metadata: preparation.metadata
+            savedBlueprint: {
+              id: blueprintRecord.id,
+              user_id: blueprintRecord.user_id,
+              goal: blueprintRecord.goal,
+              content_source: blueprintRecord.content_source,
+              content_type: blueprintRecord.content_type,
+              status: 'pending',
+              created_at: blueprintRecord.created_at,
+              title: updatedTitle,
+              duration: updatedDuration,
+              video_type: blueprintRecord.video_type ?? (blueprintRecord.content_type === 'youtube' ? 'youtube' : blueprintRecord.content_type),
+              author_name: updatedAuthor
+            },
+            metadata: preparation.metadata
+          } as BlueprintResponse);
+        }
+
+        console.error('[RetryBlueprint] Immediate attempt failed (non-retriable)', {
+          blueprintId,
+          message: attemptResult.message
+        });
+
+        await markBlueprintFailed(blueprintId);
+        return reply.code(500).send({
+          success: false,
+          buildId: BUILD_SHA,
+          error: 'AI service temporarily unavailable. Please try again later.'
         } as BlueprintResponse);
       } catch (error) {
         if (error instanceof RetryPreparationError) {
@@ -628,6 +779,45 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
       }
     }
   );
+
+  if (process.env.NODE_ENV !== 'production') {
+    fastify.get<{ Querystring: GeminiRetryDebugQuery }>(
+      '/api/debug/gemini-retries',
+      async (request: FastifyRequest<{ Querystring: GeminiRetryDebugQuery }>, reply: FastifyReply) => {
+        try {
+          const serviceClient = getServiceClient();
+          let query = serviceClient
+            .from('gemini_retries')
+            .select('id, blueprint_id, retry_count, next_retry_at, error_type, last_error, created_at')
+            .order('created_at', { ascending: false });
+
+          if (request.query.blueprintId) {
+            query = query.eq('blueprint_id', request.query.blueprintId);
+          }
+
+          const limit = Math.min(Math.max(request.query.limit ?? 20, 1), 100);
+          query = query.limit(limit);
+
+          const { data, error } = await query;
+          if (error) {
+            throw error;
+          }
+
+          return reply.send({
+            success: true,
+            count: data?.length ?? 0,
+            entries: data ?? []
+          });
+        } catch (error: any) {
+          console.error('[DebugGeminiRetries] Failed to fetch retry entries:', error);
+          return reply.code(500).send({
+            success: false,
+            error: error?.message || 'Failed to fetch debug data'
+          });
+        }
+      }
+    );
+  }
 }
 
 class RetryPreparationError extends Error {
@@ -663,6 +853,11 @@ interface RetryPreparationResult {
   title?: string | null;
   duration?: number | null;
   authorName?: string | null;
+}
+
+interface GeminiRetryDebugQuery {
+  blueprintId?: string;
+  limit?: number;
 }
 
 const prepareRetryInputs = async (record: BlueprintRetryRecord): Promise<RetryPreparationResult> => {

@@ -3,9 +3,9 @@ import { supabase } from '../lib/supabase'
 import {
   buildItemIdentifier,
   calculateHabitStreak,
-  extractDailyHabits,
+  extractDailyHabitsWithContext,
   extractDecisionChecklist,
-  extractSequentialSteps,
+  extractSequentialStepsWithContext,
   extractTriggerActions,
   getLocalISODate
 } from '../lib/tracking'
@@ -23,6 +23,8 @@ import type {
 interface HabitDisplayItem {
   blueprintId: string
   blueprintTitle: string
+  sectionId: string
+  sectionTitle: string
   itemId: string
   title: string
   description: string
@@ -246,7 +248,7 @@ export const useTrackedBlueprints = (): UseTrackedBlueprintsResult => {
           ? entry.blueprint.title.trim()
           : entry.blueprint.goal
 
-        const habits = extractDailyHabits(entry.blueprint.ai_output)
+        const habits = extractDailyHabitsWithContext(entry.blueprint.ai_output)
         habits.forEach((habit, index) => {
           const itemId = buildItemIdentifier('habit', habit.id, habit.title, index)
           const key = buildCompletionKey(entry.blueprintId, 'daily_habit', itemId)
@@ -260,6 +262,8 @@ export const useTrackedBlueprints = (): UseTrackedBlueprintsResult => {
           items.push({
             blueprintId: entry.blueprintId,
             blueprintTitle: blueprintLabel,
+            sectionId: habit.sectionId,
+            sectionTitle: habit.sectionTitle,
             itemId,
             title: habit.title,
             description: habit.description,
@@ -290,7 +294,7 @@ export const useTrackedBlueprints = (): UseTrackedBlueprintsResult => {
           ? entry.blueprint.title.trim()
           : entry.blueprint.goal
 
-        const sequentialSteps = extractSequentialSteps(entry.blueprint.ai_output).map((step, index) => {
+        const sequentialSteps = extractSequentialStepsWithContext(entry.blueprint.ai_output).map((step, index) => {
           const itemId = buildItemIdentifier('sequential', step.step_number, step.title, index)
           const key = buildCompletionKey(entry.blueprintId, 'sequential_step', itemId)
           const completions = completionMap.get(key) ?? []
@@ -326,12 +330,12 @@ export const useTrackedBlueprints = (): UseTrackedBlueprintsResult => {
           }
         })
 
-        const triggerActions = extractTriggerActions(entry.blueprint.ai_output).map((action, index) => ({
+        const triggerActions = extractTriggerActions(entry.blueprint.ai_output).map((item, index) => ({
           blueprintId: entry.blueprintId,
-          itemId: buildItemIdentifier('trigger', `${action.situation}-${index}`, action.situation, index),
-          situation: action.situation,
-          action: action.immediate_action,
-          timeframe: action.timeframe
+          itemId: buildItemIdentifier('trigger', item.problem, item.solution, index),
+          situation: item.problem,
+          action: item.solution,
+          timeframe: item.description
         }))
 
         return {

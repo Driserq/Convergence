@@ -1,6 +1,7 @@
 import React from 'react'
 import type { Blueprint } from '../../types/blueprint'
 import { BlueprintDisplay } from '../blueprint/display/BlueprintDisplay'
+import { RateBlueprintDialog } from './RateBlueprintDialog'
 
 interface BlueprintCardProps {
   blueprint: Blueprint
@@ -15,6 +16,8 @@ export function BlueprintCard({ blueprint, onNavigateToDetail, footerLeft, foote
       onNavigateToDetail(blueprint.id)
     }
   }
+
+  const rateAction = blueprint.status === 'completed' ? <RateBlueprintDialog blueprintId={blueprint.id} /> : null
 
   return (
     <div className="mb-4">
@@ -35,6 +38,7 @@ export function BlueprintCard({ blueprint, onNavigateToDetail, footerLeft, foote
         actionLabel="Open Blueprint"
         summaryFooterLeft={footerLeft}
         summaryFooterExtra={footerActions}
+        summaryMetaExtra={rateAction}
       />
     </div>
   )

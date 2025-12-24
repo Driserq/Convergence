@@ -1,4 +1,13 @@
-import type { AIBlueprint, OverviewSection } from '../types/blueprint'
+import type { 
+  AIBlueprint, 
+  OverviewSection, 
+  AISection,
+  SequentialStep,
+  DailyHabit,
+  TroubleshootingItem,
+  DecisionQuestion,
+  Resource
+} from '../types/blueprint'
 
 /**
  * Format a blueprint timestamp into human-readable form.
@@ -52,9 +61,9 @@ export function parseOverview(aiOutput: AIBlueprint | null): {
   if (typeof aiOutput.overview === 'object' && 'summary' in aiOutput.overview) {
     const overview = aiOutput.overview as OverviewSection
     return {
-      summary: overview.summary || '',
-      mistakes: overview.mistakes || [],
-      guidance: overview.guidance || [],
+      summary: overview.summary?.trim() || '',
+      mistakes: normalizeStringList(overview.mistakes),
+      guidance: normalizeStringList(overview.guidance, 4),
     }
   }
 
@@ -76,7 +85,11 @@ export function parseOverview(aiOutput: AIBlueprint | null): {
       }
     }
 
-    return { summary, mistakes, guidance }
+    return {
+      summary,
+      mistakes: normalizeStringList(mistakes),
+      guidance: normalizeStringList(guidance, 4),
+    }
   }
 
   return {
@@ -97,6 +110,33 @@ const isNonEmpty = (value?: string | null): boolean => {
 const sanitizeString = (value?: string | null): string =>
   typeof value === 'string' ? value.trim() : ''
 
+const normalizeStringList = (values?: string[] | null, limit?: number): string[] => {
+  const trimmed = (values ?? [])
+    .map((entry) => (typeof entry === 'string' ? entry.trim() : ''))
+    .filter((entry) => entry.length > 0)
+
+  if (typeof limit === 'number') {
+    return trimmed.slice(0, limit)
+  }
+
+  return trimmed
+}
+
+const normalizeDecisionChecklistItem = (item: DecisionQuestion) => {
+  const question = sanitizeString(item.question)
+  let weight = sanitizeString(item.weight)
+  let description = sanitizeString(item.description)
+
+  if (weight && weight.length > 80) {
+    if (!description) {
+      description = weight
+    }
+    weight = 'Important'
+  }
+
+  return { question, weight, description }
+}
+
 export function getHabitsOrSteps(aiOutput: AIBlueprint | null): Array<{
   id: number
   title: string
@@ -107,6 +147,40 @@ export function getHabitsOrSteps(aiOutput: AIBlueprint | null): Array<{
     return []
   }
 
+  // Handle new dynamic sections
+  if ('sections' in aiOutput && Array.isArray(aiOutput.sections)) {
+    const items: Array<{
+      id: number
+      title: string
+      description: string
+      timeframe?: string
+    }> = []
+
+    let counter = 1
+    aiOutput.sections.forEach(section => {
+      if (section.type === 'daily_habits' || section.type === 'sequential_steps' || section.type === 'trigger_actions') {
+        section.items.forEach(item => {
+           // Type guards/casting to handle mixed item types safely
+           const title = 'title' in item ? sanitizeString(item.title) : ('problem' in item ? sanitizeString((item as TroubleshootingItem).problem) : '')
+           const desc = 'description' in item ? sanitizeString(item.description) : ('solution' in item ? sanitizeString((item as TroubleshootingItem).solution) : '')
+           const timeframe = 'timeframe' in item ? sanitizeString((item as DailyHabit).timeframe) : ('estimated_time' in item ? sanitizeString((item as SequentialStep).estimated_time) : '')
+
+           if (isNonEmpty(title) || isNonEmpty(desc)) {
+             items.push({
+               id: counter++,
+               title,
+               description: desc,
+               timeframe
+             })
+           }
+        })
+      }
+    })
+    
+    if (items.length > 0) return items
+  }
+
+  // Fallback to legacy structure
   if ('habits' in aiOutput && Array.isArray(aiOutput.habits)) {
     return aiOutput.habits
       .map((habit) => ({
@@ -160,10 +234,11 @@ export function getHabitsOrSteps(aiOutput: AIBlueprint | null): Array<{
   }
 
   if ('trigger_actions' in aiOutput && Array.isArray(aiOutput.trigger_actions)) {
-    aiOutput.trigger_actions.forEach((action, idx) => {
-      const situation = sanitizeString(action.situation)
-      const immediateAction = sanitizeString(action.immediate_action)
-      const timeframe = sanitizeString(action.timeframe)
+    aiOutput.trigger_actions.forEach((action: any, idx) => {
+      // Legacy trigger actions fallback
+      const situation = action.situation ? sanitizeString(action.situation) : ''
+      const immediateAction = action.immediate_action ? sanitizeString(action.immediate_action) : ''
+      const timeframe = action.timeframe ? sanitizeString(action.timeframe) : ''
 
       if (isNonEmpty(situation) || isNonEmpty(immediateAction)) {
         steps.push({
@@ -197,10 +272,10 @@ export interface BlueprintSection {
   items: Array<
     | { type: 'paragraph'; content: string }
     | { type: 'list'; items: string[] }
-    | { type: 'step'; stepNumber: number; title: string; description: string; meta?: string; deliverable?: string }
+    | { type: 'step'; stepNumber: number; title: string; description: string; meta?: string; deliverable?: string; description_detailed?: string }
     | { type: 'resource'; name: string; description: string; tag: string }
-    | { type: 'trigger'; situation: string; action: string; timeframe?: string }
-    | { type: 'checklist'; question: string; weight?: string }
+    | { type: 'troubleshooting'; problem: string; solution: string; description: string }
+    | { type: 'checklist'; question: string; weight?: string; description?: string }
   >
 }
 
@@ -227,6 +302,116 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
       ].filter(Boolean) as BlueprintSection['items'],
     })
   }
+
+  // 1. Handle New Dynamic Sections
+  if ('sections' in aiOutput && Array.isArray(aiOutput.sections)) {
+    aiOutput.sections.forEach((section, index) => {
+      const sectionId = `section_${index}_${section.type}`
+      
+      switch (section.type) {
+        case 'daily_habits':
+        case 'sequential_steps': {
+          const items = (section.items as (DailyHabit | SequentialStep)[])
+            .map((item, i) => {
+              const stepNum = 'step_number' in item ? item.step_number : ('id' in item ? item.id : i + 1)
+              const meta = 'estimated_time' in item ? (item as SequentialStep).estimated_time : ('timeframe' in item ? (item as DailyHabit).timeframe : undefined)
+              const deliverable = 'deliverable' in item ? (item as SequentialStep).deliverable : undefined
+              
+              return {
+                type: 'step' as const,
+                stepNumber: stepNum,
+                title: sanitizeString(item.title),
+                description: sanitizeString(item.description),
+                meta: sanitizeString(meta),
+                deliverable: sanitizeString(deliverable),
+              }
+            })
+            .filter(item => isNonEmpty(item.title))
+
+          if (items.length) {
+            sections.push({
+              id: sectionId,
+              title: section.title, // Use the dynamic title from AI
+              description: section.description, // Use dynamic description
+              items
+            })
+          }
+          break
+        }
+
+        case 'trigger_actions': {
+           const items = (section.items as TriggerAction[])
+             .map(item => ({
+               type: 'trigger' as const,
+               situation: sanitizeString(item.situation),
+               action: sanitizeString(item.immediate_action),
+               timeframe: sanitizeString(item.timeframe)
+             }))
+             .filter(item => isNonEmpty(item.situation))
+           
+           if (items.length) {
+             sections.push({
+               id: sectionId,
+               title: section.title,
+               description: section.description,
+               items
+             })
+           }
+           break
+        }
+
+        case 'decision_checklist': {
+          const items = (section.items as DecisionQuestion[])
+            .map(item => {
+              const normalized = normalizeDecisionChecklistItem(item)
+              return {
+                type: 'checklist' as const,
+                question: normalized.question,
+                weight: normalized.weight || undefined,
+                description: normalized.description || undefined
+              }
+            })
+            .filter(item => isNonEmpty(item.question))
+
+          if (items.length) {
+            sections.push({
+              id: sectionId,
+              title: section.title,
+              description: section.description,
+              items
+             })
+          }
+          break
+        }
+
+        case 'resources': {
+          const items = (section.items as Resource[])
+            .map(item => ({
+              type: 'resource' as const,
+              name: sanitizeString(item.name),
+              description: sanitizeString(item.description),
+              tag: sanitizeString(item.type)
+            }))
+            .filter(item => isNonEmpty(item.name))
+
+          if (items.length) {
+            sections.push({
+              id: sectionId,
+              title: section.title,
+              description: section.description,
+              items
+            })
+          }
+          break
+        }
+      }
+    })
+
+    return sections
+  }
+
+  // 2. Fallback: Handle Legacy Fixed Fields
+  // (Keep existing logic for backward compatibility with old blueprints)
 
   if ('sequential_steps' in aiOutput && Array.isArray(aiOutput.sequential_steps)) {
     const steps = aiOutput.sequential_steps
@@ -283,24 +468,25 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
   }
 
   if ('trigger_actions' in aiOutput && Array.isArray(aiOutput.trigger_actions)) {
-    const triggers = aiOutput.trigger_actions
-      .map((action) => ({
-        situation: sanitizeString(action.situation),
-        action: sanitizeString(action.immediate_action),
-        timeframe: sanitizeString(action.timeframe),
+    // Deprecated: Handle legacy trigger actions by converting them to troubleshooting items
+    const triggers = (aiOutput.trigger_actions as any[])
+      .map((action: any) => ({
+        problem: sanitizeString(action.situation),
+        solution: sanitizeString(action.immediate_action),
+        description: sanitizeString(action.description || `Timeframe: ${action.timeframe}`),
       }))
-      .filter((action) => isNonEmpty(action.situation) || isNonEmpty(action.action))
+      .filter((action: any) => isNonEmpty(action.problem) || isNonEmpty(action.solution))
 
     if (triggers.length) {
       sections.push({
         id: 'trigger_actions',
-        title: 'Trigger Actions',
-        description: 'Use these responses whenever risks or setbacks appear.',
-        items: triggers.map((action) => ({
-          type: 'trigger',
-          situation: action.situation,
-          action: action.action,
-          timeframe: action.timeframe || undefined,
+        title: 'Troubleshooting',
+        description: 'Challenges paired with recommended responses from the source material.',
+        items: triggers.map((action: any) => ({
+          type: 'troubleshooting',
+          problem: action.problem,
+          solution: action.solution,
+          description: action.description,
         })),
       })
     }
@@ -308,10 +494,7 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
 
   if ('decision_checklist' in aiOutput && Array.isArray(aiOutput.decision_checklist)) {
     const checklist = aiOutput.decision_checklist
-      .map((item) => ({
-        question: sanitizeString(item.question),
-        weight: sanitizeString(item.weight),
-      }))
+      .map((item) => normalizeDecisionChecklistItem(item))
       .filter((item) => isNonEmpty(item.question))
 
     if (checklist.length) {
@@ -323,6 +506,7 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
           type: 'checklist',
           question: item.question,
           weight: item.weight || undefined,
+          description: item.description || undefined,
         })),
       })
     }

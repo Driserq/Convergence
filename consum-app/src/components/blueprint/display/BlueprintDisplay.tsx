@@ -43,6 +43,7 @@ interface BlueprintDisplayProps {
   sectionOrder?: Array<BlueprintSection['id']>
   summaryFooterLeft?: React.ReactNode
   summaryFooterExtra?: React.ReactNode
+  summaryMetaExtra?: React.ReactNode
 }
 
 const STATUS_STYLES: Record<BlueprintStatus, string> = {
@@ -152,6 +153,7 @@ function SectionContent({ section, compact }: { section: BlueprintSection; compa
                     </Badge>
                   )}
                 </div>
+                {/* Description mapped from AI 'description' field */}
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{item.description}</p>
                 {item.deliverable && (
                   <div className="mt-4 rounded-xl border border-primary/30 bg-primary/5 p-4">
@@ -161,24 +163,24 @@ function SectionContent({ section, compact }: { section: BlueprintSection; compa
                 )}
               </div>
             )
-          case 'trigger':
+          case 'troubleshooting':
             return (
-              <div key={`${section.id}-trigger-${index}`} className="rounded-2xl border border-border/70 bg-background/80 p-5">
+              <div key={`${section.id}-trouble-${index}`} className="rounded-2xl border border-border/70 bg-background/80 p-5">
                 <div className="space-y-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Trigger</p>
-                    <p className="text-base font-semibold text-foreground leading-snug">{item.situation}</p>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Problem</p>
+                    <h4 className="text-base font-semibold text-foreground leading-snug">{item.problem}</h4>
                   </div>
-                  <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-emerald-600">Respond with</p>
-                    <p className="mt-1 text-sm text-emerald-900 leading-relaxed">{item.action}</p>
+
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Solution</p>
+                    <p className="mt-1 text-sm text-foreground leading-relaxed">{item.solution}</p>
                   </div>
-                  {item.timeframe && (
-                    <div className="flex justify-end">
-                      <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 text-xs">
-                        {item.timeframe}
-                      </Badge>
-                    </div>
+
+                  {item.description && (
+                    <p className="text-sm text-muted-foreground leading-relaxed border-l-2 border-border/60 pl-3">
+                      {item.description}
+                    </p>
                   )}
                 </div>
               </div>
@@ -201,8 +203,13 @@ function SectionContent({ section, compact }: { section: BlueprintSection; compa
                 <div className="mt-1 h-4 w-4 rounded-md border border-border/60" aria-hidden />
                 <div className="flex-1">
                   <p className="text-sm font-medium text-foreground leading-snug">{item.question}</p>
+                  {item.description && (
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                      {item.description}
+                    </p>
+                  )}
                   {item.weight && (
-                    <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">{item.weight}</p>
+                    <p className="mt-2 text-xs uppercase tracking-wide text-muted-foreground">{item.weight}</p>
                   )}
                 </div>
               </div>
@@ -222,15 +229,17 @@ function SummaryVariant({
   actionLabel = 'View Full Blueprint',
   footerExtra,
   footerLeft,
-}: Pick<BlueprintDisplayProps, 'blueprint' | 'metadata' | 'onNavigateToDetail' | 'actionLabel'> & {
+  metaExtra,
+}: Pick<BlueprintDisplayProps, 'blueprint' | 'metadata' | 'onNavigateToDetail' | 'actionLabel' | 'summaryMetaExtra'> & {
   footerExtra?: React.ReactNode
   footerLeft?: React.ReactNode
+  metaExtra?: React.ReactNode
 }) {
   if (!metadata) return null
 
   const overview = useMemo(() => parseOverview(blueprint), [blueprint])
   const baseSections = useMemo(() => mapBlueprintToSections(blueprint), [blueprint])
-  const sections = useMemo(() => {
+  const sectionsWithPitfalls = useMemo(() => {
     if (!overview.mistakes.length) {
       return baseSections
     }
@@ -262,6 +271,10 @@ function SummaryVariant({
 
     return next
   }, [baseSections, overview])
+  const accordionSections = useMemo(
+    () => sectionsWithPitfalls.filter((section) => section.id !== 'overview'),
+    [sectionsWithPitfalls]
+  )
   const overviewPreview = useMemo(() => getOverviewPreview(blueprint, 140), [blueprint])
   const canShowDetails = metadata.status === 'completed' && !!blueprint
   const displayTitle = metadata.title && metadata.title.trim().length > 0 ? metadata.title : metadata.goal
@@ -286,25 +299,29 @@ function SummaryVariant({
           )}
         </div>
         <div className="space-y-2">
-          <CardTitle className="text-xl font-semibold text-foreground line-clamp-2">{displayTitle}</CardTitle>
-          {metadata.authorName && (
-            <div className="flex items-center gap-2 text-sm text-muted-foreground/90">
-              <UserRound className="size-4 text-muted-foreground/70" aria-hidden />
-              <span className="truncate">{metadata.authorName}</span>
-            </div>
-          )}
-          {shouldShowGoalSubtitle && (
-            <p className="text-sm font-medium text-primary/80">Goal: {metadata.goal}</p>
-          )}
+          <div className="space-y-1">
+            <CardTitle className="text-2xl font-semibold text-foreground">
+              {displayTitle}
+            </CardTitle>
+            {metadata.authorName && (
+              <div className="flex items-center gap-2 text-sm text-muted-foreground/90">
+                <UserRound className="size-4 text-muted-foreground/70" aria-hidden />
+                <span className="truncate">{metadata.authorName}</span>
+              </div>
+            )}
+            {shouldShowGoalSubtitle && (
+              <p className="text-sm font-medium text-primary/80">Goal: {metadata.goal}</p>
+            )}
+          </div>
         </div>
       </CardHeader>
 
       <CardContent className="space-y-4">
         {metadata.status === 'pending' && (
           <Alert className="border-amber-200 bg-amber-50">
-            <AlertTitle className="text-amber-950">Blueprint is still generating</AlertTitle>
+            <AlertTitle className="text-amber-950">Hang tight!</AlertTitle>
             <AlertDescription className="text-sm text-amber-950">
-              Leave this tab open—no need to refresh; we&apos;ll keep the status updated automatically.
+              I got your video and I'm processing it right now. Let me mull over it for a minute or two so you have something worth putting energy into. This page will refresh automatically by the way.
             </AlertDescription>
           </Alert>
         )}
@@ -318,15 +335,33 @@ function SummaryVariant({
           </Alert>
         )}
 
-        {canShowDetails && overview.summary && (
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {overviewPreview}
-          </p>
+        {canShowDetails && (overview.summary || overview.guidance.length > 0) && (
+          <div className="space-y-3">
+            {overview.summary && (
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                {overviewPreview}
+              </p>
+            )}
+
+            {overview.guidance.length > 0 && (
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Guidance</p>
+                <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                  {overview.guidance.map((item, idx) => (
+                    <li key={idx} className="flex gap-2">
+                      <span className="mt-1 text-muted-foreground/70">•</span>
+                      <span className="flex-1 leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         )}
 
-        {canShowDetails && sections.length > 0 && (
+        {canShowDetails && accordionSections.length > 0 && (
           <Accordion type="multiple" className="rounded-xl border border-border/60 bg-background/80">
-            {sections.map((section) => (
+            {accordionSections.map((section) => (
               <AccordionItem key={section.id} value={section.id} className="border-border/40">
                 <AccordionTrigger className="px-4 text-left text-sm font-semibold text-foreground">
                   {section.title}
@@ -342,8 +377,14 @@ function SummaryVariant({
           </Accordion>
         )}
 
-        <div className="text-xs text-muted-foreground">
-          Created {formatBlueprintDate(metadata.createdAt)}
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+          <span>Created {formatBlueprintDate(metadata.createdAt)}</span>
+          {metaExtra && (
+            <>
+              <span className="text-muted-foreground/70">•</span>
+              <div className="flex items-center gap-1 text-xs text-muted-foreground">{metaExtra}</div>
+            </>
+          )}
         </div>
       </CardContent>
 
@@ -414,6 +455,7 @@ export const BlueprintDisplay: React.FC<BlueprintDisplayProps> = ({
   sectionOrder,
   summaryFooterLeft,
   summaryFooterExtra,
+  summaryMetaExtra,
 }) => {
   if (variant === 'summary') {
     return (
@@ -424,6 +466,7 @@ export const BlueprintDisplay: React.FC<BlueprintDisplayProps> = ({
         actionLabel={actionLabel}
         footerExtra={summaryFooterExtra}
         footerLeft={summaryFooterLeft}
+        metaExtra={summaryMetaExtra}
       />
     )
   }

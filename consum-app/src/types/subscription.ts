@@ -1,10 +1,12 @@
-export type PlanCode = 'free' | 'weekly' | 'monthly'
+export type PlanCode = 'free' | 'weekly' | 'monthly' | 'test'
 
 export interface PlanDefinition {
   code: PlanCode
   name: string
   limit: number
   periodType: 'week' | 'month'
+  habitTrackingQuota: number
+  actionTrackingQuota: number
 }
 
 export interface SubscriptionRecord {

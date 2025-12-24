@@ -6,7 +6,8 @@ import { checkRateLimit } from '../lib/rateLimiter.js'
 import { sendFeedbackEmail } from '../lib/email/sendFeedbackEmail.js'
 
 const feedbackSchema = z.object({
-  message: z.string().trim().min(1, 'Message is required').max(500, 'Message must be 500 characters or less')
+  message: z.string().trim().min(1, 'Message is required').max(500, 'Message must be 500 characters or less'),
+  blueprintId: z.string().uuid('Invalid blueprint ID').optional()
 })
 
 type AuthenticatedRequest = FastifyRequest & { user?: { id: string; email?: string | null } }
@@ -52,6 +53,7 @@ export default async function feedbackRoutes(fastify: FastifyInstance) {
         userId: user.id,
         userEmail: user.email,
         message: validation.data.message,
+        blueprintId: validation.data.blueprintId,
         timestamp,
       })
 
