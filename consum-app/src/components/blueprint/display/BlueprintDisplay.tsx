@@ -120,6 +120,21 @@ function SectionContent({ section, compact }: { section: BlueprintSection; compa
         }
 
         switch (item.type) {
+          case 'habit':
+            return (
+              <div key={`${section.id}-habit-${index}`} className="rounded-2xl border border-border/70 bg-background/80 p-4">
+                <div className="flex flex-col gap-2">
+                  <h4 className="text-base font-semibold text-foreground">{item.title}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+                  {item.timeframe && (
+                    <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs font-medium text-muted-foreground">
+                      <Clock3 className="size-3.5" aria-hidden />
+                      {item.timeframe}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )
           case 'paragraph':
             return (
               <p key={`${section.id}-paragraph-${index}`} className="text-sm leading-relaxed text-muted-foreground">

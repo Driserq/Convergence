@@ -223,11 +223,18 @@ export function getHabitsOrSteps(aiOutput: AIBlueprint | null): Array<{
       const timeframe = sanitizeString(habit.timeframe)
 
       if (isNonEmpty(title) || isNonEmpty(description)) {
-        steps.push({
-          id: habit.id,
-          title,
-          description,
-          timeframe,
+        sections.push({
+          id: `legacy_daily_habits_${sections.length}`,
+          title: 'Daily Habits',
+          description: 'Core routines surfaced during analysis.',
+          items: [
+            {
+              type: 'habit' as const,
+              title,
+              description,
+              timeframe
+            }
+          ]
         })
       }
     })
@@ -276,6 +283,7 @@ export interface BlueprintSection {
     | { type: 'resource'; name: string; description: string; tag: string }
     | { type: 'troubleshooting'; problem: string; solution: string; description: string }
     | { type: 'checklist'; question: string; weight?: string; description?: string }
+    | { type: 'habit'; title: string; description: string; timeframe?: string }
   >
 }
 
@@ -309,21 +317,40 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
       const sectionId = `section_${index}_${section.type}`
       
       switch (section.type) {
-        case 'daily_habits':
+        case 'daily_habits': {
+          const items = (section.items as DailyHabit[])
+            .map((item) => ({
+              type: 'habit' as const,
+              title: sanitizeString(item.title),
+              description: sanitizeString(item.description),
+              timeframe: sanitizeString(item.timeframe)
+            }))
+            .filter((item) => isNonEmpty(item.title) || isNonEmpty(item.description))
+
+          if (items.length) {
+            sections.push({
+              id: sectionId,
+              title: section.title,
+              description: section.description,
+              items
+            })
+          }
+          break
+        }
         case 'sequential_steps': {
-          const items = (section.items as (DailyHabit | SequentialStep)[])
+          const items = (section.items as SequentialStep[])
             .map((item, i) => {
-              const stepNum = 'step_number' in item ? item.step_number : ('id' in item ? item.id : i + 1)
-              const meta = 'estimated_time' in item ? (item as SequentialStep).estimated_time : ('timeframe' in item ? (item as DailyHabit).timeframe : undefined)
-              const deliverable = 'deliverable' in item ? (item as SequentialStep).deliverable : undefined
-              
+              const stepNum = item.step_number || i + 1
+              const meta = sanitizeString(item.estimated_time)
+              const deliverable = sanitizeString(item.deliverable)
+
               return {
                 type: 'step' as const,
                 stepNumber: stepNum,
                 title: sanitizeString(item.title),
                 description: sanitizeString(item.description),
-                meta: sanitizeString(meta),
-                deliverable: sanitizeString(deliverable),
+                meta,
+                deliverable,
               }
             })
             .filter(item => isNonEmpty(item.title))
@@ -331,8 +358,8 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
           if (items.length) {
             sections.push({
               id: sectionId,
-              title: section.title, // Use the dynamic title from AI
-              description: section.description, // Use dynamic description
+              title: section.title,
+              description: section.description,
               items
             })
           }
@@ -457,11 +484,10 @@ export function mapBlueprintToSections(aiOutput: AIBlueprint | null): BlueprintS
         title: 'Daily Habits',
         description: 'Repeat these habits to reinforce the blueprint.',
         items: habits.map((habit) => ({
-          type: 'step',
-          stepNumber: habit.id,
+          type: 'habit',
           title: habit.title,
           description: habit.description,
-          meta: habit.timeframe || undefined,
+          timeframe: habit.timeframe || undefined,
         })),
       })
     }
