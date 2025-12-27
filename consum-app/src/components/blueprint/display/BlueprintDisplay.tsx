@@ -120,21 +120,6 @@ function SectionContent({ section, compact }: { section: BlueprintSection; compa
         }
 
         switch (item.type) {
-          case 'habit':
-            return (
-              <div key={`${section.id}-habit-${index}`} className="rounded-2xl border border-border/70 bg-background/80 p-4">
-                <div className="flex flex-col gap-2">
-                  <h4 className="text-base font-semibold text-foreground">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-                  {item.timeframe && (
-                    <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs font-medium text-muted-foreground">
-                      <Clock3 className="size-3.5" aria-hidden />
-                      {item.timeframe}
-                    </span>
-                  )}
-                </div>
-              </div>
-            )
           case 'paragraph':
             return (
               <p key={`${section.id}-paragraph-${index}`} className="text-sm leading-relaxed text-muted-foreground">
@@ -299,39 +284,52 @@ function SummaryVariant({
   return (
     <Card className="rounded-2xl border border-border bg-card/95 shadow-sm transition hover:shadow-md">
       <CardHeader className="space-y-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant={metadata.contentType === 'youtube' ? 'default' : 'secondary'}>
-            {metadata.contentType === 'youtube' ? 'YouTube' : 'Text'}
-          </Badge>
-          <Badge variant="outline" className={cn('text-xs', STATUS_STYLES[metadata.status])}>
-            {metadata.status === 'completed' ? 'Ready' : metadata.status === 'pending' ? 'Processing' : 'Failed'}
-          </Badge>
-          {durationLabel && (
-            <Badge variant="outline" className="flex items-center gap-1 text-xs text-muted-foreground">
-              <Clock3 className="size-3" aria-hidden />
-              {durationLabel}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge variant={metadata.contentType === 'youtube' ? 'default' : 'secondary'}>
+              {metadata.contentType === 'youtube' ? 'YouTube' : 'Text'}
             </Badge>
-          )}
-        </div>
-        <div className="space-y-2">
-          <div className="space-y-1">
-            <CardTitle className="text-2xl font-semibold text-foreground">
-              {displayTitle}
-            </CardTitle>
-            {metadata.authorName && (
-              <div className="flex items-center gap-2 text-sm text-muted-foreground/90">
-                <UserRound className="size-4 text-muted-foreground/70" aria-hidden />
-                <span className="truncate">{metadata.authorName}</span>
-              </div>
+            <Badge variant="outline" className={cn('text-xs', STATUS_STYLES[metadata.status])}>
+              {metadata.status === 'completed' ? 'Ready' : metadata.status === 'pending' ? 'Processing' : 'Failed'}
+            </Badge>
+            {durationLabel && (
+              <Badge variant="outline" className="flex items-center gap-1 text-xs text-muted-foreground">
+                <Clock3 className="size-3" aria-hidden />
+                {durationLabel}
+              </Badge>
             )}
-            {shouldShowGoalSubtitle && (
-              <p className="text-sm font-medium text-primary/80">Goal: {metadata.goal}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <span>Created {formatBlueprintDate(metadata.createdAt)}</span>
+            {metaExtra && (
+              <>
+                <span className="text-muted-foreground/70">•</span>
+                <div className="flex items-center gap-1 text-xs text-muted-foreground">{metaExtra}</div>
+              </>
             )}
           </div>
         </div>
+
+        <div className="space-y-1">
+          <CardTitle className="text-xl font-semibold text-foreground">
+            {displayTitle || 'Habit Blueprint'}
+          </CardTitle>
+          {shouldShowGoalSubtitle && (
+            <CardDescription className="text-sm text-muted-foreground">
+              {metadata.goal}
+            </CardDescription>
+          )}
+        </div>
+
+        {metadata.authorName && (
+          <div className="flex items-center gap-2 text-sm text-muted-foreground/90">
+            <UserRound className="size-4 text-muted-foreground/70" aria-hidden />
+            <span className="truncate">{metadata.authorName}</span>
+          </div>
+        )}
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-6">
         {metadata.status === 'pending' && (
           <Alert className="border-amber-200 bg-amber-50">
             <AlertTitle className="text-amber-950">Hang tight!</AlertTitle>
@@ -353,9 +351,7 @@ function SummaryVariant({
         {canShowDetails && (overview.summary || overview.guidance.length > 0) && (
           <div className="space-y-3">
             {overview.summary && (
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {overviewPreview}
-              </p>
+              <p className="text-sm leading-relaxed text-muted-foreground">{overviewPreview}</p>
             )}
 
             {overview.guidance.length > 0 && (
@@ -392,15 +388,6 @@ function SummaryVariant({
           </Accordion>
         )}
 
-        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-          <span>Created {formatBlueprintDate(metadata.createdAt)}</span>
-          {metaExtra && (
-            <>
-              <span className="text-muted-foreground/70">•</span>
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">{metaExtra}</div>
-            </>
-          )}
-        </div>
       </CardContent>
 
       <CardFooter className="flex flex-col items-start gap-4 border-t border-border/50 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">

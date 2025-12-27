@@ -170,16 +170,16 @@ export const BlueprintForm: React.FC<BlueprintFormProps> = (props) => {
       <div className="space-y-2 text-left">
         <h2 className="text-2xl font-semibold text-foreground md:text-3xl">Create Your Habit Blueprint</h2>
         <p className="text-sm text-muted-foreground md:text-base">
-          Tell us your goal, choose the content source, and we&apos;ll turn it into a personalized habit plan.
+          Share any focus areas (optional), choose the content source, and we&apos;ll turn it into a personalized habit plan.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
         <FieldSet className="space-y-6">
           <Field className="rounded-2xl border border-border/70 bg-background/80 p-6 shadow-sm">
-            <FieldLabel htmlFor="goal">Primary Goal *</FieldLabel>
+            <FieldLabel htmlFor="goal">Focus (optional)</FieldLabel>
             <FieldDescription>
-              Be specific about what you want to achieve ({formData.goal.length}/500 characters)
+              Anything specific you want to focus on? ({formData.goal.length}/500 characters)
             </FieldDescription>
             <Textarea
               id="goal"

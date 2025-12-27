@@ -66,14 +66,20 @@ export interface OpenAIPromptSegments {
 
 export const getOpenAIPrompt = (formData: BlueprintFormData, content: string): OpenAIPromptSegments => ({
   system: OPENAI_SYSTEM_PROMPT,
-  user: [
-    'The following user message contains the goal context and the full transcript you must analyze.',
-    '',
-    `User Goal: ${formData.goal}`,
-    '',
-    'Transcript:',
-    content
-  ].join('\n')
+  user: (() => {
+    const focus = formData.goal?.trim()
+    const segments = [
+      'The following user message contains the user focus (optional) and the full transcript you must analyze.'
+    ]
+
+    if (focus) {
+      segments.push('', `User Focus: ${focus}`)
+    }
+
+    segments.push('', 'Transcript:', content)
+
+    return segments.join('\n')
+  })()
 })
 
 export const OPENAI_GENERATION_FORMAT = {

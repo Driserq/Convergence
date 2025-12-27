@@ -20,13 +20,28 @@ const contentTypeSchema = z.enum(['youtube', 'text'] as const)
 
 // Main blueprint form validation schema
 export const blueprintFormSchema = z.object({
-  // Primary goal (required)
+  // User focus (optional)
   goal: z
     .string()
-    .min(1, 'Primary goal is required')
-    .min(10, 'Goal should be at least 10 characters for better AI analysis')
-    .max(500, 'Goal should be less than 500 characters')
-    .trim(),
+    .default('')
+    .transform(value => value.trim())
+    .superRefine((value, ctx) => {
+      if (!value) return
+      if (value.length < 10) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Focus should be at least 10 characters for better AI analysis',
+          path: ['goal']
+        })
+      }
+      if (value.length > 500) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Focus should be less than 500 characters',
+          path: ['goal']
+        })
+      }
+    }),
 
   // Content type selection
   contentType: contentTypeSchema,

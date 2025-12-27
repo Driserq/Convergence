@@ -204,7 +204,7 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             youtubeUrl: { type: 'string' },
             textContent: { type: 'string' }
           },
-          required: ['goal', 'contentType']
+          required: ['contentType']
         }
       }
     },
@@ -248,7 +248,13 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           } as BlueprintResponse);
         }
 
-        const formData = validation.data;
+        const parsed = validation.data;
+        const formData: BlueprintFormData = {
+          goal: parsed.goal ?? '',
+          contentType: parsed.contentType,
+          youtubeUrl: parsed.youtubeUrl ?? '',
+          textContent: parsed.textContent ?? ''
+        };
         let content: string;
         let metadata: BlueprintResponse['metadata'];
         let sourcePayload: BlueprintSourcePayload | undefined;

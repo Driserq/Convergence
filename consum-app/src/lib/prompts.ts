@@ -114,12 +114,15 @@ export function buildBlueprintPrompt(
   content: string,
   promptConfig: PromptConfig = BASE_PROMPT_CONFIG
 ): string {
-  const userContext = `User Goal: ${formData.goal}`
+  const focus = formData.goal?.trim()
 
-  return [
-    promptConfig.systemRole,
-    '',
-    userContext,
+  const sections: string[] = [promptConfig.systemRole]
+
+  if (focus) {
+    sections.push('', `User Focus: ${focus}`)
+  }
+
+  sections.push(
     '',
     `Content: ${content}`,
     '',
@@ -127,5 +130,7 @@ export function buildBlueprintPrompt(
     '',
     promptConfig.constraints,
     promptConfig.outputFormat
-  ].join('\n')
+  )
+
+  return sections.join('\n')
 }
