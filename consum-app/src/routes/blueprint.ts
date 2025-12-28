@@ -11,10 +11,11 @@ import {
   enqueueRetryJob,
   getServiceClient,
   markBlueprintFailed,
-  type GeminiRequestData
+  type GeminiRequestData,
+  type PendingBlueprintResult
 } from '../lib/database.js';
 import { supabase } from '../lib/supabase.server.js';
-import { extractTranscript, fetchVideoMetadata, transcriptErrorToStatus, validateTranscriptService, type VideoMetadata } from '../lib/transcript.js';
+import { extractTranscript, transcriptErrorToStatus, validateTranscriptService } from '../lib/transcript.js';
 import { attemptBlueprintGeneration, computeNextRetrySchedule } from '../lib/geminiProcessor.js';
 import type { BlueprintFormData, ContentType, BlueprintSourcePayload, BlueprintStatus } from '../types/blueprint.js';
 import {
@@ -34,9 +35,6 @@ const BUILD_SHA = process.env.GIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA || pr
 
 // Request validation schema
 const createBlueprintSchema = blueprintFormSchema;
-
-const SUPADATA_DELAY_MS = 1100;
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 interface ProviderPromptPayload {
   prompt: string
@@ -123,6 +121,81 @@ const buildSubscriptionPayload = (usage: SubscriptionUsage, isActive = true) => 
     remaining: usage.remaining
   }
 });
+
+interface InitialGenerationJob {
+  blueprint: PendingBlueprintResult;
+  requestData: GeminiRequestData;
+}
+
+const runInitialGenerationInBackground = async ({ blueprint, requestData }: InitialGenerationJob) => {
+  const providerName = (process.env.LLM_PROVIDER || 'gemini').toLowerCase();
+  try {
+    console.log(`[CreateBlueprint] ▶️ Background generation started (${providerName})`, {
+      blueprintId: blueprint.id
+    });
+
+    const attemptResult = await attemptBlueprintGeneration({
+      blueprintId: blueprint.id,
+      requestData
+    });
+
+    if (attemptResult.status === 'success') {
+      console.log(`[CreateBlueprint] ✅ Background generation completed (${providerName})`, {
+        blueprintId: blueprint.id
+      });
+      return;
+    }
+
+    if (attemptResult.classification === 'RETRIABLE') {
+      const schedule = computeNextRetrySchedule(0);
+
+      if (!schedule) {
+        console.error('[CreateBlueprint] Background attempt failed without retry schedule', {
+          blueprintId: blueprint.id,
+          provider: providerName,
+          message: attemptResult.message
+        });
+        await markBlueprintFailed(blueprint.id);
+        return;
+      }
+
+      console.warn('[CreateBlueprint] Background attempt failed, scheduling retry', {
+        blueprintId: blueprint.id,
+        provider: providerName,
+        delaySeconds: schedule.delaySeconds,
+        reason: attemptResult.message
+      });
+
+      await enqueueRetryJob(blueprint.id, requestData, {
+        initialRetryCount: schedule.nextRetryCount,
+        nextRetryAt: schedule.nextRetryAt,
+        reason: 'initial_attempt_failed_background'
+      });
+      return;
+    }
+
+    console.error('[CreateBlueprint] Background attempt failed (non-retriable)', {
+      blueprintId: blueprint.id,
+      provider: providerName,
+      message: attemptResult.message
+    });
+    await markBlueprintFailed(blueprint.id);
+  } catch (error) {
+    console.error('[CreateBlueprint] Unexpected error during background generation attempt', {
+      blueprintId: blueprint.id,
+      provider: (process.env.LLM_PROVIDER || 'gemini').toLowerCase(),
+      error
+    });
+    try {
+      await markBlueprintFailed(blueprint.id);
+    } catch (markError) {
+      console.error('[CreateBlueprint] Failed to mark blueprint as failed after background error', {
+        blueprintId: blueprint.id,
+        markError
+      });
+    }
+  }
+};
 
 export default async function blueprintRoutes(fastify: FastifyInstance) {
   
@@ -258,7 +331,6 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
         let content: string;
         let metadata: BlueprintResponse['metadata'];
         let sourcePayload: BlueprintSourcePayload | undefined;
-        let videoMetadata: VideoMetadata | null = null;
         let subscriptionRecord: SubscriptionRecord | null = null;
         let quotaSnapshot: SubscriptionUsage | null = null;
 
@@ -334,15 +406,6 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             } as BlueprintResponse);
           }
 
-          try {
-            videoMetadata = await fetchVideoMetadata(formData.youtubeUrl);
-          } catch (metaError) {
-            console.warn('[CreateBlueprint] Video metadata fetch failed:', metaError);
-          }
-
-          // Wait before making another Supadata request to avoid rate limiting
-          await delay(SUPADATA_DELAY_MS);
-
           const transcriptResult = await extractTranscript({ youtubeUrl: formData.youtubeUrl });
           if (!transcriptResult.success || !transcriptResult.transcript) {
             const errorInfo = transcriptResult.error;
@@ -372,9 +435,7 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             videoId: transcriptResult.metadata?.videoId,
             transcriptLength: transcriptResult.metadata?.textLength ?? content.length,
             language: transcriptResult.language || 'en',
-            title: videoMetadata?.title,
-            durationSeconds: videoMetadata?.durationSeconds ?? transcriptResult.metadata?.estimatedDuration ?? null,
-            authorName: videoMetadata?.authorName
+            durationSeconds: transcriptResult.metadata?.estimatedDuration ?? null
           };
 
           sourcePayload = {
@@ -452,7 +513,7 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
             title: blueprintTitle,
             duration: blueprintDuration,
             videoType: videoTypeLabel,
-            authorName: metadata?.authorName ?? videoMetadata?.authorName ?? null,
+            authorName: metadata?.authorName ?? null,
             sourcePayload
           });
         } catch (dbError: any) {
@@ -477,95 +538,36 @@ export default async function blueprintRoutes(fastify: FastifyInstance) {
           })
         }
 
-        const activeProvider = (process.env.LLM_PROVIDER || 'gemini').toLowerCase();
-        console.log(`[CreateBlueprint] Running initial ${activeProvider === 'openai' ? 'OpenAI' : 'Gemini'} attempt...`);
-        const attemptResult = await attemptBlueprintGeneration({
+        const usageAfter = quotaSnapshot ? buildUsageAfterIncrement(quotaSnapshot) : null;
+
+        const responsePayload: BlueprintResponse = {
+          success: true,
+          buildId: BUILD_SHA,
           blueprintId: pendingBlueprint.id,
+          status: pendingBlueprint.status,
+          savedBlueprint: {
+            id: pendingBlueprint.id,
+            user_id: pendingBlueprint.user_id,
+            goal: pendingBlueprint.goal,
+            content_source: pendingBlueprint.content_source,
+            content_type: pendingBlueprint.content_type,
+            status: pendingBlueprint.status,
+            created_at: pendingBlueprint.created_at,
+            title: pendingBlueprint.title ?? null,
+            duration: pendingBlueprint.duration ?? null,
+            video_type: pendingBlueprint.video_type ?? null,
+            author_name: pendingBlueprint.author_name ?? null
+          },
+          metadata,
+          subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
+        };
+
+        void runInitialGenerationInBackground({
+          blueprint: pendingBlueprint,
           requestData
         });
 
-        const usageAfter = quotaSnapshot ? buildUsageAfterIncrement(quotaSnapshot) : null;
-
-        if (attemptResult.status === 'success') {
-        console.log(`[CreateBlueprint] ✅ Initial ${activeProvider === 'openai' ? 'OpenAI' : 'Gemini'} attempt completed successfully`);
-          return reply.code(200).send({
-            success: true,
-            buildId: BUILD_SHA,
-            blueprintId: pendingBlueprint.id,
-            status: 'completed' as BlueprintStatus,
-            savedBlueprint: {
-              id: pendingBlueprint.id,
-              user_id: pendingBlueprint.user_id,
-              goal: pendingBlueprint.goal,
-              content_source: pendingBlueprint.content_source,
-              content_type: pendingBlueprint.content_type,
-              status: 'completed' as BlueprintStatus,
-              created_at: pendingBlueprint.created_at,
-              title: pendingBlueprint.title ?? null,
-              duration: pendingBlueprint.duration ?? null,
-              video_type: pendingBlueprint.video_type ?? null
-            },
-            metadata,
-            subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
-          } as BlueprintResponse);
-        }
-
-        if (attemptResult.classification === 'RETRIABLE') {
-          const schedule = computeNextRetrySchedule(0);
-
-          if (!schedule) {
-            await markBlueprintFailed(pendingBlueprint.id);
-            return reply.code(500).send({
-              success: false,
-              error: 'AI service temporarily unavailable. Please try again.'
-            } as BlueprintResponse);
-          }
-
-          console.warn('[CreateBlueprint] Initial attempt failed, scheduling retry', {
-            blueprintId: pendingBlueprint.id,
-            delaySeconds: schedule.delaySeconds,
-            reason: attemptResult.message
-          });
-
-          await enqueueRetryJob(pendingBlueprint.id, requestData, {
-            initialRetryCount: schedule.nextRetryCount,
-            nextRetryAt: schedule.nextRetryAt,
-            reason: 'initial_attempt_failed'
-          });
-
-          return reply.code(202).send({
-            success: true,
-            buildId: BUILD_SHA,
-            blueprintId: pendingBlueprint.id,
-            status: pendingBlueprint.status,
-            savedBlueprint: {
-              id: pendingBlueprint.id,
-              user_id: pendingBlueprint.user_id,
-              goal: pendingBlueprint.goal,
-              content_source: pendingBlueprint.content_source,
-              content_type: pendingBlueprint.content_type,
-              status: pendingBlueprint.status,
-              created_at: pendingBlueprint.created_at,
-              title: pendingBlueprint.title ?? null,
-              duration: pendingBlueprint.duration ?? null,
-              video_type: pendingBlueprint.video_type ?? null
-            },
-            metadata,
-            subscription: usageAfter ? buildSubscriptionPayload(usageAfter, true) : undefined
-          } as BlueprintResponse);
-        }
-
-        console.error('[CreateBlueprint] Initial Gemini attempt failed (non-retriable)', {
-          blueprintId: pendingBlueprint.id,
-          message: attemptResult.message
-        });
-
-        await markBlueprintFailed(pendingBlueprint.id);
-        return reply.code(500).send({
-          success: false,
-          buildId: BUILD_SHA,
-          error: 'AI service temporarily unavailable. Please try again later.'
-        } as BlueprintResponse);
+        return reply.code(202).send(responsePayload);
 
       } catch (error) {
         console.error('[CreateBlueprint] Unexpected error:', error);
@@ -897,21 +899,6 @@ const prepareYouTubeRetry = async (record: BlueprintRetryRecord): Promise<RetryP
       console.error('[RetryBlueprint] Transcript service not configured:', transcriptService.error);
       throw new RetryPreparationError('Transcript service temporarily unavailable. Please try again later.', 503);
     }
-
-    let videoMetadata: VideoMetadata | null = null;
-    try {
-      videoMetadata = await fetchVideoMetadata(record.content_source);
-    } catch (metaError) {
-      console.warn('[RetryBlueprint] Video metadata fetch failed:', metaError);
-    }
-
-    if (videoMetadata) {
-      title = videoMetadata.title ?? title;
-      durationSeconds = videoMetadata.durationSeconds ?? durationSeconds;
-      authorName = videoMetadata.authorName ?? authorName;
-    }
-
-    await delay(SUPADATA_DELAY_MS);
 
     const transcriptResult = await extractTranscript({ youtubeUrl: record.content_source });
     if (!transcriptResult.success || !transcriptResult.transcript) {
